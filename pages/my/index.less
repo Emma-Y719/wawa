@@ -1,61 +1,101 @@
 page{
-
 .user_info{
   width: 100%;
 
   .user_info_bg{
-    margin-top: 20%;
+    margin-top: 25%;
     position: relative;
-
+ 
     .user_info_wrap{
       position: relative;
       margin-left: 30rpx;
       display: flex;
+      
       image{
-        width: 28%;
+        width: 120rpx;
         border-radius: 50%;
       }
       .detail{
         margin-left: 30rpx;
-        margin-top: 15rpx;
+        // background-color: aqua;
         .user_name{
-          height: 45rpx;
-          font-size: 35rpx;
-          font-weight: 500;
+          font-size: 30rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 36rpx;
+          color: #000000;
         }
         .user_acc{
-          margin-top: 10rpx;
-          font-size: 28rpx;
-          font-weight: 400;
+          margin-top: 5rpx;
+          font-size: 20rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 24rpx;
+          color: #979797;
         }
         .user_aff{
-          margin-top: 20rpx;
-          font-size: 32rpx;
-          font-weight: 500;
+          margin-top: 5rpx;
+          font-size: 20rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 24rpx;
+          color: #979797;
+        }
+        .records{
+          display: flex;
+          margin-top: 5rpx;
+          .record{
+            image{
+              width:25rpx;
+            }
+          }
         }
 
       }
-      .share{
-        width: 180rpx;
-        height: 60rpx;
-        margin-top: 30rpx;
-        margin-right: 20rpx;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 20rpx;
-        background-color: rgb(255, 255, 255);
-        font-size: 30rpx;
-        font-weight: 400;
+      .buttons{
+        //background-color: aqua;
+        margin-left:20rpx;
+        .share{
+          background-color: #87C03E;
+          width: 130rpx;
+          height: 50rpx;
+         // margin-right: 20rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10rpx;
+         // background-color: rgb(255, 255, 255);
+          font-size: 24rpx;
+          font-weight: 400;
+          color:#FFFFFF
+        }
+        .clock{
+          background-color: #87C03E;
+          width: 130rpx;
+          height: 50rpx;
+          margin-top: 20rpx;
+         // margin-right: 20rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10rpx;
+          color: #FFF;
+
+          /* 12号附注 */
+          font-family: Noto Sans SC;
+          font-size: 24rpx;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 14px; /* 116.667% */
+        }
       }
+
 
     }
   }
 }
 .order_wrap{
-  width: 90%;
-  margin-left: 5%;
-  margin-top: 5%;
+  width: 96%;
+  margin-left: 2%;
+  margin-top: 8%;
+  height: ;
   display: flex;
   justify-content: space-between;
   text-align: center;
@@ -66,42 +106,62 @@ page{
       width: 100rpx;
     }
     .order_name{
-      font-size: 30rpx;
+      margin-top: 5rpx;
+      font-size: 26rpx;
     }
   }
 
 }
+.type_choose{
+  display: flex;
+  margin-top: 8%;
+  margin-left: 3%;
+  width: 94%;
+  padding: 5rpx 5rpx 5rpx 5rpx;
+  background-color: #88bb1e;
+  height: 60rpx;
+  border-radius: 30rpx;
+
+  .ptype{
+    width: 34%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text{
+      font-size: 28rpx;
+      font-family: '.AppleSystemUIFont';
+      line-height: 34rpx;
+      color: #333333;
+    }
+  }
+
+  .active{
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background-color: #f2f2f2;
+    border-radius: 30rpx;
+    text{
+      font-size: 28rpx;
+      font-family: '.AppleSystemUIFont';
+      line-height: 34rpx;
+      color: #333333;
+    }
+  }
+}
 .product_display{
-  background-color: #fff;
+  background-color: rgb(167, 233, 187);
   border-radius: 40rpx;
   margin-left: 2%;
   margin-right: 2%;
   margin-top: 5%;
   //background-color: aquamarine;
-  .type_choose{
-    display: flex;
 
-    .ptype{
-      height: 70rpx;
-      flex:1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 35rpx;
-    }
-    .active{
-      height: 70rpx;
-      flex:1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 35rpx;
-      background-color: rgb(243, 232, 210);
-      border-radius: 40rpx;
-    }
-  }
   .product_list{
     display: flex;
     flex-wrap: wrap;

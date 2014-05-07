@@ -1,0 +1,23 @@
+.waterfall-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.waterfall-item {
+  width: 46%; /* 控制每列的宽度为50% */
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: aqua;
+  margin-left: 3%;
+  margin-top: 2%;
+}
+
+/* 根据 column 字段设置不同的样式，使数据项分布在两列中 */
+.waterfall-item[column="1"] {
+  order: 1;
+}
+
+.waterfall-item[column="2"] {
+  order: 2;
+}

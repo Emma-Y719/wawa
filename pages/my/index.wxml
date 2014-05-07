@@ -6,20 +6,38 @@
         <view class="detail">
           <view class="user_name">{{user.userinfo.nickName}}</view>
           <view class="user_acc">蛙蛙账号：ww518136695</view>
-          <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
+          <view class="user_aff">南京-{{user.university}}-{{user.campus}}-{{grade}}</view>
+          <view class="records">
+            <view class="record" data-index="{{index}}"
+            wx:for="{{records}}"
+            wx:for-item="record"
+            wx:key="id"
+            >
+            <image wx:if="{{record}}"  src="/icons/record_s.png" mode="widthFix"/>
+            <image wx:if="{{!record}}"  src="/icons/record.png" mode="widthFix"/>
+            </view>
+            <text>连续打卡可以增加曝光哦~</text>
+          </view>
+
         </view>
-        <button open-type='share'class="share">
-          分享
-        </button>
+        <view class="buttons">
+          <button open-type='share'class="share">
+            分享
+          </button>
+          <button class="clock">
+            打卡
+          </button>
+        </view>
+    
       </view>
     </view>
 </view>
-<view bindtap="onNotComplete" class="order_wrap">
+<view class="order_wrap">
     <navigator class="order_content" url="">
       <image class="order-icon" src="/icons/my_storage.png" mode="widthFix"></image>
       <view class="order_name">群聊物品库</view>
     </navigator>
-    <navigator class="order_content" url="">
+    <navigator class="order_content" url="/pages/my/history/index">
       <image class="order-icon" src="/icons/my_history.png" mode="widthFix"></image>
       <view class="order_name">浏览历史</view>
     </navigator>
@@ -32,16 +50,16 @@
       <view open-type="feedback" class="order_name" >意见反馈</view>
     </navigator>
 </view>
-<view class="product_display">
-  <view class="type_choose">
+<view class="type_choose">
     <view class="ptype {{index==typeIndex ? 'active':''}}"ontap="handletype" data-index="{{index}}"
     wx:for="{{ptype}}"
     wx:for-item="type"
     wx:key="id"
     >
-      {{type}}
+      <text>{{type}}</text>
     </view>
-  </view>
+</view>
+<view class="product_display">
   <view class="product_list">
         <view class="product_card"
     wx:for="{{hotProductList}}"

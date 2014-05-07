@@ -15,18 +15,20 @@ Page({
    */
   data: {
     userInfo:{},
-    ptype:["在卖","草稿","已下架"],
+    ptype:["已发布","草稿箱","已下架"],
     b1:"",
     b2:"",
     typeIndex:0,
-  
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
     button2:["下架","删除",""],
     onsale:[],
     draft:[],
     off:[],
-    share:false
+    share:false,
+    gradeList:["大一","大二","大三","大四","大五","研一","研二","研三","博士"],
+    grade:"",
+    records:[true,true,false,true,true,false,false]
   },
  
   /**
@@ -46,6 +48,9 @@ Page({
 
     this.getHotProductList();
     
+    this.setData({
+      grade:this.data.gradeList[app.globalData.user.grade]
+    })
 
 
     // const token=wx.getStorageSync('token');
