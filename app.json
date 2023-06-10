@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/example/chatroom_example/im",
+    "pages/storage/create/success",
+    "pages/storage/index",
+    "pages/storage/create/login",
+    "pages/storage/create/info/index",
+    "pages/index/location",
+    "pages/favorite/index",
+    "pages/category/index",
+    "pages/my/index",
+    "pages/search/index",
+    "pages/search/campus",
+    "pages/search/name",
+    "pages/search/map",
+    "pages/product_detail/index",
+    "pages/promote/index",
+    "pages/order/index",
+    "pages/shopMap/shopMap",
+    "pages/storage/detail",
+    "pages/example/chatroom_example/room/room",
+    "pages/chatlogin/login",
+    "pages/chatlogin/edit/edit"
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "蛙蛙二手群物品库",
+    "navigationBarTextStyle": "white"
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdate",
+    "chooseAddress"
+    
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "mp-weixin": {
+    "request": {
+      "scope.userInfo": true
+    }
+  },
+
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

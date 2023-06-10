@@ -1,0 +1,94 @@
+
+  <image style="width: 110rpx; height: 110rpx; display: inline-block; box-sizing: border-box; margin-left: 10rpx; position: relative; left: 12rpx; top: 37rpx" class="pic" src="{{userInfo.avatarUrl}}" mode="widthFix" />
+  
+  <text style="left: 27rpx; top: -33rpx; position: relative; font-size: 40rpx; font-weight: bold">{{userInfo.nickName}}
+  </text>
+  <text style="position: relative; left: 147rpx; top: -22rpx">{{userInfo.campus}}</text>
+
+  <view class="gbtn" bindtap="handlefocus"style="width: 145rpx; height: 75rpx; box-sizing: border-box; position: relative; left: 579rpx; top: -116rpx; background-color: #e4e5e7; border-radius: 40rpx; text-align: center; font-size: 35rpx; color: #7a7b7c; display: flex; justify-content: center; align-items: center">
+    {{fvalue}}
+  </view>
+
+
+
+
+<view class="product_swiper" style="height: 535rpx; display: block; box-sizing: border-box; position: relative; margin-left: 10rpx; margin-right: 10rpx; width: 720rpx; left: 5rpx; top: -62rpx">
+  <swiper autoplay circular	indicator-dots style="display: block; box-sizing: border-box; position: relative; border-radius: 50rpx; margin-right: 10rpx; height: 500rpx; left: -10rpx; top: 0rpx; margin-left: 10rpx; width: 720rpx">
+      <swiper-item 
+        wx:for="{{productObj.propic.pics}}"
+        wx:key="id"
+      >
+        <navigator>
+          <image mode="widthFix" src="{{item[0]!='h'? baseUrl+'/image/product/'+item : item}}"></image>
+        </navigator>
+      </swiper-item>
+    </swiper>
+</view>
+<!-- 商品轮播图结束 -->
+
+<view class="product_price"  style="position: relative; left: -4rpx; top: -23rpx"> ¥ {{productObj.price}}</view>
+
+<view class="product_name" style="position: relative; left: 16rpx; top: -150rpx; width: 425rpx; height: 108rpx; display: block; box-sizing: border-box; margin-right: 10rpx">{{productObj.name}}</view>
+<view class="product_addition_usepercent" style="width: 89rpx; height: 37rpx; display: block; box-sizing: border-box; position: relative; left: 22rpx; top: -149rpx; border-right: 1rpx solid #afaeac">八成新</view>
+<view class="product_addition_count" style="width: 166rpx; height: 37rpx; display: block; box-sizing: border-box; position: relative; left: 131rpx; top: -185rpx; border-right: 1rpx solid #afaeac">999+人浏览</view>
+<view class="product_addition_count" style="width: 145rpx; height: 37rpx; display: block; box-sizing: border-box; position: relative; left: 302rpx; top: -222rpx">15人想要</view>
+<view class="product_descripion" style="position: relative; left: 16rpx; top: -197rpx; width: 720rpx; height: 108rpx; display: block; box-sizing: border-box; overflow: auto">{{productObj.description}}</view>
+
+<view class="message" style="position: relative; left: 0rpx; top: -175rpx; width: 770rpx; height: 75rpx; display: block; box-sizing: border-box">
+  <view
+  class=".message_title"style="" style="width: 110rpx; height: 60rpx; display: block; box-sizing: border-box; position: relative; left: 102rpx; top: 8rpx; font-weight: bold; color: #727271">留言</view>
+  <image style="position: relative; left: 25rpx; top: -52rpx; width: 56rpx; height: 60rpx; display: inline-block; box-sizing: border-box" src="/icons/message.png" class="message_icon" mode="aspectFit"/>
+  </view>
+
+
+
+<!-- <view class="desc_tabs" style="position: relative; left: 0rpx; top: 0rpx">
+  <view class="tabs_title" style="position: relative; left: 0rpx; top: 102rpx">
+    <!-- <view class="title_item {{activeIndex==0?'active':''}}" data-index="0" bindtap="handleItemTap" style="position: relative; left: 0rpx; top: -220rpx">商品介绍</view> -->
+    
+  <!-- </view> -->
+
+  <!-- <view class="tabs_content">
+    <block wx:if="{{activeIndex==0}}">
+      <rich-text nodes="{{productObj.productintroimgs}}"></rich-text>
+    </block>
+    <block wx:elif="{{activeIndex==1}}">
+      <rich-text nodes="{{productObj.productparaimgs}}"></rich-text>
+    </block>
+  </view> --> -->
+<!-- </view> -->
+
+<view class="btmbackground"  style="background-color: #dedede; position: relative; left: 118rpx; top: -191rpx; width: 606rpx; height: 75rpx; display: block; box-sizing: border-box; border-radius: 100rpx">
+<image style="position: relative; left: -99rpx; top: -6rpx; width: 77rpx; height: 87rpx; display: inline-block; box-sizing: border-box" src="/icons/de-people.png" mode="aspectFit"/>
+</view>
+
+<view class="btm_tool" style="position: fixed; left: 14rpx; top: 1310rpx; border-radius: 100rpx; background-color: #272626; width: 720rpx; height: 110rpx; display: flex; box-sizing: border-box">
+
+
+  <view class="tool_item" style="width: 118rpx; height: 89rpx; display: flex; box-sizing: border-box; left: -44rpx; top: -6rpx; position: relative">
+    <image mode="aspectFit" src="/icons/home_for_product.png" style="position: relative; left: 22rpx; top: 1rpx; width: 66rpx; height: 68rpx; display: block; box-sizing: border-box"></image>
+    
+  </view>
+
+  <navigator url="/pages/favorite/index" class="tool_item" style="width: 77rpx; height: 89rpx; display: flex; box-sizing: border-box; left: 97rpx; top: 1314rpx; position: fixed">
+    <image mode="aspectFit" src="/icons/favorite.png" style="position: relative; left: -25rpx; top: 0rpx; width: 47rpx; height: 54rpx; display: block; box-sizing: border-box"></image>
+  </navigator>
+
+  <navigator url="/pages/favorite/index" class="tool_item" style="width: 77rpx; height: 89rpx; display: flex; box-sizing: border-box; left: 34rpx; top: -6rpx; position: relative">
+  
+
+    <image mode="aspectFit" src="/icons/smile.png" style="position: relative; left: -18rpx; top: 0rpx; width: 52rpx; height: 60rpx; display: block; box-sizing: border-box"></image>
+
+  </navigator>
+  <view class="tool_item btn_same" bindtap="handleSearchSame"  style="width: 175rpx; height: 70rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 10rpx; position: relative">
+    <view>同类产品</view>
+  </view>
+
+  <view class="tool_item btn_cart" bindtap="handleCartAdd" style="position: relative; left: -25rpx; width: 175rpx; height: 70rpx; display: flex; box-sizing: border-box; top: 10rpx">
+    <view>收藏</view>
+  </view>
+
+  <view class="tool_item btn_buy" bindtap="addChat" style="position: relative; left: -25rpx; top: 11rpx; width: 266rpx; height: 70rpx; display: flex; box-sizing: border-box">
+    <view>问卖家</view>
+  </view>
+</view>

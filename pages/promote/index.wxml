@@ -1,0 +1,76 @@
+<!--pages/promote/index.wxml-->
+<page>
+
+<view class="search_bar">
+  <navigator url="/pages/search/campus" open-type="navigate">
+    <icon type="search" size="16"></icon>校区
+  </navigator>
+  <view class="campus"> {{university+' - '+campus}}</view>
+  <view bindtap="handleType"class="type"> {{type}}</view>
+</view>
+<view class="description">
+ <view class="title">
+  <input class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" bindtap="onclickNameInput"value="{{name}}"></input>
+ </view>
+ <view class="des">
+  <input class="text {{activeDisInput ? 'active': ''}}" bindinput="onDisInput" bindtap="onclickDisInput"value="{{discript}}"></input>
+ </view>
+  
+  <view class="contant-pic">
+    <view class="pics-list" wx:for="{{pics}}"   wx:for-item="path" wx:key="id" >
+      <image src="{{path}}" class="uploadImg"></image>
+      <image src="../../icons/delete.png" class="uploadImg-error" data-img="{{path}}" bindtap='deleteImg'></image>
+    </view>
+    <view class="up">
+      <image src="../../icons/addpic.png" class="upload" bindtap='uploadImage' ></image>
+    </view>
+    
+ </view>
+  <view class="locationInfo">
+    <image src="/icons/weizhi.png" mode="widthFix" class="loc"></image>
+
+    <navigator class="location" url="/pages/shopMap/shopMap">{{loc}}
+      <image src="/images/enter.png" mode="widthFix" class="enter"/>
+    </navigator>
+
+  </view>
+</view>
+<view class="priceInfo">
+  <image src="/icons/price.png" mode="widthFix" class="price">
+  </image>
+  <view class="ptext">
+    价格
+  </view>
+  
+  <view class="pr">    
+  <input type="number" bindinput="onPriceInput" placeholder="键入商品价格" value="{{inputValue}}"/> 
+  </view>
+</view>
+
+
+<view class="methodInfo">
+  <image src="/icons/storageicon.png" mode="widthFix" class="method"></image>
+  <view class="mtext">
+    同步到物品库
+  </view>
+  
+  <view class="meth" bindtap="showActionSheet">{{storage}}
+    </view>
+</view>
+
+<view class="buttons">
+  <view class="draft" bindtap="onDraft" >
+    <image src="/icons/draft.png" mode="widthFix" class="method"></image>
+    存草稿
+  </view>
+  
+  <view class="promote"bindtap="onPromote">
+    <image src="/icons/pro.png" mode="widthFix" class="method"></image>
+    发布
+  </view>
+
+</view>
+<custom-tabbar></custom-tabbar>
+
+
+</page>

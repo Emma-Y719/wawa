@@ -1,0 +1,102 @@
+<!--pages/search/map.js.wxml-->
+<page>
+  <view class="custom-nav-bar">
+  <button class="back-btn" bindtap="navigateBack">
+    <image class="icon" src="/images/back_icon.png"></image>
+    <div class="line"></div>
+  </button>
+
+
+  <view class="keys">
+  <!-- 关键词搜索 -->
+  <view class="city">
+    <navigator class="location" url="/pages/index/location">
+      南京
+      <div class="line"></div>
+      <div class="inter"></div>
+    </navigator>
+  </view>
+  <view class="type">
+  <input type="text" value=" {{type}}"/>
+   
+  </view>
+  <view class="productList"> 
+  </view>
+  </view>
+
+</view>
+
+<view class="cates">
+  <navigator class="university" url="/pages/index/location">
+    {{university}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+  <navigator class="campus" url="/pages/index/location">
+
+    {{campus}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+
+  <view class="sort">
+    筛选排序
+    <div class="line"></div>
+  </view>
+
+</view>
+
+ 
+
+<!-- 这是地图部分 -->
+  <view class="map_container">
+    <map id="myMap" class='map' longitude='{{markers[current].longitude}}' latitude='{{markers[current].latitude}}' scale='{{scale}}' bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
+      show-location>
+        <!-- <view class="mark"
+          wx:for="{{markers}}"
+          wx:for-item="mark"
+          wx:key="id"
+        >
+        <marker class="marker" lattitude="{{mark.latitude}}" longitude="{{mark.longitude}}">
+            <image src="{{mark.iconPath}}" mode="widthFix"/>
+            {{mark.price}}
+        </marker>
+      </view> -->
+      <custom-tabbar></custom-tabbar>
+
+       <!-- 这是滚动页面 --> 
+      <scroll-view bindscroll="onScrollViewScroll" scroll-x class="right_content">
+      <view class="productType">
+      <view class="product_list"
+        wx:for="{{markers}}"
+        wx:for-item="product"
+        wx:key="id"
+        >
+        <navigator
+          url="/pages/product_detail/index?id={{product.identity}}"
+        >
+          <image mode="widthFix" src="{{product.propic.pics[0]}}"></image>
+          <view class="right">
+            <view class="product_name">
+              {{product.title}}
+            </view>
+            <view class="product_des"> 
+              {{product.detailInfo}}
+            </view>
+            <view class="product_price"> 
+              ¥ {{product.price}}
+            </view>
+          </view>
+        </navigator>
+        </view>
+      </view>
+      </scroll-view>
+
+    </map>
+
+  </view>
+
+      
+   
+
+</page>

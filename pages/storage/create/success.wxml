@@ -1,0 +1,36 @@
+<page>
+<view class="mask">
+  
+</view>
+  <view class="top-bg">
+
+<image src="/icons/ride.jpg" mode="widthFix"/>
+
+
+</view>
+
+
+
+<view class="contain">
+
+      <!--底部确认-->
+      <view class="card">
+            <view class="title">创建成功</view>
+            <view class="content">将“XXXX物品库”转发至对应群聊，邀请大家存入物品后将个人物品页分享到群里~</view>
+      <view class="abtn" bindtap="handleCreate">
+          <text> 去转发物品库</text>
+      </view>
+      </view>
+      <view class="cbtn" bindtap="handleCreate">
+
+      <text> 创建群聊物品库</text>
+      </view>
+
+</view>
+
+
+
+
+
+
+</page>

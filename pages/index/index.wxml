@@ -1,0 +1,163 @@
+<!--index.wxml-->
+<!--这个是主页面-->
+<page>
+
+  <view class="custom-nav-bar">
+    <text class="text">
+      Hello~Here！
+    </text>
+  </view>
+
+  <view>
+    <SearchBar></SearchBar>
+  </view>
+
+<view class="hello">
+  Hi~ 小蛙
+</view>
+<view class="introduce">
+  从来虚位以待，何不给个拥抱>
+</view>
+<view class="info">
+ <view class="info-content">
+   <view class="title" >
+    <navigator class="location" url="/pages/index/location">{{loc}}
+      <div class="line"></div>
+    </navigator>
+
+
+   </view>
+   <view class="type" >
+    <input class="key" bindinput="onInput" value="{{type}}"></input>
+   </view>
+   <image src="/icons/3.png" mode="scaleToFill" class="logo"></image>
+
+   <navigator url="/pages/search/index">
+    <view class="btn" bindtap="handleSearch">
+     Wa 一下~
+    </view>
+  </navigator>
+
+ </view>
+</view>
+
+  <!-- 商品大类与随便逛逛一行 -->
+  <view class="index_bigType">
+    <!-- 商品大类-->
+    <view class="bigTypeRow">
+    <navigator 
+      bindtap="handleTypeJump"
+      data-index="{{index}}"
+      wx:for="{{bigTypeList_row1}}"  
+      wx:for-item="bigType" 
+      wx:key="id">
+      <image mode="widthFix"src="{{baseUrl+'/image/bigType/'+bigType.image}}"></image>
+      <text>{{bigType.name}}</text>
+    </navigator>
+    </view>
+
+    <!-- 商品推荐开始-->
+    <view class="hotIntro">
+      <navigator url="/pages/storage/index"class="titles">
+        <view class="icon">
+          <image src="/images/地址.png" mode="widthFix"></image>
+        </view>
+
+        <view class="campus_title">
+          {{campus}}
+        </view>
+
+        <view  class="btn">
+          随便逛逛
+        </view>
+      </navigator>
+    </view>
+  </view>
+
+ <!-- 群聊与轮播图一行 -->
+ <view class="next_hang">
+    <!-- 二手群聊 -->
+    <navigator url="/pages/storage/index"class="chat_cecond_container">
+      <view class="icon">
+        <image src="/images/消息首页.png" mode="widthFix"></image>
+      </view>
+
+      <view  class="chat_cecond_text">
+        常用二手群聊
+      </view>
+    </navigator>
+
+    <!-- 轮播图开始 -->
+    <view class="index_swiper">
+      <swiper autoplay indicator-dots circular style="width: 433rpx; height: 222rpx; display: block; box-sizing: border-box">
+         <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
+         <navigator>
+             <image src="{{swiper.propic.pics[0]}}"></image>
+             <view class="swiperinfo">
+               <view class="title">
+                 {{swiper.name}}
+               </view>
+               <view class="storage">
+                 <image style="position: relative; left: -20rpx; top: -10rpx" src="/images/消息首页.png" mode="widthFix"/>
+                 <text>跨过进香河</text>
+                 
+               </view>
+               <view class="price">
+                 ¥{{swiper.price}}
+               </view>
+    
+               <view class="swiper_university">
+                 {{swiper.university}}
+               </view>
+               <view class="swiper_campus">
+                {{swiper.campus}}
+               </view>
+             </view>
+
+          </navigator>
+          </swiper-item>
+       </swiper>
+   </view>
+
+  </view>
+
+
+  <!-- 这是地图部分 -->
+  <view class="map_container">
+    <map class='map' longitude='{{longitude}}' latitude='{{latitude}}' scale='{{scale}}' markers='{{markers}}' controls="{{controls}}" bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
+      show-location>
+
+       <!-- 这是滚动页面 --> 
+      <scroll-view scroll-x class="right_content">
+      <view class="productType">
+      <view class="product_list"
+        wx:for="{{markers}}"
+        wx:for-item="product"
+        wx:key="id"
+        >
+        <navigator
+          url="/pages/product_detail/index?id={{product.id}}"
+        >
+          <image mode="widthFix" src="{{product.propic.pics[0]}}"></image>
+          <view class="right">
+            <view class="product_name">
+              {{product.title}}
+            </view>
+            <view class="product_des"> 
+              {{product.detailInfo}}
+            </view>
+            <view class="product_price"> 
+              ¥ {{product.price}}
+            </view>
+          </view>
+        </navigator>
+        </view>
+      </view>
+      </scroll-view>
+
+    </map>
+
+  </view>
+
+  <custom-tabbar></custom-tabbar>
+</page>

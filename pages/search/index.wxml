@@ -1,0 +1,85 @@
+<!--pages/search/index.wxml-->
+<page>
+  <view class="custom-nav-bar">
+  <button class="back-btn" bindtap="navigateBack">
+    <image class="icon" src="/images/back_icon.png"></image>
+    <div class="line"></div>
+  </button>
+
+
+  <view class="keys">
+  <!-- 关键词搜索 -->
+  <view class="city">
+    <navigator class="location" url="/pages/index/location">
+      南京
+      <div class="line"></div>
+      <div class="inter"></div>
+    </navigator>
+  </view>
+  <view class="type">
+    <input bindinput="ontypeInput"value="{{type}}"/>
+   
+  </view>
+  <view class="productList"> 
+  </view>
+  </view>
+
+</view>
+
+<view class="cates">
+  <navigator class="university" url="/pages/index/location">
+    {{university}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+  <navigator class="campus" url="/pages/index/location">
+
+    {{campus}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+
+  <view class="sort">
+    筛选排序
+    <div class="line"></div>
+  </view>
+  <view class="productList">
+   
+  </view>
+</view>
+
+<view class="products">
+      <view class="product_list">
+      
+        <view class="product_card"
+          wx:for="{{productList}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="widthFix"/>
+          <view class="bottom">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        
+      </view>
+      
+      
+      </view>
+        
+</view>
+
+
+<!--pages/map/map.wxml-->
+<view class="float-window" catchtap="onFloatButtonTap"  bindtouchstart="onTouchStart" 
+  bindtouchmove="onTouchMove">
+  地图
+</view>
+<custom-tabbar></custom-tabbar>
+
+</page>
+
+

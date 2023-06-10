@@ -1,0 +1,40 @@
+.productinfo {
+  display: flex;
+  margin-left: 30rpx;
+}
+.productinfo image {
+  border-radius: 20rpx;
+  width: 120rpx;
+}
+.productinfo .other {
+  margin-left: 20rpx;
+}
+.productinfo .other .title {
+  font-size: 30rpx;
+}
+.productinfo .other .price {
+  font-size: 20rpx;
+}
+.productinfo .other .university {
+  font-size: 20rpx;
+}
+.productinfo .other .campus {
+  font-size: 20rpx;
+}
+.warn {
+  margin-top: 2%;
+  font-size: 35rpx;
+  background-color: #f79d35;
+  height: 60rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}
+.container {
+  height: 100%;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80rpx;
+}

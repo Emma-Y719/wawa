@@ -1,0 +1,203 @@
+page .keys {
+  width: 85%;
+  height: 80rpx;
+  border-radius: 15rpx;
+  background-color: rgba(242, 243, 248, 0.596);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+page .keys .city {
+  padding: 30rpx;
+  width: 20%;
+  flex: 1;
+}
+page .keys .city .location .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .keys .city .inter {
+  margin-left: 40rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .keys .type {
+  width: 80%;
+  flex: 5;
+}
+page .cates {
+  width: 85%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+page .cates .university {
+  padding: 10rpx;
+  width: 20%;
+  flex: 2;
+}
+page .cates .university .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .cates .university .inter {
+  margin-left: 20rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .cates .campus {
+  width: 40%;
+  flex: 3;
+  margin-left: 20rpx;
+}
+page .cates .campus .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .cates .campus .inter {
+  margin-left: 40rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .cates .sort {
+  width: 20%;
+  flex: 2;
+  font-weight: 500;
+}
+page .cates .sort .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .createStorage {
+  height: 330rpx;
+  display: flex;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+  background-color: #c5c5c5;
+}
+page .createStorage .dis {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30rpx;
+  margin-left: 20rpx;
+  padding-bottom: 50rpx;
+  width: 400rpx;
+}
+page .createStorage .dis .title {
+  flex: 1;
+  font-size: 40rpx;
+  height: 50rpx;
+}
+page .createStorage .dis .content {
+  flex: 1;
+  font-size: 24rpx;
+  margin-top: 40rpx;
+}
+page .createStorage .dis .cbtn {
+  font-size: 33rpx;
+  flex: 1;
+  margin-top: 30rpx;
+  width: 320rpx;
+  height: 65rpx;
+  text-align: center;
+  padding-top: 15rpx;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2892d;
+  border-radius: 20rpx;
+}
+page .createStorage image {
+  flex: 2;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 30rpx;
+}
+page .my {
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+}
+page .storages .storage_list {
+  margin: 20rpx;
+  height: 160rpx;
+  border: #d3d3d3 solid 2rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+}
+page .storages .storage_list navigator {
+  display: flex;
+  margin-left: 10rpx;
+  align-items: center;
+}
+page .storages .storage_list navigator image {
+  width: 110rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+  box-shadow: -2px 8px 15px -12px #647878;
+}
+page .storages .storage_list navigator .middle {
+  display: flex;
+  width: 395rpx;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 15rpx;
+}
+page .storages .storage_list navigator .middle .storage_name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 35rpx;
+  font-weight: 500;
+}
+page .storages .storage_list navigator .middle .storage_price {
+  margin-top: 20rpx;
+  padding-bottom: 10rpx;
+}
+page .storages .storage_list navigator .right {
+  flex: 1;
+  margin-left: 20rpx;
+}
+page .storages .storage_list navigator .right navigator {
+  background-color: #88bb1e;
+  height: 60rpx;
+  width: 150rpx;
+  margin-top: 10rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 32rpx;
+}

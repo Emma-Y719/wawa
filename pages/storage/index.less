@@ -1,0 +1,233 @@
+page{
+  .keys{
+    
+    width: 85%;
+    height: 80rpx;
+    border-radius: 15rpx;
+    background-color: rgba(242, 243, 248, 0.596);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20rpx;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    .city{
+      padding:30rpx;
+      width: 20%;
+      flex:1;
+      .location{
+        
+        .line{
+          // padding-left: 5rpx;
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-bottom: 1px solid red;
+          border-right: 1px solid red;
+          transform: rotate(45deg);
+          margin-bottom: 5rpx;
+        }
+      }
+
+
+      .inter{
+        margin-left: 40rpx;
+        border-right:1px solid  rgb(166, 172, 179);
+      }
+    }
+  
+    .type{
+      width: 80%;
+      flex:5;
+    }
+  
+  }
+  .cates{
+    width: 85%;
+    height: 80rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20rpx;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+      .university{
+        padding:10rpx;
+        width: 20%;
+        flex:2;
+        .line{
+          // padding-left: 5rpx;
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-bottom: 1px solid red;
+          border-right: 1px solid red;
+          transform: rotate(45deg);
+          margin-bottom: 5rpx;
+        }
+        .inter{
+          margin-left: 20rpx;
+          border-right:1px solid  rgb(166, 172, 179);
+        }
+      }
+    
+
+      .campus{
+        width: 40%;
+        flex:3;
+        margin-left: 20rpx;
+        .line{
+          // padding-left: 5rpx;
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-bottom: 1px solid red;
+          border-right: 1px solid red;
+          transform: rotate(45deg);
+          margin-bottom: 5rpx;
+        }
+        .inter{
+          margin-left: 40rpx;
+          border-right:1px solid  rgb(166, 172, 179);
+        }
+      }
+    
+    .sort{
+      width: 20%;
+      flex:2;
+      font-weight:500;
+      .line{
+        // padding-left: 5rpx;
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-bottom: 1px solid red;
+        border-right: 1px solid red;
+        transform: rotate(45deg);
+        margin-bottom: 5rpx;
+      }
+    }
+  
+  
+  }
+  .createStorage{
+    height: 330rpx;
+    display: flex;
+    margin-top: 20rpx;
+    margin-left: 25rpx;
+    margin-right: 25rpx;
+    background-color: rgb(197, 197, 197);
+    .dis{
+      flex:3;
+      display: flex;
+      flex-direction: column;
+      margin-top: 30rpx;
+      margin-left:20rpx;
+      padding-bottom: 50rpx;
+      width: 400rpx;
+      .title{
+        flex:1;
+        font-size: 40rpx;
+        height:50rpx;
+      }
+      .content{
+        flex:1;
+        font-size: 24rpx;
+        margin-top: 40rpx;
+      }
+      .cbtn{
+        font-size: 33rpx;
+        flex:1;
+        margin-top: 30rpx;
+        width: 320rpx;
+        height: 65rpx;
+        text-align: center;
+        padding-top: 15rpx;
+        align-items: center;
+        justify-content: center;
+        background-color: #e2892d;
+        border-radius: 20rpx;
+      }
+    }
+
+    image{
+      flex:2;
+      margin-top:30rpx;
+      margin-left: 30rpx;
+      margin-right: 30rpx;
+      border-radius: 30rpx;
+    }
+  }
+  .my{
+    margin-left: 20rpx;
+    margin-top: 30rpx;
+    font-size: 30rpx;
+  }
+  .storages{
+
+   .storage_list{
+     margin:20rpx;
+     height:160rpx;
+     border: rgb(211, 211, 211)solid 2rpx;
+     border-radius: 10rpx;
+     display:flex;
+     align-items: center;
+
+     navigator{
+       display: flex;
+
+       margin-left: 10rpx;
+       align-items: center;
+       image{
+         width:110rpx;
+         border-radius: 20rpx;
+         background-color: #fff;
+         box-shadow: -2px 8px 15px -12px rgba(100, 120, 120, 1);
+       }
+       .middle{
+        display: flex;
+        width: 395rpx;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-left: 15rpx;
+        .storage_name{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 35rpx;
+          font-weight: 500;
+        }
+        .storage_price{
+          margin-top:20rpx;
+          padding-bottom: 10rpx;
+        }
+      }
+      .right{
+        flex:1;
+        margin-left: 20rpx;
+        navigator{
+          background-color: #88bb1e;
+          height:60rpx;
+          width:150rpx;
+          margin-top: 10rpx;
+          border-radius: 20rpx;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          justify-content: center;
+          font-size: 32rpx;
+        }
+        
+      }
+     }
+   }
+  }
+
+
+
+
+}

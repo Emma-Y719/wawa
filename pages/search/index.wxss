@@ -1,0 +1,182 @@
+page {
+  height: 100%;
+  width: 100vw;
+  background-color: #ececec;
+  /* 设置导航栏的背景颜色 */
+}
+page .custom-nav-bar {
+  position: fixed;
+  background-color: #ececec;
+  /* 设置导航栏的背景颜色 */
+  display: flex;
+  flex-direction: row;
+}
+page .custom-nav-bar .back-btn {
+  flex: 1;
+  padding-right: 20rpx;
+  top: 87rpx;
+  width: 30rpx;
+  /* 设置返回按钮的宽度 */
+  height: 70rpx;
+  /* 设置返回按钮的高度 */
+  background-color: #d4747400;
+  /* 设置背景颜色 */
+  border: none;
+  /* 移除边框样式 */
+  align-items: center;
+}
+page .custom-nav-bar .back-btn .icon {
+  width: 26px;
+  height: 26px;
+}
+page .custom-nav-bar .keys {
+  /* 设置搜索栏 */
+  flex: 10;
+  width: 55%;
+  height: 60rpx;
+  border-radius: 50rpx;
+  border: 1.5px solid #8ec31f;
+  /* 设置边框样式，1.5px 宽度，边框 */
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  top: 95rpx;
+  margin-left: 20rpx;
+  margin-right: 200rpx;
+  position: relative;
+}
+page .custom-nav-bar .keys .city {
+  padding: 30rpx;
+  flex: 2;
+}
+page .custom-nav-bar .keys .city .location {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+page .custom-nav-bar .keys .city .location .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 2px solid red;
+  border-right: 2px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+  margin-left: 10rpx;
+}
+page .custom-nav-bar .keys .city .inter {
+  margin-left: 20rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .custom-nav-bar .keys .type {
+  flex: 5;
+}
+page .cates {
+  position: fixed;
+  left: 50%;
+  top: 13%;
+  transform: translate(-50%, -50%);
+  height: 5%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+page .cates .university {
+  background-color: #8ec31f;
+  border-radius: 15rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  margin-left: 30rpx;
+  padding: 10rpx;
+  flex: 1;
+  text-align: center;
+  /* 文本水平居中对齐 */
+  color: #ededed;
+}
+page .cates .campus {
+  background-color: #8ec31f;
+  border-radius: 15rpx;
+  padding: 10rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  flex: 1;
+  margin-left: 25rpx;
+  text-align: center;
+  /* 文本水平居中对齐 */
+  color: #ededed;
+}
+page .cates .sort {
+  background-color: #8ec31f;
+  border-radius: 15rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  padding: 10rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+  flex: 1;
+  text-align: center;
+  /* 文本水平居中对齐 */
+  color: #ededed;
+}
+page .products {
+  padding: 30rpx 20rpx 30rpx 20rpx;
+}
+page .products .product_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30%;
+}
+page .products .product_list .product_card {
+  width: 46%;
+  text-align: center;
+  margin: 2%;
+}
+page .products .product_list .product_card navigator {
+  margin: 10rpx;
+}
+page .products .product_list .product_card navigator image {
+  width: 100%;
+  border-radius: 35rpx;
+  background-color: #fff;
+  box-shadow: 0px 10px 20px 0px #c7c9c7;
+  transition: transform 200ms;
+}
+page .products .product_list .product_card navigator image:hover {
+  transform: scale(1.01);
+  box-shadow: -2px 8px 15px -12px #647878;
+}
+page .products .product_list .product_card navigator .bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+page .products .product_list .product_card navigator .bottom .product_name {
+  padding-top: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+page .products .product_list .product_card navigator .bottom .product_price {
+  padding-bottom: 10rpx;
+}
+page .float-window {
+  position: fixed;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #242c19;
+  color: #fff;
+  font-size: 30rpx;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+}

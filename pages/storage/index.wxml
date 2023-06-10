@@ -1,0 +1,85 @@
+<!--pages/storage/index.wxml-->
+<page>
+  <view class="keys">
+  <view class="city">
+    <navigator class="location" url="/pages/index/location">
+      南京
+      <div class="line"></div>
+      <div class="inter"></div>
+    </navigator>
+  </view>
+  <view class="type">
+  <input type="text" value=" {{type}}"/>
+   
+  </view>
+
+
+</view>
+
+<view class="cates">
+  <navigator class="university" url="/pages/index/location">
+    {{university}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+  <navigator class="campus" url="/pages/index/location">
+
+    {{campus}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+
+  <view class="sort">
+    筛选排序
+    <div class="line"></div>
+  </view>
+  <view class="storageList">
+   
+  </view>
+</view>
+
+<view class="createStorage">
+   <view class="dis">
+    <text class="title">我的群聊物品库</text>
+    <text class="content">近距离物品交易
+    为常用二手群长时效容纳物品信息</text>
+    <view class="cbtn" bindtap="handleCreate">
+    创建物品库
+    </view>
+   </view>
+
+   <image mode="widthFix" src="/icons/student.jpg">
+
+   </image>
+
+  </view>
+<view class="my">
+  我加入的 :
+</view>
+
+<view class="storages">
+      <view class="storage_list"
+          wx:for="{{storageList}}"
+          wx:for-item="storage"
+          wx:key="id"
+        >
+        <navigator>
+          <image src="{{storage.pic}}" mode="widthFix"/>
+          <view class="middle">
+            <view class="storage_name">{{storage.name}}</view>
+
+          </view>
+          <view class="right" bindtap="promote">
+          <navigator url="/pages/promote/index?storage={{storage.name}}">去发布</navigator>
+          <navigator url="/pages/storage/detail?id={{storage.identity}}">进入</navigator>
+          </view>
+          
+        </navigator>
+        
+      </view>
+  </view>
+
+
+
+
+</page>

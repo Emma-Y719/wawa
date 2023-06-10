@@ -1,0 +1,249 @@
+page .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 50rpx;
+  margin-top: 100rpx;
+  margin-right: 50rpx;
+}
+page .buttons .draft {
+  width: 30%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40rpx;
+  text-align: center;
+  font-size: 32rpx;
+  background-color: #88bb1e;
+}
+page .buttons .draft image {
+  width: 55rpx;
+  margin-right: 10rpx;
+}
+page .buttons .promote {
+  width: 60%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 32rpx;
+  background-color: #88bb1e;
+  border-radius: 40rpx;
+}
+page .buttons .promote image {
+  width: 55rpx;
+  margin-right: 10rpx;
+}
+page .search_bar {
+  height: 80rpx;
+  margin-left: 50rpx;
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+page .search_bar navigator {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ececec;
+  border-radius: 35rpx;
+  color: #666;
+}
+page .search_bar navigator icon {
+  padding-right: 5rpx;
+}
+page .search_bar .campus {
+  width: 60%;
+  height: 80rpx;
+  font-size: 32rpx;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: #ececec;
+  border-radius: 35rpx;
+  margin-left: 30rpx;
+  margin-right: 40rpx;
+}
+page .search_bar .type {
+  width: 30%;
+  height: 80rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: #ececec;
+  border-radius: 35rpx;
+  margin-right: 40rpx;
+}
+page .description .title .name {
+  margin-top: 30rpx;
+  margin-left: 50rpx;
+  margin-right: 40rpx;
+  height: 80rpx;
+  color: #e0e0e0;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: #5a9952 solid 2rpx;
+  border-radius: 20rpx;
+  text-align: center;
+}
+page .description .title .active {
+  margin-top: 30rpx;
+  margin-left: 50rpx;
+  height: 80rpx;
+  color: #000000;
+  font-size: 30rpx;
+  font-weight: 600;
+  text-align: justify;
+}
+page .description .des .text {
+  margin-top: 30rpx;
+  margin-left: 50rpx;
+  margin-right: 40rpx;
+  height: 240rpx;
+  color: #e0e0e0;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: #5a9952 solid 2rpx;
+  border-radius: 20rpx;
+  text-align: center;
+}
+page .description .des .active {
+  margin-top: 30rpx;
+  margin-left: 50rpx;
+  height: 200rpx;
+  color: #000000;
+  font-size: 30rpx;
+  font-weight: 600;
+  text-align: justify;
+}
+page .description .contant-pic {
+  width: 94%;
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+  height: 160rpx;
+}
+page .description .contant-pic .pics-list {
+  width: 160rpx;
+  height: 160rpx;
+  float: left;
+  margin-right: 10rpx;
+  background-color: #888888;
+  border-radius: 30rpx;
+}
+page .description .contant-pic .pics-list .uploadImg {
+  border-radius: 30rpx;
+  width: 160rpx;
+  height: 160rpx;
+}
+page .description .contant-pic .pics-list .uploadImg-error {
+  height: 40rpx;
+  width: 40rpx;
+  position: relative;
+  top: -165rpx;
+  left: 120rpx;
+}
+page .description .contant-pic .up {
+  width: 160rpx;
+  height: 160rpx;
+  background-color: #f0eeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30rpx;
+}
+page .description .contant-pic .up .upload {
+  width: 120rpx;
+  height: 120rpx;
+  float: left;
+}
+page .description .contant-pic .up .upload .hideTrue {
+  display: none;
+}
+page .description .contant-pic .up .upload .true {
+  display: block;
+}
+page .description .locationInfo {
+  margin-left: 50rpx;
+  margin-top: 60rpx;
+  display: flex;
+  flex-direction: row;
+  width: 450rpx;
+  height: rpx;
+  align-items: center;
+}
+page .description .locationInfo .loc {
+  width: 12%;
+}
+page .description .locationInfo .location {
+  margin-left: 20rpx;
+  padding-left: 10rpx;
+  background-color: #88bb1e;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+}
+page .description .locationInfo .location .enter {
+  width: 50rpx;
+}
+page .priceInfo {
+  margin-left: 50rpx;
+  margin-top: 50rpx;
+  margin-right: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+}
+page .priceInfo .price {
+  width: 10%;
+}
+page .priceInfo .ptext {
+  width: 40%;
+  margin-left: 20rpx;
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+}
+page .priceInfo .pr {
+  text-align: right;
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+}
+page .methodInfo {
+  margin-left: 50rpx;
+  margin-top: 50rpx;
+  margin-right: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+}
+page .methodInfo .method {
+  width: 8%;
+}
+page .methodInfo .mtext {
+  width: 40%;
+  margin-left: 20rpx;
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+}
+page .methodInfo .meth {
+  width: 40%;
+  font-size: 30rpx;
+  display: flex;
+  padding: 10rpx;
+  margin-left: 30rpx;
+  border-radius: 20rpx;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}

@@ -1,0 +1,5 @@
+<view class="search_bar">
+  <navigator url="/pages/search/campus" open-type="navigate">
+    <icon type="search" size="16"></icon>搜索选择校区
+  </navigator>
+</view>

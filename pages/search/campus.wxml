@@ -1,0 +1,16 @@
+<view class="search_row">
+  <input type="text" model:value="{{inputValue}}" placeholder="请输入校区关键字" bindinput="handleInput"/>
+  <button hidden="{{!isFocus}}" bindtap="handleCancel">取消</button>
+</view>
+<view class="search_content">
+  <view
+    class="search_item"
+    wx:for="{{productList}}"
+    wx:key="id"
+    data-index="{{index}}"
+    bindtap="onChoose"
+  >
+  <view id="{{index}}">{{item.name+" - "+item.campus}}</view>
+  
+  </view>
+</view>

@@ -1,0 +1,162 @@
+page .keys {
+  width: 80%;
+  height: 80rpx;
+  border-radius: 15rpx;
+  background-color: rgba(76, 100, 216, 0.596);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+page .keys .city {
+  padding: 30rpx;
+  width: 20%;
+  flex: 1;
+}
+page .keys .city .location .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .keys .city .inter {
+  margin-left: 40rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .keys .type {
+  width: 80%;
+  flex: 5;
+}
+page .cates {
+  width: 85%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+page .cates .university {
+  padding: 10rpx;
+  width: 20%;
+  flex: 2;
+}
+page .cates .university .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .cates .university .inter {
+  margin-left: 20rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .cates .campus {
+  width: 40%;
+  flex: 3;
+  margin-left: 20rpx;
+}
+page .cates .campus .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .cates .campus .inter {
+  margin-left: 40rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .cates .selection {
+  width: 20%;
+  margin-left: 10rpx;
+  flex: 2;
+}
+page .cates .selection .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .cates .selection .inter {
+  margin-left: 40rpx;
+  border-right: 1px solid #a6acb3;
+}
+page .cates .sort {
+  width: 20%;
+  flex: 2;
+  font-weight: 500;
+}
+page .cates .sort .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid red;
+  border-right: 1px solid red;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+page .products {
+  padding: 30rpx 20rpx 30rpx 20rpx;
+}
+page .products .product_list {
+  margin: 40rpx;
+}
+page .products .product_list navigator {
+  margin: 10rpx;
+}
+page .products .product_list navigator image {
+  border-radius: 20rpx;
+  background-color: #fff;
+  box-shadow: -2px 8px 15px -12px #647878;
+}
+page .products .product_list navigator .bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+page .products .product_list navigator .bottom .product_name {
+  padding-top: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+page .products .product_list navigator .bottom .product_price {
+  padding-bottom: 10rpx;
+}
+page .float-window {
+  position: fixed;
+  right: 165px;
+  bottom: 30px;
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #000000;
+  color: #fff;
+  font-size: 30rpx;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+}
