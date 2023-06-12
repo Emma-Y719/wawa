@@ -21,7 +21,8 @@ Page({
     baseUrl: '',
     productObj:{},
     activeIndex:0,
-    userInfo:[],
+    user:{},
+    userInfo:{},
     isfocus:false,
     fvalue:"",
     me:{},
@@ -80,13 +81,13 @@ Page({
       success: res2 => {
         console.log(res2.result.data[0].userInfo)
         this.setData({
-          userInfo:res2.result.data[0]
+          userInfo:res2.result.data[0].userInfo,
+          user:res2.result.data[0]
         })
       },
       fail() {
       }
     });
-
  
     if(app.globalData.friends.length!=0){
       console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
@@ -270,9 +271,16 @@ Page({
       })
     }
   },
-  handlefocus(e){
+  previewImage: function(e) {
+    let id=e.currentTarget.dataset.id
+    wx.previewImage({
+      current: this.data.productObj.propic.pics[id],
+      urls: this.data.productObj.propic.pics
+    })
+  },
+   handlefocus(e){
     if(!this.data.isfocus){
-      db.collection('user').where({
+       db.collection('user').where({
         _openid: app.globalData.openid
       }).update({
         data: {
@@ -292,9 +300,12 @@ Page({
           openid: app.globalData.openid
         },
         success: res2 => {
+          console.log("result: ",res2)
           this.data.isfocus=true;
           app.globalData.friends=res2.result.data[0].friends;
-          this.data.fvalue= "已关注"
+          this.setData({
+            fvalue:"已关注"
+          })
         },
         fail() {
         }

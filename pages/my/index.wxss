@@ -136,16 +136,16 @@ page .product .product_list .product_card navigator .product_name {
   font-size: 35rpx;
   margin-bottom: 10rpx;
 }
-page .product .product_list .product_card navigator .bottom {
+page .product .product_list .product_card .bottom {
   margin-left: 20rpx;
   display: flex;
 }
-page .product .product_list .product_card navigator .bottom .product_price {
+page .product .product_list .product_card .bottom .product_price {
   flex: 1;
   font-size: 40rpx;
   color: #ff7800;
 }
-page .product .product_list .product_card navigator .bottom .button1 {
+page .product .product_list .product_card .bottom .button1 {
   font-size: 25rpx;
   margin-left: 20rpx;
   width: 80rpx;
@@ -158,7 +158,7 @@ page .product .product_list .product_card navigator .bottom .button1 {
   display: flex;
   align-items: center;
 }
-page .product .product_list .product_card navigator .bottom .button2 {
+page .product .product_list .product_card .bottom .button2 {
   margin-left: 10rpx;
   margin-right: 20rpx;
   font-size: 25rpx;

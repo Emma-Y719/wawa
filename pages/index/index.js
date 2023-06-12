@@ -21,10 +21,12 @@ Page({
     bigTypeList_row2:[],
     hotProductList:[],
     productList:[],
+    storageList:[],
+    campuses:[],
     loc:"",
+    locuni:"",
+    loccam:"",
     type:"山地",
-    campus:"东南大学-四牌楼校区",
-
     latitude: "",
     longitude: "",
     scale:9,
@@ -54,61 +56,55 @@ Page({
     }
   },
 
-
-handlelogin(){
-  wx.cloud.callFunction({
-    name: 'yunrouter',
-    data: {
-      $url: "login", //云函数路由参数
-      phone: "",
-      campus:"",
-      qqnum: "",
-      email: "",
-      wxnum: "",
-      stamp: new Date(),
-      userInfo: app.globalData.userInfo,
-      nickName:app.globalData.userInfo.nickName,
-      money: 0,
-      dba: 0,
-    },
-    success: res => {
-      console.log("login:  ",res)
-      db.collection('user').where({
-        _openid: re.result
-      }).get({
-        success: function (res) {
-          app.globalData.openid= res.data[0]._openid;
-          app.globalData.userInfo = res.data[0].userInfo;
-          app.globalData.friends=res.data[0].friends;
-          app.globalData.data=res.data[0]
-          console.log(that.globalData)
-        }
-
-      })
-    },
-    fail() {
-      wx.hideLoading();
-      wx.showToast({
-        title: '注册失败，请重新提交',
-        icon: 'none',
-      })
-    }
-  });
-},
-async getUserProfile(e) {
-  const res = await wx.getUserProfile({
-    desc: '用于完善会员资料',
-  });
-  console.log("获取的信息："+res);
-},
-
   onLoad(options) {
     const baseUrl=getBaseUrl();
     this.setData({
       baseUrl
     });
-    console.log(baseUrl);
-    wx.cloud.callFunction({
+    console.log("here!",app.globalData)
+    this.setData({
+      locuni:app.globalData.user.university,
+      loccam:app.globalData.user.campus
+    })
+    // this.getWxLogin();
+
+    var that=this;
+    wx.getLocation({
+      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+      success: function (res) {
+        console.log('location:  ',res.latitude,res.longitude);
+        //赋值经纬度
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude,
+        })
+      }
+    })
+
+    this.searchSwiper();
+    this.getBigTypeList();
+    this.setData({
+      loc:app.globalData.location,
+    })
+    console.log(this.loc);
+
+    // wx.request({
+    //   url: 'http://localhost:8080/campus/add',
+    //   method:"POST",
+    //   data: {
+    //     identity: 97,
+    //     name: "xxxxx",
+    //     image: "xxxxx",
+    //   },
+    //   success: function (res) {
+    //     console.log(res);
+    //   }
+    // })
+  },
+  async getWxLogin(){
+    wx.cloud.init();
+    const db=wx.cloud.database()
+    await wx.cloud.callFunction({
       name: 'yunrouter', // 对应云函数名
       data: {
         $url: "openid", //云函数路由参数
@@ -129,78 +125,26 @@ async getUserProfile(e) {
               console.log("data :",res.data[0].userInfo)
               app.globalData.openid= res.data[0]._openid;
               app.globalData.userInfo = res.data[0].userInfo;
-              app.globalData.user=res.data[0];
               app.globalData.friends=res.data[0].friends;
               app.globalData.data=res.data[0]
-              console.log(app.globalData)
             }
 
           },
         })
       }
     })
-    var that=this;
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        console.log('location:  ',res.latitude,res.longitude);
-        //赋值经纬度
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })
-      }
-    })
-
-    this.searchSwiper();
-    this.getBigTypeList();
-    this.setData({
-      loc:app.globalData.location
-    })
-    console.log(this.loc);
-    wx.cloud.init();
-    const db=wx.cloud.database()
-    // wx.request({
-    //   url: 'http://localhost:8080/campus/add',
-    //   method:"POST",
-    //   data: {
-    //     identity: 97,
-    //     name: "xxxxx",
-    //     image: "xxxxx",
-    //   },
-    //   success: function (res) {
-    //     console.log(res);
-    //   }
-    // })
   },
-  async searchSwiper(e){
-    // wx.request({
-    //   url: 'http://localhost:8080/product/findSwipers',
-    //   method:"GET",
-    //   success:(result)=>{
-    //     console.log(result);
-    //     console.log(result);
-    //     for(var i=0;i<result.message.length;i++){
-    //       var s=result.message[i];
-    //       console.log(s.proPic);
-    //     }
-        
-    //     this.setData({
-    //       swiperList:result.message
-    //     })
-    //   }
-    // }) 
 
+  async searchSwiper(e){
     requestUtil({url:'/product/findSwiper',method:"GET"}).then(result=>{
       console.log("swiper",result)
+      console.log("this campus: ",app.globalData.campuses)
       this.setData({
-        swiperList:result.message
+        swiperList:result.message,
+        storageList:app.globalData.storageList,
+        campuses:app.globalData.campuses
       })
     })
-    // const result=await requestUtil({url:'/product/findSwiper',method:"GET"});
-    // this.setData({
-    //   swiperList:result.message
-    // })
   },
   async getHotProductList(e){
     requestUtil({url:'/product/findHot',method:"GET"}).then(result=>{

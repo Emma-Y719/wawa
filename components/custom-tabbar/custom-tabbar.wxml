@@ -1,24 +1,24 @@
  <!-- 这是黑色选择框 --> 
  <view class="SelectColumn"> 
-        <navigator open-type="reLaunch" url="/pages/index/index" class="firstlogo">
+        <view bindtap="onNavi1" open-type="reLaunch" url="/pages/index/index" class="firstlogo">
           <image src="/images/主页.png" mode="widthFix"></image>
-        </navigator>
+        </view>
 
-        <navigator open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
+        <view bindtap="onNavi2"open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
           <image src="/images/收藏夹.png" mode="widthFix"></image>
-        </navigator>
+        </view>
 
-        <navigator open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
+        <view bindtap="onNavi3" open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
           <image src="/images/消息.png" mode="widthFix"></image>
-        </navigator>
+        </view>
 
-        <navigator open-type="reLaunch" url="/pages/my/index" class="fourthlogo">
+        <view bindtap="onNavi4" open-type="reLaunch" url="/pages/my/index" class="fourthlogo">
           <image src="/images/个人中心.png" mode="widthFix"></image>
-        </navigator>
+        </view>
 
          <!-- 这是青蛙logo -->
-        <navigator open-type="reLaunch" url="/pages/promote/index" class="fraglogo">
+        <view bindtap="onNavi5" open-type="reLaunch" url="/pages/promote/index" class="fraglogo">
          <image src="/images/青蛙发布.png" mode="widthFix"></image>
-        </navigator>
+        </view>
 
  </view>

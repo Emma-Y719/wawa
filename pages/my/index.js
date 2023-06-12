@@ -20,8 +20,8 @@ Page({
     b2:"",
     typeIndex:0,
     hotProductList:[],
-    button1:["降价","编辑","编辑"],
-    button2:["已完成","删除","重发布"],
+    button1:["编辑","编辑","编辑"],
+    button2:["已完成","删除","删除"],
     onsale:[],
     draft:[],
     off:[]
@@ -36,7 +36,7 @@ Page({
     })
     console.log("userInfo: ",app.globalData.userInfo)
     this.setData({
-      userInfo:app.globalData.userInfo,
+      user:app.globalData.user,
       b1:this.data.button1[this.data.typeIndex],
       b2:this.data.button2[this.data.typeIndex]
     })
@@ -76,7 +76,128 @@ Page({
     //   })
     // }
   },
+  onUpdate(e){
+    let id=e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/promote/index?id='+this.data.hotProductList[id].identity,
+    })
 
+  },
+
+
+  onbutton2(e){
+    let tid=this.data.typeIndex
+    let pid=e.currentTarget.dataset.id;
+    if(tid==0){
+      let product=this.data.hotProductList[pid]
+      console.log(product)
+      let productnew=product
+      productnew.status=2;
+
+      wx.showModal({
+        title: '',
+        content: '确认下架？请核实已交易成功',
+        complete: (res) => {
+          if (res.cancel) {
+          }
+          if (res.confirm) {
+            requestUtil({
+              url:"/product/update",
+              method:"POST",
+              data:{
+                identity: productnew.identity,
+                name: productnew.name,
+                price: productnew.price,
+                propic: productnew.propic,
+                ishot:0,
+                isswiper:0,
+                typeid:productnew.typeid,
+                description:productnew.description,
+                university:productnew.university,
+                campus:productnew.campus,
+                longtitude:productnew.longtitude,
+                latitude:productnew.latitude,
+                userid:app.globalData.openid,
+                status:2,
+                storage:productnew.storage
+              }
+            }).then(result=>{
+              if(result){
+                wx.showModal({
+                  title: '',
+                  content: '下架成功！',
+                  complete: (res) => {
+                    if (res.cancel) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                    if (res.confirm) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                  }
+                })
+              }else{
+      
+              }
+                console.log(result)
+            })
+          }
+        }
+      })
+
+
+    }else{
+      let product=this.data.hotProductList[pid]
+      console.log(product)
+      let productnew=product
+      productnew.status=2;
+      wx.showModal({
+        title: '',
+        content: '确认删除此草稿？',
+        complete: (res) => {
+          if (res.cancel) {
+          }
+          if (res.confirm) {
+            requestUtil({
+              url:"/product/remove",
+              method:"POST",
+              data:{
+                identity:product.identity
+              }
+            }).then(result=>{
+              if(result){
+                wx.showModal({
+                  title: '',
+                  content: '删除成功！',
+                  complete: (res) => {
+                    if (res.cancel) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                    if (res.confirm) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                  }
+                })
+              }else{
+      
+              }
+                console.log(result)
+            })
+          }
+        }
+      })
+
+
+    }
+
+  },
   /**
    * 请求后端获取用户token
    * @param {*} loginParam 
@@ -201,10 +322,10 @@ Page({
       menu:['shareAppMessage','shareTimeline']
     })
 
-    console.log(this.data.userInfo.avatarUrl)
+    console.log(this.data.user.userInfo.avatarUrl)
     return {
-      title: this.data.userInfo.nickName+": 这里是我的宝库，快来瞧一瞧～",
-      imageUrl: this.data.userInfo.avatarUrl
+      title: this.data.user.userInfo.nickName+": 这里是我的宝库，快来瞧一瞧～",
+      imageUrl: this.data.user.userInfo.avatarUrl
     }
   },
 })

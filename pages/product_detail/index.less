@@ -39,26 +39,26 @@
 }
 
 
-.product_swiper{
-  margin-top: 20rpx;
-  margin-left: 10rpx;
 
   swiper{
-    height: 450rpx;
+    margin-top: 20rpx;
+    margin-left: 10rpx;
     width: 730rpx;
+    height: 550rpx;
     swiper-item{
-      navigator{
         image{
-          background-color: #9a9eb6;
+          width: 100%;
+          height: 550rpx;
+          background-color: #ffffff;
           border-radius: 50rpx;
         }
-      }
     }
   }
-}
 .product_info{
   margin-left: 10rpx;
+  margin-right: 10rpx;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   .product_name{
     font-size: 45rpx;
@@ -66,7 +66,7 @@
     margin-left: 10rpx;
   }
   .product_price{
-    position: absolute;
+  
     right: 10px;
     font-size: 50rpx;
     font-weight: 600;
@@ -203,19 +203,9 @@
     color: #fff;
     border-left: 1rpx solid black;
     border-right: 1rpx solid black;
-    z-index: 5;
-    height: 70rpx;
-  }
-  .btn_same{
-    flex:2;
-    justify-content: center;
-    align-items: center;
-    font-size: 30rpx;
-    font-weight: 500;
-    background-color: #88bb1e;
-    color: #fff;
     border-bottom-left-radius: 50rpx;
     border-top-left-radius: 50rpx;
+    z-index: 5;
     height: 70rpx;
   }
 

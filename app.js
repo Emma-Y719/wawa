@@ -17,8 +17,17 @@ App({
         traceUser: true,
       })
     }
+    requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
+      console.log("campuses: ",result.message)
+      this.globalData.campuses=result.message
+    })
+    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+      console.log("storage",result)
+      this.globalData.storageList=result.message
+    })
     const token=wx.getStorageSync('token');
     if(!this.globalData.isLogin){
+      let that =this;
       wx.showModal({
         title:'友情提示',
         content:'微信授权登录后，才可进入个人中心',
@@ -35,23 +44,24 @@ App({
                 _openid: re.result
               }).get({
                 success: function (res) {
+                  console.log(res.data[0])
                   if(res.data[0]==undefined){
                     console.log("尚未注册！")
                     wx.redirectTo({
                       url: '/pages/my/create/login',
                     })
                   }else{
+                    console.log("data :",res.data[0].userInfo);
+                    that.globalData.openid= res.data[0]._openid;
                     console.log("data :",res.data[0].userInfo)
-                    this.globalData.openid= res.data[0]._openid;
-                    this.globalData.userInfo = res.data[0].userInfo;
-                    this.globalData.friends=res.data[0].friends;
-                    this.globalData.data=res.data[0]
-                    console.log(this.globalData)
-                    wx.reLaunch({
-                      url: '/pages/my/create/login',
+                    that.globalData.userInfo = res.data[0].userInfo;
+                    that.globalData.friends=res.data[0].friends;
+                    that.globalData.user=res.data[0];
+                    console.log("data :",res.data[0].user)
+                    wx.redirectTo({
+                      url: '/pages/index/index',
                     })
                   }
-      
                 },
               })
             }
@@ -73,21 +83,11 @@ App({
           // })
         }
       })
-    }else{
-      console.log("token存在："+token);
-      const userInfo=wx.getStorageSync('userInfo')
-      this.setData({
-        userInfo
-      })
     }
     const baseUrl=getBaseUrl();
     this.globalData.baseUrl=baseUrl;
     console.log(baseUrl)
-    requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
-      console.log("campuses: ",result.message)
-      this.globalData.campuses=result.message
-    })
- 
+
     const db = wx.cloud.database();
 
   },
@@ -106,6 +106,7 @@ App({
     location:"南京",
     isLogin:false,
     campuses:[],
+    storageList:[],
     userInfo:{
       
     }

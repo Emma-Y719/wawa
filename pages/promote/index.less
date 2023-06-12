@@ -1,42 +1,5 @@
 page{
-  .buttons{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 50rpx;
-    margin-top: 100rpx;
-    margin-right: 50rpx;
-    .draft{
-      image{
-        width: 55rpx;
-        margin-right: 10rpx;
-      }
-      width:30%;
-      height:80rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 40rpx;
-      text-align: center;
-      font-size: 32rpx;
-      background-color: #88bb1e;
-    }
-    .promote{
-      image{
-        width: 55rpx;
-        margin-right: 10rpx;
-      }
-      width: 60%;
-      height: 80rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 32rpx;
-      background-color: #88bb1e;
-      border-radius: 40rpx;
-    }
-  }
+
   .search_bar{
     height: 80rpx;
     margin-left: 50rpx;
@@ -50,9 +13,9 @@ page{
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgb(236, 236, 236);
-      border-radius: 35rpx;
-      color: #666;
+      background-color: #88bb1e;
+      border-radius: 40rpx;
+      color: rgb(0, 0, 0);
       icon{
         padding-right: 5rpx;
       }
@@ -60,37 +23,36 @@ page{
     .campus{
       width:60%;
       height: 80rpx;
-      font-size:32rpx;
+      font-size:28rpx;
       display: flex;
       justify-content: center;
       text-align: center;
       align-items: center;
       background-color: rgb(236, 236, 236);
       border-radius: 35rpx;
-      margin-left: 30rpx;
-      margin-right: 40rpx;
+      margin-left: 20rpx;
+      margin-right:20rpx;
     }
     .type{
-      width:30%;
+      width:25%;
       height: 80rpx;
-      font-size:30rpx;
+      font-size:28rpx;
       display: flex;
       justify-content: center;
       text-align: center;
       align-items: center;
-      background-color: rgb(236, 236, 236);
-      border-radius: 35rpx;
+      background-color: #88bb1e;
+      border-radius: 40rpx;
       margin-right: 40rpx;
     }
   }
   .description{
     .title{
+      margin-top: 30rpx;
       .name{
-        margin-top: 30rpx;
         margin-left: 50rpx;
         margin-right: 40rpx;
         height:80rpx;
-        color: rgb(224, 224, 224);
         font-size: 30rpx;
         font-weight: 600;
         border: #5a9952 solid 2rpx;
@@ -99,23 +61,13 @@ page{
       
   
       }
-      .active{
-        margin-top: 30rpx;
-        margin-left: 50rpx;
-        height:80rpx;
-        color: rgb(0, 0, 0);
-        font-size: 30rpx;
-        font-weight: 600;
-        text-align: justify;
-      }
     }
     .des{
+      margin-top: 30rpx;
       .text{
-        margin-top: 30rpx;
         margin-left: 50rpx;
         margin-right: 40rpx;
         height:240rpx;
-        color: rgb(224, 224, 224);
         font-size: 30rpx;
         font-weight: 600;
         border: #5a9952 solid 2rpx;
@@ -123,22 +75,10 @@ page{
         text-align: center;
 
       }
-      .active{
-        margin-top: 30rpx;
-        margin-left: 50rpx;
-        height:200rpx;
-        color: rgb(0, 0, 0);
-        font-size: 30rpx;
-        font-weight: 600;
-        text-align:justify;
-
-      }
     }
-
-
     .contant-pic{
       width: 94%;
-      margin-top: 50rpx;
+      margin-top: 30rpx;
       margin-left: 50rpx;
       height: 160rpx;
       .pics-list{
@@ -187,16 +127,22 @@ page{
     }
     .locationInfo{
       margin-left: 50rpx;
-      margin-top: 60rpx;
+      margin-right: 50rpx;
+      margin-top: 30rpx;
       display: flex;
       flex-direction: row;
-      width:450rpx;
       height:rpx;
       align-items: center;
       
       .loc{
-        width: 12%;
+        width: 8%;
       }
+      text{
+        margin-left: 20rpx;
+        font-size: 35rpx;
+      }
+
+
       .location{
         margin-left: 20rpx;
         padding-left:10rpx;
@@ -221,22 +167,25 @@ page{
     height:80rpx;
 
     .price{
-      width:10%;
+      width:8%;
     }
     .ptext{
       width:40%;
-
       margin-left: 20rpx;
-      font-size: 40rpx;
+      font-size: 35rpx;
       display: flex;
       align-items: center;
     }
     .pr{
-
-      text-align: right;
-      font-size: 40rpx;
+      width:40%;
+      font-size: 28rpx;
       display: flex;
+      padding: 10rpx;
+      margin-left: 30rpx;
+      border-radius: 20rpx;
       align-items: center;
+      text-align: center;
+      justify-content: center;
     }
   }
   .methodInfo{
@@ -254,14 +203,13 @@ page{
     .mtext{
       width:40%;
       margin-left: 20rpx;
-      font-size: 40rpx;
-
+      font-size: 35rpx;
       display: flex;
       align-items: center;
     }
     .meth{
       width:40%;
-      font-size: 30rpx;
+      font-size: 28rpx;
       display: flex;
       padding: 10rpx;
       margin-left: 30rpx;
@@ -269,9 +217,49 @@ page{
       align-items: center;
       text-align: center;
       justify-content: center;
+      .enter{
+        width: 50rpx;
+      }
     }
   }
-
+  .buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 50rpx;
+    margin-top: 70rpx;
+    margin-right: 50rpx;
+    .draft{
+      image{
+        width: 55rpx;
+        margin-right: 10rpx;
+      }
+      width:30%;
+      height:70rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 40rpx;
+      text-align: center;
+      font-size: 32rpx;
+      background-color: #88bb1e;
+    }
+    .promote{
+      image{
+        width: 55rpx;
+        margin-right: 10rpx;
+      }
+      width: 60%;
+      height: 70rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 32rpx;
+      background-color: #88bb1e;
+      border-radius: 40rpx;
+    }
+  }
 
 
 }

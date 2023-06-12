@@ -6,19 +6,23 @@
     <icon type="search" size="16"></icon>校区
   </navigator>
   <view class="campus"> {{university+' - '+campus}}</view>
-  <view bindtap="handleType"class="type"> {{type}}</view>
+  <picker class="type" mode="selector" range="{{typeList}}" bindchange="handleType">
+    <view class="picker">
+      {{type}}
+    </view>
+  </picker>
 </view>
 <view class="description">
  <view class="title">
-  <input class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" bindtap="onclickNameInput"value="{{name}}"></input>
+  <input class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="输入商品名称，例：凤凰"value="{{name}}"></input>
  </view>
  <view class="des">
-  <input class="text {{activeDisInput ? 'active': ''}}" bindinput="onDisInput" bindtap="onclickDisInput"value="{{discript}}"></input>
+  <input class="text {{activeDisInput ? 'active': ''}}" bindinput="onDisInput"placeholder="输入商品描述：品牌，渠道等"value="{{discript}}"></input>
  </view>
   
   <view class="contant-pic">
     <view class="pics-list" wx:for="{{pics}}"   wx:for-item="path" wx:key="id" >
-      <image src="{{path}}" class="uploadImg"></image>
+      <image src="{{path}}" mode="aspectFill"class="uploadImg"></image>
       <image src="../../icons/delete.png" class="uploadImg-error" data-img="{{path}}" bindtap='deleteImg'></image>
     </view>
     <view class="up">
@@ -28,7 +32,7 @@
  </view>
   <view class="locationInfo">
     <image src="/icons/weizhi.png" mode="widthFix" class="loc"></image>
-
+    <text>交易位置</text>
     <navigator class="location" url="/pages/shopMap/shopMap">{{loc}}
       <image src="/images/enter.png" mode="widthFix" class="enter"/>
     </navigator>
@@ -55,7 +59,8 @@
   </view>
   
   <view class="meth" bindtap="showActionSheet">{{storage}}
-    </view>
+    <image src="/images/enter.png" mode="widthFix" class="enter"/>
+  </view>
 </view>
 
 <view class="buttons">

@@ -4,13 +4,12 @@
   <!-- 用户背景信息开始 -->
   <view class="user_info_bg">
     <view class="user_info_wrap">
-      <image src="{{userInfo.avatarUrl}}"></image>
+      <image src="{{user.userInfo.avatarUrl}}"></image>
       <view class="detail">
-        <view class="user_name">{{userInfo.nickName}}</view>
+        <view class="user_name">{{user.userInfo.nickName}}</view>
         <view class="user_acc">蛙蛙账号：ww518136695</view>
-        <view class="user_aff">南京-东南大学-四牌楼校区</view>
+        <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
       </view>
-      
     </view>
   </view>
   <!-- 用户背景信息结束 -->
@@ -87,15 +86,16 @@
       <view class="product_name">
         {{hotProduct.name}}
       </view>
+      </navigator>
       <view class="bottom">
         <view class="product_price">
         ¥{{hotProduct.price}}
         </view>
-        <view class="button1">{{b1}}</view>
-        <view class="button2">{{b2}}</view>
+        <view bindtap="onUpdate" data-id="{{index}}"class="button1">{{b1}}</view>
+        <view bindtap="onbutton2" data-id="{{index}}" class="button2">{{b2}}</view>
       </view>
      
-      </navigator>
+     
     </view>
   </view>
 

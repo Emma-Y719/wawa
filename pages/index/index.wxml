@@ -16,7 +16,7 @@
   Hi~ 小蛙
 </view>
 <view class="introduce">
-  从来虚位以待，何不给个拥抱>
+  从来虚位以待，何不给个拥抱 >
 </view>
 <view class="info">
  <view class="info-content">
@@ -62,14 +62,19 @@
         <view class="icon">
           <image src="/images/地址.png" mode="widthFix"></image>
         </view>
-
-        <view class="campus_title">
-          {{campus}}
+        <view class="right">
+              <view  class="btn">
+              随便逛逛
+            </view>
+            <view class="uni_title">
+              {{locuni}}
+            </view>
+            <view class="cam_title">
+              {{loccam}}
+            </view>
         </view>
+       
 
-        <view  class="btn">
-          随便逛逛
-        </view>
       </navigator>
     </view>
   </view>
@@ -98,8 +103,8 @@
                  {{swiper.name}}
                </view>
                <view class="storage">
-                 <image style="position: relative; left: -20rpx; top: -10rpx" src="/images/消息首页.png" mode="widthFix"/>
-                 <text>跨过进香河</text>
+                 <image src="/images/消息首页.png" mode="widthFix"/>
+                 <text>{{storageList[index].name}}</text>
                  
                </view>
                <view class="price">
@@ -107,10 +112,10 @@
                </view>
     
                <view class="swiper_university">
-                 {{swiper.university}}
+                 {{campuses[swiper.campus].name}}
                </view>
                <view class="swiper_campus">
-                {{swiper.campus}}
+                 {{campuses[swiper.campus].campus}}
                </view>
              </view>
 

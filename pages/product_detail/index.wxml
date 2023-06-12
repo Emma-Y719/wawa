@@ -1,9 +1,9 @@
 <view class="userContainer">
   
-  <image  class="pic" src="{{userInfo.userInfo.avatarUrl}}" mode="widthFix" />
+  <image  class="pic" src="{{user.userInfo.avatarUrl}}" mode="widthFix" />
   <view class="middle">
-    <text class="name">{{userInfo.userInfo.nickName}}</text>
-    <text class="campus">{{userInfo.university}}-{{userInfo.campus}}</text>
+    <text class="name">{{user.userInfo.nickName}}</text>
+    <text class="campus">{{user.university}}-{{user.campus}}</text>
   </view>
  
  <view class="right">
@@ -19,18 +19,18 @@
 
 
 
-<view class="product_swiper" >
-  <swiper autoplay circular	indicator-dots>
-      <swiper-item 
+  <swiper autoplay circular	indicator-dots >
+      <block 
         wx:for="{{productObj.propic.pics}}"
-        wx:key="id"
-      >
-        <navigator>
-          <image mode="widthFix" src="{{item[0]!='h'&&item[0]!='c'? baseUrl+'/image/product/'+item : item}}"></image>
-        </navigator>
-      </swiper-item>
+        wx:key="index">
+        <swiper-item bindtap="previewImage"data-id="{{index}}">
+          <image  mode="aspectFill" src="{{item[0]!='h'&&item[0]!='c'? baseUrl+'/image/product/'+item : item}}"></image>
+        </swiper-item>
+      
+      </block>
+
     </swiper>
-</view>
+
 <!-- 商品轮播图结束 -->
 <view class="product_info">
   <text class="product_name" >{{productObj.name}}</text>
@@ -87,9 +87,6 @@
     <image mode="aspectFit" src="/icons/smile.png" ></image>
 
   </navigator>
-  <view class="tool_item btn_same" bindtap="handleSearchSame"  >
-    <view>同类产品</view>
-  </view>
 
   <view class="tool_item btn_cart" bindtap="handleCartAdd" >
     <view>收藏</view>

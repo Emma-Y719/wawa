@@ -61,7 +61,10 @@ Page({
     })
   },
   handlelogin(){
+    this.data.userInfo.university=this.data.university;
+    this.data.university.campus=this.data.campus;
     console.log(this.data.userInfo)
+
     wx.cloud.callFunction({
       name: 'yunrouter',
       data: {
@@ -189,6 +192,7 @@ Page({
     var datacount=0;
     var that=this;
     this.data.userInfo.avatarUrl=avatarUrl
+
     console.log(this.data.userInfo)
     this.handlelogin();
   },
