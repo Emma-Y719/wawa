@@ -1,23 +1,23 @@
  <!-- 这是黑色选择框 --> 
  <view class="SelectColumn"> 
-        <navigator url="/pages/index/index" class="firstlogo">
+        <navigator open-type="reLaunch" url="/pages/index/index" class="firstlogo">
           <image src="/images/主页.png" mode="widthFix"></image>
         </navigator>
 
-        <navigator url="/pages/favorite/index" class="secondlogo">
+        <navigator open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
           <image src="/images/收藏夹.png" mode="widthFix"></image>
         </navigator>
 
-        <navigator url="/pages/example/chatroom_example/im" class="thirdlogo">
+        <navigator open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
           <image src="/images/消息.png" mode="widthFix"></image>
         </navigator>
 
-        <navigator url="/pages/my/index" class="fourthlogo">
+        <navigator open-type="reLaunch" url="/pages/my/index" class="fourthlogo">
           <image src="/images/个人中心.png" mode="widthFix"></image>
         </navigator>
 
          <!-- 这是青蛙logo -->
-        <navigator url="/pages/promote/index" class="fraglogo">
+        <navigator open-type="reLaunch" url="/pages/promote/index" class="fraglogo">
          <image src="/images/青蛙发布.png" mode="widthFix"></image>
         </navigator>
 

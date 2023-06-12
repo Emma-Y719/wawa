@@ -30,7 +30,7 @@
    <view class="type" >
     <input class="key" bindinput="onInput" value="{{type}}"></input>
    </view>
-   <image src="/icons/3.png" mode="scaleToFill" class="logo"></image>
+   <image src="/icons/wawa.png" mode="scaleToFill" class="logo"></image>
 
    <navigator url="/pages/search/index">
     <view class="btn" bindtap="handleSearch">
@@ -91,7 +91,7 @@
     <view class="index_swiper">
       <swiper autoplay indicator-dots circular style="width: 433rpx; height: 222rpx; display: block; box-sizing: border-box">
          <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
-         <navigator>
+         <navigator url="/pages/product_detail/index?id={{swiper.identity}}">
              <image src="{{swiper.propic.pics[0]}}"></image>
              <view class="swiperinfo">
                <view class="title">
@@ -126,34 +126,6 @@
   <view class="map_container">
     <map class='map' longitude='{{longitude}}' latitude='{{latitude}}' scale='{{scale}}' markers='{{markers}}' controls="{{controls}}" bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
       show-location>
-
-       <!-- 这是滚动页面 --> 
-      <scroll-view scroll-x class="right_content">
-      <view class="productType">
-      <view class="product_list"
-        wx:for="{{markers}}"
-        wx:for-item="product"
-        wx:key="id"
-        >
-        <navigator
-          url="/pages/product_detail/index?id={{product.id}}"
-        >
-          <image mode="widthFix" src="{{product.propic.pics[0]}}"></image>
-          <view class="right">
-            <view class="product_name">
-              {{product.title}}
-            </view>
-            <view class="product_des"> 
-              {{product.detailInfo}}
-            </view>
-            <view class="product_price"> 
-              ¥ {{product.price}}
-            </view>
-          </view>
-        </navigator>
-        </view>
-      </view>
-      </scroll-view>
 
     </map>
 

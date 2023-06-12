@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/example/chatroom_example/im",
     "pages/storage/create/success",
@@ -10,6 +11,8 @@
     "pages/favorite/index",
     "pages/category/index",
     "pages/my/index",
+    "pages/example/chatroom_example/message",
+    "pages/my/create/login",
     "pages/search/index",
     "pages/search/campus",
     "pages/search/name",

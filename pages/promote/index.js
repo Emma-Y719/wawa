@@ -49,7 +49,13 @@ Page({
    */
   onLoad(options) {
 
-    console.log("Load:   "+this.data.university)
+    console.log("Load:   ",app.globalData.user)
+
+    this.setData({
+      university:app.globalData.user.university,
+      campus:app.globalData.user.campus
+    })
+
     if(options!=undefined){
       const {storage}=options;
       console.log("storage"+storage)
@@ -366,6 +372,24 @@ Page({
       // })
     })
   },
+  uploadFileToCloud(filePath){
+    return new Promise((resolve, reject) => {
+      wx.cloud.uploadFile({
+        cloudPath: Date.parse(new Date()) + '.png',
+        filePath: filePath,
+        success: res => {
+          console.log('上传云', res)
+          console.log(res.fileID)
+          resolve(res.fileID);
+        },
+        fail: err => {
+          console.log('上传云err', err)
+          reject(err);
+        }
+      });
+    });
+  },
+  
   onPromote: function(){
     var baseUrl=getBaseUrl()
     console.log("university: "+this.data.university)
@@ -405,23 +429,7 @@ Page({
     }
   },
 
-  uploadFileToCloud(filePath){
-    return new Promise((resolve, reject) => {
-      wx.cloud.uploadFile({
-        cloudPath: Date.parse(new Date()) + '.png',
-        filePath: filePath,
-        success: res => {
-          console.log('上传云', res)
-          console.log(res.fileID)
-          resolve(res.fileID);
-        },
-        fail: err => {
-          console.log('上传云err', err)
-          reject(err);
-        }
-      });
-    });
-  },
+
 
 
   onDraft:function(){

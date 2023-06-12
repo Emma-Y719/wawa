@@ -1,0 +1,118 @@
+page{
+/* .wxss 文件 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 这里的透明度值可以调整，0.5 表示50% 的不透明度 */
+  z-index: 5; /* 确保蒙层位于其他元素之上 */
+}
+
+.top-bg {
+  width: 100%;
+  margin-top: 200rpx;
+  margin-left: 31%;
+  align-items: center;
+  justify-content: center;
+
+  image{
+    width: 280rpx;
+    border:#88bb1e solid 4rpx;
+    border-radius: 20rpx;
+  }
+
+}
+
+.contain {
+  position: relative;
+  z-index: 1000;
+  margin-top: 20rpx;
+  margin-left: 5%;
+  width: 90%;
+  padding: 0rpx 40rpx 0rpx 40rpx;
+  box-sizing: border-box;
+  .card {
+    
+    border-radius: 32rpx;
+    width: 100%;
+    background: #fff;
+    padding: 50rpx 75rpx;
+    box-sizing: border-box;
+    box-shadow: 0 0 20rpx #eee;
+    .title {
+      width: 100%;
+      text-align: center;
+      font-size: 50rpx;
+      font-weight: 400;
+      letter-spacing: 6rpx;
+  }
+  .content{
+    margin-top: 85rpx;
+    font-size: 40rpx;
+  }
+  .abtn{
+    margin-top: 60rpx;
+    width:100%;
+    height: 100rpx;
+  
+    border-radius: 50rpx;
+    background-color: #e2892d;
+    justify-content: center;
+    display: flex;
+    text{
+      text-align: center;
+      font-size: 40rpx;
+      margin-top: 20rpx;
+    }
+  
+  }
+}
+
+
+  
+
+
+
+
+}
+
+.cbtn{
+  margin-top: 75rpx;
+  width:100%;
+  height: 90rpx;
+
+  border-radius: 50rpx;
+  background-color: #88bb1e;
+  justify-content: center;
+  display: flex;
+  text{
+    text-align: center;
+    font-size: 40rpx;
+    margin-top: 20rpx;
+  }
+
+}
+.shen_title{
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  letter-spacing: 2rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.about{
+  width: 32rpx;
+  height: 32rpx;
+  padding-right: 10rpx;
+}
+.des{
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+  font-size: 26rpx;
+  color: #acacac;
+  letter-spacing: 2rpx;
+  line-height: 42rpx;
+}
+}

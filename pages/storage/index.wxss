@@ -1,7 +1,7 @@
 page .keys {
   width: 85%;
   height: 80rpx;
-  border-radius: 15rpx;
+  border-radius: 40rpx;
   background-color: rgba(242, 243, 248, 0.596);
   display: flex;
   flex-direction: row;
@@ -11,6 +11,7 @@ page .keys {
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  border: 2rpx solid #88bb1e;
 }
 page .keys .city {
   padding: 30rpx;
@@ -25,10 +26,6 @@ page .keys .city .location .line {
   border-right: 1px solid red;
   transform: rotate(45deg);
   margin-bottom: 5rpx;
-}
-page .keys .city .inter {
-  margin-left: 40rpx;
-  border-right: 1px solid #a6acb3;
 }
 page .keys .type {
   width: 80%;
@@ -60,10 +57,6 @@ page .cates .university .line {
   transform: rotate(45deg);
   margin-bottom: 5rpx;
 }
-page .cates .university .inter {
-  margin-left: 20rpx;
-  border-right: 1px solid #a6acb3;
-}
 page .cates .campus {
   width: 40%;
   flex: 3;
@@ -77,10 +70,6 @@ page .cates .campus .line {
   border-right: 1px solid red;
   transform: rotate(45deg);
   margin-bottom: 5rpx;
-}
-page .cates .campus .inter {
-  margin-left: 40rpx;
-  border-right: 1px solid #a6acb3;
 }
 page .cates .sort {
   width: 20%;

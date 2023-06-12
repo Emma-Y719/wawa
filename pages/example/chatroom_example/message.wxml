@@ -1,0 +1,64 @@
+<view class="typeContainer">
+  <view class="type">
+    <image src="/icons/chat.png" mode="widthFix"/>
+    <text>消息互动</text>
+  </view>
+  <view class="type">
+    <image src="/icons/focus.png" mode="widthFix"/>
+    <text>关注列表</text>
+  </view>
+  <view class="type">
+    <image src="/icons/like.png" mode="widthFix"/>
+    <text>赞和收藏</text>
+  </view>
+</view>
+<view class="chatList" wx:if="{{chatdisplay}}">
+  <view class="chat"
+  wx:for="{{rooms}}"
+  wx:for-item="room"
+  wx:key="id"
+  >
+    <navigator url="{{room.url}}">
+            <image class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
+            <view class="middle">
+              <view class="title">
+                <view class="chat_name">
+                {{room.target.nickName}}
+                </view>
+                <view class="chat_campus">
+                  {{room.target.campus}}
+                </view>
+              </view>
+   
+              <view class="chat_message"> 
+                  {{room.newmessage}}
+              </view>
+            </view>
+            <view class="right">
+              <image class="productPic"src="{{room.product.pic}}" mode="aspectFill"/>
+            </view>
+
+
+    </navigator>
+  </view>
+</view>
+<view class="focusList" wx:if="{{focusdisplay}}">
+  <view class="focus"
+  wx:for="{{focuses}}"
+  wx:for-item="focus"
+  wx:key="id"
+  >
+    <navigator url="">
+            <image mode="aspectFill" src="{{focus.avatarUrl}}"></image>
+            <view class="right">
+              <view class="focus_name">
+                {{focus.nickName}}
+              </view>
+              <view class="focus_campus"> 
+                  {{focus.university}}-{{focus.campus}}
+              </view>
+            </view>
+    </navigator>
+  </view>
+</view>
+<custom-tabbar></custom-tabbar>

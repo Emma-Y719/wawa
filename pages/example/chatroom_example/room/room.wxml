@@ -1,18 +1,18 @@
 <view class="productinfo">
-  <image src="/images/dkn.jpg" mode="widthFix"/>
+  <image src="{{product.pic}}" mode="widthFix"/>
 
   <view class="other">
     <view class="title">
-    越野山地车
+    {{product.name}}
   </view>
     <view class="price">
-    ¥1993
+    ¥{{product.price}}
   </view>
   <view class="university">
-    南京信息工程大学
+    {{product.university}}
   </view>
   <view class="campus">
-    后标营校区 / 1.5km
+    {{product.campus}} / 1.5km
   </view>
   </view>
 </view>

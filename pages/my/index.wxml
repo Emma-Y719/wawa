@@ -3,7 +3,6 @@
 
   <!-- 用户背景信息开始 -->
   <view class="user_info_bg">
-
     <view class="user_info_wrap">
       <image src="{{userInfo.avatarUrl}}"></image>
       <view class="detail">
@@ -16,28 +15,28 @@
   </view>
   <!-- 用户背景信息结束 -->
     <!-- 订单管理开始 -->
-    <view class="order_wrap">
+    <view bindtap="onNotComplete" class="order_wrap">
       
       <view class="order_content" style="position: relative; left: 0rpx; top: 0rpx; width: 724rpx; height: 285rpx; display: flex; box-sizing: border-box">
-        <navigator url="/pages/order/index?type=1">
+        <navigator url="">
       <view class="storage">
         20
       </view>
           <view class="order_name">群聊物品库</view>
         </navigator>
-        <navigator url="/pages/order/index?type=2">
+        <navigator url="">
         <view class="history">
           70
         </view>
           <view class="order_name">历史浏览</view>
         </navigator>
-        <navigator url="/pages/order/index?type=3">
+        <navigator url="">
         <view class="subscribe">
           100
         </view>
           <view class="order_name">关注</view>
         </navigator>
-        <navigator url="/pages/order/index?type=0">
+        <navigator url="">
         <view class="fans">
           11
         </view>
@@ -45,15 +44,15 @@
         </navigator>
 
       
-        <navigator url="/pages/order/index?type=1" style="position: relative; left: 0rpx; top: 10rpx">
+        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
           <image class="order-icon" src="/icons/promoted.png"></image>
           <view class="order_name">我发布的</view>
         </navigator>
-        <navigator url="/pages/order/index?type=2" style="top: 10rpx; position: relative; left: 0rpx">
+        <navigator url="" style="top: 10rpx; position: relative; left: 0rpx">
           <image class="order-icon" src="/icons/sold.png" ></image>
           <view class="order_name">我卖出的</view>
         </navigator>
-        <navigator url="/pages/order/index?type=3" style="position: relative; left: 0rpx; top: 10rpx">
+        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
           <image class="order-icon" src="/icons/bought.png" ></image>
           <view class="order_name">我买到的</view>
         </navigator>
@@ -100,6 +99,9 @@
     </view>
   </view>
 
+</view>
+<view class="bottom">
+  
 </view>
 <custom-tabbar></custom-tabbar>
 

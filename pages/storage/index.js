@@ -41,14 +41,16 @@ Page({
         },
         success: res2 => {
           console.log("res2:   ",res2)
-          var storages=res2.result.data[0].storage
-          var storageList=[]
-          storages.forEach(function(value,index,array){
-            storageList.push(sall[value-1])
-          })
-          this.setData({
-            storageList:storageList
-          })
+          if(res2.result!=null){
+            var storages=res2.result.data[0].storage
+            var storageList=[]
+            storages.forEach(function(value,index,array){
+              storageList.push(sall[value-1])
+            })
+            this.setData({
+              storageList:storageList
+            })
+          }
         },
         fail() {
         }
@@ -81,7 +83,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    console.log("university: ",this.data.university)
   },
 
   /**

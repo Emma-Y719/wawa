@@ -23,12 +23,7 @@
               <image src="{{addpeopledetail.userInfo.avatarUrl}}" class="tui-msg-pic" mode="widthFix"></image>
               <view class="tui-msg-item">
                 <view class="tui-msg-name">昵称：{{addpeopledetail.userInfo.nickName}}</view>
-                <view class="tui-msg-content">country:：{{addpeopledetail.userInfo.country}}</view>
               </view>
-            </view>
-            <view class="tui-msg-right {{addpeopledetail.level==3?'tui-right-dot':''}}">
-              <view class="tui-msg-time">性别：{{addpeopledetail.userInfo.gender==1?'男':'女'}}</view>
-              <tui-tag bindtap="addpeople" style="width:18vw" size="small" tui-tag-class="tui-mrbtm">添加好友</tui-tag>
             </view>
           </tui-cell>
         </block>
@@ -40,55 +35,6 @@
       <!--不搜索时候的原有界面-->
 
       <view class="container">
-
-
-        <!-- 好友请求列表-->
-        <view style="width:100vw" class="kind-list">
-
-          <view class="kind-list_item">
-            <view class="tui-flex kind-list_item-hd {{open ? 'kind-list_item-hd_show' : ''}}" bindtap="kindToggle">
-              <view class="tui-flex_item">好友请求</view>
-              <tui-badge wx:if="{{peoplecheck.length!=0}}" type="danger" tui-badge-class="tui-badge">好友请求:{{peoplecheck.length}}</tui-badge>
-              <image wx:else class="kind-list_img tui-img-7" src="/image/class.png"></image>
-            </view>
-            <view class="kind-list_item-bd {{open ? 'kind-list_item-bd_show' : ''}}">
-              <view class="tui-cells {{open ? 'tui-cells_show' : ''}}">
-                <block wx:for-items="{{peoplecheck}}" wx:for-item="item" wx:key="item">
-                  <tui-cell style="width:100%" tui-cell-class="tui-msg" last="{{true}}">
-                    <view class="tui-msg-box">
-                      <image src="{{peoplecheck[index].peopleask.avatarUrl}}" class="tui-msg-pic" mode="widthFix"></image>
-                      <view class="tui-msg-item">
-                        <view class="tui-msg-name">昵称：{{peoplecheck[index].peopleask.nickName}}</view>
-                        <view class="tui-msg-content">性别：{{addpeopledetail.userInfo.gender==1?'男':'女'}}</view>
-                      </view>
-                    </view>
-                    <view class="tui-msg-right">
-                      <tui-tag data-info="{{peoplecheck[index]}}" bindtap="cancelpeopleadd" style="width:18vw" shape="circle" size="small" type="red" tui-tag-class="tui-mrbtm">拒绝请求</tui-tag>
-                      <tui-tag data-info="{{peoplecheck[index]}}" bindtap="confirmpeopleadd" style="width:18vw" shape="circle" size="small" type="green" tui-tag-class="tui-mrbtm">接收请求</tui-tag>
-                    </view>
-                  </tui-cell>
-                </block>
-              </view>
-            </view>
-          </view>
-
-        </view>
-
-
-
-        <!-- 聊天室的东西-->
-        <view style="width:100vw" class="kind-list" bindtap="openActionSheet">
-          <view class="kind-list_item">
-            <view class="tui-flex kind-list_item-hd }}">
-              <view class="tui-flex_item">聊天室测试</view>
-              <image class="kind-list_img tui-img-7" src="/image/chat.png"></image>
-            </view>
-          </view>
-        </view>
-
-
-        <tui-actionsheet show="{{showActionSheet}}" tips="{{tips}}" item-list="{{itemList}}" mask-closable="{{maskClosable}}" color="{{color}}" size="{{size}}" is-cancel="{{isCancel}}" bind:click="itemClick" bind:cancel="closeActionSheet"></tui-actionsheet>
-
         <view style="width:100vw" class="kind-list">
           <view class="kind-list_item">
             <view class="tui-flex kind-list_item-hd }}">
@@ -103,7 +49,7 @@
               <image src="{{item.userInfo.avatarUrl}}" class="tui-msg-pic" mode="widthFix"></image>
               <view class="tui-msg-item">
                 <view class="tui-msg-name">昵称：{{item.userInfo.nickName}}</view>
-                <view class="tui-msg-content">campus:：{{item.userInfo.country}}</view>
+                <view class="tui-msg-content">campus:：{{item.userInfo.campus}}</view>
               </view>
             </view>
             <view class="tui-msg-right {{item.level==3?'tui-right-dot':''}}">

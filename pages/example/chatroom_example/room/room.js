@@ -1,3 +1,5 @@
+import { requestUtil } from "../../../../utils/requestUtil"
+
 const app = getApp()
 Page({
   data: {
@@ -18,6 +20,26 @@ Page({
   onLoad: function (options) {
     // 获取用户信息
     console.log('聊天中的背景图片',options.backgroundimage)
+    console.log(options.product)
+    requestUtil({url:"/product/findId",method:"GET",data:{id:options.product}}).then(res=>{
+      console.log(res)
+      let imgurl=""
+      if(res.message[0].propic.pics[0][0]!='h'&&res.message[0].propic.pics[0][0]!='c'){
+        imgurl=app.globalData.baseUrl+"/image/product/"+res.message[0].propic.pics[0]
+      }else{
+        imgurl=res.message[0].propic.pics[0]
+      }
+      this.setData({
+        product:{
+          pic:imgurl,
+          name:res.message[0].name,
+          price:res.message[0].price,
+          university:app.globalData.campuses[res.message[0].campus].name,
+          campus:app.globalData.campuses[res.message[0].campus].campus,
+        }
+      })
+    })
+
     this.setData({
       chatRoomGroupId: options.id,
       chatRoomGroupName:options.name,

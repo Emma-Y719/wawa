@@ -124,19 +124,38 @@ handleLocationJump(e){
     app.globalData.curcamIndex=index;
     app.globalData.searchUniversityIndex=this.data.currentIndex;
     app.globalData.searchCampusIndex=index;
+    wx.navigateBack({
+      delta: 2
+    })
   }else if(prevPage.route=="pages/search/index"){
-    console.log("campuses:",this.Campuses)
-    app.globalData.location=this.Campuses[this.data.currentIndex].name+"-"+this.Campuses[this.data.currentIndex].schoolList[index].campus;
 
-    app.globalData.camIndex=this.data.currentIndex;
-    app.globalData.curcamIndex=index;
-    app.globalData.searchUniversityIndex=this.data.currentIndex;
-    app.globalData.searchCampusIndex=index;
+    // app.globalData.location=this.Campuses[this.data.currentIndex].name+"-"+this.Campuses[this.data.currentIndex].schoolList[index].campus;
+
+    // app.globalData.camIndex=this.data.currentIndex;
+    // app.globalData.curcamIndex=index;
+    // app.globalData.searchUniversityIndex=this.data.currentIndex;
+    // app.globalData.searchCampusIndex=index;
+    prevPage.setData({
+      university:this.Campuses[this.data.currentIndex].name,
+      campus:this.Campuses[this.data.currentIndex].schoolList[index].campus,
+      uid:this.data.currentIndex,
+      cid:index,
+    })
     prevPage.searchProductList();
+    wx.navigateBack({
+      delta: 2
+    })
+  }else{
+    prevPage.setData({
+      university:this.Campuses[this.data.currentIndex].name,
+      campus:this.Campuses[this.data.currentIndex].schoolList[index].campus,
+      uid:this.data.currentIndex,
+      cid:index,
+    })
+    wx.navigateBack({
+      delta: 2
+    })
   }
-  wx.navigateBack({
-    delta: 2
-  })
 
   // let rightContext=this.Cates[index].smallTypeList;
   // this.setData({

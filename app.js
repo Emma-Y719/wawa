@@ -1,5 +1,4 @@
-import { requestUtil } from "./utils/requestUtil"
-
+import { requestUtil,getBaseUrl} from "./utils/requestUtil"
 // app.js
 App({
 
@@ -18,6 +17,72 @@ App({
         traceUser: true,
       })
     }
+    const token=wx.getStorageSync('token');
+    if(!this.globalData.isLogin){
+      wx.showModal({
+        title:'友情提示',
+        content:'微信授权登录后，才可进入个人中心',
+        success:(res)=>{
+          wx.cloud.callFunction({
+            name: 'yunrouter', // 对应云函数名
+            data: {
+              $url: "openid", //云函数路由参数
+            },
+            success: re => {
+              console.log("user:"+re.result)
+              this.globalData.openid=re.result
+              db.collection('user').where({
+                _openid: re.result
+              }).get({
+                success: function (res) {
+                  if(res.data[0]==undefined){
+                    console.log("尚未注册！")
+                    wx.redirectTo({
+                      url: '/pages/my/create/login',
+                    })
+                  }else{
+                    console.log("data :",res.data[0].userInfo)
+                    this.globalData.openid= res.data[0]._openid;
+                    this.globalData.userInfo = res.data[0].userInfo;
+                    this.globalData.friends=res.data[0].friends;
+                    this.globalData.data=res.data[0]
+                    console.log(this.globalData)
+                    wx.reLaunch({
+                      url: '/pages/my/create/login',
+                    })
+                  }
+      
+                },
+              })
+            }
+          })
+          // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
+          //   console.log(res[0].code);
+          //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
+          //   let loginParam={
+          //     code:res[0].code,
+          //     nickName:res[1].userInfo.nickName,
+          //     avatarUrl:res[1].userInfo.avatarUrl
+          //   }
+          //   console.log(loginParam)
+          //   wx.setStorageSync('userInfo', res[1].userInfo);
+          //   this.wxlogin(loginParam);
+          //   app.globalData.userInfo=res[1].userInfo
+          //   app.globalData.isLogin=true;
+
+          // })
+        }
+      })
+    }else{
+      console.log("token存在："+token);
+      const userInfo=wx.getStorageSync('userInfo')
+      this.setData({
+        userInfo
+      })
+    }
+    const baseUrl=getBaseUrl();
+    this.globalData.baseUrl=baseUrl;
+    console.log(baseUrl)
     requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
       console.log("campuses: ",result.message)
       this.globalData.campuses=result.message
@@ -27,6 +92,7 @@ App({
 
   },
   globalData: {
+    baseUrl:"",
     useTmp : false ,// 默认不开启
     userInfo: null,
     index:-1,

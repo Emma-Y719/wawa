@@ -2,7 +2,7 @@ const db = wx.cloud.database();
 const app = getApp();
 const config = require("../../../styles/config.js");
 const { getBaseUrl,requestUtil } = require("../../../utils/requestUtil.js");
-
+wx.cloud.init();
 Page({
 
       /**
@@ -110,13 +110,92 @@ Page({
                   that.check();
             }
       },
-      handleCreate(e){
-        wx.navigateTo({
-          url: '/pages/storage/create/success',
-        })
+      uploadFileToCloud(filePath){
+        return new Promise((resolve, reject) => {
+          wx.cloud.uploadFile({
+            cloudPath: Date.parse(new Date()) + '.png',
+            filePath: filePath,
+            success: res => {
+              console.log('上传云', res)
+              console.log(res.fileID)
+              resolve(res.fileID);
+            },
+            fail: err => {
+              console.log('上传云err', err)
+              reject(err);
+            }
+          });
+        });
       },
+
+async handleuploadpic(){
+  var pic=""
+  if(this.data.pic!="/icons/ride.jpg"){
+    try{
+      const fileID=await this.uploadFileToCloud(this.data.pic);
+      pic=fileID;
+    }catch (error) {
+      console.log('上传图片失败', error);
+    }
+  }else{
+    pic=this.data.pic
+  }
+  console.log("pic url: ",pic)
+  var datacount=0;
+  var that=this;
+  requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+    datacount=result.message[result.message.length-1].identity+1;
+    console.log("this index",datacount)
+
+    wx.request({
+      url: that.data.baseUrl+'/storage/add',
+      method:"POST",
+      data: {
+        identity: datacount,
+        name: that.data.name,
+        university:that.data.uid,
+        campus:that.data.cid,
+        log:that.data.log,
+        lat:that.data.lat,
+        pic:pic,
+        userid:app.globalData.openid
+      },
+      success: function (res) {
+        console.log(res);
+        db.collection('user').where({
+          _openid: app.globalData.openid
+        }).update({
+          data: {
+            storage: db.command.push([datacount])
+          }
+        })
+
+        wx.showModal({
+          title: '',
+          content: '创建成功！去发布吧～',
+          complete: (res) => {
+            if (res.cancel) {
+              wx.reLaunch({
+                url: '/pages/storage/index',
+              })
+            }
+            if (res.confirm) {
+              wx.reLaunch({
+                url: '/pages/promote/index',
+              })
+            }
+          }
+        })
+      }
+    })
+
+  })
+
+},
+
+
       //校检
-      handleCreate1(e) {
+   handleCreate1(e) {
         let that = this;
         let name = that.data.name;
         console.log(name)
@@ -150,16 +229,15 @@ Page({
                 });
           }
         }
-
-
-
         wx.request({
           url: this.data.baseUrl+'/storage/findName',
           method:"GET",
           data:{
             name:that.data.name
           },
+          
           success:function(res){
+            let self=that;
             console.log(res);
             if(res.data.message.length!=0){
               wx.showToast({
@@ -168,71 +246,7 @@ Page({
                 duration: 2000
               });
             }else{
-              var pic=""
-              if(that.data.pic!="/icons/ride.jpg"){
-                wx.cloud.uploadFile({
-                  cloudPath:Date.parse(new Date())+"storage"+'.png',//图片上传时名字会覆盖，所以这边用时间戳和索引值拼的
-                  //cloudPath:'uploadimage/'+Date.parse(new Date())+index+'.png',//前面加上 文件夹名字/test.png 图片就会上传到指定的文件夹下，否则按上面的会传到根目录下
-                  filePath:that.data.pic, // 文件路径
-                  success: res => {
-                    console.log('上传云',res)
-                    console.log(res.fileID)
-                    pic=res.fileID
-                    console.log("pic:"+pic)
-                    var datacount=0;
-                    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-                      datacount=result.message[result.message.length-1].identity+1;
-                      console.log("this index",datacount)
-      
-                      wx.request({
-                        url: that.data.baseUrl+'/storage/add',
-                        method:"POST",
-                        data: {
-                          identity: datacount,
-                          name: that.data.name,
-                          university:that.data.uid,
-                          campus:that.data.cid,
-                          log:that.data.log,
-                          lat:that.data.lat,
-                          pic:pic,
-                          userid:app.globalData.openid
-                        },
-                        success: function (res) {
-                          console.log(res);
-                          wx.showModal({
-                            title: '',
-                            content: '创建成功！去发布吧～',
-                            complete: (res) => {
-                              if (res.cancel) {
-                                wx.reLaunch({
-                                  url: '/pages/storage/index',
-                                })
-                              }
-                              if (res.confirm) {
-                                wx.reLaunch({
-                                  url: '/pages/promote/index',
-                                })
-                              }
-                            }
-                          })
-                        }
-                      })
-      
-                    })
-                  },
-                  fail: err => {
-                    console.log('上传云err',err)
-                  // handle error
-                  }
-                  
-
-
-                })
-
-              }else{
-                pic=that.data.pic
-              }
-
+             self.handleuploadpic();
 
             }
           }

@@ -24,7 +24,9 @@ Page({
     userInfo:[],
     isfocus:false,
     fvalue:"",
-    me:{}
+    me:{},
+    id:-1,
+    chatid:""
   },
 
   productInfo:{
@@ -65,6 +67,7 @@ Page({
     });
     this.productInfo=result.message;
     this.setData({
+      id:id,
       productObj: result.message
     })
     console.log(result.message.userid)
@@ -77,33 +80,41 @@ Page({
       success: res2 => {
         console.log(res2.result.data[0].userInfo)
         this.setData({
-          userInfo:res2.result.data[0].userInfo
+          userInfo:res2.result.data[0]
         })
       },
       fail() {
       }
     });
 
-    console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
-    console.log("user: "+this.data.productObj.userid)
-    if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
-      this.setData({
-        fvalue:"已关注"
-      })
+ 
+    if(app.globalData.friends.length!=0){
+      console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
+      console.log("user: "+this.data.productObj.userid)
+      if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
+        this.setData({
+          fvalue:"已关注"
+        })
+      }else{
+        this.setData({
+          fvalue:"+关注"
+        })
+      }
     }else{
       this.setData({
         fvalue:"+关注"
       })
     }
 
+
   },
   addChat(e){
-    var chatroom={
-      id: app.globalData.openid+this.data.productObj.userid,
-      userInfo: this.data.userInfo,
-      _openid: this.data.productObj.userid,
-      backgroundimage: ''
-    }
+    let that=this
+    this.setData({
+      chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
+    })
+
+
     wx.cloud.callFunction({
       name: 'yunrouter',
       data: {
@@ -120,69 +131,144 @@ Page({
       fail() {
       }
     });
-
-
-    
-    db.collection('user').where({
-      _openid: app.globalData.openid
-    }).update({
-      data: {
-        chat: db.command.push([chatroom])
-      }
-    })
- 
-      let that = this;
-      let haoyouinfo =chatroom
-      console.log("好友： "+haoyouinfo.userInfo.nickName)
-      if(!this.data.backgroundimage1){
-        //就证明没有更换图片
-        that.setData({
-          //这个id就唯一标识这个好友
-          chatid: haoyouinfo.id,
-          chatname: haoyouinfo.userInfo.nickName,
-          backgroundimage:haoyouinfo.backgroundimage
-        })
-      }
-      else{
-        that.setData({
-          //这个id就唯一标识这个好友
-          chatid: haoyouinfo.id,
-          chatname: haoyouinfo.userInfo.nickName,
-          backgroundimage:that.data.backgroundimage1
-        })
-      }
-  
-      // wx.navigateTo({
-      //   url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.haoyouinfo._openid,
-      // })
-      let  lessonSubId='wP0DrgBo_CKL51uA2QYFRJS-_IMnLUMWataPkALuw6s'
-      //调用订阅消息提醒
-      // 如果开启这个订阅消息提醒，否则就不提醒
-      if(app.globalData.useTmp){
-        wx.requestSubscribeMessage({
-          tmplIds: [lessonSubId],//这个是微信平台申请的 id
-          success:res => {
-           console.log(res)
-           console.log(res[lessonSubId])
-           if(res[lessonSubId]=="accept"){
-               console.log("接受订阅申请")
-               wx.navigateTo({
-                url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid,
-              })
-           }else if(res[lessonSubId]=="reject"){
-               console.log("拒绝接受订阅申请")
-           }
-          },
-          fail(res){
-              console.log(res)
-          }
-        })
+    db.collection('chats').where({
+      chatid:this.data.chatid
+    }).get().then(res=>{
+      console.log(this.data.chatid)
+      console.log("chat: ",res.data.length)
+      if(res.data.length==0){
+        this.addRoom();
       }else{
         wx.navigateTo({
-          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid,
+          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
         })
       }
+    })
+    
+        //     let rooms=res2.result.data[0].chat;
+        // console.log("chat: ",rooms)
+        // let count=0;
+        // rooms.forEach(function(value,index,array){
+        //   if(value.product.identity==that.data.id){
+        //     count+=1;
+        //   }
+        // })
+        // if(count==0){
+        //   this.addRoom();
 
+        // }else{
+        //   console.log(that.data.chatname)
+
+        // }
+  },
+  async addRoom(){
+    var chatroom={
+      chatid: this.data.chatid,
+      userInfo: this.data.userInfo,
+      _openid: this.data.productObj.userid,
+      backgroundimage: '',
+      product:this.data.productObj
+    }
+    var chatroom_target={
+      chatid: this.data.chatid,
+      userInfo: app.globalData.userInfo,
+      _openid: this.data.productObj.userid,
+      backgroundimage: '',
+      product:this.data.productObj
+    }
+    await db.collection('chats').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        chatid:chatroom.chatid,
+        id:app.globalData.openid,
+        targetid:chatroom._openid,
+        chatroom:chatroom
+      }
+    })
+    await db.collection('chats').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        chatid:chatroom.chatid,
+        id:chatroom._openid,
+        targetid:app.globalData.openid,
+        chatroom:chatroom_target
+      }
+    })
+
+    // console.log("target: "+this.data.productObj.userid)
+    // const db1=wx.cloud.database()
+    // let target=await db1.collection('user').where({
+    //   _openid:"olD3w5L8bcp1OLV_cAzkejkVRqh4"
+    // }).get();
+    // console.log(target)
+
+    // await db1.collection('user').where({
+    //   _openid: this.data.productObj.userid
+    // }).update({
+    //   data: {
+    //     chat: db1.command.push([chatroom])
+    //   }
+    // }).then(res=>{
+
+
+    // })
+
+    // await db.collection('user').where({
+    //   _openid: app.globalData.openid
+    // }).update({
+    //   data: {
+    //     chat: db.command.push([chatroom])
+    //   }
+    // })
+
+    
+    let that = this;
+    let haoyouinfo =chatroom
+    console.log("好友： "+haoyouinfo.userInfo.nickName)
+    if(!this.data.backgroundimage1){
+      //就证明没有更换图片
+      that.setData({
+        //这个id就唯一标识这个好友
+        chatid: haoyouinfo.chatid,
+        chatname: haoyouinfo.userInfo.nickName,
+        backgroundimage:haoyouinfo.backgroundimage
+      })
+    }
+    else{
+      that.setData({
+        //这个id就唯一标识这个好友
+        chatid: haoyouinfo.id,
+        chatname: haoyouinfo.userInfo.nickName,
+        backgroundimage:that.data.backgroundimage1
+      })
+    }
+    let  lessonSubId='wP0DrgBo_CKL51uA2QYFRJS-_IMnLUMWataPkALuw6s'
+    //调用订阅消息提醒
+    // 如果开启这个订阅消息提醒，否则就不提醒
+    if(app.globalData.useTmp){
+      wx.requestSubscribeMessage({
+        tmplIds: [lessonSubId],//这个是微信平台申请的 id
+        success:res => {
+        console.log(res)
+        console.log(res[lessonSubId])
+        if(res[lessonSubId]=="accept"){
+            console.log("接受订阅申请")
+            wx.navigateTo({
+              url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid,
+            })
+        }else if(res[lessonSubId]=="reject"){
+            console.log("拒绝接受订阅申请")
+        }
+        },
+        fail(res){
+            console.log(res)
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
+      })
+    }
   },
   handlefocus(e){
     if(!this.data.isfocus){
@@ -222,7 +308,6 @@ Page({
   },
   // 点击事件 商品加入购物车
   handleCartAdd(){
-    
     this.setCartadd();
 
     wx.showToast({
@@ -233,20 +318,7 @@ Page({
   },
 
   
-  // 点击 立即购买
-  handleBuy(){
-    this.setCartadd();
-    wx.switchTab({
-      url: '/pages/cart/index',
-    })
-  },
-  handleChat:function(){
-    console.log("Chat!")
-    console.log(app.globalData.userInfo)
-    wx.navigateTo({
-      url: '/pages/chat/index',
-    })
-  },
+
   // 加入购物车
   setCartadd(){
     let cart=wx.getStorageSync('cart')||[];

@@ -15,8 +15,8 @@
        }
        .active{
          font-weight: bolder;
-         color: var(--themeColor);
-         border-left: 8rpx solid currentColor;
+         color: #88bb1e;
+         border-left: 15rpx solid currentColor;
        }
     }
     .right_content{
@@ -29,21 +29,26 @@
         .product_list{
          navigator{
            display: flex;
-           margin: 10rpx;
+           margin-top: 30rpx;
            background-color: #F8F8F8;
+           border-radius: 30rpx;
+           padding: 20rpx;
            image{
-             flex: 1;
+             width: 180rpx;
+             height: 180rpx;
            }
            .right{
-             flex: 3;
+             width:60%;
              display: flex;
              flex-direction: column;
              justify-content: space-around;
+             margin-left: 20rpx;
              .product_name{
                 padding-top: 10rpx;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                font-size: 35rpx;
              }
              .product_price{
                 padding-bottom: 10rpx;

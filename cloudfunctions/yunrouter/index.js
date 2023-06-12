@@ -33,6 +33,7 @@ exports.main = async (event, context) => {
         _openid: wxContext.OPENID,
         userInfo: event.userInfo,
         phone: event.phone,
+        university:event.university,
         campus: event.campus,
         qqnum: event.qqnum,
         email: event.email,
@@ -41,7 +42,9 @@ exports.main = async (event, context) => {
         nickName:event.nickName,
         money: 0,
         dba: 0,
-        friends: []
+        friends: [],
+        storage:[],
+        chat:[]
       }
     })
   });
@@ -62,7 +65,25 @@ exports.main = async (event, context) => {
       console.error(e)
     }
   });
-
+  app.router('checkDupliName',async(ctx)=>{
+    try {
+      const collection = db.collection('user');
+      const queryResult = await collection.where({
+        nickName: event.nickName
+      }).get();
+      
+      return {
+        success: true,
+        isDuplicate: queryResult.data.length > 0
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        isDuplicate: false
+      };
+    }
+  })
   //发送消息提醒
   app.router('tixing', async (ctx) => {
     try {

@@ -1,0 +1,44 @@
+<!--pages/storage/create/info/index.wxml-->
+<page>
+<view class="con1">
+  <view class="h">
+    <image class='icon' src="/icons/promote.png" mode="widthFix"/>
+    <text class="tit">
+      群聊物品库创建者能够得到什么？
+    </text>
+  </view>
+  <text class="con1text">
+    大数据上首先推广你的物品，让周围的人更大的机会看见你的发布~
+  </text>
+</view>
+<view class="con2">
+  <view class="h">
+    <image class='icon' src="/icons/promote.png" mode="widthFix"/>
+    <view class="tit">
+      群聊物品库创建者需要做什么?
+    </view>
+  </view>
+
+  <view class="con2text">
+    <text class="t1">
+      1. 创建物品库名称与群聊名称对应，如群聊是“买买买后悔药”建议物品库名称为“买买买后悔药群物品库”。不要重复建物品库，以防物品密度的分散，尽量一个群一个物品库，且与群聊同名。
+
+    </text>
+    <text class="t2">
+      2.创建后，将物品库转发至微信群聊，告知并呼唤小伙伴将物品放进来。
+
+    </text>
+
+    <text class="t3">
+      3.定期将物品库转发至群聊，提醒小伙伴将自己已上传的物品主页转发过来分享。
+    </text>
+
+    
+  </view>
+</view>
+<view class="cbtn" bindtap="handleCreate">
+<text> 创建群聊物品库</text>
+ 
+</view>
+
+</page>

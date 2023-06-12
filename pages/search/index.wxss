@@ -127,6 +127,7 @@ page .products {
 page .products .product_list {
   display: flex;
   flex-wrap: wrap;
+  align-content: space-between;
   margin-top: 30%;
 }
 page .products .product_list .product_card {

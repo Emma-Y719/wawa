@@ -1,32 +1,39 @@
-
-  <image style="width: 110rpx; height: 110rpx; display: inline-block; box-sizing: border-box; margin-left: 10rpx; position: relative; left: 12rpx; top: 37rpx" class="pic" src="{{userInfo.avatarUrl}}" mode="widthFix" />
+<view class="userContainer">
   
-  <text style="left: 27rpx; top: -33rpx; position: relative; font-size: 40rpx; font-weight: bold">{{userInfo.nickName}}
-  </text>
-  <text style="position: relative; left: 147rpx; top: -22rpx">{{userInfo.campus}}</text>
-
-  <view class="gbtn" bindtap="handlefocus"style="width: 145rpx; height: 75rpx; box-sizing: border-box; position: relative; left: 579rpx; top: -116rpx; background-color: #e4e5e7; border-radius: 40rpx; text-align: center; font-size: 35rpx; color: #7a7b7c; display: flex; justify-content: center; align-items: center">
+  <image  class="pic" src="{{userInfo.userInfo.avatarUrl}}" mode="widthFix" />
+  <view class="middle">
+    <text class="name">{{userInfo.userInfo.nickName}}</text>
+    <text class="campus">{{userInfo.university}}-{{userInfo.campus}}</text>
+  </view>
+ 
+ <view class="right">
+  <view class="gbtn" bindtap="handlefocus">
     {{fvalue}}
   </view>
+ </view>
+
+
+
+</view>
 
 
 
 
-<view class="product_swiper" style="height: 535rpx; display: block; box-sizing: border-box; position: relative; margin-left: 10rpx; margin-right: 10rpx; width: 720rpx; left: 5rpx; top: -62rpx">
-  <swiper autoplay circular	indicator-dots style="display: block; box-sizing: border-box; position: relative; border-radius: 50rpx; margin-right: 10rpx; height: 500rpx; left: -10rpx; top: 0rpx; margin-left: 10rpx; width: 720rpx">
+<view class="product_swiper" >
+  <swiper autoplay circular	indicator-dots>
       <swiper-item 
         wx:for="{{productObj.propic.pics}}"
         wx:key="id"
       >
         <navigator>
-          <image mode="widthFix" src="{{item[0]!='h'? baseUrl+'/image/product/'+item : item}}"></image>
+          <image mode="widthFix" src="{{item[0]!='h'&&item[0]!='c'? baseUrl+'/image/product/'+item : item}}"></image>
         </navigator>
       </swiper-item>
     </swiper>
 </view>
 <!-- 商品轮播图结束 -->
 
-<view class="product_price"  style="position: relative; left: -4rpx; top: -23rpx"> ¥ {{productObj.price}}</view>
+<view class="product_price"> ¥ {{productObj.price}}</view>
 
 <view class="product_name" style="position: relative; left: 16rpx; top: -150rpx; width: 425rpx; height: 108rpx; display: block; box-sizing: border-box; margin-right: 10rpx">{{productObj.name}}</view>
 <view class="product_addition_usepercent" style="width: 89rpx; height: 37rpx; display: block; box-sizing: border-box; position: relative; left: 22rpx; top: -149rpx; border-right: 1rpx solid #afaeac">八成新</view>

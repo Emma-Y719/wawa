@@ -227,6 +227,7 @@ Component({
       const db = this.db
       const _ = db.command
       this.data.userInfo=app.globalData.userInfo;
+      console.log("userInfo: ",app.globalData.userInfo)
       console.log("send:  "+this.data.userInfo.nickName);
       const doc = {
         _id: `${Math.random()}_${Date.now()}`,

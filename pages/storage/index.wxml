@@ -23,7 +23,6 @@
     <div class="inter"></div>
   </navigator>
   <navigator class="campus" url="/pages/index/location">
-
     {{campus}}
     <div class="line"></div>
     <div class="inter"></div>

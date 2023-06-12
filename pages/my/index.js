@@ -31,7 +31,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.button1)
+    this.setData({
+      baseUrl:app.globalData.baseUrl
+    })
+    console.log("userInfo: ",app.globalData.userInfo)
     this.setData({
       userInfo:app.globalData.userInfo,
       b1:this.data.button1[this.data.typeIndex],
@@ -183,11 +186,25 @@ Page({
   onReachBottom: function () {
 
   },
-
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    wx.showShareMenu({
+      withShareTicket:true,
+      menu:['shareAppMessage','shareTimeline']
+    })
 
-  }
+    console.log(this.data.userInfo.avatarUrl)
+    return {
+      title: this.data.userInfo.nickName+": 这里是我的宝库，快来瞧一瞧～",
+      imageUrl: this.data.userInfo.avatarUrl
+    }
+  },
 })

@@ -22,7 +22,7 @@
 
 
 
-        <navigator url="/pages/shopMap/shopMap"class="contact" bindtap="handleCreate">
+        <navigator url="/pages/shopMap/shopMap"class="contact">
         <text> {{loc}}</text>
       
         </navigator>

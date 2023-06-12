@@ -89,7 +89,7 @@ Page({
         url: '/pages/index/index',
       }) 
     }
-    else if(prevPage.route=="pages/promote/index"||prevPage.route=="pages/storage/create/login"){
+    else{
       prevPage.setData({
         university:this.data.productList[index].name,
         campus:this.data.productList[index].campus,

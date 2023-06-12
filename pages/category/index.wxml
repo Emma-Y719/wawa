@@ -34,7 +34,7 @@
         <navigator
           url="/pages/product_detail/index?id={{product.identity}}"
         >
-          <image mode="widthFix" src="{{baseUrl+'/image/product/'+product.propic.pics[0]}}"></image>
+          <image mode="aspectFill" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}"></image>
           <view class="right">
             <view class="product_name">
               {{product.name}}

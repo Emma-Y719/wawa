@@ -163,8 +163,8 @@ Page({
         iconPath: imgurl,
         latitude: value.latitude,
         longitude: value.longtitude,
-        width: 50,  
-        height: 50,
+        width: 40,  
+        height: 40,
         callout: {
           content: value.price,
           color: '#ffffff',
@@ -176,7 +176,8 @@ Page({
         title:value.name,
         detailInfo:value.description,
         propic:value.propic,
-        price:value.price
+        price:value.price,
+        identity:value.identity
       }
       marks[index]=marker
 

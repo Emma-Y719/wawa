@@ -23,7 +23,9 @@ Page({
     top: 0, // 悬浮窗顶部距离
     startX: 0, // 手指起始X坐标
     startY: 0, // 手指起始Y坐标
-    pic:""
+    pic:"",
+    addValue:"加入物品库",
+    isAdd:false,
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -87,6 +89,33 @@ Page({
         })
       }
     })
+  },
+  handleAdd(e){
+    if(!this.data.isAdd){
+      db.collection('user').where({
+        _openid: app.globalData.openid
+      }).update({
+        data: {
+          storage: db.command.push([{
+            id: this.data.id,
+          }])
+        }
+      })
+      
+      wx.cloud.callFunction({
+        name: 'yunrouter',
+        data: {
+          $url: "huoquUserinfo", //云函数路由参数
+          openid: app.globalData.openid
+        },
+        success: res2 => {
+          this.data.addValue= "已关注",
+          this.data.isAdd=true
+        },
+        fail() {
+        }
+      });
+    }
   },
 
   navigateBack: function () {

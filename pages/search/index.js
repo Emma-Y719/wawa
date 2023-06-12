@@ -13,6 +13,8 @@ Page({
     indices:[],
     university:"",
     campus:"",
+    uid:-1,
+    cid:-1,
     type:"",
     baseUrl:'',
     productList:[],
@@ -56,7 +58,11 @@ Page({
 
     });
     this.setData({
-      type:app.globalData.type
+      type:app.globalData.type,
+      uid:app.globalData.searchUniversityIndex,
+      cid:app.globalData.searchCampusIndex,
+      university:app.globalData.campus.split('-')[0],
+      campus:app.globalData.campus.split('-')[1]
     })
     this.searchProductList();
     var that = this
@@ -101,14 +107,10 @@ Page({
   async searchProductList(e){
     var searchUniversityIndex=app.globalData.searchUniversityIndex;
     var searchCampusIndex=app.globalData.searchCampusIndex;
-    var campus_=app.globalData.campus.split('-')[1]
-    var university_=app.globalData.campus.split('-')[0]
-    console.log("indices: "+searchUniversityIndex+" , "+searchCampusIndex);
-    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:searchUniversityIndex,campus:searchCampusIndex,type:this.data.type}}).then(result=>{
+    console.log("indices: "+this.data.uid+" , "+this.data.cid);
+    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
       console.log("lists",result.message.productList);
       this.setData({
-        university:university_,
-        campus:campus_,
         productList:result.message
       })
     })
@@ -200,7 +202,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    
   },
 
   /**
