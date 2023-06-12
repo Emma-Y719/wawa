@@ -1,8 +1,43 @@
-.pic {
+.userContainer {
+  margin-left: 10rpx;
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.userContainer .pic {
+  width: 100rpx;
   border-radius: 50rpx;
 }
+.userContainer .middle {
+  display: flex;
+  flex-direction: column;
+  width: 455rpx;
+  margin-left: 20rpx;
+}
+.userContainer .middle .name {
+  font-size: 35rpx;
+  font-weight: 500;
+}
+.userContainer .right {
+  margin-right: 10rpx;
+  width: 145rpx;
+  height: 75rpx;
+  background-color: #e7e7e7;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35rpx;
+}
+.product_swiper {
+  margin-top: 20rpx;
+}
 .product_swiper swiper {
-  height: 100vw;
+  height: 500rpx;
+  width: 700rpx;
+  align-items: center;
 }
 .product_swiper swiper swiper-item navigator image {
   background-color: #9a9eb6;
