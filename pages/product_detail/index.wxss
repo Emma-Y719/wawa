@@ -1,5 +1,6 @@
 .userContainer {
   margin-left: 10rpx;
+  margin-top: 50rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,30 +31,93 @@
   justify-content: center;
   font-size: 35rpx;
 }
+.product_swiper {
+  margin-top: 20rpx;
+  margin-left: 10rpx;
+}
 .product_swiper swiper {
-  height: 100vw;
+  height: 450rpx;
+  width: 730rpx;
 }
 .product_swiper swiper swiper-item navigator image {
   background-color: #9a9eb6;
   border-radius: 50rpx;
 }
-.product_price {
-  background-color: transparent;
-  margin-left: 60%;
-  padding: 15rpx;
-  font-size: 80rpx;
+.product_info {
+  margin-left: 10rpx;
+  display: flex;
+  align-items: center;
+}
+.product_info .product_name {
+  font-size: 45rpx;
+  font-weight: 400;
+  margin-left: 10rpx;
+}
+.product_info .product_price {
+  position: absolute;
+  right: 10px;
+  font-size: 50rpx;
   font-weight: 600;
   color: #ff7800;
 }
-.product_name {
-  padding: 15rpx;
-  font-size: 40rpx;
-  font-weight: 600;
-  border-top: 1rpx solid #dedede;
+.product_addition {
+  margin-top: 15rpx;
+  margin-left: 15rpx;
+  display: flex;
+}
+.product_addition .product_usepercent {
+  width: 100rpx;
+  align-items: center;
+}
+.product_addition .product_viewcount {
+  width: 180rpx;
+  align-items: center;
+}
+.product_addition .product_favoritecount {
+  width: 180rpx;
+  align-items: center;
 }
 .product_descripion {
-  padding: 0 10rpx 25rpx 10rpx;
-  border-bottom: 1rpx solid #dedede;
+  margin-left: 15rpx;
+  margin-top: 40rpx;
+}
+.message {
+  margin-top: 50rpx;
+  display: flex;
+  align-items: center;
+}
+.message .message_icon {
+  margin-left: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.message .message_title {
+  margin-left: 10rpx;
+  font-size: 35rpx;
+  font-weight: 600;
+}
+.btmbackground {
+  margin-top: 40rpx;
+  align-items: center;
+  display: flex;
+}
+.btmbackground .btm_icon {
+  margin-left: 15rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+.btmbackground .btm_text {
+  margin-left: 20rpx;
+  width: 600rpx;
+  height: 60rpx;
+  background-color: #c0c0c0;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 30rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #fff;
 }
 .desc_tabs .tabs_title {
   display: flex;
@@ -69,14 +133,15 @@
   color: var(--themeColor);
 }
 .btm_tool {
-  padding: 10rpx;
+  padding: 20rpx;
   position: fixed;
-  left: 0;
+  left: 10;
   bottom: 0;
   display: flex;
-  width: 100%;
-  background-color: #fff;
-  height: 90rpx;
+  width: 700rpx;
+  background-color: #000000;
+  border-radius: 60rpx;
+  align-items: center;
 }
 .btm_tool .tool_item {
   flex: 1;
@@ -95,37 +160,49 @@
   height: 100%;
   opacity: 0;
 }
+.btm_tool .home {
+  height: 65rpx;
+}
+.btm_tool .favorite {
+  height: 50rpx;
+}
+.btm_tool .smile {
+  height: 60rpx;
+}
 .btm_tool .btn_cart {
   flex: 2;
   justify-content: center;
   align-items: center;
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
   background-color: #88bb1e;
   color: #fff;
   border-left: 1rpx solid black;
   border-right: 1rpx solid black;
   z-index: 5;
+  height: 70rpx;
 }
 .btm_tool .btn_same {
   flex: 2;
   justify-content: center;
   align-items: center;
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
   background-color: #88bb1e;
   color: #fff;
   border-bottom-left-radius: 50rpx;
   border-top-left-radius: 50rpx;
+  height: 70rpx;
 }
 .btm_tool .btn_buy {
   flex: 2;
   justify-content: center;
   align-items: center;
   font-size: 30rpx;
-  font-weight: 600;
+  font-weight: 500;
   background-image: linear-gradient(90deg, #ff7310, #fe3f00);
   color: #fff;
   border-bottom-right-radius: 50rpx;
   border-top-right-radius: 50rpx;
+  height: 70rpx;
 }
