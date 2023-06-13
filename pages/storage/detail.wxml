@@ -48,6 +48,13 @@
   </view>
 </view>
 
+<view class="storage">
+  <view class="storage_name">{{storage.name}}</view>
+  <view class="joinbtn" bindtap="handleAdd">
+    {{fvalue}}
+  </view>
+</view>
+
 <view class="products">
       <view class="product_list">
       

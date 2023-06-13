@@ -75,7 +75,7 @@ page .custom-nav-bar .keys .type {
 page .cates {
   position: fixed;
   left: 50%;
-  top: 13%;
+  top: 15%;
   transform: translate(-50%, -50%);
   background-color: #ececec;
   /* 设置导航栏的背景颜色 */
@@ -122,6 +122,13 @@ page .cates .sort {
   text-align: center;
   /* 文本水平居中对齐 */
   color: #ededed;
+}
+page .storage {
+  display: flex;
+}
+page .storage .storage_name {
+  font-size: 50rpx;
+  font-weight: 500;
 }
 page .products {
   padding: 30rpx 20rpx 30rpx 20rpx;
