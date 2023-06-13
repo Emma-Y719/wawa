@@ -158,10 +158,12 @@ page {
   align-items: center;
   background-color: #F5F5F5;
   margin: 20rpx;
-  border-radius: 10px;
+  border-radius: 10rpx;
 }
 .cart_content .cart_main .cart_item .cart_img_wrap image {
-  width: 80%;
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
 }
 .cart_content .cart_main .cart_item .cart_info_wrap {
   width: 250rpx;
@@ -169,6 +171,7 @@ page {
   flex-direction: column;
 }
 .cart_content .cart_main .cart_item .cart_info_wrap .goods_name {
+  height: 100rpx;
   font-size: 35rpx;
   margin-top: 20rpx;
   font-weight: bolder;
@@ -178,7 +181,7 @@ page {
   -webkit-line-clamp: 2;
 }
 .cart_content .cart_main .cart_item .cart_info_wrap .goods_price_wrap {
-  margin-top: 40rpx;
+  margin-top: 10rpx;
   display: flex;
   justify-content: space-between;
 }

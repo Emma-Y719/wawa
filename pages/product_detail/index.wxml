@@ -83,7 +83,7 @@
     <image mode="aspectFit" src="/icons/favorite.png" ></image>
   </navigator>
 
-  <navigator url="/pages/favorite/index" class="tool_item smile" >
+  <navigator url="/pages/my/index" class="tool_item smile" >
     <image mode="aspectFit" src="/icons/smile.png" ></image>
 
   </navigator>

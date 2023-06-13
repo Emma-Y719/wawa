@@ -200,7 +200,7 @@ page .map_container .map .right_content .productType .product_list navigator {
 page .map_container .map .right_content .productType .product_list navigator image {
   flex: 2;
   width: 100%;
-  height: 100%;
+  height: 85%;
   margin-left: 20rpx;
   margin-top: 20rpx;
   border-radius: 20rpx;

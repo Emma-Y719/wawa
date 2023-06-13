@@ -54,7 +54,7 @@
 
         <!-- 商品图片 开始 -->
         <navigator class="cart_img_wrap" url="/pages/product_detail/index?id={{item.identity}}">
-          <image mode="widthFix" src="{{baseUrl+'/image/product/'+item.propic.pics[0]}}"></image>
+          <image mode="aspectFill" src="{{item.propic.pics[0][0]!='h'&&item.propic.pics[0][0]!='c'?baseUrl+'/image/product/'+item.propic.pics[0]:item.propic.pics[0]}}"></image>
         </navigator>
         <!-- 商品图片 结束 -->
 
@@ -70,16 +70,16 @@
           </view>
           <view class="goods_loc_wrap">
             <view class="goods_university">
-              南京信息工程学院
+              {{campuses[item.campus].name}}
             </view>
             <view class="goods_campus">
-              xxx校区
+              {{campuses[item.campus].campus}}
             </view>
           </view>
         </view>
         <!-- 商品信息 结束 -->
 
-        <view class="chatbtn">
+        <view bindtap="addChat"data-id="{{index}}"class="chatbtn">
           问卖家
         </view>
       </view>

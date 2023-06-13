@@ -328,7 +328,7 @@ Page({
         //图片上传云服务
         if(this.data.pics[i][0]!='c'){
           try {
-            const fileID = await this.uploadFileToCloud(id,this.data.pics[i]);
+            const fileID = await this.uploadFileToCloud(this.data.id,this.data.pics[i]);
             pictures.push(fileID);
           } catch (error) {
             console.log('上传图片失败', error);
@@ -500,7 +500,7 @@ Page({
         //图片上传云服务
         if(this.data.pics[i][0]!='c'){
           try {
-            const fileID = await this.uploadFileToCloud(id,this.data.pics[i]);
+            const fileID = await this.uploadFileToCloud(this.data.id,this.data.pics[i]);
             pictures.push(fileID);
           } catch (error) {
             console.log('上传图片失败', error);

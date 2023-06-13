@@ -332,17 +332,44 @@ Page({
 
   // 加入购物车
   setCartadd(){
-    let cart=wx.getStorageSync('cart')||[];
-    console.log("cart: "+cart[0]);
-    let index=cart.findIndex(v=>v.id===this.productInfo.id);
-    if(index===-1){ // 购物车里面不存在当前商品 
-      this.productInfo.num=1;
-      this.productInfo.checked=true;
-      cart.push(this.productInfo);
-    }else{ // 已经存在
-      cart[index].num++;
-    }
-    wx.setStorageSync('cart', cart); // 把购物车添加到缓存中
+    wx.cloud.callFunction({
+      name: 'yunrouter',
+      data: {
+        $url: "huoquUserinfo", //云函数路由参数
+        openid: app.globalData.openid
+      },
+      success: res2 => {
+        console.log("result: ",res2)
+        let index=res2.result.data[0].favorite.findIndex(v=>v.id===this.data.productObj.identity);
+        if(index==-1){
+          db.collection('user').where({
+            _openid: app.globalData.openid
+          }).update({
+            data: {
+              favorite: db.command.push([this.data.productObj])
+            }
+          })
+        }
+      },
+      fail() {
+      }
+    });
+
+
+
+
+
+    // let cart=wx.getStorageSync('cart')||[];
+    // console.log("cart: "+cart[0]);
+    // let index=cart.findIndex(v=>v.id===this.productInfo.id);
+    // if(index===-1){ // 购物车里面不存在当前商品 
+    //   this.productInfo.num=1;
+    //   this.productInfo.checked=true;
+    //   cart.push(this.productInfo);
+    // }else{ // 已经存在
+    //   cart[index].num++;
+    // }
+    // wx.setStorageSync('cart', cart); // 把购物车添加到缓存中
   },
  // 在需要获取用户信息的事件或方法中调用
  getUserInf() {
