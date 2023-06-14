@@ -11,6 +11,7 @@
 .cates .cates_container .left_menu .menu_item {
   margin-top: 10rpx;
   height: 80rpx;
+  width: 120rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +27,7 @@
 }
 .cates .cates_container .right_content .productType {
   padding: 30rpx 20rpx 30rpx 20rpx;
+  width: 550rpx;
 }
 .cates .cates_container .right_content .productType .productType_title {
   font-weight: bolder;

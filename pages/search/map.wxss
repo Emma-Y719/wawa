@@ -11,11 +11,11 @@ page .custom-nav-bar {
 }
 page .custom-nav-bar .back-btn {
   flex: 1;
-  padding-right: 20rpx;
-  top: 87rpx;
+  padding-right: 40rpx;
+  top: 78rpx;
   width: 30rpx;
   /* 设置返回按钮的宽度 */
-  height: 70rpx;
+  height: 90rpx;
   /* 设置返回按钮的高度 */
   background-color: #ffffff00;
   /* 设置背景颜色 */
@@ -26,6 +26,8 @@ page .custom-nav-bar .back-btn {
 page .custom-nav-bar .back-btn .icon {
   width: 26px;
   height: 26px;
+  display: flex;
+  align-items: center;
 }
 page .custom-nav-bar .keys {
   /* 设置搜索栏 */
@@ -78,6 +80,7 @@ page .cates {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-top: 30rpx;
 }
 page .cates .university {
   background-color: #8ec31f;

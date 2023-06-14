@@ -19,7 +19,7 @@ page .search_bar navigator icon {
   padding-right: 5rpx;
 }
 page .search_bar .campus {
-  width: 60%;
+  width: 50%;
   height: 80rpx;
   font-size: 28rpx;
   display: flex;
@@ -32,7 +32,7 @@ page .search_bar .campus {
   margin-right: 20rpx;
 }
 page .search_bar .type {
-  width: 25%;
+  width: 40%;
   height: 80rpx;
   font-size: 28rpx;
   display: flex;
