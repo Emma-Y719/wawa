@@ -4,6 +4,8 @@ import {getBaseUrl, requestUtil}from '../../utils/requestUtil.js';
 import regeneratorRuntime from '../../lib/runtime/runtime';
 // 获取应用实例
 const app = getApp()
+wx.cloud.init()
+const db=wx.cloud.database()
 Page({
 
   /**
@@ -24,8 +26,9 @@ Page({
     startX: 0, // 手指起始X坐标
     startY: 0, // 手指起始Y坐标
     pic:"",
-    addValue:"加入物品库",
+    addValue:"加入",
     isAdd:false,
+    storageObj:{}
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -60,35 +63,46 @@ Page({
       baseUrl
     });
     if(options!=null){
-      requestUtil({url:"/storage/findById",method:"GET",data:{id:options.id}}).then(result=>{
+      console.log(options)
+      let intid=parseInt(options.id)
+      requestUtil({url:"/storage/findById",method:"GET",data:{id:intid}}).then(result=>{
         console.log(result.message[0].campus)
         this.setData({
-          id:options.id,
+          id:intid,
           university:app.globalData.campuses[result.message[0].campus].name,
           campus:app.globalData.campuses[result.message[0].campus].campus,
           name:result.message[0].name,
-          pic:result.message[0].pic
+          pic:result.message[0].pic,
+          storageObj:result.message[0]
         })
+        wx.cloud.callFunction({
+          name: 'yunrouter',
+          data: {
+            $url: "huoquUserinfo", //云函数路由参数
+            openid: app.globalData.openid
+          },
+          success: res2 => {
+            console.log(res2)
+            let storages=res2.result.data[0].storage
+            console.log(storages)
+            if(storages!=undefined){
+              let index=storages.findIndex(v=>v.identity==this.data.id)
+              console.log(index)
+              if(index!=-1){
+                this.setData({
+                  isAdd:true,
+                  addValue:"已加入"
+                })
+              }
+            }
+
+          },
+          fail() {
+          }
+        });
         this.searchProductList();
       })
     }
-
-
-
-    
-    var that = this
-    //获取当前的地理位置、速度
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        console.log(res.latitude,res.longitude);
-        //赋值经纬度
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })
-      }
-    })
   },
   handleAdd(e){
     if(!this.data.isAdd){
@@ -96,9 +110,7 @@ Page({
         _openid: app.globalData.openid
       }).update({
         data: {
-          storage: db.command.push([{
-            id: this.data.id,
-          }])
+          storage: db.command.push([this.data.storageObj])
         }
       })
       
@@ -109,19 +121,57 @@ Page({
           openid: app.globalData.openid
         },
         success: res2 => {
-          this.data.addValue= "已关注",
-          this.data.isAdd=true
+          this.setData({
+            addValue:"已加入",
+            isAdd:true
+          })
         },
         fail() {
         }
       });
+    }else{
+      wx.showModal({
+        title: '',
+        content: '确认退出物品库？',
+        complete: (res) => {
+          if (res.cancel) {
+            
+          }
+      
+          if (res.confirm) {
+            
+            db.collection('user').where({
+              _openid: app.globalData.openid
+            }).update({
+              data: {
+                storage: db.command.pull({identity:this.data.storageObj.identity})
+              }
+            }).then(res=>{
+              console.log(res)
+              this.setData({
+                isAdd:false,
+                addValue:"加入"
+              })
+
+
+            })
+          }
+        }
+      })
     }
   },
+
 
   navigateBack: function () {
     wx.navigateBack({
       delta: 1
     });
+  },
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
   },
   onMarkerTap(e) {
     var markerId = e.markerId;
@@ -134,7 +184,7 @@ Page({
   },
   async searchProductList(e){
     console.log("id: ",this.data.id);
-    requestUtil({url:'/storage/searchMulti',method:"GET",data:{id:this.data.id,type:this.data.type}}).then(result=>{
+    requestUtil({url:'/storage/searchMultiProduct',method:"GET",data:{id:this.data.id,type:this.data.type}}).then(result=>{
       console.log("lists",result);
       this.setData({
         productList:result.message
@@ -197,35 +247,7 @@ Page({
       })
     }
   },
-  //导航
-  onGuideTap: function (event) {
-    var lat = Number(event.currentTarget.dataset.latitude);
-    var lon = Number(event.currentTarget.dataset.longitude);
-    var bankName = event.currentTarget.dataset.bankname;
-    console.log(lat);
-    console.log(lon);
-    wx.openLocation({
-      type: 'gcj02',
-      latitude: lat,
-      longitude: lon,
-      name: bankName,
-      scale: 28
-    })
-  },
-  onMapTap: function (event) {
-    var lat = Number(event.currentTarget.dataset.latitude);
-    var lon = Number(event.currentTarget.dataset.longitude);
-    var bankName = event.currentTarget.dataset.bankname;
-    console.log(lat);
-    console.log(lon);
-    wx.openLocation({
-      type: 'gcj02',
-      latitude: lat,
-      longitude: lon,
-      name: bankName,
-      scale: 28
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -281,12 +303,73 @@ Page({
     var nickName=app.globalData.userInfo.nickName;
     let imgurl="";
 
-    imgurl=that.data.pic
+    imgurl=that.data.productList[0].propic.pics[0]
 
     console.log(imgurl)
     return {
       title: nickName+"分享了"+this.data.name,
-      imageUrl: imgurl
+      imageUrl: ''
     }
+
+
+
   },
+
+  grid(imgList){
+    // 获取待生成九宫格图片的数据，这里假设有一个数组imgList包含九个图片的URL
+    // 获取Canvas上下文
+    const ctx = wx.createCanvasContext('gridCanvas');
+
+    // 在每个九宫格单元格中绘制图片
+    var cellWidth = 100; // 单元格宽度
+    var cellHeight = 100; // 单元格高度
+    imgList.forEach(function(imgSrc, index) {
+      var x = (index % 3) * cellWidth;
+      var y = Math.floor(index / 3) * cellHeight;
+      ctx.drawImage(imgSrc, x, y, cellWidth, cellHeight);
+    });
+
+    // 绘制完成后调用canvasToTempFilePath方法将Canvas内容转换为临时文件路径
+    ctx.draw(false, function() {
+      wx.canvasToTempFilePath({
+        canvasId: 'gridCanvas',
+        success: function(res) {
+          var tempFilePath = res.tempFilePath;
+          console.log("tempFilePath: ",tempFilePath)
+          // 调用分享API分享图片到朋友圈
+          this.shareToTimeline(tempFilePath);
+        },
+        fail: function(res) {
+          console.log('canvasToTempFilePath failed:', res);
+        }
+      });
+});
+
+// 分享到朋友圈
+
+  },
+ shareToTimeline(imageUrl) {
+    wx.showLoading({
+      title: '生成中...',
+      mask: true
+    });
+  
+    // 调用分享API
+    wx.updateTimelineShareData({
+      title: '九宫格图片分享', // 分享标题
+      query: '', // 分享链接中的参数
+      imageUrl: imageUrl, // 分享图标
+      success: function(res) {
+        console.log('分享成功', res);
+        wx.hideLoading();
+      },
+      fail: function(res) {
+        console.log('分享失败', res);
+        wx.hideLoading();
+      }
+    });
+  }
+  
+
+
 })

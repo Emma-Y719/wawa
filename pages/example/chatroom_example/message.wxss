@@ -1,5 +1,10 @@
 page .typeContainer {
   display: flex;
+  position: fixed;
+  top: 0%;
+  left: 2%;
+  width: 96%;
+  background-color: #ffffff;
 }
 page .typeContainer .type {
   width: 34%;
@@ -15,40 +20,42 @@ page .typeContainer .type text {
   font-size: 30rpx;
 }
 page .chatList {
-  margin-top: 50rpx;
+  margin-top: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-page .chatList .chat navigator {
+page .chatList .chat {
   margin-top: 20rpx;
   background-color: #fcfcfc;
   border-radius: 20rpx;
   display: flex;
 }
-page .chatList .chat navigator .userPic {
-  width: 100rpx;
-  height: 100rpx;
+page .chatList .chat .userPic {
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50rpx;
+}
+page .chatList .chat navigator {
+  display: flex;
 }
 page .chatList .chat navigator .middle {
   margin-left: 20rpx;
-  width: 450rpx;
-}
-page .chatList .chat navigator .middle .title {
-  display: flex;
+  width: 420rpx;
 }
 page .chatList .chat navigator .middle .title .chat_name {
-  font-size: 34rpx;
+  font-size: 30rpx;
 }
 page .chatList .chat navigator .middle .title .chat_campus {
   display: flex;
-  margin-left: 20rpx;
   align-items: center;
   font-size: 20rpx;
 }
 page .chatList .chat navigator .right .productPic {
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 20rpx;
+}
+page .bottom {
+  height: 200rpx;
 }

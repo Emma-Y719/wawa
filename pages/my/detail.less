@@ -1,0 +1,201 @@
+page{
+
+  .user_info{
+    width: 100%;
+    height: 50%;
+  
+    .background-image{
+      width: 100%;
+      height:50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1; /* 将背景图片置于底层 */
+    }
+  
+    .user_info_bg{
+      margin-top: 20%;
+      position: relative;
+  
+      .user_info_wrap{
+        position: relative;
+        margin-left: 30rpx;
+        display: flex;
+        image{
+          width: 190rpx;
+          height: 190rpx;
+          
+          border-radius: 50%;
+        }
+        .detail{
+          margin-left: 30rpx;
+          margin-top: 15rpx;
+          .user_name{
+            height: 45rpx;
+            font-size: 35rpx;
+            font-weight: 500;
+          }
+          .user_acc{
+            margin-top: 10rpx;
+            font-size: 28rpx;
+            font-weight: 400;
+          }
+          .user_aff{
+            margin-top: 20rpx;
+            font-size: 32rpx;
+            font-weight: 500;
+          }
+  
+        }
+  
+      }
+    }
+    .order_wrap{
+      margin-left: 30rpx;
+      margin-top: 60rpx;
+      color: #fff8e8;
+      font-size: 40rpx;
+      .order_content{
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        navigator{
+          width: 25%;
+          
+          .order-icon{
+            position: relative;
+            width: 60rpx; 
+            height:60rpx;
+            display: inline-block; 
+            box-sizing: border-box; 
+            left: 0rpx; 
+            top: 20 rpx;
+          }
+          .order_name{
+            margin-top: 15rpx;
+            color: rgb(241, 241, 250);
+            font-size: 32rpx;
+            font-weight: 400;
+            background-color: transparent;
+  
+          }
+        }
+      }
+  
+    }
+  }
+  .product{
+    background-color: #fff;
+    border-radius: 40rpx;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 40rpx;
+    height: 300rpx;
+    .title{
+      display: flex;
+  
+      .ptype{
+        height: 70rpx;
+        flex:1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 35rpx;
+      }
+      .active{
+        height: 70rpx;
+        flex:1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 35rpx;
+        background-color: rgb(243, 232, 210);
+        border-radius: 40rpx;
+      }
+    }
+    .product_list{
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      margin-top: 20rpx;
+      .product_card{
+        width: 45%;
+        text-align: start;
+        margin: 15rpx;
+        border-radius: 20rpx;
+        background-color: #fafafa;
+        navigator{
+          image{
+            width: 100%;
+            border-top-left-radius: 20rpx;
+            border-top-right-radius: 20rpx;
+            box-shadow: 0px 10px 20px 0px #c7c9c7;
+            background-color: #fff;
+            transition: transform 200ms;
+  
+            &:hover{
+              transform: scale(1.01);
+              box-shadow: -2px 8px 15px -12px rgba(100, 120, 120, 1);
+            }
+          }
+          .product_name{
+            margin-left: 20rpx;
+            margin-top: 10rpx;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 35rpx;
+            margin-bottom: 10rpx;
+          }
+        }
+        .bottom{
+          height: 80rpx;
+          margin-left: 20rpx;
+          display: flex;
+          .product_price{
+            flex:1;
+            font-size: 40rpx;
+            color: #ff7800;
+          }
+          .button1{
+            font-size: 25rpx;
+            border-radius: 20rpx;
+            margin-left: 20rpx;
+            width: 80rpx;
+            height: 50rpx;
+            color: lavender;
+            background-color: #88bb1e;
+            border-radius: 20rpx;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            align-items:center;
+          }
+          .button2{
+            margin-left: 10rpx;
+            margin-right: 20rpx;
+            text-align: center;
+            font-size: 25rpx;
+            color: lavender;
+            background-color: #88bb1e;
+            border-radius: 20rpx;
+            width:100rpx;
+            height: 50rpx;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            align-items:center;
+          }
+        }
+      }
+    }
+    .bottom{
+      height: 200rpx;
+    }
+  }
+
+  
+  
+  }

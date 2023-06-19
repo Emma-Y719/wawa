@@ -54,22 +54,101 @@ Page({
     scrollLeft: 0, // scroll-view 组件的 scroll-left 属性，用于控制滚动位置
     distanceArr: []
   },
+  ontypeInput(e){
+    this.setData({
+      type:e.detail.value
+    })
+    console.log(e.detail)
+    console.log(this.data.type)
+    this.searchProductList()
+
+  },
   async searchProductList(e){
-    var searchUniversityIndex=app.globalData.searchUniversityIndex;
-    var searchCampusIndex=app.globalData.searchCampusIndex;
-    var campus_=app.globalData.campus.split('-')[1]
-    var university_=app.globalData.campus.split('-')[0]
-    console.log("indices: "+searchUniversityIndex+" , "+searchCampusIndex);
-    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:searchUniversityIndex,campus:searchCampusIndex,type:app.globalData.type}}).then(result=>{
-      console.log("lists",result.message.productList);
+    console.log("indices: "+this.data.uid+" , "+this.data.cid+" "+this.data.type);
+    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
+      console.log("lists",result.message);
       this.setData({
-        university:university_,
-        campus:campus_,
-        type: app.globalData.type,
         productList:result.message
       })
+      let list=this.data.productList
+      var marks=[]
+      let that=this;
+      list.forEach(function(value,index,array){
+        let imgurl=''
+        if(value.propic.pics[0][0]!='h'&&value.propic.pics[0][0]!='c'){
+          imgurl=that.data.baseUrl+"/image/product/"+value.propic.pics[0]
+        }else{
+          imgurl=value.propic.pics[0]
+        }
+        var marker={
+          id: index,
+          iconPath: imgurl,
+          latitude: value.latitude,
+          longitude: value.longtitude,
+          width: 40,  
+          height: 40,
+          callout: {
+            content: value.price,
+            color: '#ffffff',
+            fontSize: 30,
+            borderRadius: 4,
+            bgColor: '#000000',
+            padding: 8
+          },
+          title:value.name,
+          detailInfo:value.description,
+          propic:value.propic,
+          price:value.price,
+          identity:value.identity
+        }
+        marks[index]=marker
+  
+      });
+      this.setData({
+        markers:marks
+      })
+      this.addMarker();
     })
+    // if(searchCampusIndex!=-1){
+      
+    //   requestUtil({url:'/product/searchMulti',method:"GET",data:{university:searchUniversityIndex,campus:searchCampusIndex,type:app.globalData}}).then(result=>{
+    //     console.log("ll",result.message.productList);
+    //     this.setData({
+    //       university:university_,
+    //       campus:campus_,
+    //       type: app.globalData.type,
+    //       productList:result.message.productList
+    //     })
+    //   })
+    // }else if(searchCampusIndex==-1&&searchUniversityIndex!=-1){
+    //   requestUtil({url:'/campus/findUniversity',method:"GET",data:{index:searchUniversity}}).then(result=>{
+    //     console.log(result.message.schoolList);
+    //     this.setData({
+    //       university:result.message.name,
+    //       campus:"不限",
+    //       type:app.globalData.type,
+    //       productList:result.message.schoolList
+    //     })
+    //   })
+    // }else if(searchCampusIndex==-1&&searchUniversityIndex==-1){
+    //   requestUtil({url:'/product/findAll',method:"GET"}).then(result=>{
+    //     console.log(result.message);
+
+    //     this.setData({
+    //       university:"不限",
+    //       campus:"不限",
+    //       type:app.globalData.type,
+    //       productList:result.message,
+    //       scrollTop:0
+    //     })
+    //   })
+    // }
+
+
   },
+
+
+
   navigateBack: function () {
     wx.navigateBack({
       delta: 1
@@ -96,7 +175,44 @@ Page({
       baseUrl
 
     });
-    
+    if(options.uid!=undefined){
+      console.log(options)
+      let uindex=parseInt(options.uid)
+      let cindex=parseInt(options.cid)
+      let t=''
+      if(options.type!=undefined){
+        t=options.type
+      }
+      let u=''
+      let c=''
+      if(uindex!=-1){
+        u=app.globalData.campuses[uindex].name;
+      }else{
+        u="不限"
+      }
+      if(cindex!=-1){
+        c=app.globalData.campuses[cindex].campus;
+      }else{
+        c="不限"
+      }
+      
+
+      this.setData({
+        type:t,
+        uid:uindex,
+        cid:cindex,
+        university:u,
+        campus:c,
+      })
+    }else{
+      this.setData({
+        type:app.globalData.type,
+        uid:app.globalData.searchUniversityIndex,
+        cid:app.globalData.searchCampusIndex,
+        university:app.globalData.campus.split('-')[0],
+        campus:app.globalData.campus.split('-')[1]
+      })
+    }
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'W57BZ-JDB6X-XPA4H-Z76MI-73FF2-24BT4'
@@ -104,17 +220,13 @@ Page({
     this.mapCtx = wx.createMapContext('myMap')
     var that = this
     //获取当前的地理位置、速度
-    this.searchProductList()
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        console.log('location:  ',res.latitude,res.longitude);
-        //赋值经纬度
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })
-      }
+    requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid}}).then(res=>{
+      let latitude=res.message.latitude
+      let longitude=res.message.longitude
+      this.setData({
+        latitude:latitude,
+        logitude:longitude
+      })
     })
     
 
@@ -185,7 +297,7 @@ Page({
     this.setData({
       markers:marks
     })
-    this.addMarker();
+    //this.addMarker();
 
   },
 

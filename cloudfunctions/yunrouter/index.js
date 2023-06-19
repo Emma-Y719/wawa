@@ -44,7 +44,10 @@ exports.main = async (event, context) => {
         dba: 0,
         friends: [],
         storage:[],
-        chat:[]
+        chat:[],
+        favorite:[],
+        uid:event.uid,
+        cid:event.cid
       }
     })
   });

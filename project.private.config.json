@@ -7,37 +7,31 @@
     "miniprogram": {
       "list": [
         {
-          "name": "商品分类",
+          "name": "物品分类",
           "pathName": "pages/category/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "商品详情",
+          "name": "消息列表",
+          "pathName": "pages/example/chatroom_example/message",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "物品详情",
           "pathName": "pages/product_detail/index",
           "query": "id=14",
           "scene": null
         },
         {
-          "name": "购物车",
-          "pathName": "pages/cart/index",
+          "name": "收藏夹",
+          "pathName": "pages/favorite/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "确认订单支付",
-          "pathName": "pages/pay/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "订单页面",
-          "pathName": "pages/order/index",
-          "query": "type=2",
-          "scene": null
-        },
-        {
-          "name": "商品搜索",
+          "name": "物品搜索",
           "pathName": "pages/search/index",
           "query": "",
           "scene": null
@@ -52,5 +46,5 @@
     }
   },
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "projectname": "mall1.0"
+  "projectname": "mall1.0.5"
 }

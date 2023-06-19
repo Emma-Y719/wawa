@@ -34,7 +34,7 @@ page{
       margin-right:20rpx;
     }
     .type{
-      width:40%;
+      width:25%;
       height: 80rpx;
       font-size:28rpx;
       display: flex;
@@ -50,8 +50,8 @@ page{
     .title{
       margin-top: 30rpx;
       .name{
-        margin-left: 50rpx;
-        margin-right: 40rpx;
+        margin-left: 6%;
+        width: 86%;
         height:80rpx;
         font-size: 30rpx;
         font-weight: 600;
@@ -65,8 +65,8 @@ page{
     .des{
       margin-top: 30rpx;
       .text{
-        margin-left: 50rpx;
-        margin-right: 40rpx;
+        margin-left: 6%;
+        width: 86%;
         height:240rpx;
         font-size: 30rpx;
         font-weight: 600;
@@ -76,11 +76,15 @@ page{
 
       }
     }
+    .imagewarn{
+      font-size: 34rpx;
+      font-weight: 500;
+      margin-left: 50rpx;
+    }
     .contant-pic{
       width: 94%;
-      margin-top: 30rpx;
+      margin-top: 20rpx;
       margin-left: 50rpx;
-      height: 160rpx;
       .pics-list{
         width:160rpx;
         height:160rpx;
@@ -208,18 +212,19 @@ page{
       align-items: center;
     }
     .meth{
-      width:40%;
+      width:30%;
       font-size: 28rpx;
       display: flex;
-      padding: 10rpx;
-      margin-left: 30rpx;
-      border-radius: 20rpx;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
-      .enter{
-        width: 50rpx;
-      }
+      flex-direction: row;
+      // padding: 10rpx;
+      // margin-left: 30rpx;
+      // border-radius: 20rpx;
+      // align-items: center;
+      // text-align: center;
+      // justify-content: center;
+    }
+    .enter{
+      width: 50rpx;
     }
   }
   .buttons{
@@ -260,6 +265,9 @@ page{
       border-radius: 40rpx;
     }
   }
-
+  .bottom{
+    height: 200rpx;
+  }
+  
 
 }

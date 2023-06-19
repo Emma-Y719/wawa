@@ -1,5 +1,5 @@
 // 定义请求根路径baseUrl
-const baseUrl="https://28ec573e.r16.cpolar.top";
+const baseUrl="https://5ffd05e4.r8.cpolar.top";
 
 // 同时并发请求的次数
 let ajaxTimes=0;
@@ -77,7 +77,7 @@ export const requestUtil=(params)=>{
   }
 
   var start=new Date().getTime();
-  console.log(start)
+  // console.log(start)
 
   ajaxTimes++;
 

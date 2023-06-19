@@ -4,12 +4,15 @@
   <!-- 用户背景信息开始 -->
   <view class="user_info_bg">
     <view class="user_info_wrap">
-      <image src="{{user.userInfo.avatarUrl}}"></image>
+      <image src="{{user.userInfo.avatarUrl}}"mode="widthFix"></image>
       <view class="detail">
         <view class="user_name">{{user.userInfo.nickName}}</view>
         <view class="user_acc">蛙蛙账号：ww518136695</view>
         <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
       </view>
+      <button open-type='share'class="share">
+        分享
+      </button>
     </view>
   </view>
   <!-- 用户背景信息结束 -->
@@ -82,7 +85,7 @@
     wx:key="id"
     >
       <navigator url="/pages/product_detail/index?id={{hotProduct.identity}}">
-      <image src="{{hotProduct.propic.pics[0][0]!='h'&&hotProduct.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+hotProduct.propic.pics[0]: hotProduct.propic.pics[0]}}" mode="widthFix"/>
+      <image src="{{hotProduct.propic.pics[0][0]!='h'&&hotProduct.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+hotProduct.propic.pics[0]: hotProduct.propic.pics[0]}}" mode="aspectFill"/>
       <view class="product_name">
         {{hotProduct.name}}
       </view>
@@ -98,10 +101,10 @@
      
     </view>
   </view>
-
-</view>
-<view class="bottom">
+  <view class="bottom">
   
 </view>
+</view>
+
 <custom-tabbar></custom-tabbar>
 

@@ -1,7 +1,7 @@
 <view class="title">
   我的收藏
 </view>
-<view class="search">
+<view class="search"bindtap="onNotComplete">
   <view class="keys">
   <!-- 关键词搜索 -->
   <view class="city">
@@ -21,26 +21,22 @@
   </view>
 </view>
 
-<view class="cates">
+<view bindtap="onNotComplete"class="cates">
   <view class="sort">
     全部
     <div class="line"></div>
   </view>
-  <navigator class="university" url="/pages/index/location">
+  <navigator class="university" url="">
     {{university}}
     <div class="line"></div>
     <div class="inter"></div>
   </navigator>
-  <navigator class="campus" url="/pages/index/location">
+  <navigator class="campus" url="">
     {{campus}}
     <div class="line"></div>
     <div class="inter"></div>
   </navigator>
 
-
-  <view class="productList">
-   
-  </view>
 </view>
 
 <!-- 购物车清单 开始 -->
@@ -78,10 +74,15 @@
           </view>
         </view>
         <!-- 商品信息 结束 -->
-
+        <view class="btns">
+          <view bindtap="onRemove"data-id="{{index}}"class="removebtn">
+          取消收藏
+        </view>
         <view bindtap="addChat"data-id="{{index}}"class="chatbtn">
           问卖家
         </view>
+        </view>
+
       </view>
     </block>
     <block wx:else>
@@ -89,6 +90,8 @@
       <text class="empty">收藏夹里是空的，快去逛逛吧～</text>
     </block>
   </view>
+</view>
+<view class="bottom">
 </view>
 <!-- 购物车清单 结束 -->
 <custom-tabbar></custom-tabbar>

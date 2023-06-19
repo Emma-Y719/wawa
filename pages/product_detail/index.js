@@ -27,7 +27,10 @@ Page({
     fvalue:"",
     me:{},
     id:-1,
-    chatid:""
+    chatid:"",
+    hasStorage:false,
+    storageName:'',
+    storageid:0
   },
 
   productInfo:{
@@ -42,8 +45,6 @@ Page({
     this.setData({
       baseUrl
     })
-    
-
     this.getProductDetail(options.id)
 
   },
@@ -54,6 +55,11 @@ Page({
     console.log("index: "+index)
     this.setData({
       activeIndex:index
+    })
+  },
+  onStorageEntry(){
+    wx.navigateTo({
+      url: '/pages/storage/detail?id='+this.data.storageid,
     })
   },
 
@@ -67,10 +73,30 @@ Page({
       method: "GET"
     });
     this.productInfo=result.message;
-    this.setData({
-      id:id,
-      productObj: result.message
-    })
+    console.log("storage: ",result.message)
+    if(result.message.storage!=0){
+      this.setData({
+        id:id,
+        productObj: result.message,
+        hasStorage:true,
+        storageid:result.message.storage
+      })
+      console.log("storageid: ",this.data.storageid)
+      requestUtil({url:'/storage/findById',method:"GET",data:{id:result.message.storage}}).then(res=>{
+        console.log("storage: ",res.message[0])
+        this.setData({
+          storageName:res.message[0].name
+        })
+
+      })
+    }else{
+      this.setData({
+        id:id,
+        productObj: result.message,
+        hasStorage:false
+      })
+    }
+
     console.log(result.message.userid)
     wx.cloud.callFunction({
       name: 'yunrouter',
@@ -88,63 +114,84 @@ Page({
       fail() {
       }
     });
- 
-    if(app.globalData.friends.length!=0){
-      console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
-      console.log("user: "+this.data.productObj.userid)
-      if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
-        this.setData({
-          fvalue:"已关注"
-        })
+    if(app.globalData.friends!=undefined){
+      if(app.globalData.friends.length!=0){
+        console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
+        console.log("user: "+this.data.productObj.userid)
+        if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
+          this.setData({
+            isfocus:true,
+            fvalue:"已关注"
+          })
+        }else{
+          this.setData({
+            fvalue:"+关注"
+          })
+        }
       }else{
         this.setData({
+          isfocus:false,
           fvalue:"+关注"
         })
       }
-    }else{
-      this.setData({
-        fvalue:"+关注"
-      })
-    }
 
+    }else{
+    
+        this.setData({
+          isfocus:false,
+          fvalue:"+关注"
+        })
+      
+    }
 
   },
   addChat(e){
-    let that=this
-    this.setData({
-      chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
-    })
+    if(this.data.productObj.userid==app.globalData.openid){
+      wx.showToast({
+        title: '扪心自问：我是谁，我来自哪里，我在干什么～',
+        icon: 'none',
+        duration: 2000
+      });
+    }else{
+      let that=this
+      this.setData({
+        chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
+      })
+  
+  
+      wx.cloud.callFunction({
+        name: 'yunrouter',
+        data: {
+          $url: "HuoquFriends", //云函数路由参数
+          openid: app.globalData.openid
+        },
+        success: res2 => {
+          console.log(res2)
+          this.setData({
+            peoplelist: res2.result.data[0].friends,
+          })
+          app.globalData.friends = res2.result.data[0].friends
+        },
+        fail() {
+        }
+      });
+      db.collection('chats').where({
+        chatid:this.data.chatid
+      }).get().then(res=>{
+        console.log(this.data.chatid)
+        console.log("chat: ",res.data.length)
+        if(res.data.length==0){
+          this.addRoom();
+        }else{
+          wx.navigateTo({
+            url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
+          })
+        }
+      })
 
 
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "HuoquFriends", //云函数路由参数
-        openid: app.globalData.openid
-      },
-      success: res2 => {
-        console.log(res2)
-        this.setData({
-          peoplelist: res2.result.data[0].friends,
-        })
-        app.globalData.friends = res2.result.data[0].friends
-      },
-      fail() {
-      }
-    });
-    db.collection('chats').where({
-      chatid:this.data.chatid
-    }).get().then(res=>{
-      console.log(this.data.chatid)
-      console.log("chat: ",res.data.length)
-      if(res.data.length==0){
-        this.addRoom();
-      }else{
-        wx.navigateTo({
-          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
-        })
-      }
-    })
+    }
+
     
         //     let rooms=res2.result.data[0].chat;
         // console.log("chat: ",rooms)
@@ -279,38 +326,82 @@ Page({
     })
   },
    handlefocus(e){
-    if(!this.data.isfocus){
-       db.collection('user').where({
-        _openid: app.globalData.openid
-      }).update({
-        data: {
-          friends: db.command.push([{
-            id: app.globalData.openid+this.data.productObj.userid,
-            userInfo: this.data.userInfo,
-            _openid: this.data.productObj.userid,
-            backgroundimage: ''
-          }])
-        }
-      })
-      
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "huoquUserinfo", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
-          console.log("result: ",res2)
-          this.data.isfocus=true;
-          app.globalData.friends=res2.result.data[0].friends;
-          this.setData({
-            fvalue:"已关注"
-          })
-        },
-        fail() {
-        }
+    if(this.data.productObj.userid==app.globalData.openid){
+      wx.showToast({
+        title: '无法对自己进行此操作',
+        icon: 'none',
+        duration: 2000
       });
+    }else{
+      if(!this.data.isfocus){
+        db.collection('user').where({
+         _openid: app.globalData.openid
+       }).update({
+         data: {
+           friends: db.command.push([{
+             id: app.globalData.openid+this.data.productObj.userid,
+             userInfo: this.data.userInfo,
+             _openid: this.data.productObj.userid,
+             backgroundimage: ''
+           }])
+         }
+       })
+       
+       wx.cloud.callFunction({
+         name: 'yunrouter',
+         data: {
+           $url: "huoquUserinfo", //云函数路由参数
+           openid: app.globalData.openid
+         },
+         success: res2 => {
+           console.log("result: ",res2)
+           this.data.isfocus=true;
+           app.globalData.friends=res2.result.data[0].friends;
+           this.setData({
+             isfocus:true,
+             fvalue:"已关注"
+           })
+         },
+         fail() {
+         }
+       });
+     }else{
+       db.collection('user').where({
+         _openid: app.globalData.openid
+       }).update({
+         data: {
+           friends: db.command.pull({
+             id: app.globalData.openid+this.data.productObj.userid,
+             userInfo: this.data.userInfo,
+             _openid: this.data.productObj.userid,
+             backgroundimage: ''
+           })
+         }
+       })
+       
+       wx.cloud.callFunction({
+         name: 'yunrouter',
+         data: {
+           $url: "huoquUserinfo", //云函数路由参数
+           openid: app.globalData.openid
+         },
+         success: res2 => {
+           console.log("result: ",res2)
+           app.globalData.friends=res2.result.data[0].friends;
+           this.setData({
+             isfocus:false,
+             fvalue:"+关注"
+           })
+         },
+         fail() {
+         }
+       });
+ 
+     }
+
+
     }
+
 
 
 
@@ -321,39 +412,109 @@ Page({
   handleCartAdd(){
     this.setCartadd();
 
-    wx.showToast({
-      title: '加入成功',
-      icon:'success',
-      mask:true
+
+  },
+
+  onUserDetail(e){
+    console.log("open the page of user!")
+    
+    wx.navigateTo({
+      url: '/pages/my/detail?userid='+this.data.productObj.userid,
     })
   },
 
-  
-
   // 加入购物车
   setCartadd(){
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "huoquUserinfo", //云函数路由参数
-        openid: app.globalData.openid
-      },
-      success: res2 => {
-        console.log("result: ",res2)
-        let index=res2.result.data[0].favorite.findIndex(v=>v.id===this.data.productObj.identity);
-        if(index==-1){
-          db.collection('user').where({
-            _openid: app.globalData.openid
-          }).update({
-            data: {
-              favorite: db.command.push([this.data.productObj])
+    if(this.data.productObj.userid==app.globalData.openid){
+      wx.showToast({
+        title: '无法收藏自己发布的物品',
+        icon: 'none',
+        duration: 2000
+      });
+    }else{
+      wx.cloud.callFunction({
+        name: 'yunrouter',
+        data: {
+          $url: "huoquUserinfo", //云函数路由参数
+          openid: app.globalData.openid
+        },
+        success: res2 => {
+          console.log("result: ",res2)
+          if(res2.result.data[0].favorite!=undefined){
+            let index=res2.result.data[0].favorite.findIndex(v=>v.identity==this.data.productObj.identity);
+            console.log("result: ",this.data.productObj.identity)
+            if(index==-1){
+              console.log(index)
+              db.collection('user').where({
+                _openid: app.globalData.openid
+              }).update({
+                data: {
+                  favorite: db.command.push([this.data.productObj])
+                }
+              })
+              wx.showModal({
+                title: '',
+                content: '收藏成功，请去收藏夹查看～',
+                complete: (res) => {
+                  if (res.cancel) {
+                    
+                  }
+              
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '/pages/favorite/index',
+                    })
+                  }
+                }
+              })
+            }else{
+              wx.showModal({
+                title: '',
+                content: '已在收藏夹中，勿重复收藏，去查看',
+                complete: (res) => {
+                  if (res.cancel) {
+                    
+                  }
+              
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '/pages/favorite/index',
+                    })
+                  }
+                }
+              })
             }
-          })
+          }else{
+            console.log("result: ",res2.result.data[0].favorite)
+            db.collection('user').where({
+              _openid: app.globalData.openid
+            }).update({
+              data: {
+                favorite: db.command.push([this.data.productObj])
+              }
+            })
+            wx.showModal({
+              title: '',
+              content: '收藏成功，请去收藏夹查看～',
+              complete: (res) => {
+                if (res.cancel) {
+                  
+                }
+            
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '/pages/favorite/index',
+                  })
+                }
+              }
+            })
+          }
+        },
+        fail() {
         }
-      },
-      fail() {
-      }
-    });
+      });
+    }
+
 
 
 

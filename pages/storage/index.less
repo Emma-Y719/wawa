@@ -217,7 +217,70 @@ page{
    }
   }
 
-
+  .search{
+    margin-top: 30rpx;
+    text{
+      margin-left: 20rpx;
+      margin-top: 30rpx;
+      font-size: 30rpx;
+    }
+    .storage_list{
+      margin:20rpx;
+      height:160rpx;
+      border: rgb(211, 211, 211)solid 2rpx;
+      border-radius: 10rpx;
+      display:flex;
+      align-items: center;
+ 
+      navigator{
+        display: flex;
+ 
+        margin-left: 10rpx;
+        align-items: center;
+        image{
+          width:110rpx;
+          border-radius: 20rpx;
+          background-color: #fff;
+          box-shadow: -2px 8px 15px -12px rgba(100, 120, 120, 1);
+        }
+        .middle{
+         display: flex;
+         width: 395rpx;
+         flex-direction: column;
+         justify-content: space-around;
+         margin-left: 15rpx;
+         .storage_name{
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           font-size: 35rpx;
+           font-weight: 500;
+         }
+         .storage_price{
+           margin-top:20rpx;
+           padding-bottom: 10rpx;
+         }
+       }
+       .right{
+         flex:1;
+         margin-left: 20rpx;
+         navigator{
+           background-color: #88bb1e;
+           height:60rpx;
+           width:150rpx;
+           margin-top: 10rpx;
+           border-radius: 20rpx;
+           display: flex;
+           align-items: center;
+           text-align: center;
+           justify-content: center;
+           font-size: 32rpx;
+         }
+         
+       }
+      }
+    }
+   }
 
 
 }

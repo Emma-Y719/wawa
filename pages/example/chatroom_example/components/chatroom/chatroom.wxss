@@ -47,7 +47,7 @@
   margin-left: 30rpx;
 }
 .body .message.message__self {
-  margin-top: 20rpx;
+  margin-top: 40rpx;
   margin-right: 30rpx;
   flex-direction: row-reverse;
 }
@@ -73,9 +73,10 @@
   color: #444;
 }
 .body .message .text-content {
+  margin-top: 20rpx;
   border: 1px solid transparent;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #eeecec;
   margin: 2px 0 0 0;
   padding: 4px 10px;
   font-size: 32rpx;
@@ -85,6 +86,7 @@
   background-color: #9eea6a;
 }
 .body .message .text-wrapper {
+  margin-top: 10rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -95,19 +97,23 @@
   margin-right: 18rpx;
 }
 .body .message .image-wrapper {
+  margin-top: 20rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 .body .message .image-content {
+  border-radius: 20rpx;
   max-width: 240rpx;
   max-height: 240rpx;
 }
 .body .message .image-content1 {
+  margin-top: 20rpx;
   max-width: 240rpx;
   max-height: 240rpx;
 }
 .body .message .image-content2 {
+  margin-top: 20rpx;
   max-width: 10vw;
   max-height: 5vh;
 }

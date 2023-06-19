@@ -44,7 +44,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.22.0",
   "appid": "wx4d7b467718a245ad",
-  "projectname": "java1234-mall-v1.2",
+  "projectname": "蛙蛙二手群物品库",
   "condition": {
     "search": {
       "list": []

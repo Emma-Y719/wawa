@@ -1,38 +1,25 @@
 page {
   height: 100%;
 }
-page .custom-nav-bar {
-  height: 10.5%;
-  /* 设置导航栏的高度 */
-  background-color: #ececec7c;
+page .header {
+  width: 100%;
+  position: fixed;
+  left: 5%;
+  top: 6%;
+}
+page .header .custom-nav-bar {
+  background-color: transparent;
   /* 设置导航栏的背景颜色 */
   display: flex;
   flex-direction: row;
-}
-page .custom-nav-bar .back-btn {
-  flex: 1;
-  padding-right: 40rpx;
-  top: 78rpx;
-  width: 30rpx;
-  /* 设置返回按钮的宽度 */
-  height: 90rpx;
-  /* 设置返回按钮的高度 */
-  background-color: #ffffff00;
-  /* 设置背景颜色 */
-  border: none;
-  /* 移除边框样式 */
   align-items: center;
+  margin-right: 35%;
 }
-page .custom-nav-bar .back-btn .icon {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
+page .header .custom-nav-bar .backicon {
+  width: 60rpx;
 }
-page .custom-nav-bar .keys {
+page .header .custom-nav-bar .keys {
   /* 设置搜索栏 */
-  flex: 10;
-  width: 55%;
   height: 60rpx;
   border-radius: 50rpx;
   border: 1.5px solid #8ec31f;
@@ -42,47 +29,43 @@ page .custom-nav-bar .keys {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  top: 95rpx;
-  margin-left: 20rpx;
-  margin-right: 200rpx;
-  position: relative;
+  margin-left: 5%;
 }
-page .custom-nav-bar .keys .city {
-  padding: 30rpx;
+page .header .custom-nav-bar .keys .city {
+  padding: 20rpx;
   flex: 2;
 }
-page .custom-nav-bar .keys .city .location {
+page .header .custom-nav-bar .keys .city .location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+page .header .custom-nav-bar .keys .city .location text {
   font-size: 28rpx;
   font-weight: 600;
 }
-page .custom-nav-bar .keys .city .location .line {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-bottom: 2px solid red;
-  border-right: 2px solid red;
-  transform: rotate(45deg);
-  margin-bottom: 5rpx;
-  margin-left: 10rpx;
+page .header .custom-nav-bar .keys .city .location .line {
+  width: 14px;
 }
-page .custom-nav-bar .keys .city .inter {
-  margin-left: 20rpx;
+page .header .custom-nav-bar .keys .type {
+  flex: 5;
+  display: flex;
+}
+page .header .custom-nav-bar .keys .type .inter {
   border-right: 1px solid #a6acb3;
 }
-page .custom-nav-bar .keys .type {
-  flex: 5;
+page .header .custom-nav-bar .keys .type input {
+  margin-left: 10rpx;
 }
-page .cates {
-  background-color: #ececec7c;
-  /* 设置导航栏的背景颜色 */
+page .header .cates {
   height: 5%;
+  width: 92%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 30rpx;
+  margin-top: 3.5%;
 }
-page .cates .university {
+page .header .cates .university {
   background-color: #8ec31f;
   border-radius: 15rpx;
   font-size: 24rpx;
@@ -94,7 +77,7 @@ page .cates .university {
   /* 文本水平居中对齐 */
   color: #ededed;
 }
-page .cates .campus {
+page .header .cates .campus {
   background-color: #8ec31f;
   border-radius: 15rpx;
   padding: 10rpx;
@@ -106,7 +89,7 @@ page .cates .campus {
   /* 文本水平居中对齐 */
   color: #ededed;
 }
-page .cates .sort {
+page .header .cates .sort {
   background-color: #8ec31f;
   border-radius: 15rpx;
   font-size: 24rpx;
@@ -127,6 +110,7 @@ page .map_container .map {
   height: 100%;
   width: 100%;
   position: relative;
+  top: 18%;
 }
 page .map_container .map .SelectColumn {
   height: 100rpx;

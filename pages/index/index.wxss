@@ -127,8 +127,9 @@ page .index_bigType .bigTypeRow navigator {
   align-items: center;
 }
 page .index_bigType .bigTypeRow navigator image {
-  width: 80%;
-  height: 80%;
+  margin-top: 8rpx;
+  width: 75%;
+  height: 75%;
 }
 page .index_bigType .bigTypeRow navigator text {
   text-align: center;
@@ -136,7 +137,7 @@ page .index_bigType .bigTypeRow navigator text {
 }
 page .index_bigType .hotIntro {
   display: flex;
-  width: 30%;
+  width: 28%;
   flex-direction: row;
   margin-left: 10rpx;
 }

@@ -32,7 +32,7 @@ page .search_bar .campus {
   margin-right: 20rpx;
 }
 page .search_bar .type {
-  width: 40%;
+  width: 25%;
   height: 80rpx;
   font-size: 28rpx;
   display: flex;
@@ -47,8 +47,8 @@ page .description .title {
   margin-top: 30rpx;
 }
 page .description .title .name {
-  margin-left: 50rpx;
-  margin-right: 40rpx;
+  margin-left: 6%;
+  width: 86%;
   height: 80rpx;
   font-size: 30rpx;
   font-weight: 600;
@@ -60,8 +60,8 @@ page .description .des {
   margin-top: 30rpx;
 }
 page .description .des .text {
-  margin-left: 50rpx;
-  margin-right: 40rpx;
+  margin-left: 6%;
+  width: 86%;
   height: 240rpx;
   font-size: 30rpx;
   font-weight: 600;
@@ -69,11 +69,15 @@ page .description .des .text {
   border-radius: 20rpx;
   text-align: center;
 }
+page .description .imagewarn {
+  font-size: 34rpx;
+  font-weight: 500;
+  margin-left: 50rpx;
+}
 page .description .contant-pic {
   width: 94%;
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   margin-left: 50rpx;
-  height: 160rpx;
 }
 page .description .contant-pic .pics-list {
   width: 160rpx;
@@ -192,17 +196,12 @@ page .methodInfo .mtext {
   align-items: center;
 }
 page .methodInfo .meth {
-  width: 40%;
+  width: 30%;
   font-size: 28rpx;
   display: flex;
-  padding: 10rpx;
-  margin-left: 30rpx;
-  border-radius: 20rpx;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
+  flex-direction: row;
 }
-page .methodInfo .meth .enter {
+page .methodInfo .enter {
   width: 50rpx;
 }
 page .buttons {
@@ -242,4 +241,7 @@ page .buttons .promote {
 page .buttons .promote image {
   width: 55rpx;
   margin-right: 10rpx;
+}
+page .bottom {
+  height: 200rpx;
 }

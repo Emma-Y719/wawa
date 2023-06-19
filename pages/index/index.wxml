@@ -58,9 +58,9 @@
 
     <!-- 商品推荐开始-->
     <view class="hotIntro">
-      <navigator url="/pages/storage/index"class="titles">
+      <navigator url="/pages/search/index?uid={{uid}}&cid={{cid}}"class="titles">
         <view class="icon">
-          <image src="/images/地址.png" mode="widthFix"></image>
+          <image src="/images/address.png" mode="widthFix"></image>
         </view>
         <view class="right">
               <view  class="btn">
@@ -84,7 +84,7 @@
     <!-- 二手群聊 -->
     <navigator url="/pages/storage/index"class="chat_cecond_container">
       <view class="icon">
-        <image src="/images/消息首页.png" mode="widthFix"></image>
+        <image src="/images/msg_index.png" mode="widthFix"></image>
       </view>
 
       <view  class="chat_cecond_text">
@@ -97,14 +97,14 @@
       <swiper autoplay indicator-dots circular style="width: 433rpx; height: 222rpx; display: block; box-sizing: border-box">
          <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
          <navigator url="/pages/product_detail/index?id={{swiper.identity}}">
-             <image src="{{swiper.propic.pics[0]}}"></image>
+             <image src="{{swiper.propic.pics[0]}}"mode="aspectFill"></image>
              <view class="swiperinfo">
                <view class="title">
                  {{swiper.name}}
                </view>
-               <view class="storage">
-                 <image src="/images/消息首页.png" mode="widthFix"/>
-                 <text>{{storageList[index].name}}</text>
+               <view class="storage" wx:if="{{item.storage!=0}}">
+                 <!-- <image src="/images/msg_index.png" mode="widthFix"/> -->
+                 <text>{{storageList[item.storage].name}}</text>
                  
                </view>
                <view class="price">
@@ -128,7 +128,7 @@
 
 
   <!-- 这是地图部分 -->
-  <view class="map_container">
+  <view bindtap="onClickMap"class="map_container">
     <map class='map' longitude='{{longitude}}' latitude='{{latitude}}' scale='{{scale}}' markers='{{markers}}' controls="{{controls}}" bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
       show-location>
 

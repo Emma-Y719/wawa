@@ -3,11 +3,11 @@
     <image src="/icons/chat.png" mode="widthFix"/>
     <text>消息互动</text>
   </view>
-  <view class="type">
+  <view bindtap="onNotComplete" class="type">
     <image src="/icons/focus.png" mode="widthFix"/>
     <text>关注列表</text>
   </view>
-  <view class="type">
+  <view bindtap="onNotComplete" class="type">
     <image src="/icons/like.png" mode="widthFix"/>
     <text>赞和收藏</text>
   </view>
@@ -18,15 +18,15 @@
   wx:for-item="room"
   wx:key="id"
   >
+    <image bindtap="onUserDetail"data-id="{{index}}"class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
     <navigator url="{{room.url}}">
-            <image class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
             <view class="middle">
               <view class="title">
                 <view class="chat_name">
                 {{room.target.nickName}}
                 </view>
                 <view class="chat_campus">
-                  {{room.target.campus}}
+                  {{room.target.university}}-{{room.target.campus}}
                 </view>
               </view>
    
@@ -61,4 +61,8 @@
     </navigator>
   </view>
 </view>
+<view class="bottom">
+  
+</view>
+
 <custom-tabbar></custom-tabbar>

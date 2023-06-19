@@ -203,8 +203,23 @@ page {
   flex: 1;
   font-size: 28rpx;
 }
-.cart_content .cart_main .cart_item .chatbtn {
-  margin-top: 180rpx;
+.cart_content .cart_main .cart_item .btns {
+  margin-top: 20rpx;
+}
+.cart_content .cart_main .cart_item .btns .removebtn {
+  background-color: #8ec31f;
+  height: 60rpx;
+  font-size: 30rpx;
+  border-radius: 30rpx;
+  width: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+.cart_content .cart_main .cart_item .btns .chatbtn {
+  margin-top: 110rpx;
   background-color: #8ec31f;
   height: 60rpx;
   font-size: 30rpx;
@@ -222,4 +237,7 @@ page {
   justify-content: center;
   display: flex;
   align-items: center;
+}
+.cart_content .bottom {
+  height: 200rpx;
 }

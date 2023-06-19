@@ -67,28 +67,43 @@ Page({
       fail() {
       }
     });
- 
-    if(app.globalData.friends.length!=0){
-      console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
-      console.log("user: "+this.data.productObj.userid)
-      if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
-        this.setData({
-          fvalue:"已关注"
-        })
-      }else{
-        this.setData({
-          fvalue:"+关注"
-        })
-      }
-    }else{
-      this.setData({
-        fvalue:"+关注"
-      })
-    }
+
 
 
   },
-  
+  onRemove(e){
+    let id=e.currentTarget.dataset.id;
+    let productObj=this.data.cart[id]
+    console.log(productObj)
+    wx.showModal({
+      title: '',
+      content: '确认取消收藏？',
+      complete: (res) => {
+        if (res.cancel) {
+          
+        }
+    
+        if (res.confirm) {
+          db.collection('user').where({
+            _openid: app.globalData.openid
+          }).update({
+            data: {
+              favorite: db.command.pull({identity:productObj.identity})
+            }
+          }).then(res=>{
+            this.getFavorites();
+          })
+        }
+      }
+    })
+  },
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
+  },
+
   addChat(e){
     let id=e.currentTarget.dataset.id;
     let productObj=this.data.cart[id]
@@ -260,15 +275,8 @@ Page({
   onReady: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    console.log("show")
-    const address=wx.getStorageSync('address');
-    console.log("openid: "+app.globalData.openid)
-    wx.cloud.callFunction({
+  async getFavorites(){
+    await wx.cloud.callFunction({
       name: 'yunrouter',
       data: {
         $url: "huoquUserinfo", //云函数路由参数
@@ -284,6 +292,31 @@ Page({
       fail() {
       }
     });
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    console.log("show")
+    const address=wx.getStorageSync('address');
+    console.log("openid: "+app.globalData.openid)
+    this.getFavorites();
+    // wx.cloud.callFunction({
+    //   name: 'yunrouter',
+    //   data: {
+    //     $url: "huoquUserinfo", //云函数路由参数
+    //     openid: app.globalData.openid
+    //   },
+    //   success: res2 => {
+    //     console.log(res2.result.data[0].favorite)
+    //     let favlist=res2.result.data[0].favorite;
+    //     this.setData({
+    //       cart:favlist
+    //     })
+    //   },
+    //   fail() {
+    //   }
+    // });
 
 
   },

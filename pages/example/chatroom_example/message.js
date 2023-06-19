@@ -27,6 +27,22 @@ Page({
   onLoad(options) {
     this.getRooms();
   },
+
+  onUserDetail(e){
+    console.log("open the page of user!",e.currentTarget.dataset.id)
+    console.log(this.data.rooms[e.currentTarget.dataset.id])
+    // let product=this.data.rooms[e.currentTarget.dataset.id].product
+    let target=this.data.rooms[e.currentTarget.dataset.id].targetid
+    wx.navigateTo({
+      url: '/pages/my/detail?userid='+target,
+    })
+  },  
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
+  },
   async getRooms(){
     console.log(app.globalData.openid)
     let positive=await db.collection('chats').where({
@@ -45,10 +61,12 @@ Page({
         imgurl=chatroom.product.propic.pics[0]
       }
       let room={
+        targetid:value.targetid,
         target:chatroom.userInfo,
         product:{
           pic:imgurl,
-          name:chatroom.product.name
+          name:chatroom.product.name,
+          userid:chatroom.product.userid
         },
         url:'/pages/example/chatroom_example/room/room?id=' + chatroom.chatid + '&name=' + chatroom.userInfo.nickName+'&backgroundimage='+chatroom.backgroundimage+'&haoyou_openid='+chatroom.product.userid+'&product='+chatroom.product.identity
       }

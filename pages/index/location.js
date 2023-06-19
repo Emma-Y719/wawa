@@ -135,15 +135,18 @@ handleLocationJump(e){
     // app.globalData.curcamIndex=index;
     // app.globalData.searchUniversityIndex=this.data.currentIndex;
     // app.globalData.searchCampusIndex=index;
+    console.log("currentIndex: "+this.data.currentIndex)
+    console.log("currentIndex: "+index)
+    console.log("previos:   "+prevPage.route)
     prevPage.setData({
-      university:this.Campuses[this.data.currentIndex].name,
-      campus:this.Campuses[this.data.currentIndex].schoolList[index].campus,
+      university:app.globalData.campuses[index].name,
+      campus:app.globalData.campuses[index].campus,
       uid:this.data.currentIndex,
       cid:index,
     })
     prevPage.searchProductList();
     wx.navigateBack({
-      delta: 2
+      delta:1
     })
   }else{
     prevPage.setData({

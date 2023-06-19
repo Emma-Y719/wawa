@@ -29,6 +29,7 @@ Component({
     listening: false,
     recording: false,
     chats: [],
+    images:[],
     textInputValue: '',
     openId: '',
     scrollTop: 0,
@@ -61,6 +62,7 @@ Component({
 
     async initRoom() {
       this.try(async () => {
+
         await this.initOpenID()
         const {
           envId,
@@ -70,13 +72,14 @@ Component({
           env: envId,
         })
         const _ = db.command
-
+        this.setData({
+          userInfo:app.globalData.userInfo
+        })
         const {
           data: initList
         } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get()
 
         console.log('init query chats', initList)
-
         this.setData({
           chats: initList.reverse(),
           scrollTop: 10000,
@@ -226,7 +229,11 @@ Component({
       } = this.properties
       const db = this.db
       const _ = db.command
-      this.data.userInfo=app.globalData.userInfo;
+      this.setData({
+        userInfo:app.globalData.userInfo
+
+      })
+      
       console.log("userInfo: ",app.globalData.userInfo)
       console.log("send:  "+this.data.userInfo.nickName);
       const doc = {
@@ -283,7 +290,7 @@ Component({
       sampleRate: 16000, //采样率
       numberOfChannels: 1, //录音通道数
       encodeBitRate: 96000, //编码码率
-      format: 'mp3', //音频格式，有效值 aac/mp3
+      format: 'wav', //音频格式，有效值 aac/mp3
       frameSize: 50, //指定帧大小，单位 KB
     }
     //开始录音
@@ -307,7 +314,9 @@ Component({
     })
   },
   async sendrecord(e) {
-
+    this.setData({
+      userInfo:app.globalData.userInfo
+    })
     const {
       envId,
       collection
@@ -373,6 +382,12 @@ Component({
     })
 
   },
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示，可以使用文字和图片',
+      icon: 'none',
+    })
+  },
   async play(e) {
     if (this.data.listening) {
       this.setData({
@@ -396,9 +411,30 @@ Component({
             fileList: arr,
             success: res => {
               console.log(res)
-
+              innerAudioContext.obeyMuteSwitch=false
               innerAudioContext.autoplay = true
+              console.log(res.fileList[0].tempFileURL)
               innerAudioContext.src = res.fileList[0].tempFileURL
+              // innerAudioContext.src="http://img.artstudent.cn/pr/2021-03-03/049237b0092943d3b9c4d9ce04f86bc1.mp3"
+              if(wx.setInnerAudioOption){
+                wx.setInnerAudioOption({
+          
+                  obeyMuteSwitch:false,
+                  speakerOn:true
+                })
+              }else{
+                innerAudioContext.obeyMuteSwitch=false,
+                innerAudioContext.autoplay=true
+              }
+              audio.onCanplay(() => {
+                console.log('可以播放')
+              })
+              audio.onError((err) => {
+                console.log('播放失败：', err)
+              })
+
+
+              innerAudioContext.play()
               innerAudioContext.onPlay(() => {
                 console.log('开始播放1')
               })
@@ -434,6 +470,7 @@ Component({
   },
   // 发送文件
   async file(e) {
+    
     wx.chooseMessageFile({
       count: 1,
       type: 'file',
@@ -442,7 +479,9 @@ Component({
         this.setData({
           filename: res.tempFiles[0].name
         })
-
+        this.setData({
+          userInfo:app.globalData.userInfo
+        })
         const {
           envId,
           collection
@@ -563,14 +602,18 @@ Component({
   },
   // 发送图片
   async onChooseImage(e) {
-    wx.chooseImage({
-      count: 1,
+    wx.chooseMedia({
+      count: 9,
       sourceType: ['album', 'camera'],
       success: async res => {
+        console.log(res.tempFiles)
         const {
           envId,
           collection
         } = this.properties
+        this.setData({
+          userInfo:app.globalData.userInfo
+        })
         const doc = {
           _id: `${Math.random()}_${Date.now()}`,
           groupId: this.data.groupId,
@@ -587,7 +630,7 @@ Component({
             {
               ...doc,
               _openid: this.data.openId,
-              tempFilePath: res.tempFilePaths[0],
+              // tempFilePath: res.tempFiles[0].tempFilePath,
               writeStatus: 0,
             },
           ]
@@ -595,8 +638,8 @@ Component({
         this.scrollToBottom(true)
 
         const uploadTask = wx.cloud.uploadFile({
-          cloudPath: `办公交流/${this.data.groupId}/${this.data.userInfo.nickName}/${Math.random()}_${Date.now()}.${res.tempFilePaths[0].match(/\.(\w+)$/)[1]}`,
-          filePath: res.tempFilePaths[0],
+          cloudPath: `办公交流/${this.data.groupId}/${this.data.userInfo.nickName}/${Math.random()}_${Date.now()}.${res.tempFiles[0].tempFilePath.match(/\.(\w+)$/)[1]}`,
+          filePath: res.tempFiles[0].tempFilePath,
           config: {
             env: envId,
           },
@@ -634,6 +677,7 @@ Component({
   },
 
   onMessageImageTap(e) {
+
     wx.previewImage({
       urls: [e.target.dataset.fileid],
     })

@@ -2,165 +2,159 @@ page{
   height:100%;
   width: 100vw;
   background-color: #ececec; /* 设置导航栏的背景颜色 */
-  .custom-nav-bar {
-    position: fixed;
-    //height: 11%; /* 设置导航栏的高度 */
-    background-color: #ececec; /* 设置导航栏的背景颜色 */
-    display:flex;
-    flex-direction: row;
-    
-    .back-btn {
-      flex:1;
-      //left: 10px; /* 设置左边距 */
-      padding-right: 20rpx;
-      top: 87rpx;
-      width: 30rpx; /* 设置返回按钮的宽度 */
-      height: 70rpx; /* 设置返回按钮的高度 */
-      background-color: #d4747400; /* 设置背景颜色 */
-      border: none; /* 移除边框样式 */
-
-      align-items: center;
-      .icon {
-        width: 26px;
-        height: 26px;
-      }  
-    }
-
-    .keys{   /* 设置搜索栏 */
-      flex:10;
-      width: 55%;
-      height: 60rpx;
-      border-radius: 50rpx;
-      border: 1.5px solid #8ec31f; /* 设置边框样式，1.5px 宽度，边框 */
-      background-color: rgb(255, 255, 255);
-      display: flex;
+  .header{
+    width: 100%;
+    position: fixed;left: 5%; top: 6%;
+    .custom-nav-bar {
+      
+      //height: 11%; /* 设置导航栏的高度 */
+      background-color: transparent; /* 设置导航栏的背景颜色 */
+      display:flex;
       flex-direction: row;
-      justify-content: center;
       align-items: center;
-      top: 95rpx;
-      margin-left:20rpx;
-      margin-right:200rpx;
-      position: relative;
-      .city{
-        padding:30rpx;
-        flex:2;
-        .location{    
-           font-size:28rpx;
-           font-weight: 600;
-          .line{
-            // padding-left: 5rpx;
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-bottom: 2px solid red;
-            border-right: 2px solid red;
-            transform: rotate(45deg);
-            margin-bottom: 5rpx;
+      margin-right: 35%;
+      .backicon {
+        width: 60rpx;
+      }  
+      .keys{   /* 设置搜索栏 */
+        
+        height: 60rpx;
+        border-radius: 50rpx;
+        border: 1.5px solid #8ec31f; /* 设置边框样式，1.5px 宽度，边框 */
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5%;
+        .city{
+          padding:20rpx;
+          flex:2;
+          .location{    
+  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+             text{
+              font-size:28rpx;
+              font-weight: 600;
+             }
+            .line{
+              // padding-left: 5rpx;
+              width: 14px;
+            }
+          }
+  
+        }
+      
+        .type{
+          flex:5;
+          display: flex;
+          .inter{
+          
+            border-right:1px solid  rgb(166, 172, 179);
+          }
+          
+          input{
+  
             margin-left: 10rpx;
           }
         }
-        .inter{
-          margin-left:20rpx;
-          border-right:1px solid  rgb(166, 172, 179);
+      
+      }
+    }
+  
+    .cates{
+      // position: fixed;left: 50%; top: 13%; transform: translate(-50%, -50%);
+      height: 5%;
+      width: 92%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 3.5%;
+
+      // margin-left: auto;
+      // margin-right: auto;
+      // position: relative;
+        .university{
+          background-color: #8ec31f;
+          border-radius: 15rpx;
+          font-size:24rpx;
+          font-weight: bold;
+          margin-left: 30rpx;
+          padding:10rpx;
+          flex:1;  //比例
+          text-align: center; /* 文本水平居中对齐 */
+          color:#ededed
+          
+          // .line{
+          //   // padding-left: 5rpx;
+          //   display: inline-block;
+          //   width: 6px;
+          //   height: 6px;
+          //   border-bottom: 1px solid red;
+          //   border-right: 1px solid red;
+          //   transform: rotate(45deg);
+          //   margin-bottom: 5rpx;
+          // }
+          // .inter{
+          //   margin-left: 20rpx;
+          //   border-right:1px solid  rgb(166, 172, 179);
+          // }
         }
+      
+        .campus{
+          background-color: #8ec31f;
+          border-radius: 15rpx;
+          padding:10rpx;
+          font-size:24rpx;
+          font-weight: bold;
+          flex:1;
+          margin-left: 25rpx;
+          text-align: center; /* 文本水平居中对齐 */
+          color:#ededed
+          // .line{
+          //   // padding-left: 5rpx;
+          //   display: inline-block;
+          //   width: 6px;
+          //   height: 6px;
+          //   border-bottom: 1px solid red;
+          //   border-right: 1px solid red;
+          //   transform: rotate(45deg);
+          //   margin-bottom: 5rpx;
+          // }
+          // .inter{
+          //   margin-left: 40rpx;
+          //   border-right:1px solid  rgb(166, 172, 179);
+          // }
+        }
+      
+        .sort{
+          background-color: #8ec31f;
+          border-radius: 15rpx;
+          font-size:24rpx;
+          font-weight: bold;
+          padding:10rpx;
+          margin-left: 25rpx;
+          margin-right:  25rpx;
+          flex:1;
+          text-align: center; /* 文本水平居中对齐 */
+          color:#ededed
+        // font-weight:500;
+        // .line{
+        //   // padding-left: 5rpx;
+        //   display: inline-block;
+        //   width: 6px;
+        //   height: 6px;
+        //   border-bottom: 1px solid red;
+        //   border-right: 1px solid red;
+        //   transform: rotate(45deg);
+        //   margin-bottom: 5rpx;
+        // }
       }
-    
-      .type{
-        flex:5;
-      }
-    
     }
   }
 
-  .cates{
-    position: fixed;left: 50%; top: 13%; transform: translate(-50%, -50%);
-    height: 5%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    // margin-top: 20rpx;
-    // margin-left: auto;
-    // margin-right: auto;
-    // position: relative;
-      .university{
-        background-color: #8ec31f;
-        border-radius: 15rpx;
-        font-size:24rpx;
-        font-weight: bold;
-        margin-left: 30rpx;
-        padding:10rpx;
-        flex:1;  //比例
-        text-align: center; /* 文本水平居中对齐 */
-        color:#ededed
-        
-        // .line{
-        //   // padding-left: 5rpx;
-        //   display: inline-block;
-        //   width: 6px;
-        //   height: 6px;
-        //   border-bottom: 1px solid red;
-        //   border-right: 1px solid red;
-        //   transform: rotate(45deg);
-        //   margin-bottom: 5rpx;
-        // }
-        // .inter{
-        //   margin-left: 20rpx;
-        //   border-right:1px solid  rgb(166, 172, 179);
-        // }
-      }
-    
-      .campus{
-        background-color: #8ec31f;
-        border-radius: 15rpx;
-        padding:10rpx;
-        font-size:24rpx;
-        font-weight: bold;
-        flex:1;
-        margin-left: 25rpx;
-        text-align: center; /* 文本水平居中对齐 */
-        color:#ededed
-        // .line{
-        //   // padding-left: 5rpx;
-        //   display: inline-block;
-        //   width: 6px;
-        //   height: 6px;
-        //   border-bottom: 1px solid red;
-        //   border-right: 1px solid red;
-        //   transform: rotate(45deg);
-        //   margin-bottom: 5rpx;
-        // }
-        // .inter{
-        //   margin-left: 40rpx;
-        //   border-right:1px solid  rgb(166, 172, 179);
-        // }
-      }
-    
-      .sort{
-        background-color: #8ec31f;
-        border-radius: 15rpx;
-        font-size:24rpx;
-        font-weight: bold;
-        padding:10rpx;
-        margin-left: 25rpx;
-        margin-right:  25rpx;
-        flex:1;
-        text-align: center; /* 文本水平居中对齐 */
-        color:#ededed
-      // font-weight:500;
-      // .line{
-      //   // padding-left: 5rpx;
-      //   display: inline-block;
-      //   width: 6px;
-      //   height: 6px;
-      //   border-bottom: 1px solid red;
-      //   border-right: 1px solid red;
-      //   transform: rotate(45deg);
-      //   margin-bottom: 5rpx;
-      // }
-    }
-  }
 
   .products{
     
@@ -177,11 +171,14 @@ page{
      width: 46%;
      text-align: center;
      margin:2%;
+     background-color: #fafafa;
+     border-radius: 20rpx;
      navigator{
-       margin: 10rpx;
+      //  margin: 10rpx;
        image{
         width: 100%;
-         border-radius: 35rpx;
+         border-top-left-radius: 20rpx;
+         border-top-right-radius: 20rpx;
          background-color: #fff;
          box-shadow: 0px 10px 20px 0px #c7c9c7;
          transition: transform 200ms;
@@ -192,11 +189,11 @@ page{
         }
        }
        .bottom{
+         height: 100rpx;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        align-items: center;
         .product_name{
-          padding-top: 10rpx;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -226,7 +223,9 @@ page{
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
   }
- 
+  .bottom{
+    height: 200rpx;
+  }
 
 }
 

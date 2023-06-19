@@ -1,56 +1,55 @@
 <!--pages/search/map.js.wxml-->
 <page>
+  <view class="header">
   <view class="custom-nav-bar">
-  <button class="back-btn" bindtap="navigateBack">
-    <image class="icon" src="/images/back_icon.png"></image>
-    <div class="line"></div>
-  </button>
 
+<image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
 
-  <view class="keys">
-  <!-- 关键词搜索 -->
-  <view class="city">
-    <navigator class="location" url="/pages/index/location">
-      南京
-      <div class="line"></div>
-      <div class="inter"></div>
-    </navigator>
-  </view>
-  <view class="type">
-  <input type="text" value=" {{type}}"/>
-   
-  </view>
-  <view class="productList"> 
-  </view>
-  </view>
+<view class="keys">
+<!-- 关键词搜索 -->
+<view class="city">
+  <navigator class="location" url="">
+    
+    <text>南京</text>
+    <image class="line"src="/images/drop.png" mode="widthFix"/>
+  </navigator>
+</view>
+<view class="type">
+  <div class="inter"></div>
+  <input bindinput="ontypeInput"value="{{type}}"/>
+ 
+</view>
+</view>
 
 </view>
 
 <view class="cates">
-  <navigator class="university" url="/pages/index/location">
-    {{university}}
-    <div class="line"></div>
-    <div class="inter"></div>
-  </navigator>
-  <navigator class="campus" url="/pages/index/location">
+<navigator class="university" url="/pages/index/location">
+  {{university}}
+  <div class="line"></div>
+  <div class="inter"></div>
+</navigator>
+<navigator class="campus" url="/pages/index/location">
 
-    {{campus}}
-    <div class="line"></div>
-    <div class="inter"></div>
-  </navigator>
+  {{campus}}
+  <div class="line"></div>
+  <div class="inter"></div>
+</navigator>
 
-  <view class="sort">
-    筛选排序
-    <div class="line"></div>
-  </view>
-
+<view class="sort">
+  筛选排序
+  <div class="line"></div>
 </view>
-
+<view class="productList">
+ 
+</view>
+</view>
+</view>
  
 
 <!-- 这是地图部分 -->
   <view class="map_container">
-    <map id="myMap" class='map' longitude='{{markers[current].longitude}}' latitude='{{markers[current].latitude}}' scale='{{scale}}' bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
+    <map id="myMap" class='map' longitude='{{markers[current].longitude}}' latitude='{{markers[current].latitude}}' scale='{{scale}}' bindcontroltap="bindcontroltap" markers="{{markers}}"polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
       show-location>
         <!-- <view class="mark"
           wx:for="{{markers}}"
@@ -75,7 +74,7 @@
         <navigator
           url="/pages/product_detail/index?id={{product.identity}}"
         >
-          <image mode="aspectFill" src="{{product.propic.pics[0]}}"></image>
+          <image mode="aspectFill" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'?baseUrl+'/image/product/'+product.propic.pics[0]:product.propic.pics[0]}}"></image>
           <view class="right">
             <view class="product_name">
               {{product.title}}

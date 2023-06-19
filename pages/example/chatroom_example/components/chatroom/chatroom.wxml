@@ -1,6 +1,4 @@
 
-<image wx:if="{{!backgroundimage}}" class="bg" src="/images/startBg.jpg"></image>
-<image wx:if="{{backgroundimage}}" class="bg" src="{{backgroundimage}}"></image>
 
 
 <view class="chatroom">
@@ -40,7 +38,7 @@
         <block wx:if="{{item.msgType === 'image'}}">
           <view class="image-wrapper">
             <view class="loading" wx:if="{{item.writeStatus > -1}}">{{item.writeStatus}}%</view>
-            <image src="{{item.tempFilePath || item.imgFileID}}" data-fileid="{{item.tempFilePath || item.imgFileID}}" class="image-content" style="{{item.imgStyle}}"mode="scallToFill" 
+            <image src="{{item.imgFileID}}" data-fileid="{{item.tempFilePath || item.imgFileID}}" class="image-content" style="width:200rpx" mode="aspectFill" 
               bindtap="onMessageImageTap"></image>
           </view>
         </block>
@@ -53,8 +51,7 @@
         <block wx:if="{{item.msgType === 'record'}}">
           <view class="text-wrapper" data-file="{{item.recordID}}" bindtap="play">
             <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
-         <image src="/image/listen.png"  class="image-content2" mode="scallToFill" ></image>
-            
+         <image src="{{openId == item._openid?'/images/listen.png':'/images/listen-target.png'}}"  class="image-content2" style="width: 150rpx;"mode="widthFix" ></image>
           </view>
         </block>
         <block wx:if="{{item.msgType === 'file'}}">
@@ -72,14 +69,14 @@
   <!-- message sender -->
   <view class="footer">
     <view class="message-sender" wx:if="{{userInfo}}">
-      <image wx:if="{{!recording}}"  src="/icons/record.png" class="btn-send-image"  mode="scaleToFill" bindtap="yuyin"></image>
-        <image wx:if="{{recording}}" src="/image/record.gif" class="btn-send-image"  mode="scaleToFill"  bindtap="stop"></image>
+      <image wx:if="{{!recording}}"  src="/icons/record.png" class="btn-send-image"  mode="scaleToFill" bindtap="onNotComplete"></image>
+        <image wx:if="{{recording}}" src="/images/recording.png" class="btn-send-image"  mode="scaleToFill"  bindtap="onNotComplete"></image>
 
       
       <input  class="text-input"  type="text" confirm-type="send"  bindconfirm="onConfirmSendText"
         cursor-spacing="20" value="{{textInputValue}}"></input>
         <image  src="/icons/emj.png" class="btn-send-image"  mode="scaleToFill"
-        bindtap="file"></image>
+        bindtap="onNotComplete"></image>
 
         <image  src="/icons/pic.png" class="btn-send-image"  mode="scaleToFill"
         bindtap="onChooseImage"></image>

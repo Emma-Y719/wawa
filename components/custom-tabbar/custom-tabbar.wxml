@@ -1,24 +1,24 @@
  <!-- 这是黑色选择框 --> 
  <view class="SelectColumn"> 
         <view bindtap="onNavi1" open-type="reLaunch" url="/pages/index/index" class="firstlogo">
-          <image src="/images/主页.png" mode="widthFix"></image>
+          <image src="/images/home_index.png" mode="widthFix"></image>
         </view>
 
         <view bindtap="onNavi2"open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
-          <image src="/images/收藏夹.png" mode="widthFix"></image>
+          <image src="/images/favorite_index.png" mode="widthFix"></image>
         </view>
 
         <view bindtap="onNavi3" open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
-          <image src="/images/消息.png" mode="widthFix"></image>
+          <image src="/images/msg.png" mode="widthFix"></image>
         </view>
 
-        <view bindtap="onNavi4" open-type="reLaunch" url="/pages/my/index" class="fourthlogo">
-          <image src="/images/个人中心.png" mode="widthFix"></image>
+        <view bindtap="onNavi4" open-type="reLaunch" class="fourthlogo">
+          <image src="/images/my_index.png" mode="widthFix"></image>
         </view>
 
          <!-- 这是青蛙logo -->
         <view bindtap="onNavi5" open-type="reLaunch" url="/pages/promote/index" class="fraglogo">
-         <image src="/images/青蛙发布.png" mode="widthFix"></image>
+         <image src="/images/promote_index.png" mode="widthFix"></image>
         </view>
 
  </view>

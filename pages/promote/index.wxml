@@ -14,14 +14,15 @@
 </view>
 <view class="description">
  <view class="title">
-  <input class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="输入商品名称，例：凤凰"value="{{name}}"></input>
+  <textarea row="2"class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="输入商品名称，例：凤凰"value="{{name}}"></textarea>
  </view>
  <view class="des">
-  <input class="text {{activeDisInput ? 'active': ''}}" bindinput="onDisInput"placeholder="输入商品描述：品牌，渠道等"value="{{discript}}"></input>
+  <textarea rows="6" class="text" bindinput="onDisInput"placeholder="输入商品描述：品牌，渠道等"value="{{discript}}"></textarea>
  </view>
-  
+ <text class="imagewarn">请选取少于9张图片:</text>
+
   <view class="contant-pic">
-    <view class="pics-list" wx:for="{{pics}}"   wx:for-item="path" wx:key="id" >
+    <view class="pics-list" wx:for="{{pics}}"  wx:for-item="path" wx:key="id" >
       <image src="{{path}}" mode="aspectFill"class="uploadImg"></image>
       <image src="../../icons/delete.png" class="uploadImg-error" data-img="{{path}}" bindtap='deleteImg'></image>
     </view>
@@ -47,7 +48,7 @@
   </view>
   
   <view class="pr">    
-  <input type="number" bindinput="onPriceInput" placeholder="键入商品价格" value="{{inputValue}}"/> 
+  <input type="digit" bindinput="onPriceInput" placeholder="键入商品价格" value="{{inputValue}}"/> 
   </view>
 </view>
 
@@ -58,9 +59,18 @@
     同步到物品库
   </view>
   
-  <view class="meth" bindtap="showActionSheet">{{storage}}
+  <!-- <view class="meth" bindtap="showActionSheet">{{storage}}
     <image src="/images/enter.png" mode="widthFix" class="enter"/>
+  </view> -->
+  <picker wx:if="{{!noStorage}}"class="meth" mode="selector" range="{{storageNames}}" bindchange="handleStorage">
+    <view class="picker">
+      {{storage}}
+    </view>
+  </picker>
+  <view bindtap="onClickStorage" wx:if="{{noStorage}}"class="picker">
+      {{storage}}
   </view>
+  <image src="/images/enter.png" mode="widthFix" class="enter"/>
 </view>
 
 <view class="buttons">
@@ -74,6 +84,8 @@
     发布
   </view>
 
+</view>
+<view class="bottom">
 </view>
 <custom-tabbar></custom-tabbar>
 

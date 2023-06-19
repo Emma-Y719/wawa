@@ -4,35 +4,25 @@ page {
   background-color: #ececec;
   /* 设置导航栏的背景颜色 */
 }
-page .custom-nav-bar {
+page .header {
+  width: 100%;
   position: fixed;
-  background-color: #ececec;
+  left: 5%;
+  top: 6%;
+}
+page .header .custom-nav-bar {
+  background-color: transparent;
   /* 设置导航栏的背景颜色 */
   display: flex;
   flex-direction: row;
-}
-page .custom-nav-bar .back-btn {
-  flex: 1;
-  padding-right: 20rpx;
-  top: 87rpx;
-  width: 30rpx;
-  /* 设置返回按钮的宽度 */
-  height: 70rpx;
-  /* 设置返回按钮的高度 */
-  background-color: #d4747400;
-  /* 设置背景颜色 */
-  border: none;
-  /* 移除边框样式 */
   align-items: center;
+  margin-right: 35%;
 }
-page .custom-nav-bar .back-btn .icon {
-  width: 26px;
-  height: 26px;
+page .header .custom-nav-bar .backicon {
+  width: 60rpx;
 }
-page .custom-nav-bar .keys {
+page .header .custom-nav-bar .keys {
   /* 设置搜索栏 */
-  flex: 10;
-  width: 55%;
   height: 60rpx;
   border-radius: 50rpx;
   border: 1.5px solid #8ec31f;
@@ -42,49 +32,43 @@ page .custom-nav-bar .keys {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  top: 95rpx;
-  margin-left: 20rpx;
-  margin-right: 200rpx;
-  position: relative;
+  margin-left: 5%;
 }
-page .custom-nav-bar .keys .city {
-  padding: 30rpx;
+page .header .custom-nav-bar .keys .city {
+  padding: 20rpx;
   flex: 2;
 }
-page .custom-nav-bar .keys .city .location {
+page .header .custom-nav-bar .keys .city .location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+page .header .custom-nav-bar .keys .city .location text {
   font-size: 28rpx;
   font-weight: 600;
 }
-page .custom-nav-bar .keys .city .location .line {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-bottom: 2px solid red;
-  border-right: 2px solid red;
-  transform: rotate(45deg);
-  margin-bottom: 5rpx;
-  margin-left: 10rpx;
+page .header .custom-nav-bar .keys .city .location .line {
+  width: 14px;
 }
-page .custom-nav-bar .keys .city .inter {
-  margin-left: 20rpx;
+page .header .custom-nav-bar .keys .type {
+  flex: 5;
+  display: flex;
+}
+page .header .custom-nav-bar .keys .type .inter {
   border-right: 1px solid #a6acb3;
 }
-page .custom-nav-bar .keys .type {
-  flex: 5;
+page .header .custom-nav-bar .keys .type input {
+  margin-left: 10rpx;
 }
-page .cates {
-  position: fixed;
-  left: 50%;
-  top: 13%;
-  transform: translate(-50%, -50%);
+page .header .cates {
   height: 5%;
-  width: 100%;
+  width: 92%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  margin-top: 3.5%;
 }
-page .cates .university {
+page .header .cates .university {
   background-color: #8ec31f;
   border-radius: 15rpx;
   font-size: 24rpx;
@@ -96,7 +80,7 @@ page .cates .university {
   /* 文本水平居中对齐 */
   color: #ededed;
 }
-page .cates .campus {
+page .header .cates .campus {
   background-color: #8ec31f;
   border-radius: 15rpx;
   padding: 10rpx;
@@ -108,7 +92,7 @@ page .cates .campus {
   /* 文本水平居中对齐 */
   color: #ededed;
 }
-page .cates .sort {
+page .header .cates .sort {
   background-color: #8ec31f;
   border-radius: 15rpx;
   font-size: 24rpx;
@@ -134,13 +118,13 @@ page .products .product_list .product_card {
   width: 46%;
   text-align: center;
   margin: 2%;
-}
-page .products .product_list .product_card navigator {
-  margin: 10rpx;
+  background-color: #fafafa;
+  border-radius: 20rpx;
 }
 page .products .product_list .product_card navigator image {
   width: 100%;
-  border-radius: 35rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
   background-color: #fff;
   box-shadow: 0px 10px 20px 0px #c7c9c7;
   transition: transform 200ms;
@@ -150,12 +134,12 @@ page .products .product_list .product_card navigator image:hover {
   box-shadow: -2px 8px 15px -12px #647878;
 }
 page .products .product_list .product_card navigator .bottom {
+  height: 100rpx;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
 }
 page .products .product_list .product_card navigator .bottom .product_name {
-  padding-top: 10rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,4 +164,7 @@ page .float-window {
   /* 水平居中 */
   align-items: center;
   /* 垂直居中 */
+}
+page .bottom {
+  height: 200rpx;
 }

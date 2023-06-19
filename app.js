@@ -17,84 +17,34 @@ App({
         traceUser: true,
       })
     }
-    requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
-      console.log("campuses: ",result.message)
-      this.globalData.campuses=result.message
-    })
+    // requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
+    //   console.log("campuses: ",result.message)
+    //   this.globalData.campuses=result.message
+    // })
+    this.getList();
     requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-      console.log("storage",result)
+      // console.log("storage",result)
       this.globalData.storageList=result.message
     })
-    const token=wx.getStorageSync('token');
-    if(!this.globalData.isLogin){
-      let that =this;
-      wx.showModal({
-        title:'友情提示',
-        content:'微信授权登录后，才可进入个人中心',
-        success:(res)=>{
-          wx.cloud.callFunction({
-            name: 'yunrouter', // 对应云函数名
-            data: {
-              $url: "openid", //云函数路由参数
-            },
-            success: re => {
-              console.log("user:"+re.result)
-              this.globalData.openid=re.result
-              db.collection('user').where({
-                _openid: re.result
-              }).get({
-                success: function (res) {
-                  console.log(res.data[0])
-                  if(res.data[0]==undefined){
-                    console.log("尚未注册！")
-                    wx.redirectTo({
-                      url: '/pages/my/create/login',
-                    })
-                  }else{
-                    console.log("data :",res.data[0].userInfo);
-                    that.globalData.openid= res.data[0]._openid;
-                    console.log("data :",res.data[0].userInfo)
-                    that.globalData.userInfo = res.data[0].userInfo;
-                    that.globalData.friends=res.data[0].friends;
-                    that.globalData.user=res.data[0];
-                    console.log("data :",res.data[0].user)
-                    wx.redirectTo({
-                      url: '/pages/index/index',
-                    })
-                  }
-                },
-              })
-            }
-          })
-          // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
-          //   console.log(res[0].code);
-          //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
-          //   let loginParam={
-          //     code:res[0].code,
-          //     nickName:res[1].userInfo.nickName,
-          //     avatarUrl:res[1].userInfo.avatarUrl
-          //   }
-          //   console.log(loginParam)
-          //   wx.setStorageSync('userInfo', res[1].userInfo);
-          //   this.wxlogin(loginParam);
-          //   app.globalData.userInfo=res[1].userInfo
-          //   app.globalData.isLogin=true;
 
-          // })
-        }
-      })
-    }
     const baseUrl=getBaseUrl();
     this.globalData.baseUrl=baseUrl;
-    console.log(baseUrl)
+    // console.log("baseUrl: ",baseUrl)
 
     const db = wx.cloud.database();
 
   },
+  async getList(){
+    await requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
+      // console.log("campuses: ",result.message)
+      this.globalData.campuses=result.message
+    })
+  },
+
   globalData: {
     baseUrl:"",
     useTmp : false ,// 默认不开启
-    userInfo: null,
+    user: {},
     index:-1,
     camIndex:-1,
     curcamIndex:-1,

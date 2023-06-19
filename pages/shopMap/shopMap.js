@@ -1,5 +1,9 @@
+import {getBaseUrl, requestUtil}from '../../utils/requestUtil.js';
+import regeneratorRuntime from '../../lib/runtime/runtime';
+
 var QQMapWX = require('../../utils/qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
+const app=getApp();
 Page({
   data: {
     addListShow: false,
@@ -38,15 +42,10 @@ Page({
       title: '加载中'
     });
     //定位
-    wx.getLocation({
-      type: 'gcj02',
-      isHighAccuracy:true,
-      success(res) {
+    requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid}}).then(res=>{
         //console.log(res)
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
+        const latitude = res.message.latitude
+        const longitude = res.message.longitude
         console.log("userlat:",latitude,"userlon:",longitude)
 
         //逆地址解析
@@ -67,23 +66,9 @@ Page({
             self.nearby_search();
           },
         });
-      },
-      fail(err) {
-        //console.log(err)
-        wx.hideLoading({});
-        wx.showToast({
-          title: '定位失败',
-          icon: 'none',
-          duration: 1500
-        })
-        setTimeout(function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 1500)
-      }
-    })
-  },
+      
+  })
+},
   onReady: function () {
     
   },

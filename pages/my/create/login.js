@@ -11,6 +11,8 @@ Page({
   data: {
         ids: -1,
         name: '',
+        uid:-1,
+        cid:-1,
         university:"",
         campus: "",
         choosed:false,
@@ -62,7 +64,7 @@ Page({
   },
   handlelogin(){
     this.data.userInfo.university=this.data.university;
-    this.data.university.campus=this.data.campus;
+    this.data.userInfo.campus=this.data.campus;
     console.log(this.data.userInfo)
 
     wx.cloud.callFunction({
@@ -82,7 +84,10 @@ Page({
         dba: 0,
         friends:[],
         storage:[],
-        chat:[]
+        chat:[],
+        favorite:[],
+        uid:this.data.uid,
+        cid:this.data.cid
       },
       success: res => {
         console.log("login:  ",res)
@@ -94,7 +99,7 @@ Page({
             app.globalData.openid= res.data[0]._openid;
             app.globalData.userInfo = res.data[0].userInfo;
             app.globalData.friends=res.data[0].friends;
-            app.globalData.data=res.data[0]
+            app.globalData.user=res.data[0]
             console.log(app.globalData)
             wx.showToast({
               title: '注册成功',

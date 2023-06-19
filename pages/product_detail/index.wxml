@@ -1,6 +1,6 @@
 <view class="userContainer">
   
-  <image  class="pic" src="{{user.userInfo.avatarUrl}}" mode="widthFix" />
+  <image  bindtap="onUserDetail"class="pic" src="{{user.userInfo.avatarUrl}}" mode="aspectFill" />
   <view class="middle">
     <text class="name">{{user.userInfo.nickName}}</text>
     <text class="campus">{{user.university}}-{{user.campus}}</text>
@@ -45,43 +45,34 @@
 
 <view class="product_descripion" >{{productObj.description}}</view>
 
-<view class="message" >
+
+<!--留言未完成-->
+<!-- <view class="message" >
   <image src="/icons/message.png" class="message_icon" mode="aspectFit"/>
   <text class="message_title">留言</text>
-</view>
-
-
-
-<!-- <view class="desc_tabs" style="position: relative; left: 0rpx; top: 0rpx">
-  <view class="tabs_title" style="position: relative; left: 0rpx; top: 102rpx">
-    <!-- <view class="title_item {{activeIndex==0?'active':''}}" data-index="0" bindtap="handleItemTap" style="position: relative; left: 0rpx; top: -220rpx">商品介绍</view> -->
-    
-  <!-- </view> -->
-
-  <!-- <view class="tabs_content">
-    <block wx:if="{{activeIndex==0}}">
-      <rich-text nodes="{{productObj.productintroimgs}}"></rich-text>
-    </block>
-    <block wx:elif="{{activeIndex==1}}">
-      <rich-text nodes="{{productObj.productparaimgs}}"></rich-text>
-    </block>
-  </view> --> 
-<!-- </view> -->
-
-<view class="btmbackground" >
+</view> -->
+<!-- <view class="btmbackground" >
   <image class="btm_icon" src="/icons/de-people.png" mode="aspectFit"/>
   <text class="btm_text" >留言问问更多细节</text>
+</view> -->
+<view class="storageentry"wx:if="{{hasStorage}}" >
+  <view class="storage" >
+  From{{storageName}},进来看看有什么待出物品
+</view>
+<view class="ebtn" bindtap="onStorageEntry">
+  进入
+</view>
 </view>
 
 <view class="btm_tool" >
-  <view class="tool_item home" >
+  <navigator class="tool_item home" url="/pages/index/index">
     <image mode="aspectFit" src="/icons/home_for_product.png" ></image>
     
-  </view>
-
-  <navigator url="/pages/favorite/index" class="tool_item favorite" >
-    <image mode="aspectFit" src="/icons/favorite.png" ></image>
   </navigator>
+
+  <!-- <navigator url="/pages/favorite/index" class="tool_item favorite" >
+    <image mode="aspectFit" src="/icons/favorite.png" ></image>
+  </navigator> -->
 
   <navigator url="/pages/my/index" class="tool_item smile" >
     <image mode="aspectFit" src="/icons/smile.png" ></image>

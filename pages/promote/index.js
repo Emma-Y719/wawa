@@ -22,11 +22,12 @@ Page({
     pics:[],
     type:"点选类型",
     typeList:[],
-    typeid:"",
+    typeid:0,
     price:"",
     storage:"选取群物品库",
     storageid:0,
     storageList:[],
+    storageNames:[],
     log:-1.0,
     lat:-1.0,
     inputValue: '',// 用于保存用户输入的数字值
@@ -42,8 +43,10 @@ Page({
     suggestion: [],
     selectedId: 0,
     id:-1,
-    originstatus:-1
-
+    originstatus:-1,
+    noStorage:false,
+    isconfirmed:false,
+    
   },
 
   /**
@@ -58,15 +61,17 @@ Page({
     if(options.id==undefined){
       this.setData({
         university:app.globalData.user.university,
-        campus:app.globalData.user.campus
+        campus:app.globalData.user.campus,
+        uid:app.globalData.user.uid,
+        cid:app.globalData.user.cid
       })
   
-      if(options!=undefined){
+      if(options.storage!=undefined){
         const {storage}=options;
-        console.log("storage"+storage)
+        console.log("storage not undefined： "+storage)
         if(storage!=undefined){
           this.setData({
-            storage:storage
+            storageid:storage
           })
         }
       }
@@ -75,15 +80,13 @@ Page({
       this.searchStorageList();
     }else{
       console.log("update!")
-      this.getProductDetail(options.id);
-      console.log(this.data.lat)
-
-      console.log(this.data.campus)
-
-
-      this.location(this.data.lat,this.data.log);
       
-      
+      this.getProductDetail(options.id);     
+      console.log("lat: ",this.data.lat)
+      console.log("log: ",this.data.log)
+      console.log("university: ",this.data.campus)
+      console.log("campus: ",this.data.campus)
+      console.log("storageid: ",this.data.storageid)
     }
 
   },
@@ -100,8 +103,6 @@ Page({
       get_poi: 1,
       poi_options: 'policy=2;radius=3000;page_size=20;page_index=1;keyword='+encodeURIComponent(self.data.defaultKeyword),
       success: function (res) { //搜索成功后的回调
-        
-        
         var sug = [];
         for (var i = 0; i < res.result.pois.length; i++) {
           sug.push({ // 获取返回结果，放到sug数组中
@@ -114,7 +115,7 @@ Page({
             longitude: res.result.pois[i].location.lng,
           });
         }
-        console.log("data: "+res.result.pois[0].title)
+        console.log("data location: "+sug[0])
         self.setData({
           selectedId: 0,
           loc: sug[0].title,
@@ -133,6 +134,61 @@ Page({
       });
   },
 
+  locate(){
+
+    var self=this;
+    //定位
+requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid}}).then(res=>{
+  let latitude=res.message.latitude
+  let longitude=res.message.longitude
+  self.setData({
+    lat:latitude,
+    log:longitude
+  })
+  //逆地址解析
+
+  qqmapsdk.reverseGeocoder({
+    // 调用接口
+    location: {
+      latitude: latitude,
+      longitude: longitude,
+    },
+    get_poi: 1,
+    poi_options: 'policy=2;radius=3000;page_size=20;page_index=1;keyword='+encodeURIComponent(self.data.defaultKeyword),
+    success: function (res) { //搜索成功后的回调
+      console.log("data: "+res.result.pois[0].title)
+      var sug = [];
+      for (var i = 0; i < res.result.pois.length; i++) {
+        sug.push({ // 获取返回结果，放到sug数组中
+          title: res.result.pois[i].title,
+          id: res.result.pois[i].id,
+          addr: res.result.pois[i].address,
+          city: res.result.pois[i].city,
+          district: res.result.pois[i].district,
+          latitude: res.result.pois[i].location.lat,
+          longitude: res.result.pois[i].location.lng,
+        });
+      }
+      
+      self.setData({
+        selectedId: 0,
+        loc: sug[0].title,
+        nearList: sug, 
+        suggestion: sug
+      })
+    },
+    fail: function (res) {
+      //console.log(res);
+    },
+    complete: function (res) {
+      console.log(res);
+    }
+  });
+
+  })
+
+  },
+
   getTypeList(){
     requestUtil({url:'/bigType/findCategories',method:"GET"}).then(result=>{
       let list=result.message
@@ -141,7 +197,7 @@ Page({
       list.forEach(function(value,index,array){
         let smallList=value.smallTypeList;
         smallList.forEach(function(value1,index,array){
-          typeList.push(value.name+"-"+value1.name)
+          typeList.push(value.name)
         }) 
       })
       this.setData({
@@ -152,79 +208,6 @@ Page({
     })
 
 
-  },
-
-  locate(){
-
-    var self=this;
-    //定位
-    wx.getLocation({
-      type: 'gcj02',
-      isHighAccuracy:true,
-      success(res) {
-        //console.log(res)
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-        console.log("userlat:",latitude,"userlon:",longitude)
-
-        //逆地址解析
-
-          qqmapsdk.reverseGeocoder({
-            // 调用接口
-            location: {
-              latitude: latitude,
-              longitude: longitude,
-            },
-            get_poi: 1,
-            poi_options: 'policy=2;radius=3000;page_size=20;page_index=1;keyword='+encodeURIComponent(self.data.defaultKeyword),
-            success: function (res) { //搜索成功后的回调
-              console.log("data: "+res.result.pois[0].title)
-              var sug = [];
-              for (var i = 0; i < res.result.pois.length; i++) {
-                sug.push({ // 获取返回结果，放到sug数组中
-                  title: res.result.pois[i].title,
-                  id: res.result.pois[i].id,
-                  addr: res.result.pois[i].address,
-                  city: res.result.pois[i].city,
-                  district: res.result.pois[i].district,
-                  latitude: res.result.pois[i].location.lat,
-                  longitude: res.result.pois[i].location.lng,
-                });
-              }
-              
-              self.setData({
-                selectedId: 0,
-                loc: sug[0].title,
-                nearList: sug, 
-                suggestion: sug
-              })
-            },
-            fail: function (res) {
-              //console.log(res);
-            },
-            complete: function (res) {
-              console.log(res);
-            }
-            });
-    
-      },
-      fail(err) {
-        //console.log(err)
-        wx.hideLoading({});
-        wx.showToast({
-          title: '定位失败',
-          icon: 'none',
-          duration: 1500
-        })
-        setTimeout(function () {
-          wx.navigateBack({
-            delta: 1
-          })
-        }, 1500)
-      }
-    })
   },
   /**
    * 获取商品详情
@@ -237,14 +220,15 @@ Page({
     });
     this.productInfo=result.message;
     let product=result.message;
-    console.log(product)
+    console.log("product: ",product)
+    this.searchStorageList();
     this.setData({
       id:id,
       name:product.name,
       university:product.campus!=-1?app.globalData.campuses[product.campus].name:app.globalData.userInfo.university,
       campus:product.campus!=-1?app.globalData.campuses[product.campus].campus:app.globalData.userInfo.campus,
-      uid:product.campus!=-1?product.university:app.globalData.userInfo.campus,
-      cid:product.campus!=-1,
+      uid:product.campus!=-1?product.university:app.globalData.user.uid,
+      cid:product.campus!=-1?product.campus:app.globalData.user.cid,
       discript:product.description,
       pics:product.propic.pics,
       inputValue:product.price,
@@ -254,11 +238,43 @@ Page({
       storageid:product.storage,
       storage:product.storage!=0?app.globalData.storageList[product.storage-1].name:"选取物品库",
       typeid:product.typeid,
-      type:product.storage!=0?this.data.typeList[product.typeid-1]:"点选类型",
+      type:product.typeid!=0?this.data.typeList[product.typeid-1]:"点选类型",
       originstatus:product.status
     })
-    console.log(this.data.lat)
-    this.location(this.data.lat,this.data.log);
+    let temp_product={
+      id:id,
+      name:product.name,
+      university:product.campus!=-1?app.globalData.campuses[product.campus].name:app.globalData.userInfo.university,
+      campus:product.campus!=-1?app.globalData.campuses[product.campus].campus:app.globalData.userInfo.campus,
+      uid:product.campus!=-1?product.university:app.globalData.user.uid,
+      cid:product.campus!=-1?product.campus:app.globalData.user.cid,
+      discript:product.description,
+      pics:product.propic.pics,
+      inputValue:product.price,
+      price:product.price,
+      lat:product.latitude,
+      log:product.longtitude,
+      storageid:product.storage,
+      storage:product.storage!=0?app.globalData.storageList[product.storage-1].name:"选取物品库",
+      typeid:product.typeid,
+      type:product.typeid!=0?this.data.typeList[product.typeid-1]:"点选类型",
+      originstatus:product.status
+    }
+
+
+    console.log("temp_product: ",temp_product)
+
+
+
+
+
+    if(this.data.lat==-1||this.data.log==-1){
+      this.locate();
+      console.log("get the locate"+this.data.lat)
+    }else{
+      console.log("locate!")
+      this.location(this.data.lat,this.data.log);
+    }
     wx.cloud.callFunction({
       name: 'yunrouter',
       data: {
@@ -279,46 +295,169 @@ Page({
 
   },
 
-
-
-  async searchStorageList(e){
-    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-      var sall=result.message
-      console.log(sall)
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "HuoquFriends", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
-          console.log(sall)
-          var storages=res2.result.data[0].storage
-          let temp_storage=''
-          if(storages.length==0){
-            temp_storage='尚未加入物品库'
-          }else if(storages.length==1){
-            temp_storage=sall[storages[0]-1].name
+  handleStorage(event){
+    const {value}=event.detail;
+   
+    let storagevalue=parseInt(value)
+    const storage=this.data.storageNames[value];
+    console.log("choose id: ",storagevalue,"choose name: ",storage)
+    let sid=(storagevalue)%(this.data.storageNames.length);
+    let tem_sid=0;
+    if(sid<this.data.storageList.length){
+      tem_sid=this.data.storageList[sid]
+    }
+    if(storage!=undefined){
+      this.setData({
+        storage:storage,
+        storageid:tem_sid
+      })
+    }else{
+      wx.showModal({
+        title: '',
+        content: '尚未加入物品库,去搜索加入吧',
+        complete: (res) => {
+          if (res.cancel) {
+            isconfirmed=true
           }
-          this.setData({
-            storage:temp_storage
-          })
-          var storageList=[]
-          storages.forEach(function(value,index,array){
-            storageList.push(sall[value-1])
-          })
-          this.setData({
-            storageList:storageList
-          })
-        },
-        fail() {
+      
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/storage/index',
+            })
+          }
         }
-      });
-  
-    })
+      })
 
+    }
+    if(this.data.storage=="不同步"){
+      this.setData({
+        isconfirmed:true
+      })
+    }
+    console.log("cur storage id: ",this.data.storageid)
+  },
+  handleType(event){
+    const {value}=event.detail;
+    console.log(value)
+    let typevalue=parseInt(value)
+    const type=this.data.typeList[value];
+    this.setData({
+      type:type,
+      typeid:typevalue+1
+    })
+    console.log(this.data.typeid)
+  },
+  async searchStorageList(e){
+    console.log("cur storageid: "+this.data.storageid)
+    if(this.data.storageid==0&&this.data.storage!="不同步"){
+      requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+        var sall=result.message
+        console.log(sall)
+        wx.cloud.callFunction({
+          name: 'yunrouter',
+          data: {
+            $url: "HuoquFriends", //云函数路由参数
+            openid: app.globalData.openid
+          },
+          success: res2 => {
+            console.log("all storages",sall)
+  
+            var storages=res2.result.data[0].storage
+            console.log("i'm in: ",storages)
+            if(storages!=undefined){
+              let temp_storage=''
+              let temp_id=0;
+              let temp_nostorage=false;
+              console.log(this.data.storageid)
+              if(this.data.storageid==0){
+  
+                if(storages.length==0){
+                  temp_storage='尚未加入物品库'
+                  temp_nostorage=true
+                }else{
+                  temp_storage=storages[0].name
+                  temp_id=storages[0].identity   
+                }
+                console.log("temp_storage: ",temp_storage)
+                console.log("temp_id: ",temp_id)
+              }else{
+                temp_storage=sall[this.data.storageid-1].name
+                temp_id=this.data.storageid
+                console.log("temp_storage: ",temp_storage)
+                console.log("temp_id: ",temp_id)
+              }
+              this.setData({
+                storage:temp_storage,
+                storageid:temp_id,
+                noStorage:temp_nostorage
+              })
+              var storageList=[]
+              var storageNames=[]
+              storages.forEach(function(value,index,array){
+                storageList.push(value.identity);
+                storageNames.push(value.name)
+              })
+              storageNames.push("不同步")
+              this.setData({
+                storageList:storageList,
+                storageNames:storageNames
+              })
+            }
+          },
+          fail() {
+          }
+        });
+    
+      })
+    }else if(this.data.storageid!=0){
+      requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+        var sall=result.message
+        console.log(sall)
+        wx.cloud.callFunction({
+          name: 'yunrouter',
+          data: {
+            $url: "HuoquFriends", //云函数路由参数
+            openid: app.globalData.openid
+          },
+          success: res2 => {
+            console.log("all storages",sall)
+  
+            var storages=res2.result.data[0].storage
+            console.log("i'm in: ",storages)
+            if(storages!=undefined){
+              let temp_storage=''
+              let temp_nostorage=false;
+              temp_storage=sall[this.data.storageid-1].name
+              console.log("temp_storage: ",temp_storage)
+              this.setData({
+                storage:temp_storage,
+                noStorage:temp_nostorage
+              })
+              var storageList=[]
+              var storageNames=[]
+              storages.forEach(function(value,index,array){
+                storageList.push(value.identity);
+                storageNames.push(value.name)
+              })
+              storageNames.push("不同步")
+              this.setData({
+                storageList:storageList,
+                storageNames:storageNames
+              })
+            }
+          },
+          fail() {
+          }
+        });
+    
+      })
+
+
+    }
 
   },
+
+
   async handleUpload(){
     var pictures=[];
 
@@ -350,6 +489,7 @@ Page({
           ishot:0,
           isswiper:0,
           typeid:this.data.typeid,
+          hotdatetime:this.formatDateTime(new Date()),
           description:this.data.discript,
           university:this.data.uid,
           campus:this.data.cid,
@@ -388,12 +528,12 @@ Page({
     }else{
       let datacount=0;
 
-      await requestUtil({url:'/product/findAll',method:"GET"}).then(result=>{
-        console.log("findAll",result.message[result.message.length-1].identity)
-        datacount=result.message[result.message.length-1].identity+1;
-        console.log("this index",datacount)
-  
+      await requestUtil({url:'/product/findMaxId',method:"GET"}).then(result=>{
+        console.log("MaxId: ",result.message.identity)
+        datacount=result.message.identity+1;
+        console.log("this index: ",datacount)
       })
+      
       for(let i=0; i<this.data.pics.length; i++ ){
         //图片上传云服务
         try {
@@ -417,6 +557,7 @@ Page({
           ishot:0,
           isswiper:0,
           typeid:this.data.typeid,
+          hotdatetime:this.formatDateTime(new Date()),
           description:this.data.discript,
           university:this.data.uid,
           campus:this.data.cid,
@@ -453,8 +594,8 @@ Page({
 
 
   },
+
   async handleDraft(){
-    
     let discript=this.data.discript
     let loc=this.data.loc
     let price=this.data.price
@@ -465,9 +606,7 @@ Page({
     if(this.data.type==''){
       typeid=0
     }
-    if(this.data.name==''){
-      name=""
-    }
+
     if(this.data.discript==""){
       discript=""
     }
@@ -477,51 +616,117 @@ Page({
     if(this.data.method==''){
       storage=0
     }
+    if(this.data.name==''){
+      wx.showToast({
+        title: '请至少输入物品名称',
+        icon: 'none',
+        duration: 2000
+      });
+    }else if(this.data.university==''||this.data.university==undefined){
+      wx.showToast({
+        title: '请选择学校校区',
+        icon: 'none',
+        duration: 2000
+      });
+    }else{
 
-    console.log(this.data.name)
-
-    console.log(loc)
-    console.log(price)
-    console.log(storage)
-    console.log("开始上传")
-    let datacount=0;
-    await requestUtil({url:'/product/findAll',method:"GET"}).then(result=>{
-      console.log("findAll",result.message[result.message.length-1].identity)
-      datacount=result.message[result.message.length-1].identity+1;
-      console.log("this index",datacount)
-    })
-
-
-    if(this.data.id!=-1){
-
-      var pictures=[];
-      console.log(this.data.pics)
-      for(let i=0; i<this.data.pics.length; i++ ){
-        //图片上传云服务
-        if(this.data.pics[i][0]!='c'){
-          try {
-            const fileID = await this.uploadFileToCloud(this.data.id,this.data.pics[i]);
-            pictures.push(fileID);
-          } catch (error) {
-            console.log('上传图片失败', error);
-            pictures.push(this.data.pics[i])
+      console.log("name: ",this.data.name)
+      console.log("type: ",typeid)
+      console.log("loc: ",loc)
+      console.log("price: ",price)
+      console.log("storage: ",storage)
+      console.log("开始上传")
+      let datacount=0;
+      await requestUtil({url:'/product/findMaxId',method:"GET"}).then(result=>{
+        console.log("MaxId: ",result.message.identity)
+        datacount=result.message.identity+1;
+        console.log("this index: ",datacount)
+      })
+  
+  
+      if(this.data.id!=-1){
+  
+        var pictures=[];
+        console.log(this.data.pics)
+        for(let i=0; i<this.data.pics.length; i++ ){
+          //图片上传云服务
+          if(this.data.pics[i][0]!='c'){
+            try {
+              const fileID = await this.uploadFileToCloud(this.data.id,this.data.pics[i]);
+              pictures.push(fileID);
+            } catch (error) {
+              console.log('上传图片失败', error);
+              pictures.push(this.data.pics[i])
+            }
+          }else{
+            pictures.push(this.data.pics[i]);
           }
-        }else{
-          pictures.push(this.data.pics[i]);
         }
-      }
-      console.log(pictures)
-      requestUtil({
-        url:"/product/update",
-        method:"POST",
-        data:{
-            identity: this.data.id,
+        console.log(this.formatDateTime(new Date()))
+        requestUtil({
+          url:"/product/update",
+          method:"POST",
+          data:{
+              identity: this.data.id,
+              name: this.data.name,
+              price: price,
+              propic: {"pics":pictures},
+              ishot:0,
+              isswiper:0,
+              typeid:typeid,
+              hotdatetime:this.formatDateTime(new Date()),
+              description:this.data.discript,
+              university:this.data.uid,
+              campus:this.data.cid,
+              longtitude:this.data.log,
+              latitude:this.data.lat,
+              userid:app.globalData.openid,
+              status:1,
+              storage:storage
+          }
+        }).then(result=>{
+            if(result){
+              wx.showModal({
+                title:'',
+                content:"保存成功"
+              })
+            }else{
+    
+            }
+            console.log(result)
+        })
+  
+  
+      }else{
+        var pictures=[];
+        console.log(this.data.pics)
+        for(let i=0; i<this.data.pics.length; i++ ){
+          //图片上传云服务
+          if(this.data.pics[i][0]!='c'){
+            try {
+              const fileID = await this.uploadFileToCloud(datacount,this.data.pics[i]);
+              pictures.push(fileID);
+            } catch (error) {
+              console.log('上传图片失败', error);
+              pictures.push(this.data.pics[i]);
+            }
+          }else{
+            pictures.push(this.data.pics[i]);
+          }
+        }
+        console.log(pictures)
+        requestUtil({
+          url:"/product/add",
+          method:"POST",
+          data:{
+            identity: datacount,
             name: this.data.name,
             price: price,
             propic: {"pics":pictures},
             ishot:0,
             isswiper:0,
             typeid:typeid,
+            hotdatetime:this.formatDateTime(new Date()),
             description:this.data.discript,
             university:this.data.uid,
             campus:this.data.cid,
@@ -530,71 +735,44 @@ Page({
             userid:app.globalData.openid,
             status:1,
             storage:storage
-        }
-      }).then(result=>{
-          if(result){
-            wx.showModal({
-              title:'',
-              content:"保存成功"
-            })
-          }else{
+          }
+        }).then(result=>{
+            if(result){
+              wx.showModal({
+                title:'',
+                content:"保存成功"
+              })
+            }else{
+    
+            }
+            console.log(result)
+        })
   
-          }
-          console.log(result)
-      })
-
-
-    }else{
-      var pictures=[];
-      console.log(this.data.pics)
-      for(let i=0; i<this.data.pics.length; i++ ){
-        //图片上传云服务
-        if(this.data.pics[i][0]!='c'){
-          try {
-            const fileID = await this.uploadFileToCloud(datacount,this.data.pics[i]);
-            pictures.push(fileID);
-          } catch (error) {
-            console.log('上传图片失败', error);
-            pictures.push(this.data.pics[i]);
-          }
-        }else{
-          pictures.push(this.data.pics[i]);
-        }
       }
-      console.log(pictures)
-      requestUtil({
-        url:"/product/add",
-        method:"POST",
-        data:{
-          identity: datacount,
-          name: this.data.name,
-          price: price,
-          propic: {"pics":pictures},
-          ishot:0,
-          isswiper:0,
-          typeid:typeid,
-          description:this.data.discript,
-          university:this.data.uid,
-          campus:this.data.cid,
-          longtitude:this.data.log,
-          latitude:this.data.lat,
-          userid:app.globalData.openid,
-          status:1,
-          storage:storage
-        }
-      }).then(result=>{
-          if(result){
-            wx.showModal({
-              title:'',
-              content:"保存成功"
-            })
-          }else{
-  
-          }
-          console.log(result)
-      })
 
     }
+   
+  },
+  formatLeadingZeroNumber(n, digitNum = 2) {
+    n = n.toString()
+    const needNum = Math.max(digitNum - n.length, 0)
+    return new Array(needNum).fill(0).join('') + n
+  },
+  formatDateTime(date, withMs = false) {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+    const ms = date.getMilliseconds()
+  
+    let ret = [year, month, day].map(value => this.formatLeadingZeroNumber(value, 2)).join('-') +
+      ' ' + [hour, minute, second].map(value => this.formatLeadingZeroNumber(value, 2)).join(':')
+    if (withMs) {
+      ret += '.' + this.formatLeadingZeroNumber(ms, 3)
+    }
+    return ret
   },
   uploadFileToCloud(id,filePath){
     return new Promise((resolve, reject) => {
@@ -649,7 +827,7 @@ Page({
         duration: 2000
       });
       
-    }else if(this.data.price==''){
+    }else if(this.data.price==''||this.data.price==-1){
       wx.showToast({
         title: '请输入商品价格',
         icon: 'none',
@@ -661,6 +839,25 @@ Page({
         icon: 'none',
         duration: 2000
       });
+    }else if(this.data.storageid==0&&!this.data.isconfirmed){
+      wx.showModal({
+        title: '',
+        content: '尚未加入群聊物品库，需要去添加么？',
+        complete: (res) => {
+          if (res.cancel) {
+            this.setData({
+              isconfirmed:true
+            })
+          }
+      
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/storage/index',
+            })
+          }
+        }
+      })
+      
     }else{
       this.handleUpload();
     }
@@ -672,13 +869,7 @@ Page({
 
     return true;
   },
-  handleType(event){
-    const {value}=event.detail;
-    const type=this.data.typeList[value];
-    this.setData({
-      type:type
-    })
-  },
+
 
   showActionSheet: function () {
     console.log(this)
@@ -732,9 +923,9 @@ Page({
   /**上传图片 */
   uploadImage:function(){
   let that=this;
-  let pics =[];
+  let pics =this.data.pics;
   wx.chooseMedia({
-   count:3 - pics.length,
+   count:9- pics.length,
    sizeType: ['original', 'compressed'],
    sourceType: ['album', 'camera'],
    success: function(res) {
@@ -780,14 +971,35 @@ Page({
   })
   
   },
- onTab(route){
+  onClickStorage(){
+
+      wx.showModal({
+        title: '',
+        content: '尚未加入群聊物品库，需要去添加么？',
+        complete: (res) => {
+          if (res.cancel) {
+            this.setData({
+              isconfirmed:true
+            })
+          }
+      
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/storage/index',
+            })
+          }
+        }
+      })
+    
+  },
+  onTab(route){
     wx.showModal({
       title: '',
       content: '是否保存草稿？',
       complete: (res) => {
         if (res.cancel) {
           wx.reLaunch({
-            url: '/pages/my/index',
+            url: route,
           })
         }
         if (res.confirm) {
@@ -812,6 +1024,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    console.log("onshow")
+    this.searchStorageList();
 
   },
 

@@ -26,7 +26,7 @@ Page({
   },
   onFloatButtonTap() {
     wx.navigateTo({
-      url: '/pages/search/map'
+      url: '/pages/search/map?uid='+this.data.uid+"&cid="+this.data.cid+"&type="+this.data.type
     });
   },
    // 悬浮窗触摸开始事件
@@ -57,27 +57,50 @@ Page({
       baseUrl
 
     });
-    this.setData({
-      type:app.globalData.type,
-      uid:app.globalData.searchUniversityIndex,
-      cid:app.globalData.searchCampusIndex,
-      university:app.globalData.campus.split('-')[0],
-      campus:app.globalData.campus.split('-')[1]
-    })
+    if(options.uid!=undefined){
+      console.log(options)
+      let uindex=parseInt(options.uid)
+      let cindex=parseInt(options.cid)
+      let t=''
+      if(options.type!=undefined){
+        t=options.type
+      }
+      let u=''
+      let c=''
+      if(uindex!=-1){
+        u=app.globalData.campuses[uindex].name;
+      }else{
+        u="不限"
+      }
+      if(cindex!=-1){
+        c=app.globalData.campuses[cindex].campus;
+      }else{
+        c="不限"
+      }
+      
+
+      this.setData({
+        type:t,
+        uid:uindex,
+        cid:cindex,
+        university:u,
+        campus:c,
+      })
+
+
+    }else{
+      this.setData({
+        type:app.globalData.type,
+        uid:app.globalData.searchUniversityIndex,
+        cid:app.globalData.searchCampusIndex,
+        university:app.globalData.campus.split('-')[0],
+        campus:app.globalData.campus.split('-')[1]
+      })
+    }
+
+
     this.searchProductList();
     var that = this
-    //获取当前的地理位置、速度
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        console.log(res.latitude,res.longitude);
-        //赋值经纬度
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })
-      }
-    })
   },
 
   navigateBack: function () {
@@ -102,14 +125,19 @@ Page({
     console.log(this.data.type)
     this.searchProductList()
   },
-
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
+  },
 
   async searchProductList(e){
     var searchUniversityIndex=app.globalData.searchUniversityIndex;
     var searchCampusIndex=app.globalData.searchCampusIndex;
     console.log("indices: "+this.data.uid+" , "+this.data.cid);
     requestUtil({url:'/product/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
-      console.log("lists",result.message.productList);
+      console.log("lists",result.message);
       this.setData({
         productList:result.message
       })

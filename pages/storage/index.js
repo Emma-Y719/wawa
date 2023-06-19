@@ -15,8 +15,11 @@ Page({
   data: {
     university:"",
     campus:"",
+    uid:-1,
+    cid:-1,
     type:"",
-    storageList:[]
+    storageList:[],
+    searchStorageList:[]
   },
 
   /**
@@ -27,45 +30,122 @@ Page({
     this.setData({
       baseUrl
     });
-    this.searchStorageList()
+    this.setData({
+      university:app.globalData.userInfo.university,
+      campus:app.globalData.userInfo.campus,
+      uid:app.globalData.user.uid,
+      cid:app.globalData.user.cid,
+    })
+    this.searchStorageList();
+    this.searchMulti()
   },
   async searchStorageList(e){
-    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-      var sall=result.message
-      console.log(app.globalData.openid)
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "HuoquFriends", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
-          console.log("res2:   ",res2)
-          if(res2.result!=null){
-            var storages=res2.result.data[0].storage
+    
+    wx.cloud.callFunction({
+      name: 'yunrouter',
+      data: {
+        $url: "HuoquFriends", //云函数路由参数
+        openid: app.globalData.openid
+      },
+      
+      success: res2 => {
+        let that=this;
+        console.log("res2:   ",res2.result.data[0].storage)
+        if(res2.result!=null){
+          var storages=res2.result.data[0].storage
+          console.log(storages.length)
+          
+          if(storages!=undefined){
             var storageList=[]
             storages.forEach(function(value,index,array){
-              storageList.push(sall[value-1])
+              requestUtil({url:'/storage/findById',method:"GET",data:{id:value.identity}}).then(result=>{
+                storageList.push(result.message[0])
+                that.setData({
+                  storageList:storageList
+                })
+              })
+              
             })
-            this.setData({
-              storageList:storageList
+
+          }else{
+            console.log("清空ta！")
+            that.setData({
+              storageList:[]
             })
           }
-        },
-        fail() {
+          if(storages.length==0){
+            that.setData({
+              storageList:[]
+            })
+          }
         }
-      });
-  
+      },
+      fail() {
+      }
+    });
+  },
+  ontypeInput(e){
+    this.setData({
+      type:e.detail.value
     })
+    console.log(e.detail)
+    console.log(this.data.type)
+    this.searchMulti()
+  },
+  async searchMulti(e){
+    var searchUniversityIndex=app.globalData.searchUniversityIndex;
+    var searchCampusIndex=app.globalData.searchCampusIndex;
+    console.log("indices: "+this.data.uid+" , "+this.data.cid);
+    requestUtil({url:'/storage/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
+      console.log("lists multi",result.message);
+      this.setData({
+        searchStorageList:result.message
+      })
+    })
+    // if(searchCampusIndex!=-1){
+      
+    //   requestUtil({url:'/product/searchMulti',method:"GET",data:{university:searchUniversityIndex,campus:searchCampusIndex,type:app.globalData}}).then(result=>{
+    //     console.log("ll",result.message.productList);
+    //     this.setData({
+    //       university:university_,
+    //       campus:campus_,
+    //       type: app.globalData.type,
+    //       productList:result.message.productList
+    //     })
+    //   })
+    // }else if(searchCampusIndex==-1&&searchUniversityIndex!=-1){
+    //   requestUtil({url:'/campus/findUniversity',method:"GET",data:{index:searchUniversity}}).then(result=>{
+    //     console.log(result.message.schoolList);
+    //     this.setData({
+    //       university:result.message.name,
+    //       campus:"不限",
+    //       type:app.globalData.type,
+    //       productList:result.message.schoolList
+    //     })
+    //   })
+    // }else if(searchCampusIndex==-1&&searchUniversityIndex==-1){
+    //   requestUtil({url:'/product/findAll',method:"GET"}).then(result=>{
+    //     console.log(result.message);
+
+    //     this.setData({
+    //       university:"不限",
+    //       campus:"不限",
+    //       type:app.globalData.type,
+    //       productList:result.message,
+    //       scrollTop:0
+    //     })
+    //   })
+    // }
 
 
   },
-  promote(e){
-
-
-
-
+  onNotComplete(){
+    wx.showToast({
+      title: '正在开发中，仅作展示',
+      icon: 'none',
+    })
   },
+
   handleCreate(e){
     wx.redirectTo({
       url: '/pages/storage/create/info/index',
@@ -84,6 +164,8 @@ Page({
    */
   onShow() {
     console.log("university: ",this.data.university)
+    this.searchStorageList();
+    this.searchMulti();
   },
 
   /**

@@ -15,16 +15,18 @@ Page({
    */
   data: {
     userInfo:{},
-    ptype:["在卖","草稿","已下架"],
+    ptype:["在卖","草稿","已完成"],
     b1:"",
     b2:"",
     typeIndex:0,
+  
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
     button2:["已完成","删除","删除"],
     onsale:[],
     draft:[],
-    off:[]
+    off:[],
+    share:false
   },
  
   /**
@@ -32,7 +34,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      baseUrl:app.globalData.baseUrl
+      baseUrl:app.globalData.baseUrl,
+      userInfo:app.globalData.userInfo
     })
     console.log("userInfo: ",app.globalData.userInfo)
     this.setData({
@@ -156,7 +159,7 @@ Page({
       productnew.status=2;
       wx.showModal({
         title: '',
-        content: '确认删除此草稿？',
+        content: '确认删除此商品？',
         complete: (res) => {
           if (res.cancel) {
           }
@@ -198,29 +201,7 @@ Page({
     }
 
   },
-  /**
-   * 请求后端获取用户token
-   * @param {*} loginParam 
-   */
-  async wxlogin(loginParam){
-    const result=await requestUtil({url:"/user/wxlogin",data:loginParam,method:"post"});
-    console.log(result);
-    const token=result.token;
-    if(result.code===0){
-      // 存储token到缓存
-      wx.setStorageSync('token', token);
-      // 支付继续走，创建订单
-      console.log("支付继续走，创建订单");
-      this.createOrder();
-    }
-  },
 
-  // 点击 编辑收货地址
-  handleEditAddress(){
-    wx.chooseAddress({
-      success: (result) => {},
-    })
-  },
   handletype(e){
     console.log(e.currentTarget.dataset.index);
     var index=e.currentTarget.dataset.index;
@@ -242,7 +223,8 @@ Page({
     })
   },
   async getHotProductList(e){
-    requestUtil({url:'/product/findUserId',method:"GET",data:{uid:app.globalData.openid}}).then(result=>{
+    console.log(this.data.user)
+    requestUtil({url:'/product/findUserId',method:"GET",data:{uid:this.data.user._openid}}).then(result=>{
       let onsale=[];let draft=[];let off=[]
       result.message.forEach(function(value,index,array){
         if(value.status==0){
@@ -307,11 +289,38 @@ Page({
   onReachBottom: function () {
 
   },
+  onShare(e){
+
+    this.onShareAppMessage();
+
+
+  },
   onNotComplete(){
     wx.showToast({
       title: '正在开发中，仅作展示',
       icon: 'none',
     })
+  },
+  onShareTimeline: function () {
+    console.log(this.data.user.userInfo.avatarUrl)
+    console.log(this.data.userid)
+    let imgurl=''
+    if(this.data.onsale.length>0){
+      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"){
+        imgurl=app.globalData.baseUrl+"/image/product/"+this.data.onsale[0].propic.pics[0]
+      }else{
+        imgurl=this.data.onsale[0].propic.pics[0]
+      }
+    }else{
+      imgurl=this.data.user.userInfo.avatarUrl;
+    }
+
+
+    return {
+      title: this.data.user.userInfo.nickName+": 这是我的物品库，有很多东西在低价出售，欢迎点进来瞧一瞧~",
+      imageUrl: imgurl,
+      path:"pages/my/detail?userid="+app.globalData.user._openid
+    }
   },
   /**
    * 用户点击右上角分享
@@ -323,9 +332,23 @@ Page({
     })
 
     console.log(this.data.user.userInfo.avatarUrl)
+    console.log(this.data.userid)
+    let imgurl=''
+    if(this.data.onsale.length>0){
+      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"){
+        imgurl=app.globalData.baseUrl+"/image/product/"+this.data.onsale[0].propic.pics[0]
+      }else{
+        imgurl=this.data.onsale[0].propic.pics[0]
+      }
+    }else{
+      imgurl=this.data.user.userInfo.avatarUrl;
+    }
+
+
     return {
-      title: this.data.user.userInfo.nickName+": 这里是我的宝库，快来瞧一瞧～",
-      imageUrl: this.data.user.userInfo.avatarUrl
+      title: this.data.user.userInfo.nickName+": 这是我的物品库，有很多东西在低价出售，欢迎点进来瞧一瞧~",
+      imageUrl: imgurl,
+      path:"pages/my/detail?userid="+app.globalData.user._openid
     }
   },
 })
