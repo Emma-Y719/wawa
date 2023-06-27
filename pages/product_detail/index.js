@@ -145,7 +145,40 @@ Page({
     }
 
   },
+  onsubscribe(){
+    // 向用户请求订阅消息授权
+    wx.requestSubscribeMessage({
+      tmplIds: ['cJ9pCIKt0PF3q6RJ9TIs49NN9yfblZt25oumlH0LbP8'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
+      success(res) {
+        // 用户授权成功
+        if (res.errMsg === 'requestSubscribeMessage:ok') {
+          // 遍历模板ID列表，判断用户的订阅状态
+          for (let templateId of Object.keys(res)) {
+            if (res[templateId] === 'accept') {
+              // 用户同意订阅该模板消息
+              console.log(`用户同意订阅模板消息：${templateId}`);
+              // 在这里可以保存用户的订阅状态，以便后续推送消息时使用
+            } else if (res[templateId] === 'reject') {
+              // 用户拒绝订阅该模板消息
+              console.log(`用户拒绝订阅模板消息：${templateId}`);
+            }
+          }
+        }
+      },
+      fail(err) {
+        // 请求订阅消息授权失败
+        console.error('请求订阅消息授权失败：', err);
+      }
+    });
+
+  },
+  
   addChat(e){
+    console.log(app.globalData.user.subscribe)
+    if(app.globalData.user.subscribe!=true){
+      this.onsubscribe();
+    }
+    
     if(this.data.productObj.userid==app.globalData.openid){
       wx.showToast({
         title: '扪心自问：我是谁，我来自哪里，我在干什么～',

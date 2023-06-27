@@ -147,8 +147,8 @@ async handleuploadpic(){
     datacount=result.message[result.message.length-1].identity+1;
     console.log("this index",datacount)
 
-    wx.request({
-      url: that.data.baseUrl+'/storage/add',
+    requestUtil({
+      url: '/storage/add',
       method:"POST",
       data: {
         identity: datacount,
@@ -229,31 +229,33 @@ async handleuploadpic(){
                 });
           }
         }
-        wx.request({
-          url: this.data.baseUrl+'/storage/findName',
-          method:"GET",
-          data:{
-            name:that.data.name
-          },
+        that.handleuploadpic();
+        // requestUtil({
+        //   url: '/storage/findName',
+        //   method:"GET",
+        //   data:{
+        //     name:that.data.name
+        //   },
           
-          success:function(res){
-            let self=that;
-            console.log(res);
-            if(res.data.message.length!=0){
-              wx.showToast({
-                title: '该物品库已注册',
-                icon: 'none',
-                duration: 2000
-              });
-            }else{
-             self.handleuploadpic();
+        //   success:function(res){
+        //     let self=that;
+        //     console.log(res);
+        //     if(res.data.message.length!=0){
+        //       wx.showToast({
+        //         title: '该物品库已注册',
+        //         icon: 'none',
+        //         duration: 2000
+        //       });
+        //     }else{
+        //       console.log("upload!")
+        //      self.handleuploadpic();
 
-            }
-          }
-        }
+        //     }
+        //   }
+        // }
         
         
-        )
+        // )
 
         /////检验这个号码是都有人注册了
         // wx.cloud.callFunction({

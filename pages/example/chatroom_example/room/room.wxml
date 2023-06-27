@@ -15,9 +15,15 @@
     {{product.campus}} / 1.5km
   </view>
   </view>
+  <view class="statusInfo">
+    <view class="status" wx:if="{{product.status==2}}">状态:已下架</view>
+    <view class="status" wx:if="{{product.status==0}}">状态:在卖</view>
+    <view class="complete" wx:if="{{product.userid!=haoyou_openid}}"bindtap="onComplete">完成交易</view>
+  </view>
+
 </view>
 <view class="warn">
-  ⚠️注意：谨防诈骗！
+  ⚠️注意：谨防诈骗!协商一致、买方取到货物之后，请卖方点击完成交易
 </view>
 <view class="container" style="{{containerStyle}}">
   <chatroom
@@ -31,5 +37,6 @@
     getOpenID="{{getOpenID}}"
     backgroundimage="{{backgroundimage}}"
     haoyou_openid="{{haoyou_openid}}"
+    product="{{product}}"
   ></chatroom>
 </view>

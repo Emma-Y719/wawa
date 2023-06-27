@@ -83,6 +83,13 @@ Page({
                       loccam:res.data[0].userInfo.campus
                     })
                     that.getcampusLoc();
+                    db.collection('user').where({
+                      _openid:this.globalData.user._openid
+                    }).update({
+                      data: {
+                        online: true,
+                      }
+                    })
                   }
                 },
               })
@@ -125,34 +132,52 @@ Page({
     })
   },
   onLoad(options) {
-    const baseUrl=getBaseUrl();
-    this.setData({
-      baseUrl
-    });
-    this.getWLogin();
-    //console.log("here!",app.globalData)
-
-    // this.getWxLogin();
-    
-    var that=this;
-    if(app.globalData.campuses.length==0){
-      requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
-        this.setData({
-          campuses:result.message
-        })
-        this.searchSwiper();
-      });
-    }else{
-      this.searchSwiper();
-    }
-
-    this.getBigTypeList();
-    this.setData({
-      loc:app.globalData.location,
-    })
-    console.log(this.loc);
+    const component = this.selectComponent('#custom-tabbar');
+    // component.on('componentReady', this.loadData);
   },
+  onComponentReady: function() {
+    // Your main page's loading function
+    // Executed after the component has finished loading
+    this.loadData();
+  },
+loadData(){
+  const baseUrl=getBaseUrl();
+  this.setData({
+    baseUrl
+  });
+  this.getWLogin();
+  //console.log("here!",app.globalData)
+  // this.getcampusLoc()
+  // this.getWxLogin();
+  // wx.getLocation({
+  //   type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+  //   success: function (res) {
+  //     //console.log('location:  ',res.latitude,res.longitude);
+  //     //赋值经纬度
+  //     that.setData({
+  //       latitude: res.latitude,
+  //       longitude: res.longitude,
+  //     })
+  //   }
+  // })
+  var that=this;
+  if(app.globalData.campuses.length==0){
+    requestUtil({url:"/campus/findCampusList",method:"GET"}).then(result=>{
+      this.setData({
+        campuses:result.message
+      })
+      this.searchSwiper();
+    });
+  }else{
+    this.searchSwiper();
+  }
 
+  this.getBigTypeList();
+  this.setData({
+    loc:app.globalData.location,
+  })
+  console.log(this.loc);
+},
 
   async searchSwiper(e){
     await requestUtil({url:'/product/findSwiper',method:"GET"}).then(result=>{
@@ -220,8 +245,10 @@ Page({
     // wx.navigateTo({
     //   url: '/pages/category/index',
     // }) 
+    const chineseParam =this.data.bigTypeList_row1[index].name;
+    const encodedParam = encodeURIComponent(chineseParam);
     wx.navigateTo({
-      url: '/pages/search/index?uid=-1&cid=-1&type='+this.data.bigTypeList_row1[index].name,
+      url: '/pages/search/index?uid=-1&cid=-1&type='+encodedParam,
     })
 
     // let rightContext=this.Cates[index].smallTypeList;

@@ -92,17 +92,95 @@ exports.main = async (event, context) => {
     try {
       await cloud.openapi.subscribeMessage.send({
         touser: event.haoyou_openid,
-        page: 'pages/example/chatroom_example/im',
+        page: event.page,
         lang: 'zh_CN',
         data: event.data,
-        templateId: 'wP0DrgBo_CKL51uA2QYFRJS-_IMnLUMWataPkALuw6s',
+        templateId: '7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k',
       })
 
     } catch (e) {
       console.error(e)
     }
   });
+  app.router('infosub', async (ctx) => {
+    try {
+      await cloud.openapi.subscribeMessage.send({
+        touser: event.haoyou_openid,
+        page: 'pages/example/chatroom_example/message',
+        lang: 'zh_CN',
+        data: event.data,
+        templateId: 'cJ9pCIKt0PF3q6RJ9TIs49NN9yfblZt25oumlH0LbP8',
+      })
 
+    } catch (e) {
+      console.error(e)
+    }
+  });
+  app.router('queryAll',async(ctx)=>{
+    const wxContext = cloud.getWXContext();
+  const MAX_LIMIT=50;
+  // 获取记录总数
+  const countResult = await db.collection(event.collection).where(event.querys).count();
+  const total = countResult.total;
+  console.log(total)
+  // 计算总共需要的分页次数
+  const batchTimes = Math.ceil(total / 50);
+
+  // 批量获取所有记录
+  const tasks = [];
+  for (let i = 0; i < batchTimes; i++) {
+    const promise = db.collection(event.collection).where(event.querys)
+      .skip(i * 50)
+      .limit(50)
+      .get();
+    tasks.push(promise);
+  }
+
+  // 等待所有分页查询完成
+  const result = (await Promise.all(tasks)).reduce((acc, cur) => {
+    return {
+      data: acc.data.concat(cur.data),
+      errMsg: acc.errMsg,
+    };
+  });
+
+  return result;
+  })
+
+  app.router('repairchats',async (ctx)=>{
+ // 获取数据库集合的引用
+ const db = cloud.database()
+ const collection = db.collection('chats')
+
+ // 使用正则表达式进行数据查询
+ const regex = ".*undefined.*" // 正则表达式，替换为你需要的模式
+ const queryResult = await collection.where({
+   chatid: db.RegExp({
+     regexp: regex,
+     options: 'i' // 'i'表示不区分大小写，可根据需要修改
+   })
+ }).get()
+
+ // 遍历匹配到的数据，并进行替换
+ const promises = queryResult.data.map(async item => {
+   console.log("get item : ",item)
+   const replacementValue = item.fieldForReplacement // 替换值，替换为你需要的字段名
+   const restorevalue=item.chatid.replace(/undefined/,replacementValue)
+   console.log(restorevalue)
+  //  return collection.doc(item._id).update({
+  //    data: {
+  //      chatid: replacementValue // 进行替换，替换为你需要的字段名
+  //    }
+  //  })
+ })
+
+ // 等待所有替换操作完成
+ const result = await Promise.all(promises)
+
+ return result.length
+
+
+  })
 
   //消息订阅
   app.router('subscribeMessage', async (ctx) => {

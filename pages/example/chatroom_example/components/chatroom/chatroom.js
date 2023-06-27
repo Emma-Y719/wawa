@@ -8,12 +8,27 @@ const SETDATA_SCROLL_TO_BOTTOM = {
 const app=getApp();
 const recorderManager = wx.getRecorderManager()
 Component({
+
+  lifetimes: {
+    // attached: function () {
+    //   // 开始监听实时数据变化
+    //   this.startRealtimeListening();
+    // },
+    detached: function () {
+      // 停止监听实时数据变化
+      this.stopRealtimeListening();
+    },
+  },
+
+
+
   properties: {
     envId: String,
     collection: String,
     groupId: String,
     groupName: String,
     userInfo: Object,
+    product:Object,
     onGetUserInfo: {
       type: Function,
     },
@@ -36,13 +51,20 @@ Component({
     scrollToMessage: '',
     hasKeyboard: false,
     record: false,
+    hasRead:"已读",
+    hasSent:"送达"
   },
 
   methods: {
     onGetUserInfo(e) {
       this.properties.onGetUserInfo(e)
     },
-
+    stopRealtimeListening: function () {
+      console.log("close the watcher!!!!")
+      if (this.messageListener) {
+        this.messageListener.close();
+      }
+    },
     getOpenID() {
       console.log(this.properties.getOpenID())
       return this.properties.getOpenID()
@@ -59,7 +81,11 @@ Component({
         ...criteria,
       }
     },
-
+    //  getDataFromDatabase(MAX_LIMIT) {
+    //   return this.db.collection("chatroom_example").where({groupId:this.data.groupId,_openid:this.data.haoyou_openid})
+    //     .limit(MAX_LIMIT) // 限制每次获取的记录数
+    //     .get();
+    // },
     async initRoom() {
       this.try(async () => {
 
@@ -77,11 +103,23 @@ Component({
         })
         const {
           data: initList
-        } = await db.collection(collection).where(this.mergeCommonCriteria()).orderBy('sendTimeTS', 'desc').get()
-
+        } = await db.collection("chatroom_example").where(this.mergeCommonCriteria()).orderBy('sendTimeTS',"asc").limit(50).get()
+        let that=this
+        initList.forEach(function(value,index,array){
+          if(value._openid==that.data.haoyou_openid){
+            that.db.collection("chatroom_example").where({sendTimeTS:value.sendTimeTS}).update({
+              data: {
+                read: true,
+              }
+            } );
+          }
+        })
+       
+        // const promise=this.getDataFromDatabase(count);
+        // console.log(promise)
         console.log('init query chats', initList)
         this.setData({
-          chats: initList.reverse(),
+          chats: initList,
           scrollTop: 10000,
         })
 
@@ -113,7 +151,7 @@ Component({
         const _ = db.command
 
         console.warn(`开始监听`, criteria)
-        this.messageListener = db.collection(collection).where(this.mergeCommonCriteria(criteria)).watch({
+        this.messageListener = db.collection("chatroom_example").where(this.mergeCommonCriteria(criteria)).watch({
           onChange: this.onRealtimeMessageSnapshot.bind(this),
           onError: e => {
             if (!this.inited || this.fatalRebuildCount >= FATAL_REBUILD_TOLERANCE) {
@@ -136,14 +174,28 @@ Component({
       console.warn(`收到消息`, snapshot)
 
       if (snapshot.type === 'init') {
+
         this.setData({
           chats: [
             ...this.data.chats,
             ...[...snapshot.docs].sort((x, y) => x.sendTimeTS - y.sendTimeTS),
           ],
         })
-        this.scrollToBottom()
+        this.scrollToBottom(true)
         this.inited = true
+        for (const docChange of snapshot.docChanges) {
+          console.log("query chat openid: "+this.data.haoyou_openid)
+          if(docChange.doc._openid==this.data.haoyou_openid){
+            this.db.collection("chatroom_example").where({sendTimeTS:docChange.doc.sendTimeTS}).update({
+              data: {
+                read: true,
+              }
+            } );
+          }
+          // .get().then(res=>{
+          //   console.log(res.data)
+          // })
+        }
       } else {
         let hasNewMessage = false
         let hasOthersMessage = false
@@ -160,63 +212,209 @@ Component({
                     tempFilePath: chats[ind].tempFilePath,
                   })
                 } else chats.splice(ind, 1, docChange.doc)
+
               } else {
                 hasNewMessage = true
                 chats.push(docChange.doc)
               }
               break
             }
+            case 'update':{
+              // if(docChange.doc._openid!=this.data.openId){
+                const ind = chats.findIndex(chat => chat._id === docChange.doc._id)
+                if(docChange.updatedFields.read==true){
+                  chats[ind].read=true;
+                }
+               
+                this.setData({
+                  chats:chats
+                })
+              // }
+
+              break
+            }
+          }
+          if(docChange.doc._openid==this.data.haoyou_openid){
+            this.db.collection("chatroom_example").where({sendTimeTS:docChange.doc.sendTimeTS}).update({
+              data: {
+                read: true,
+              }
+            } );
           }
         }
         this.setData({
           chats: chats.sort((x, y) => x.sendTimeTS - y.sendTimeTS),
         })
         if (hasOthersMessage || hasNewMessage) {
-          this.scrollToBottom()
+          this.scrollToBottom(true)
         }
+
       }
     },
+    // setInterval(() => {
+    //   if (isOnline) {
+    //     console.log('用户在线');
+    //     // 执行在线时的相关操作
+    //     isOnline = false; // 重置在线状态标识
+    //   } else {
+    //     console.log('用户离线');
+    //     // 执行离线时的相关操作
+    //   }
+    // }, 5000); // 设置检测时间间隔，根据实际需求调整
+
     //发送订阅消息的提醒
-    send_tixing() {
+    send_tixing(text) {
       console.log(this.data.haoyou_openid)
       if (this.data.haoyou_openid == 'none') {
         console.log("group_chat")
       } else {
         console.log("personal_chat")
+        console.log(this.data.product)
+        console.log(app.globalData.user._openid)
         // 这是私人聊天的话，就可以发送订阅消息的提醒了
+        // const item = {
+        //   // thing2: { 
+        //   //   value: text
+        //   // },
+        //   time3: {
+        //     value: util.formatTime(new Date())
+        //   },
+        //   // thing4: {
+        //   //   value: app.globalData.userInfo.nickName
+        //   // },
+        //   number5:{
+        //     value: 1
+        //   }
+        // }
         const item = {
-          name1: { 
-            value: this.data.groupName
+          thing1: { 
+            value: this.data.product.name
           },
-          time3: {
-            value: util.formatTime(new Date())
+          thing2: {
+            value: text
           },
-          thing7: {
-            value: '您有新的消息提醒，请尽快查看'
-          }
-        }
 
+        }
         wx.cloud.callFunction({
           name: 'yunrouter',
           data: {
             $url: 'tixing',
             haoyou_openid: this.data.haoyou_openid ,
+            // page:'/pages/example/chatroom_example/room/room?id=' + this.data.groupId + '&name=' + this.data.groupName+'&backgroundimage='+this.data.backgroundimage+'&haoyou_openid='+app.globalData.user._openid+'&product='+this.data.product.identity,
+            page:'pages/example/chatroom_example/message',
             data: item, //和订阅消息保持一致的推送的消息
-
           },
           success: res => {
             console.log(res,"订阅消息发送成功")
           },
           fail: error => {
             console.log(error)
-
-
           }
         });
 
     }
 
   },
+    async send_info(){
+      console.log("发送订阅消息～")
+      // wx.request({
+      //   url: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx4d7b467718a245ad&secret=8eafb5ad75188a3d1287d495a9b8af13", 
+      //   header: {
+      //     'content-type': 'application/json' 
+      //   },
+      //   success(res) {
+      //     console.log("at微信小程序"+res.data.access_token)
+      //     that.access_token=res.data.access_token
+      //     console.log("onload:"+that.access_token)
+      //     wx.setStorageSync('at',res.data.access_token)
+      //   },
+      //   fail(error){
+      //     console.log(error)
+      //   }
+      // })
+      // wx.request({
+      //   url:"https://api.weixin.qq.com/cgi-bin/token",
+      //   method:"GET",
+      //   data:{
+      //     "grant_type":"client_credential",
+      //     "appid":"wx4d7b467718a245ad",
+      //     "secret":"8eafb5ad75188a3d1287d495a9b8af13"
+      //   },
+      //   success:res=>{
+      //     console.log(res)
+      //   }
+      // })
+      let that=this
+// 构建客服消息的请求参数
+    const requestData = {
+      touser: that.data.haoyou_openid, // 目标用户的openid，替换为实际的用户标识
+      msgtype: 'text',
+      text: {
+        content: 'Hello, 这是一条来自小程序的客服消息！'
+      }
+    };
+
+    // 发送客服消息
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=69_rG1ABRF6bVmOzCpWav2074ErT9w45myDGj22bsYoASeB0JVTZFNI7eQOQK6au2rnZ2xdyxHwOMWfc0n7bj_HtGAUoAGD3ZbJG0CJyYJXwA3MPtlgx4DtBx9_VRsMGOcAEAZTB', // 接口请求地址，替换为实际的请求地址
+      method: 'POST',
+      data: requestData,
+      success(res) {
+        // 消息发送成功
+        console.log('客服消息发送成功：', res);
+      },
+      fail(err) {
+        // 消息发送失败
+        console.error('客服消息发送失败：', err);
+      }
+    });
+
+
+      // wx.request({
+      //   url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send',
+      //   method:"POST",
+      //   data: {
+      //     access_token:"69_N_Mica7-z8lawx5dyIk4tzFQO1eNJvIerZS9wuRQ3g7ZxGuCJ0oE0xljRDm35BJpBrz-0UDNOOMq-fQVw2D9X16KoAINguJmBELBbIHbGeyPl_W8qGlxoOqx7u8FBZaAAAJFD",
+      //     touser: that.data.haoyou_openid,
+      //     msgtype: 'text',
+      //     text: {
+      //       content: 'Hello World'
+      //     }
+      //   },
+      //   success: res => {
+      //     console.log(res)
+      //   }
+      // })
+      
+      
+      // try {
+      //   const result = await cloud.openapi.subscribeMessage.send({
+      //       "touser": this.data.haoyou_openid,
+      //       "page": 'pages/example/chatroom_example/message',
+      //       "lang": 'zh_CN',
+      //       "data": {
+      //         thing2: { 
+      //           value: this.data.groupName
+      //         },
+      //         time3: {
+      //           value: util.formatTime(new Date())
+      //         },
+      //         thing4: {
+      //           value: '您有新的消息提醒，请尽快查看'
+      //         },
+      //         number5:{
+      //           value: 1
+      //         }
+      //       },
+      //       "templateId": 'cJ9pCIKt0PF3q6RJ9TIs49NN9yfblZt25oumlH0LbP8',
+      //       "miniprogramState": 'developer'
+      //     })
+      //     console.log(result)
+      //   return result
+      // } catch (err) {
+      //   return err
+      // }
+    },
   // 发送文字
   async onConfirmSendText(e) {
     this.try(async () => {
@@ -231,7 +429,6 @@ Component({
       const _ = db.command
       this.setData({
         userInfo:app.globalData.userInfo
-
       })
       
       console.log("userInfo: ",app.globalData.userInfo)
@@ -242,7 +439,9 @@ Component({
         avatar: this.data.userInfo.avatarUrl,
         nickName: this.data.userInfo.nickName,
         msgType: 'text',
+        targetId:this.data.haoyou_openid,
         textContent: e.detail.value,
+        read:false,
         sendTime: util.formatTime(new Date()),
         sendTimeTS: Date.now(), // fallback
       }
@@ -260,7 +459,7 @@ Component({
       })
       this.scrollToBottom(true)
 
-      await db.collection(collection).add({
+      await db.collection("chatroom_example").add({
         data: doc,
       })
 
@@ -274,8 +473,16 @@ Component({
           } else return chat
         }),
       })
+      db.collection('user').where({
+        _openid:this.data.haoyou_openid
+      }).get().then(res=>{
+        console.log(res)
+        if(!res.data[0].online){
+          this.send_tixing(doc.textContent)
+        }
+      });
 
-      this.send_tixing()
+      // this.send_info();
 
     }, '发送文字失败')
   },
@@ -353,7 +560,7 @@ Component({
       },
       success: res => {
         this.try(async () => {
-          await this.db.collection(collection).add({
+          await this.db.collection("chatroom_example").add({
             data: {
               ...doc,
               recordID: res.fileID,
@@ -520,7 +727,7 @@ Component({
           success: res => {
             this.try(async () => {
               console.log(this.data.filename)
-              await this.db.collection(collection).add({
+              await this.db.collection("chatroom_example").add({
                 data: {
                   ...doc,
                   FileID: res.fileID,
@@ -620,6 +827,8 @@ Component({
           avatar: this.data.userInfo.avatarUrl,
           nickName: this.data.userInfo.nickName,
           msgType: 'image',
+          read:false,
+          targetId:this.data.haoyou_openid,
           sendTime: util.formatTime(new Date()),
           sendTimeTS: Date.now(), // fallback
         }
@@ -645,7 +854,7 @@ Component({
           },
           success: res => {
             this.try(async () => {
-              await this.db.collection(collection).add({
+              await this.db.collection("chatroom_example").add({
                 data: {
                   ...doc,
                   imgFileID: res.fileID,
@@ -708,7 +917,7 @@ Component({
       const _ = this.db.command
       const {
         data
-      } = await this.db.collection(collection).where(this.mergeCommonCriteria({
+      } = await this.db.collection("chatroom_example").where(this.mergeCommonCriteria({
         sendTimeTS: _.lt(this.data.chats[0].sendTimeTS),
       })).orderBy('sendTimeTS', 'desc').get()
       this.data.chats.unshift(...data.reverse())

@@ -15,14 +15,14 @@ Page({
    */
   data: {
     userInfo:{},
-    ptype:["在卖","草稿","已完成"],
+    ptype:["在卖","草稿","已下架"],
     b1:"",
     b2:"",
     typeIndex:0,
   
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
-    button2:["已完成","删除","删除"],
+    button2:["下载","删除","删除"],
     onsale:[],
     draft:[],
     off:[],

@@ -31,6 +31,9 @@ page .chatList .chat {
   border-radius: 20rpx;
   display: flex;
 }
+page .chatList .chat .tixing {
+  width: 20rpx;
+}
 page .chatList .chat .userPic {
   width: 120rpx;
   height: 120rpx;
@@ -50,6 +53,11 @@ page .chatList .chat navigator .middle .title .chat_campus {
   display: flex;
   align-items: center;
   font-size: 20rpx;
+}
+page .chatList .chat navigator .middle .chat_message {
+  margin-top: 10rpx;
+  font-size: 25rpx;
+  color: #6b6b6b;
 }
 page .chatList .chat navigator .right .productPic {
   width: 120rpx;

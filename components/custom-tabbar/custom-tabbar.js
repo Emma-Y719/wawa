@@ -1,4 +1,16 @@
+// 导入request请求工具类
+import {
+  getBaseUrl,
+  getWxLogin,
+  getUserProfile,
+  requestPay,
+  requestUtil
+} from '../../utils/requestUtil.js';
+
 // components/SearchBar/SearchBar.js
+const app = getApp()
+wx.cloud.init()
+const db=wx.cloud.database()
 Component({
   /**
    * 组件的属性列表
@@ -11,13 +23,285 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    notRead:false
+  },
+  lifetimes: {
+    attached: function() {
+      this.onLoad();
+    },
+    // ready:function(){
+    //   console.log("component ready!")
+    //   this.triggerEvent('componentReady');
+    // }
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+    async try (fn, title) {
+      try {
+        await fn()
+      } catch (e) {
+        this.showError(title, e, '', '')
+      }
+    },
+    showError(title, content, confirmText, confirmCallback) {
+      console.error(title, content)
+      wx.showModal({
+        title,
+        content: content.toString(),
+        showCancel: confirmText ? true : false,
+        confirmText,
+        success: res => {
+          res.confirm && confirmCallback()
+        },
+      })
+    },
+    onLoad:function(){
+      console.log("Load bar")
+      // this.watchInfo();
+     this.getWLogin();
+      // this.timer = setInterval(() => {
+      //   this.refreshPage();
+      // }, 5000);
+    },
+    refreshPage: function() {
+      // 执行需要刷新的逻辑，例如重新加载数据
+      // 重新加载数据的代码示例：
+      this.getInfo();
+    },
+    async getWLogin(){
+      let that =this;
+      if(!app.globalData.isLogin){
+        
+        console.log("this!")
+         wx.showModal({
+          title:'友情提示',
+          content:'微信授权登录后，才可进入',
+          success:(res)=>{
+            wx.cloud.callFunction({
+              name: 'yunrouter', // 对应云函数名
+              data: {
+                $url: "openid", //云函数路由参数
+              },
+              success: re => {
+                console.log("user:"+re.result)
+                app.globalData.openid=re.result
+                db.collection('user').where({
+                  _openid: re.result
+                }).get({
+                  success: function (res) {
+                    console.log(res.data[0])
+                    if(res.data[0]==undefined){
+                      console.log("尚未注册！")
+                      wx.redirectTo({
+                        url: '/pages/my/create/login',
+                      })
+                    }else{
+                      app.globalData.openid= res.data[0]._openid;
+                      app.globalData.userInfo = res.data[0].userInfo;
+                      app.globalData.friends=res.data[0].friends;
+                      app.globalData.user=res.data[0];
+                      app.globalData.isLogin=true;
+                      console.log("data user:",res.data[0])
+                      that.setData({
+                        uid:res.data[0].uid,
+                        cid:res.data[0].cid,
+                        locuni:res.data[0].userInfo.university,
+                        loccam:res.data[0].userInfo.campus
+                      })
+                      //that.getcampusLoc();
+                      console.log("component ready!")
+                      that.triggerEvent('componentReady');
+                      that.watchInfo();
+                      db.collection('user').where({
+                        _openid:this.globalData.user._openid
+                      }).update({
+                        data: {
+                          online: true,
+                        }
+                      })
+
+                    }
+                  },
+                })
+              }
+            })
+            // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
+            //   console.log(res[0].code);
+            //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
+            //   let loginParam={
+            //     code:res[0].code,
+            //     nickName:res[1].userInfo.nickName,
+            //     avatarUrl:res[1].userInfo.avatarUrl
+            //   }
+            //   console.log(loginParam)
+            //   wx.setStorageSync('userInfo', res[1].userInfo);
+            //   this.wxlogin(loginParam);
+            //   app.globalData.userInfo=res[1].userInfo
+            //   app.globalData.isLogin=true;
+  
+            // })
+          }
+        })
+      }else{
+        that.setData({
+          uid:app.globalData.user.uid,
+          cid:app.globalData.user.cid,
+          locuni:app.globalData.userInfo.university,
+          loccam:app.globalData.userInfo.campus
+        })
+        //that.getcampusLoc();
+        that.triggerEvent('componentReady');
+        that.watchInfo();
+      }
+    },
+    async getcampusLoc(){
+      await requestUtil({url:"/campus/findId",mothod:"GET",data:{cid:this.data.cid}}).then(res=>{
+        console.log(res)
+         this.setData({
+           latitude:res.message.latitude,
+           longitude:res.message.longitude
+         })
+      })
+    },
+    async watchInfo(){
+      console.log("print openid before query: ",app.globalData.openid)
+      this.try(async()=>{
+        const regExp = new RegExp('.*'+app.globalData.openid+'.*', 'i');
+        const messageListener = db.collection('chatroom_example').where({targetId:app.globalData.openid,read:false}).watch({
+          onChange: this.onRealtimeMessageSnapshot.bind(this),
+          onError: e => {
+            console.log("error: ",e)
+            // if (!this.inited || this.fatalRebuildCount >= FATAL_REBUILD_TOLERANCE) {
+            //   this.showError(this.inited ? '监听错误，已断开' : '初始化监听失败', e, '重连', () => {
+            //     this.initWatch(this.data.chats.length ? {
+            //       sendTimeTS: _.gt(this.data.chats[this.data.chats.length - 1].sendTimeTS),
+            //     } : {})
+            //   })
+            // } else {
+            //   this.initWatch(this.data.chats.length ? {
+            //     sendTimeTS: _.gt(this.data.chats[this.data.chats.length - 1].sendTimeTS),
+            //   } : {})
+            // }
+          },
+        })
+
+      }, '初始化失败')
+
+    },
+    onRealtimeMessageSnapshot(snapshot) {
+      console.warn(`收到消息`, snapshot)
+      let infoCount=0;
+      for (const docChange of snapshot.docChanges) {
+        if(docChange.doc._openid!=app.globalData.openid){
+          if(docChange.queueType=='dequeue'){
+            infoCount--;
+          }else{
+            console.log("query unread chat: ",docChange.doc)
+            infoCount++;
+          }
+        }
+      }
+      if(infoCount>0){
+        this.setData({
+          notRead:true
+        })
+        wx.setStorageSync('notRead', true);
+      }else{
+        this.setData({
+          notRead:false
+        })
+        wx.setStorageSync('notRead', false);
+      }
+      // if (snapshot.type === 'init') {
+      //   // this.setData({
+      //   //   chats: [
+      //   //     ...this.data.chats,
+      //   //     ...[...snapshot.docs].sort((x, y) => x.sendTimeTS - y.sendTimeTS),
+      //   //   ],
+      //   // })
+      //   this.inited = true
+      //   for (const docChange of snapshot.docChanges) {
+      //     console.log("query chat openid: ",docChange.doc)
+      //     // if(docChange.doc._openid==this.data.haoyou_openid){
+      //     //   this.db.collection("chatroom_example").where({sendTimeTS:docChange.doc.sendTimeTS}).update({
+      //     //     data: {
+      //     //       read: true,
+      //     //     }
+      //     //   } );
+      //     // }
+      //     // .get().then(res=>{
+      //     //   console.log(res.data)
+      //     // })
+      //   }
+      // } else {
+      //   let hasNewMessage = false
+      //   let hasOthersMessage = false
+      //   const chats = [...this.data.chats]
+      //   console.log("type: "+snapshot.type)
+      //   for (const docChange of snapshot.docChanges) {
+      //     console.log("query chat openid: ",docChange.doc)
+      //     // switch (docChange.queueType) {
+      //     //   case 'enqueue': {
+      //     //     hasOthersMessage = docChange.doc._openid !== this.data.openId
+      //     //     const ind = chats.findIndex(chat => chat._id === docChange.doc._id)
+      //     //     if (ind > -1) {
+      //     //       if (chats[ind].msgType === 'image' && chats[ind].tempFilePath) {
+      //     //         chats.splice(ind, 1, {
+      //     //           ...docChange.doc,
+      //     //           tempFilePath: chats[ind].tempFilePath,
+      //     //         })
+      //     //       } else chats.splice(ind, 1, docChange.doc)
+      //     //     } else {
+      //     //       hasNewMessage = true
+      //     //       chats.push(docChange.doc)
+      //     //       if(docChange.doc._openid==this.data.haoyou_openid){
+      //     //         this.db.collection(collection).where({sendTimeTS:docChange.doc.sendTimeTS}).update({
+      //     //           data: {
+      //     //             read: true,
+      //     //           }
+      //     //         } );
+      //     //       }
+
+      //     //     }
+      //     //     break
+      //     //   }
+      //     // }
+
+      //   }
+      //   // this.setData({
+      //   //   chats: chats.sort((x, y) => x.sendTimeTS - y.sendTimeTS),
+      //   // })
+      //   // if (hasOthersMessage || hasNewMessage) {
+      //   //   this.scrollToBottom(true)
+      //   // }
+
+      // }
+    },
+
+
+    getInfo(){
+      
+      this.try(async () => {
+        const regExp = new RegExp('.*'+app.globalData.openid+'.*', 'i');
+        const{data:initList}= await db.collection('chatroom_example').where({groupId:regExp}).orderBy('sendTimeTS', 'desc').get()
+        //console.log(app.globalData.openid)
+        if(initList[0]._openid!=app.globalData.openid&&initList[0].read!=true){
+          //console.log("new message: ",initList[0])
+          this.setData({
+            notRead:true
+          })
+        }else{
+          this.setData({
+            notRead:false
+          })
+        }
+       
+        //console.log(that.data.rooms)
+      },'初始化失败')
+    },
     onNavi1(){
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
@@ -48,6 +332,36 @@ Component({
       }
     },
     onNavi3(){
+      if(app.globalData.user.subscribe!=true){
+        wx.requestSubscribeMessage({
+          tmplIds: ['7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
+          success(res) {
+            // 用户授权成功
+            if (res.errMsg === 'requestSubscribeMessage:ok') {
+              // 遍历模板ID列表，判断用户的订阅状态
+              for (let templateId of Object.keys(res)) {
+                if (res[templateId] === 'accept') {
+                  // 用户同意订阅该模板消息
+                  console.log(`用户同意订阅模板消息：${templateId}`);
+                  
+
+
+                  // 在这里可以保存用户的订阅状态，以便后续推送消息时使用
+                } else if (res[templateId] === 'reject') {
+                  // 用户拒绝订阅该模板消息
+                  console.log(`用户拒绝订阅模板消息：${templateId}`);
+                }
+              }
+            }
+          },
+          fail(err) {
+            // 请求订阅消息授权失败
+            console.error('请求订阅消息授权失败：', err);
+          }
+        });
+    
+      }
+
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
@@ -94,6 +408,10 @@ Component({
           url: '/pages/promote/index',
         })
       }
+    },
+    ready: function() {
+      console.log("component ready!")
+      this.triggerEvent('componentReady');
     }
   }
 })

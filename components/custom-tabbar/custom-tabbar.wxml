@@ -9,9 +9,10 @@
         </view>
 
         <view bindtap="onNavi3" open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
-          <image src="/images/msg.png" mode="widthFix"></image>
+          <image src="/images/msg.png" mode="widthFix"class='msglogo'></image>
+          
         </view>
-
+        <image class="notread"src="/images/reddot.png" mode="widthFix" wx:if="{{notRead}}"/>
         <view bindtap="onNavi4" open-type="reLaunch" class="fourthlogo">
           <image src="/images/my_index.png" mode="widthFix"></image>
         </view>

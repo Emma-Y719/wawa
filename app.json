@@ -1,6 +1,6 @@
 {
   "pages": [
-  
+    
     "pages/index/index",
     "pages/storage/create/login",
     "pages/example/chatroom_example/im",
@@ -24,8 +24,8 @@
     "pages/promote/index",
     "pages/shopMap/shopMap",
     "pages/storage/detail",
-    "pages/example/chatroom_example/room/room"
-    
+    "pages/example/chatroom_example/room/room",
+    "pages/repair/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,6 +33,7 @@
     "navigationBarTextStyle": "white"
   },
   "requiredPrivateInfos": [
+    "getLocation",
     "onLocationChange",
     "startLocationUpdate"
   ],

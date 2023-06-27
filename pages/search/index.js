@@ -63,7 +63,10 @@ Page({
       let cindex=parseInt(options.cid)
       let t=''
       if(options.type!=undefined){
-        t=options.type
+        const decodedParam = decodeURIComponent(options.type);
+        const de2=decodeURIComponent(decodedParam);
+        console.log(de2)
+        t=de2
       }
       let u=''
       let c=''
@@ -265,6 +268,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
+    wx.showShareMenu({
+      withShareTicket:true,
+      menu:['shareAppMessage','shareTimeline']
+    })
+    var that = this;
+    console.log(app.globalData.userInfo)
+    var nickName=app.globalData.userInfo.nickName;
+    let imgurl="";
 
+    imgurl=that.data.productList[0].propic.pics[0]
+
+    console.log(imgurl)
+    return {
+      title: nickName+"分享了类别为"+this.data.type+"的一些二手物品",
+      imageUrl: ""
+    }
+
+    
   }
 })

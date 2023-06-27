@@ -15,6 +15,10 @@ Page({
     // functions for used in chatroom components
     onGetUserInfo: null,
     getOpenID: null,
+    product:{
+      
+    },
+    productObj:{}
   },
 
   onLoad: function (options) {
@@ -36,7 +40,10 @@ Page({
           price:res.message[0].price,
           university:app.globalData.campuses[res.message[0].campus].name,
           campus:app.globalData.campuses[res.message[0].campus].campus,
-        }
+          status:res.message[0].status,
+          userid:res.message[0].userid
+        },
+        productObj:res.message[0]
       })
     })
 
@@ -106,6 +113,65 @@ Page({
       })
     }
   },
+  onComplete(){
+    let productnew=this.data.productObj;
+    wx.showModal({
+      title: '',
+      content: '该操作会下架商品，请确认已完成交易！下架后商品只能在个人页面下架栏中找到',
+      complete: (res) => {
+        if (res.cancel) {
+          
+        }
+    
+        if (res.confirm) {
+          requestUtil({
+            url:"/product/update",
+            method:"POST",
+            data:{
+              identity: productnew.identity,
+              name: productnew.name,
+              price: productnew.price,
+              propic: productnew.propic,
+              ishot:0,
+              isswiper:0,
+              typeid:productnew.typeid,
+              description:productnew.description,
+              university:productnew.university,
+              campus:productnew.campus,
+              longtitude:productnew.longtitude,
+              latitude:productnew.latitude,
+              userid:productnew.openid,
+              status:2,
+              storage:productnew.storage
+            }
+          }).then(result=>{
+            if(result){
+              wx.showModal({
+                title: '',
+                content: '下架成功！',
+                complete: (res) => {
+                  if (res.cancel) {
+                    wx.reLaunch({
+                      url: '/pages/example/chatroom_example/message',
+                    })
+                  }
+                  if (res.confirm) {
+                    wx.reLaunch({
+                      url: '/pages/my/index',
+                    })
+                  }
+                }
+              })
+            }else{
+    
+            }
+              console.log(result)
+          })
+        }
+      }
+    })
+  },
+
 
   onShareAppMessage() {
     return {

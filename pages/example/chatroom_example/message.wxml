@@ -18,6 +18,7 @@
   wx:for-item="room"
   wx:key="id"
   >
+    <image class="tixing" wx:if="{{room.notRead}}"src="/images/reddot.png" mode="widthFix"/>
     <image bindtap="onUserDetail"data-id="{{index}}"class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
     <navigator url="{{room.url}}">
             <view class="middle">
@@ -31,7 +32,7 @@
               </view>
    
               <view class="chat_message"> 
-                  {{room.newmessage}}
+                  {{room.lastsender}} : {{room.lastmsg}}
               </view>
             </view>
             <view class="right">

@@ -16,7 +16,7 @@
   Hi~ 小蛙
 </view>
 <view class="introduce">
-  从来虚位以待，何不给个拥抱 >
+  重要提示：请点开底部导航栏的聊天，始终允许“私聊消息通知”，这样才能在小程序外收到买家咨询的消息提醒，及时将物品卖出。
 </view>
 <view class="info">
  <view class="info-content">
@@ -51,7 +51,7 @@
       wx:for="{{bigTypeList_row1}}"  
       wx:for-item="bigType" 
       wx:key="id">
-      <image mode="widthFix"src="{{baseUrl+'/image/bigType/'+bigType.image}}"></image>
+      <image mode="widthFix"src="{{'/images/'+bigType.image}}"></image>
       <text>{{bigType.name}}</text>
     </navigator>
     </view>
@@ -136,5 +136,5 @@
 
   </view>
 
-  <custom-tabbar></custom-tabbar>
+  <custom-tabbar id="custom-tabbar"bind:componentReady="onComponentReady"></custom-tabbar>
 </page>

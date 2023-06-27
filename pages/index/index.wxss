@@ -31,8 +31,9 @@ page .hello {
   margin-left: 30rpx;
 }
 page .introduce {
-  color: #333;
-  font-size: 25rpx;
+  color: #cf1919;
+  width: 450rpx;
+  font-size: 24rpx;
   font-weight: 700;
   margin-left: 30rpx;
   margin-top: 15rpx;

@@ -1,10 +1,6 @@
 {
   "description": "项目配置文件",
   "cloudfunctionRoot": "cloudfunctions/",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
   "setting": {
     "urlCheck": false,
     "es6": true,
@@ -24,8 +20,6 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -39,12 +33,10 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "condition": false
+    "condition": false,
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.22.0",
-  "appid": "wx4d7b467718a245ad",
-  "projectname": "蛙蛙二手群物品库",
   "condition": {
     "search": {
       "list": []
@@ -70,5 +62,11 @@
     "tabSize": 2
   },
   "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "libVersion": "2.22.0",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wx4d7b467718a245ad"
 }
