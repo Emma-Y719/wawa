@@ -14,8 +14,6 @@ if (!wx.cloud) {
 const db=wx.cloud.database()
 // app.js
 App({
-
-
   onLaunch() {
     let that = this
 

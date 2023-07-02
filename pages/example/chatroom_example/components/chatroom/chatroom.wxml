@@ -21,9 +21,11 @@
   >
     <view 
       wx:for="{{chats}}"
-      wx:key="item"
+      wx:key="id"
+      wx:for-item="item"
       id="item-{{index}}"
       class="message {{openId == item._openid ? 'message__self' : ''}}"
+      data-index="{{index}}"
     >
       <image 
         class="avatar"
@@ -39,10 +41,10 @@
             bindtap="onMessageImageTap"></image>
         </view>
       </block>
-      <block wx:if="{{item.msgType === 'text'}}">
+      <block wx:if="{{item.msgType === 'text'}}"data-index="{{id}}">
         <view class="text-wrapper">
           <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
-          <view class="text-content">{{item.textContent}}</view>
+          <text selectable="true" class="text-content" catchlongpress="copyText">{{item.textContent}}</text>
         </view>
       </block>
       <block wx:if="{{item.msgType === 'record'}}">

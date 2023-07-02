@@ -39,6 +39,12 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    onNotComplete(){
+      wx.showToast({
+        title: '正在开发中，仅作展示',
+        icon: 'none',
+      })
+    },
     async try (fn, title) {
       try {
         await fn()
@@ -318,6 +324,7 @@ Component({
       }
     },
     onNavi2(){
+     
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
@@ -400,6 +407,7 @@ Component({
       }
     },
     onNavi5(){
+      // this.onNotComplete();
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route

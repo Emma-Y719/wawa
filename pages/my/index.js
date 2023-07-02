@@ -22,7 +22,7 @@ Page({
   
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
-    button2:["下载","删除","删除"],
+    button2:["下架","删除","删除"],
     onsale:[],
     draft:[],
     off:[],

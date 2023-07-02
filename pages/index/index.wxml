@@ -28,12 +28,13 @@
 
    </view>
    <view class="type" >
-    <input class="key" bindinput="onInput" value="{{type}}"></input>
+    <input class="key" bindinput="onInput" placeholder='显示器' value="{{type}}"></input>
    </view>
    <image src="/icons/wawa.png" mode="scaleToFill" class="logo"></image>
 
    <navigator url="/pages/search/index">
     <view class="btn" bindtap="handleSearch">
+      <icon type="search" size="18"></icon>
      Wa 一下~
     </view>
   </navigator>

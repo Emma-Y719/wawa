@@ -78,9 +78,9 @@ page .info .info-content .title .location .line {
 }
 page .info .info-content .type {
   margin-top: 40rpx;
-  color: #e0e0e0;
   font-size: 37rpx;
   font-weight: 600;
+  color: #000;
 }
 page .info .info-content .btn {
   display: flex;

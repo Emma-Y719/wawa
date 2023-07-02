@@ -42,9 +42,9 @@
     <text class="title">我的群聊物品库</text>
     <text class="content">近距离物品交易
     为常用二手群长时效容纳物品信息</text>
-    <!-- <view class="cbtn" bindtap="handleCreate">
+    <view class="cbtn" bindtap="handleCreate">
     创建物品库
-    </view> -->
+    </view>
    </view>
 
    <image mode="widthFix" src="/icons/student.jpg">

@@ -1,4 +1,4 @@
-<view class="productinfo">
+<navigator class="productinfo" url="/pages/product_detail/index?id={{productObj.identity}}">
   <image src="{{product.pic}}" mode="widthFix"/>
 
   <view class="other">
@@ -21,7 +21,7 @@
     <view class="complete" wx:if="{{product.userid!=haoyou_openid}}"bindtap="onComplete">完成交易</view>
   </view>
 
-</view>
+</navigator>
 <view class="warn">
   ⚠️注意：谨防诈骗!协商一致、买方取到货物之后，请卖方点击完成交易
 </view>

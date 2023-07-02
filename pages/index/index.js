@@ -27,7 +27,7 @@ Page({
     loc:"",
     locuni:"",
     loccam:"",
-    type:"山地",
+    type:"",
     latitude: "",
     longitude: "",
     scale:9,

@@ -262,6 +262,24 @@ Component({
     //   }
     // }, 5000); // 设置检测时间间隔，根据实际需求调整
 
+    copyText:function(e){
+      console.log(e)
+      wx.setClipboardData({
+        data: '可复制的文本',
+        success: function() {
+          wx.showToast({
+            title: '复制成功',
+          });
+        },
+        fail: function() {
+          wx.showToast({
+            title: '复制失败',
+            icon: 'none',
+          });
+        },
+      });
+    },
+
     //发送订阅消息的提醒
     send_tixing(text) {
       console.log(this.data.haoyou_openid)

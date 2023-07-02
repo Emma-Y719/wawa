@@ -36,7 +36,7 @@ Page({
       method:"GET"
     });
     this.Campuses=result.message;
-    console.log(this.Campuses)
+    console.log(result)
     //普通写法
     // let leftMenuList=    this.Campuses.map((v)=>{
     //   return v.name
