@@ -222,7 +222,7 @@ Page({
     console.log(this.data.user.userInfo.avatarUrl)
     let imgurl=''
     if(this.data.onsale.length>0){
-      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"){
+      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"&&this.data.onsale[0].propic.pics[0][0]!="w"){
         imgurl=app.globalData.baseUrl+"/image/product/"+this.data.onsale[0].propic.pics[0]
       }else{
         imgurl=this.data.onsale[0].propic.pics[0]

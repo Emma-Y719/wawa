@@ -22,7 +22,7 @@ Page({
   
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
-    button2:["下架","删除","删除"],
+    button2:["下架","删除",""],
     onsale:[],
     draft:[],
     off:[],
@@ -335,7 +335,7 @@ Page({
     console.log(this.data.userid)
     let imgurl=''
     if(this.data.onsale.length>0){
-      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"){
+      if(this.data.onsale[0].propic.pics[0][0]!='h'&&this.data.onsale[0].propic.pics[0][0]!="c"&&this.data.onsale[0].propic.pics[0][0]!="w"){
         imgurl=app.globalData.baseUrl+"/image/product/"+this.data.onsale[0].propic.pics[0]
       }else{
         imgurl=this.data.onsale[0].propic.pics[0]

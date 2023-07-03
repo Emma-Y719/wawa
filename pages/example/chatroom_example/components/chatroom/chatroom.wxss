@@ -72,11 +72,6 @@
   font-size: 24rpx;
   color: #444;
 }
-.body .message .time {
-  font-size: 24rpx;
-  color: #444;
-  text-align: center;
-}
 .body .message .text-content {
   margin-top: 20rpx;
   border: 1px solid transparent;
@@ -89,14 +84,6 @@
 }
 .body .message.message__self .text-content {
   background-color: #9eea6a;
-}
-.body .message.message__self .read {
-  font-size: 22rpx;
-  color: rgb(177, 177, 177);
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
 }
 .body .message .text-wrapper {
   margin-top: 10rpx;
@@ -161,6 +148,19 @@
   height: 30px;
   align-self: center;
   margin-left: 10px;
+}
+.message-sender .btn-send {
+  align-self: center;
+  width: 50px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  background-color: #88bb1e;
+  font-size: 28rpx;
+  color: #fafafa;
+  border-radius: 40rpx;
 }
 button {
   font-size: 30rpx;

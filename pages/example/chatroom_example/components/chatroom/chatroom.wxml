@@ -20,50 +20,51 @@
     bindscrolltoupper="onScrollToUpper"
   >
     <view 
-      wx:for="{{chats}}"
+      catchlongpress="copyText"
+      wx:for="{{chats}}"  
+      wx:for-item="msg" 
       wx:key="id"
-      wx:for-item="item"
-      id="item-{{index}}"
-      class="message {{openId == item._openid ? 'message__self' : ''}}"
+      id="{{index}}"
+      class="message {{openId == msg._openid ? 'message__self' : ''}}"
       data-index="{{index}}"
     >
       <image 
         class="avatar"
-        src="{{item.avatar}}"
+        src="{{msg.avatar}}"
         mode="scaleToFill"
       ></image> 
       <view class="main">
-      <view class="nickname">{{item.nickName}}</view>
-      <block wx:if="{{item.msgType === 'image'}}">
+      <view class="nickname">{{msg.nickName}}</view>
+      <block wx:if="{{msg.msgType === 'image'}}">
         <view class="image-wrapper">
-          <view class="loading" wx:if="{{item.writeStatus > -1}}">{{item.writeStatus}}%</view>
-          <image src="{{item.imgFileID}}" data-fileid="{{item.tempFilePath || item.imgFileID}}" class="image-content" style="width:200rpx" mode="aspectFill" 
+          <view class="loading" wx:if="{{msg.writeStatus > -1}}">{{msg.writeStatus}}%</view>
+          <image src="{{msg.imgFileID}}" data-fileid="{{msg.tempFilePath || msg.imgFileID}}" class="image-content" style="width:200rpx" mode="aspectFill" 
             bindtap="onMessageImageTap"></image>
         </view>
       </block>
-      <block wx:if="{{item.msgType === 'text'}}"data-index="{{id}}">
+      <block wx:if="{{msg.msgType === 'text'}}">
         <view class="text-wrapper">
-          <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
-          <text selectable="true" class="text-content" catchlongpress="copyText">{{item.textContent}}</text>
+          <view class="loading" wx:if="{{msg.writeStatus === 'pending'}}">···</view>
+          <text selectable="true" class="text-content" >{{msg.textContent}}</text>
         </view>
       </block>
-      <block wx:if="{{item.msgType === 'record'}}">
-        <view class="text-wrapper" data-file="{{item.recordID}}" bindtap="play">
-          <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
-        <image src="{{openId == item._openid?'/images/listen.png':'/images/listen-target.png'}}"  class="image-content2" style="width: 150rpx;"mode="widthFix" ></image>
+      <block wx:if="{{msg.msgType === 'record'}}">
+        <view class="text-wrapper" data-file="{{msg.recordID}}" bindtap="play">
+          <view class="loading" wx:if="{{msg.writeStatus === 'pending'}}">···</view>
+        <image src="{{openId == msg._openid?'/images/listen.png':'/images/listen-target.png'}}"  class="image-content2" style="width: 150rpx;"mode="widthFix" ></image>
         </view>
       </block>
-      <block wx:if="{{item.msgType === 'file'}}">
-        <view class="text-wrapper" data-file="{{item.FileID}}" bindtap="downloadfile">
-          <view class="loading" wx:if="{{item.writeStatus === 'pending'}}">···</view>
+      <block wx:if="{{msg.msgType === 'file'}}">
+        <view class="text-wrapper" data-file="{{msg.FileID}}" bindtap="downloadfile">
+          <view class="loading" wx:if="{{msg.writeStatus === 'pending'}}">···</view>
           <view style="background-image:url(https://636f-code-test-1301231348.tcb.qcloud.la/file.png?sign=b3d457b31c08be2b72243eaa24704271&t=1586012519) ;width:14vh; height:14vh;  background-size: 100% 100%; text-align:center;" class="image-content1">
-            {{item.filename}}</view>
+            {{msg.filename}}</view>
         </view>
       </block>
-      <view class="time">{{item.sendTime}}</view>
+      <view class="time">{{msg.sendTime}}</view>
       </view>
-      <view class="read" wx:if="{{openId == item._openid}}">
-        {{item.read?hasRead:hasSent}}
+      <view class="read" wx:if="{{openId == msg._openid}}">
+        {{msg.read?hasRead:hasSent}}
       </view>
     </view>
   </scroll-view>
@@ -75,15 +76,15 @@
         <image wx:if="{{recording}}" src="/images/recording.png" class="btn-send-image"  mode="scaleToFill"  bindtap="onNotComplete"></image>
 
       
-      <input  class="text-input"  type="text" confirm-type="send"  bindconfirm="onConfirmSendText"
+      <input  class="text-input"  type="text" confirm-type="send"  bindinput="ontextInput" bindconfirm="onConfirmSendText"
         cursor-spacing="20" value="{{textInputValue}}"></input>
-        <image  src="/icons/emj.png" class="btn-send-image"  mode="scaleToFill"
-        bindtap="onNotComplete"></image>
+        <!-- <image  src="/icons/emj.png" class="btn-send-image"  mode="scaleToFill"
+        bindtap="onNotComplete"></image> -->
 
         <image  src="/icons/pic.png" class="btn-send-image"  mode="scaleToFill"
         bindtap="onChooseImage"></image>
 
-
+        <view class="btn-send" bindtap="onSendTap">发送</view>
 
     </view>
 

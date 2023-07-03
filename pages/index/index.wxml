@@ -28,7 +28,7 @@
 
    </view>
    <view class="type" >
-    <input class="key" bindinput="onInput" placeholder='显示器' value="{{type}}"></input>
+    <input class="key" bindinput="onInput" placeholder='显示器' value="{{isDefault ==true ? '':type}}"></input>
    </view>
    <image src="/icons/wawa.png" mode="scaleToFill" class="logo"></image>
 

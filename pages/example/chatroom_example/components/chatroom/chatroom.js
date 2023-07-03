@@ -263,21 +263,26 @@ Component({
     // }, 5000); // 设置检测时间间隔，根据实际需求调整
 
     copyText:function(e){
-      console.log(e)
-      wx.setClipboardData({
-        data: '可复制的文本',
-        success: function() {
-          wx.showToast({
-            title: '复制成功',
-          });
-        },
-        fail: function() {
-          wx.showToast({
-            title: '复制失败',
-            icon: 'none',
-          });
-        },
-      });
+      // console.log(e)
+      let msgid=e.currentTarget.dataset.index
+      if(this.data.chats[msgid].msgType === 'text'){
+        wx.setClipboardData({
+          data: this.data.chats[msgid].textContent,
+          success: function() {
+            wx.showToast({
+              title: '复制成功',
+            });
+          },
+          fail: function() {
+            wx.showToast({
+              title: '复制失败',
+              icon: 'none',
+            });
+          },
+        });
+
+      }
+
     },
 
     //发送订阅消息的提醒
@@ -434,77 +439,173 @@ Component({
       // }
     },
   // 发送文字
+
   async onConfirmSendText(e) {
     this.try(async () => {
       if (!e.detail.value) {
         return
       }
-
-      const {
-        collection
-      } = this.properties
-      const db = this.db
-      const _ = db.command
-      this.setData({
-        userInfo:app.globalData.userInfo
-      })
-      
-      console.log("userInfo: ",app.globalData.userInfo)
-      console.log("send:  "+this.data.userInfo.nickName);
-      const doc = {
-        _id: `${Math.random()}_${Date.now()}`,
-        groupId: this.data.groupId,
-        avatar: this.data.userInfo.avatarUrl,
-        nickName: this.data.userInfo.nickName,
-        msgType: 'text',
-        targetId:this.data.haoyou_openid,
-        textContent: e.detail.value,
-        read:false,
-        sendTime: util.formatTime(new Date()),
-        sendTimeTS: Date.now(), // fallback
-      }
-
-      this.setData({
-        textInputValue: '',
-        chats: [
-          ...this.data.chats,
-          {
-            ...doc,
-            _openid: this.data.openId,
-            writeStatus: 'pending',
-          },
-        ],
-      })
-      this.scrollToBottom(true)
-
-      await db.collection("chatroom_example").add({
-        data: doc,
-      })
-
-      this.setData({
-        chats: this.data.chats.map(chat => {
-          if (chat._id === doc._id) {
-            return {
-              ...chat,
-              writeStatus: 'written',
-            }
-          } else return chat
-        }),
-      })
-      db.collection('user').where({
-        _openid:this.data.haoyou_openid
-      }).get().then(res=>{
-        console.log(res)
-        if(!res.data[0].online){
-          this.send_tixing(doc.textContent)
+      console.log(e.detail.value)
+      if(e.detail.value==''){
+        wx.showToast({
+          title: '无法发送空信息',
+          icon: 'none',
+          duration: 2000
+        });
+      }else{
+        const {
+          collection
+        } = this.properties
+        const db = this.db
+        const _ = db.command
+        this.setData({
+          userInfo:app.globalData.userInfo
+        })
+        
+        console.log("userInfo: ",app.globalData.userInfo)
+        console.log("send:  "+this.data.userInfo.nickName);
+        const doc = {
+          _id: `${Math.random()}_${Date.now()}`,
+          groupId: this.data.groupId,
+          avatar: this.data.userInfo.avatarUrl,
+          nickName: this.data.userInfo.nickName,
+          msgType: 'text',
+          targetId:this.data.haoyou_openid,
+          textContent: e.detail.value,
+          read:false,
+          sendTime: util.formatTime(new Date()),
+          sendTimeTS: Date.now(), // fallback
         }
-      });
-
-      // this.send_info();
+  
+        this.setData({
+          textInputValue: '',
+          chats: [
+            ...this.data.chats,
+            {
+              ...doc,
+              _openid: this.data.openId,
+              writeStatus: 'pending',
+            },
+          ],
+        })
+        this.scrollToBottom(true)
+  
+        await db.collection("chatroom_example").add({
+          data: doc,
+        })
+  
+        this.setData({
+          chats: this.data.chats.map(chat => {
+            if (chat._id === doc._id) {
+              return {
+                ...chat,
+                writeStatus: 'written',
+              }
+            } else return chat
+          }),
+        })
+        db.collection('user').where({
+          _openid:this.data.haoyou_openid
+        }).get().then(res=>{
+          console.log(res)
+          if(!res.data[0].online){
+            this.send_tixing(doc.textContent)
+          }
+        });
+  
+        // this.send_info();
+      }
+     
 
     }, '发送文字失败')
   },
+  ontextInput(e){
+    const value = e.detail.value; // 获取输入框的值
+    this.setData({
+      textInputValue: value // 更新输入框的值
+    });
+  },
+  onSendTap(e){
+    console.log(this.data.textInputValue)
+    let val=this.data.textInputValue
+    this.try(async () => {
+      if (!val) {
+        return
+      }
+      console.log(val)
+      if(val==''){
+        wx.showToast({
+          title: '无法发送空信息',
+          icon: 'none',
+          duration: 2000
+        });
+      }else{
+        const {
+          collection
+        } = this.properties
+        const db = this.db
+        const _ = db.command
+        this.setData({
+          userInfo:app.globalData.userInfo
+        })
+        
+        console.log("userInfo: ",app.globalData.userInfo)
+        console.log("send:  "+this.data.userInfo.nickName);
+        const doc = {
+          _id: `${Math.random()}_${Date.now()}`,
+          groupId: this.data.groupId,
+          avatar: this.data.userInfo.avatarUrl,
+          nickName: this.data.userInfo.nickName,
+          msgType: 'text',
+          targetId:this.data.haoyou_openid,
+          textContent: val,
+          read:false,
+          sendTime: util.formatTime(new Date()),
+          sendTimeTS: Date.now(), // fallback
+        }
+  
+        this.setData({
+          textInputValue: '',
+          chats: [
+            ...this.data.chats,
+            {
+              ...doc,
+              _openid: this.data.openId,
+              writeStatus: 'pending',
+            },
+          ],
+        })
+        this.scrollToBottom(true)
+  
+        await db.collection("chatroom_example").add({
+          data: doc,
+        })
+  
+        this.setData({
+          chats: this.data.chats.map(chat => {
+            if (chat._id === doc._id) {
+              return {
+                ...chat,
+                writeStatus: 'written',
+              }
+            } else return chat
+          }),
+        })
+        db.collection('user').where({
+          _openid:this.data.haoyou_openid
+        }).get().then(res=>{
+          console.log(res)
+          if(!res.data[0].online){
+            this.send_tixing(doc.textContent)
+          }
+        });
+  
+        // this.send_info();
+      }
+     
 
+    }, '发送文字失败')
+  },
   //发送语音
   async yuyin(e) {
     this.setData({

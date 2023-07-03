@@ -2,6 +2,7 @@
 //导入request请求工具类
 import {getBaseUrl, requestUtil}from '../../utils/requestUtil.js';
 import regeneratorRuntime from '../../lib/runtime/runtime';
+
 // 获取应用实例
 const app = getApp()
 Page({
@@ -92,6 +93,7 @@ Page({
 
 
     }else{
+      
       this.setData({
         type:app.globalData.type,
         uid:app.globalData.searchUniversityIndex,

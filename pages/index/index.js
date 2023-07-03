@@ -27,7 +27,7 @@ Page({
     loc:"",
     locuni:"",
     loccam:"",
-    type:"",
+    type:"显示器",
     latitude: "",
     longitude: "",
     scale:9,
@@ -35,6 +35,7 @@ Page({
     cid:-1,
     markers: [
     ],
+    isDefault:true
   },
   // 事件处理函数
   bindViewTap() {
@@ -227,11 +228,17 @@ loadData(){
   },
   onInput:function(e){
     //console.log(e.detail.value);
+    if(this.data.isDefault){
+      this.setData({
+        isDefault:false
+      })
+    }
     this.setData({
       type:e.detail.value
     })
   },
   handleSearch(e){
+
     console.log("data-type: ",this.data.type)
     app.globalData.type=this.data.type;
     // console.log(app.globalData.type);
@@ -294,7 +301,7 @@ loadData(){
     let that=this;
     list.forEach(function(value,index,array){
       let imgurl=''
-      if(value.propic.pics[0][0]!='h'&&value.propic.pics[0][0]!='c'){
+      if(value.propic.pics[0][0]!='h'&&value.propic.pics[0][0]!='c'&&value.propic.pics[0][0]!='w'){
         imgurl=that.data.baseUrl+"/image/product/"+value.propic.pics[0]
       }else{
         imgurl=value.propic.pics[0]

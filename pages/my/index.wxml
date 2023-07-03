@@ -95,7 +95,7 @@
         ¥{{hotProduct.price}}
         </view>
         <view bindtap="onUpdate" data-id="{{index}}"class="button1">{{b1}}</view>
-        <view bindtap="onbutton2" data-id="{{index}}" class="button2">{{b2}}</view>
+        <view wx:if="{{b2!=''}}"bindtap="onbutton2" data-id="{{index}}" class="button2">{{b2}}</view>
       </view>
      
      
