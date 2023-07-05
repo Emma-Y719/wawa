@@ -82,6 +82,7 @@ App({
     storageList:[],
     userInfo:{
       
-    }
+    },
+    chose:[true,false,false,false,false]
   }
 })

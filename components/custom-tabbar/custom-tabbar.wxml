@@ -1,20 +1,20 @@
  <!-- 这是黑色选择框 --> 
  <view class="SelectColumn"> 
         <view bindtap="onNavi1" open-type="reLaunch" url="/pages/index/index" class="firstlogo">
-          <image src="/images/home_index.png" mode="widthFix"></image>
+          <image src="{{chose[0]? '/images/home_h.png':'/images/home_n.png'}} " mode="widthFix"></image>
         </view>
 
         <view bindtap="onNavi2"open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
-          <image src="/images/favorite_index.png" mode="widthFix"></image>
+          <image src="{{chose[1]? '/images/favorite_h.png':'/images/favorite_n.png'}}" mode="widthFix"></image>
         </view>
 
         <view bindtap="onNavi3" open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
-          <image src="/images/msg.png" mode="widthFix"class='msglogo'></image>
+          <image src="{{chose[2]? '/images/msg_h.png':'/images/msg_n.png'}}" mode="widthFix"class='msglogo'></image>
           
         </view>
         <image class="notread"src="/images/reddot.png" mode="widthFix" wx:if="{{notRead}}"/>
         <view bindtap="onNavi4" open-type="reLaunch" class="fourthlogo">
-          <image src="/images/my_index.png" mode="widthFix"></image>
+          <image src="{{chose[3]? '/images/my_h.png':'/images/my_n.png'}}" mode="widthFix"></image>
         </view>
 
          <!-- 这是青蛙logo -->

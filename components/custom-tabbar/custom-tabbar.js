@@ -23,7 +23,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    notRead:false
+    notRead:false,
+    chose:[]
+
   },
   lifetimes: {
     attached: function() {
@@ -68,6 +70,10 @@ Component({
       console.log("Load bar")
       // this.watchInfo();
      this.getWLogin();
+     this.setData({
+       chose:app.globalData.chose
+     })
+     console.log(this.data.chose)
       // this.timer = setInterval(() => {
       //   this.refreshPage();
       // }, 5000);
@@ -308,15 +314,32 @@ Component({
         //console.log(that.data.rooms)
       },'初始化失败')
     },
+    setChose(index){
+      var temChose=[]
+      for(var i=0;i<5;i++){
+        if(i==index){
+          temChose.push(true)
+        }else{
+          temChose.push(false)
+        }
+      }
+      this.setData({
+        chose:temChose
+      })
+      app.globalData.chose=temChose;
+    },
     onNavi1(){
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
       
       if(route!='pages/index/index'){
+        this.setChose(0);
         if(route=="pages/promote/index"){
+
           cur.onTab('/pages/index/index');
         }else{
+
           wx.reLaunch({
             url: '/pages/index/index',
           })
@@ -329,6 +352,7 @@ Component({
       let cur=pages[pages.length-1]
       let route=cur.route
       if(route!='pages/favorite/index'){
+        this.setChose(1);
         if(route=="pages/promote/index"){
           cur.onTab('/pages/favorite/index');
         }else{
@@ -339,40 +363,42 @@ Component({
       }
     },
     onNavi3(){
-      if(app.globalData.user.subscribe!=true){
-        wx.requestSubscribeMessage({
-          tmplIds: ['7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
-          success(res) {
-            // 用户授权成功
-            if (res.errMsg === 'requestSubscribeMessage:ok') {
-              // 遍历模板ID列表，判断用户的订阅状态
-              for (let templateId of Object.keys(res)) {
-                if (res[templateId] === 'accept') {
-                  // 用户同意订阅该模板消息
-                  console.log(`用户同意订阅模板消息：${templateId}`);
-                  
 
-
-                  // 在这里可以保存用户的订阅状态，以便后续推送消息时使用
-                } else if (res[templateId] === 'reject') {
-                  // 用户拒绝订阅该模板消息
-                  console.log(`用户拒绝订阅模板消息：${templateId}`);
-                }
-              }
-            }
-          },
-          fail(err) {
-            // 请求订阅消息授权失败
-            console.error('请求订阅消息授权失败：', err);
-          }
-        });
-    
-      }
 
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
       if(route!='pages/example/chatroom_example/message'){
+        if(app.globalData.user.subscribe!=true){
+          wx.requestSubscribeMessage({
+            tmplIds: ['7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
+            success(res) {
+              // 用户授权成功
+              if (res.errMsg === 'requestSubscribeMessage:ok') {
+                // 遍历模板ID列表，判断用户的订阅状态
+                for (let templateId of Object.keys(res)) {
+                  if (res[templateId] === 'accept') {
+                    // 用户同意订阅该模板消息
+                    console.log(`用户同意订阅模板消息：${templateId}`);
+                    
+  
+  
+                    // 在这里可以保存用户的订阅状态，以便后续推送消息时使用
+                  } else if (res[templateId] === 'reject') {
+                    // 用户拒绝订阅该模板消息
+                    console.log(`用户拒绝订阅模板消息：${templateId}`);
+                  }
+                }
+              }
+            },
+            fail(err) {
+              // 请求订阅消息授权失败
+              console.error('请求订阅消息授权失败：', err);
+            }
+          });
+      
+        }
+        this.setChose(2);
         if(route=="pages/promote/index"){
           cur.onTab('/pages/example/chatroom_example/message');
         }else{
@@ -397,6 +423,7 @@ Component({
       //   }
       // }
       if(route!='/pages/my/index'){
+        this.setChose(3);
         if(route=="pages/promote/index"){
           cur.onTab('/pages/my/index');
         }else{
@@ -412,6 +439,7 @@ Component({
       let cur=pages[pages.length-1]
       let route=cur.route
       if(route!='pages/promote/index'){
+        this.setChose(4)
         wx.reLaunch({
           url: '/pages/promote/index',
         })

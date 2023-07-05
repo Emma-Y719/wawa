@@ -10,16 +10,16 @@
   transform: translate(-50%, -50%);
 }
 .SelectColumn .firstlogo {
-  height: 10%;
-  width: 10%;
+  height: 8%;
+  width: 8%;
   position: absolute;
   left: 12%;
-  top: 20%;
+  top: 28%;
   transform: translate(-50%, -50%);
 }
 .SelectColumn .secondlogo {
-  height: 7%;
-  width: 7%;
+  height: 8%;
+  width: 8%;
   position: absolute;
   left: 30%;
   top: 28%;

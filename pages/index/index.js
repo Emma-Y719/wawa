@@ -6,7 +6,6 @@ import {
   getUserProfile,
   requestPay,
   requestUtil
-
 }from '../../utils/requestUtil.js';
 import regeneratorRuntime from '../../lib/runtime/runtime';
 // 获取应用实例
@@ -27,7 +26,7 @@ Page({
     loc:"",
     locuni:"",
     loccam:"",
-    type:"显示器",
+    type:"",
     latitude: "",
     longitude: "",
     scale:9,
@@ -35,7 +34,6 @@ Page({
     cid:-1,
     markers: [
     ],
-    isDefault:true
   },
   // 事件处理函数
   bindViewTap() {
@@ -228,17 +226,11 @@ loadData(){
   },
   onInput:function(e){
     //console.log(e.detail.value);
-    if(this.data.isDefault){
-      this.setData({
-        isDefault:false
-      })
-    }
     this.setData({
       type:e.detail.value
     })
   },
   handleSearch(e){
-
     console.log("data-type: ",this.data.type)
     app.globalData.type=this.data.type;
     // console.log(app.globalData.type);
