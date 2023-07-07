@@ -21,7 +21,8 @@ Page({
         log:"",
         avatarUrl:"/icons/student.jpg",
         baseUrl:"",
-        userInfo:{}
+        userInfo:{},
+        isclick:false
   },
   choose(e) {
     wx.navigateTo({
@@ -62,15 +63,17 @@ Page({
       avatarUrl:avatarUrl
     })
   },
+ 
   handlelogin(){
     this.data.userInfo.university=this.data.university;
     this.data.userInfo.campus=this.data.campus;
     console.log(this.data.userInfo)
-
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "login", //云函数路由参数
+    if(!this.data.isclick){
+      this.setData({
+        isclick:true
+      })
+      requestUtil({url:"/user/add",method:"POST",data: {
+        openid:app.globalData.openid,
         phone: "",
         university:this.data.university,
         campus:this.data.campus,
@@ -81,45 +84,98 @@ Page({
         userInfo: this.data.userInfo,
         nickName:this.data.name,
         money: 0,
+        online:false,
         dba: 0,
         friends:[],
         storage:[],
-        chat:[],
         favorite:[],
         uid:this.data.uid,
         cid:this.data.cid
-      },
-      success: res => {
-        console.log("login:  ",res)
-        console.log("openid:  ",app.globalData.openid)
-        db.collection('user').where({
-          _openid: app.globalData.openid
-        }).get({
-          success: function (res) {
-            app.globalData.openid= res.data[0]._openid;
-            app.globalData.userInfo = res.data[0].userInfo;
-            app.globalData.friends=res.data[0].friends;
-            app.globalData.user=res.data[0]
-            console.log(app.globalData)
-            wx.showToast({
-              title: '注册成功',
-              icon: 'none',
-            })
-            wx.reLaunch({
-              url: '/pages/index/index',
-            })
-          }
+      },}).then(res=>{
+        console.log(res)
+        if(res.code=="0"){
+          app.globalData.openid= res.message.openid;
+          app.globalData.userInfo = res.message.userinfo;
+          app.globalData.friends=res.message.friends;
+          app.globalData.user=res.message
+          console.log(app.globalData)
+          wx.showToast({
+            title: '注册成功',
+            icon: 'none',
+          })
+          wx.reLaunch({
+            url: '/pages/index/index',
+          })
+        }else{
+          wx.showToast({
+            title: '注册失败，请重新提交',
+            icon: 'none',
+          })
+          this.setData({
+            isclick:false
+          })
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '请勿重复点击，正在注册，请稍候...',
+        icon: 'none',
+      })
+    }
+
+    // wx.cloud.callFunction({
+    //   name: 'yunrouter',
+    //   data: {
+    //     $url: "login", //云函数路由参数
+    //     phone: "",
+    //     university:this.data.university,
+    //     campus:this.data.campus,
+    //     qqnum: "",
+    //     email: "",
+    //     wxnum: "",
+    //     stamp: new Date(),
+    //     userInfo: this.data.userInfo,
+    //     nickName:this.data.name,
+    //     money: 0,
+    //     dba: 0,
+    //     friends:[],
+    //     storage:[],
+    //     chat:[],
+    //     favorite:[],
+    //     uid:this.data.uid,
+    //     cid:this.data.cid
+    //   },
+    //   success: res => {
+    //     console.log("login:  ",res)
+    //     console.log("openid:  ",app.globalData.openid)
+    //     db.collection('user').where({
+    //       _openid: app.globalData.openid
+    //     }).get({
+    //       success: function (res) {
+    //         app.globalData.openid= res.data[0]._openid;
+    //         app.globalData.userInfo = res.data[0].userInfo;
+    //         app.globalData.friends=res.data[0].friends;
+    //         app.globalData.user=res.data[0]
+    //         console.log(app.globalData)
+    //         wx.showToast({
+    //           title: '注册成功',
+    //           icon: 'none',
+    //         })
+    //         wx.reLaunch({
+    //           url: '/pages/index/index',
+    //         })
+    //       }
   
-        })
-      },
-      fail() {
-        wx.hideLoading();
-        wx.showToast({
-          title: '注册失败，请重新提交',
-          icon: 'none',
-        })
-      }
-    });
+    //     })
+    //   },
+    //   fail() {
+    //     wx.hideLoading();
+    //     wx.showToast({
+    //       title: '注册失败，请重新提交',
+    //       icon: 'none',
+    //     })
+    //   }
+    // });
   },
         /**上传图片 */
   uploadImage:function(){

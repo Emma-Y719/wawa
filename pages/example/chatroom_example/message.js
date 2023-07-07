@@ -229,10 +229,12 @@ Page({
   },
   async getRooms(){
     console.log(app.globalData.openid)
-    let positive=await this.queryAll("chats",{id:app.globalData.openid});
+    //let positive=await this.queryAll("chats",{id:app.globalData.openid});
 
-    let chats=positive.data
-    console.log(chats.length)
+    // let chats=positive.data
+    // console.log(chats.length)
+    let chatres=await requestUtil({url:'/chats/findid',method:"GET",data:{id:app.globalData.openid}})
+    let chats=chatres.message
     let rooms=[]
     let that=this;
     chats.forEach(function(value,index,array){

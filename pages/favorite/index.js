@@ -107,38 +107,13 @@ Page({
   addChat(e){
     let id=e.currentTarget.dataset.id;
     let productObj=this.data.cart[id]
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "huoquUserinfo", //云函数路由参数
-        openid: productObj.userid
-      },
-      success: res2 => {
-          let userInfo=res2.result.data[0].userInfo;
-          let user=res2.result.data[0]
+    requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+          let userInfo=res.message[0].userinfo;
 
           let that=this
           this.setData({
             chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
           })
-      
-      
-          wx.cloud.callFunction({
-            name: 'yunrouter',
-            data: {
-              $url: "HuoquFriends", //云函数路由参数
-              openid: app.globalData.openid
-            },
-            success: res2 => {
-              console.log(res2)
-              this.setData({
-                peoplelist: res2.result.data[0].friends,
-              })
-              app.globalData.friends = res2.result.data[0].friends
-            },
-            fail() {
-            }
-          });
           db.collection('chats').where({
             chatid:this.data.chatid
           }).get().then(res=>{
@@ -153,11 +128,7 @@ Page({
             }
           })
 
-
-      },
-      fail() {
-      }
-    });
+    })
 
   },
   async addRoom(productObj,userInfo){
@@ -276,29 +247,19 @@ Page({
 
   },
   async getFavorites(){
-    await wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "huoquUserinfo", //云函数路由参数
-        openid: app.globalData.openid
-      },
-      success: res2 => {
-        console.log(res2.result.data[0].favorite)
-        let favlist=res2.result.data[0].favorite;
-        this.setData({
-          cart:favlist
-        })
-      },
-      fail() {
-      }
-    });
+    requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+      // console.log(res.message)
+      let favlist=res.message[0].favorite;
+      this.setData({
+        cart:favlist
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
     console.log("show")
-    const address=wx.getStorageSync('address');
     console.log("openid: "+app.globalData.openid)
     this.getFavorites();
     // wx.cloud.callFunction({

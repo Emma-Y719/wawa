@@ -81,7 +81,6 @@ App({
     campuses:[],
     storageList:[],
     userInfo:{
-      
     },
     chose:[true,false,false,false,false]
   }
