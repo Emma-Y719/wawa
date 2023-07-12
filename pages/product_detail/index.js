@@ -97,37 +97,42 @@ Page({
       })
     }
 
-    console.log(result.message.userid)
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "huoquUserinfo", //云函数路由参数
-        openid: result.message.userid
-      },
-      success: res2 => {
-        console.log(res2.result.data[0].userInfo)
-        this.setData({
-          userInfo:res2.result.data[0].userInfo,
-          user:res2.result.data[0]
-        })
-      },
-      fail() {
-      }
-    });
+    console.log("userid: ",result.message)
+
+    await requestUtil({url:"/user/findid",method:"GET",data:{id:result.message.userid}}).then(res=>{
+      console.log(res)
+      this.setData({
+        userInfo:res.message[0].userinfo,
+        user:res.message[0]
+      })
+    })
+
+    
     if(app.globalData.friends!=undefined){
       if(app.globalData.friends.length!=0){
-        console.log(app.globalData.friends[app.globalData.friends.length-1]._openid)
-        console.log("user: "+this.data.productObj.userid)
-        if(app.globalData.friends[app.globalData.friends.length-1]._openid==this.data.productObj.userid){
-          this.setData({
-            isfocus:true,
-            fvalue:"已关注"
-          })
-        }else{
-          this.setData({
-            fvalue:"+关注"
-          })
+        console.log("friends: ",app.globalData.user.friends)
+        // if(app.globalData.friends[0]==null){
+        //   app.globalData.friends.splice(0,1)
+        // }
+        console.log("this: ",this.data.user.openid)
+        if(app.globalData.friends!=1&&app.globalData.friends[0]!=null){
+          let index=app.globalData.user.friends.findIndex(v=>v._openid==this.data.user.openid);
+          console.log("result: ",index)
+          if(index!=-1){
+              this.setData({
+                isfocus:true,
+                fvalue:"已关注"
+              })
+            }else{
+              this.setData({
+                fvalue:"+关注"
+              })
+            }
         }
+
+
+          
+
       }else{
         this.setData({
           isfocus:false,
@@ -190,24 +195,6 @@ Page({
       this.setData({
         chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
       })
-  
-  
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "HuoquFriends", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
-          console.log(res2)
-          this.setData({
-            peoplelist: res2.result.data[0].friends,
-          })
-          app.globalData.friends = res2.result.data[0].friends
-        },
-        fail() {
-        }
-      });
       db.collection('chats').where({
         chatid:this.data.chatid
       }).get().then(res=>{
@@ -221,7 +208,6 @@ Page({
           })
         }
       })
-
 
     }
 
@@ -367,68 +353,102 @@ Page({
       });
     }else{
       if(!this.data.isfocus){
-        db.collection('user').where({
-         _openid: app.globalData.openid
-       }).update({
-         data: {
-           friends: db.command.push([{
-             id: app.globalData.openid+this.data.productObj.userid,
-             userInfo: this.data.userInfo,
-             _openid: this.data.productObj.userid,
-             backgroundimage: ''
-           }])
-         }
-       })
+        requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+          res.message[0].friends.push({
+            id: app.globalData.openid+this.data.productObj.userid,
+            userInfo: this.data.userInfo,
+            _openid: this.data.productObj.userid,
+              backgroundimage: ''
+          })
+          let updateFri=res.message[0]
+          requestUtil({url:"/user/update",method:"POST",data:updateFri}).then(res=>{
+            if(res){
+              console.log("result: ",res)
+              this.data.isfocus=true;
+              app.globalData.friends=updateFri;
+              this.setData({
+                isfocus:true,
+                fvalue:"已关注"
+              })
+            }
+          })
+        })
+
        
-       wx.cloud.callFunction({
-         name: 'yunrouter',
-         data: {
-           $url: "huoquUserinfo", //云函数路由参数
-           openid: app.globalData.openid
-         },
-         success: res2 => {
-           console.log("result: ",res2)
-           this.data.isfocus=true;
-           app.globalData.friends=res2.result.data[0].friends;
-           this.setData({
-             isfocus:true,
-             fvalue:"已关注"
-           })
-         },
-         fail() {
-         }
-       });
+      //  wx.cloud.callFunction({
+      //    name: 'yunrouter',
+      //    data: {
+      //      $url: "huoquUserinfo", //云函数路由参数
+      //      openid: app.globalData.openid
+      //    },
+      //    success: res2 => {
+      //      console.log("result: ",res2)
+      //      this.data.isfocus=true;
+      //      app.globalData.friends=res2.result.data[0].friends;
+      //      this.setData({
+      //        isfocus:true,
+      //        fvalue:"已关注"
+      //      })
+      //    },
+      //    fail() {
+      //    }
+      //  });
      }else{
-       db.collection('user').where({
-         _openid: app.globalData.openid
-       }).update({
-         data: {
-           friends: db.command.pull({
-             id: app.globalData.openid+this.data.productObj.userid,
-             userInfo: this.data.userInfo,
-             _openid: this.data.productObj.userid,
-             backgroundimage: ''
-           })
-         }
+       requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+        // res.message[0].friends.splice(0,1)
+        // let index=res.message[0].friends.findIndex(v=>v._openid==this.data.user.openid);
+        //   console.log("result: ",index)
+          
+         
+         let that=this;
+         var newFri = res.message[0].friends.filter(function(element) {
+           return element._openid != that.data.user.openid&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
+         });
+         console.log(newFri);
+
+       res.message[0].friends=newFri;
+          requestUtil({url:"/user/update",method:"POST",data:res.message[0]}).then(res=>{
+            console.log(res)
+            if(res){
+              app.globalData.friends=newFri;
+              this.setData({
+                isfocus:false,
+                fvalue:"+关注"
+              })
+            }
+          })
        })
+
+      //  db.collection('user').where({
+      //    _openid: app.globalData.openid
+      //  }).update({
+      //    data: {
+      //      friends: db.command.pull({
+      //        id: app.globalData.openid+this.data.productObj.userid,
+      //        userInfo: this.data.userInfo,
+      //        _openid: this.data.productObj.userid,
+      //        backgroundimage: ''
+      //      })
+      //    }
+      //  })
        
-       wx.cloud.callFunction({
-         name: 'yunrouter',
-         data: {
-           $url: "huoquUserinfo", //云函数路由参数
-           openid: app.globalData.openid
-         },
-         success: res2 => {
-           console.log("result: ",res2)
-           app.globalData.friends=res2.result.data[0].friends;
-           this.setData({
-             isfocus:false,
-             fvalue:"+关注"
-           })
-         },
-         fail() {
-         }
-       });
+      //  wx.cloud.callFunction({
+      //    name: 'yunrouter',
+      //    data: {
+      //      $url: "huoquUserinfo", //云函数路由参数
+      //      openid: app.globalData.openid
+      //    },
+      //    success: res2 => {
+      //      console.log("result: ",res2)
+      //      app.globalData.friends=res2.result.data[0].friends;
+      //      this.setData({
+      //        isfocus:false,
+      //        fvalue:"+关注"
+      //      })
+      //    },
+      //    fail() {
+      //    }
+      //  });
  
      }
 
@@ -465,67 +485,65 @@ Page({
         duration: 2000
       });
     }else{
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "huoquUserinfo", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
-          console.log("result: ",res2)
-          if(res2.result.data[0].favorite!=undefined){
-            let index=res2.result.data[0].favorite.findIndex(v=>v.identity==this.data.productObj.identity);
-            console.log("result: ",this.data.productObj.identity)
-            if(index==-1){
-              console.log(index)
-              db.collection('user').where({
-                _openid: app.globalData.openid
-              }).update({
-                data: {
-                  favorite: db.command.push([this.data.productObj])
-                }
-              })
-              wx.showModal({
-                title: '',
-                content: '收藏成功，请去收藏夹查看～',
-                complete: (res) => {
-                  if (res.cancel) {
-                    
+    
+      requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
+        console.log("result: ",res2)
+        if(res2.message[0].favorite!=undefined){
+          let index=res2.message[0].favorite.findIndex(v=>v.identity==this.data.productObj.identity);
+          console.log("result: ",this.data.productObj.identity)
+          if(index==-1){
+            console.log(index)
+            res2.message[0].favorite.push(this.data.productObj);
+            app.globalData.favorite.push(this.data.productObj);
+            requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
+              if(res){
+                wx.showModal({
+                  title: '',
+                  content: '收藏成功，请去收藏夹查看～',
+                  complete: (res) => {
+                    if (res.cancel) {
+                      
+                    }
+                
+                    if (res.confirm) {
+                      wx.navigateTo({
+                        url: '/pages/favorite/index',
+                      })
+                    }
                   }
-              
-                  if (res.confirm) {
-                    wx.navigateTo({
-                      url: '/pages/favorite/index',
-                    })
-                  }
-                }
-              })
-            }else{
-              wx.showModal({
-                title: '',
-                content: '已在收藏夹中，勿重复收藏，去查看',
-                complete: (res) => {
-                  if (res.cancel) {
-                    
-                  }
-              
-                  if (res.confirm) {
-                    wx.navigateTo({
-                      url: '/pages/favorite/index',
-                    })
-                  }
-                }
-              })
-            }
+                })
+              }
+
+            })
+            // db.collection('user').where({
+            //   _openid: app.globalData.openid
+            // }).update({
+            //   data: {
+            //     favorite: db.command.push([this.data.productObj])
+            //   }
+            // })
+
           }else{
-            console.log("result: ",res2.result.data[0].favorite)
-            db.collection('user').where({
-              _openid: app.globalData.openid
-            }).update({
-              data: {
-                favorite: db.command.push([this.data.productObj])
+            wx.showModal({
+              title: '',
+              content: '已在收藏夹中，勿重复收藏，去查看',
+              complete: (res) => {
+                if (res.cancel) {
+                  
+                }
+            
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '/pages/favorite/index',
+                  })
+                }
               }
             })
+          }
+        }else{
+          console.log("result: ",res2.message[0].favorite)
+          res2.message[0].favorite.push(this.data.productObj);
+          requestUtil({url:"/user/update",method:"GET",data:res2.message[0]}).then(res=>{
             wx.showModal({
               title: '',
               content: '收藏成功，请去收藏夹查看～',
@@ -541,11 +559,9 @@ Page({
                 }
               }
             })
-          }
-        },
-        fail() {
+          })
         }
-      });
+      })
     }
 
 

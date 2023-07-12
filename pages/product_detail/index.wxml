@@ -1,8 +1,8 @@
 <view class="userContainer">
   
-  <image  bindtap="onUserDetail"class="pic" src="{{user.userInfo.avatarUrl}}" mode="aspectFill" />
+  <image  bindtap="onUserDetail"class="pic" src="{{user.userinfo.avatarUrl}}" mode="aspectFill" />
   <view class="middle">
-    <text class="name">{{user.userInfo.nickName}}</text>
+    <text class="name">{{user.userinfo.nickName}}</text>
     <text class="campus">{{user.university}}-{{user.campus}}</text>
   </view>
  

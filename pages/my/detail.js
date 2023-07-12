@@ -109,14 +109,12 @@ Page({
   },
   async getUserInfo(){
     console.log("this userid: ",this.data.userid)
-    await db.collection('user').where({
-      _openid:this.data.userid
-    }).get().then(res=>{
-      console.log("user info :",res.data)
+    await requestUtil({url:"/user/findid",method:"GET",data:{id:this.data.userid}}).then(res=>{
       this.setData({
-        user:res.data[0]
+        user:res.message[0]
       })
     })
+
   },
   async getHotProductList(e){
     console.log(this.data.user)

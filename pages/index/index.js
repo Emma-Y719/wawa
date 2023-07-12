@@ -26,7 +26,7 @@ Page({
     loc:"",
     locuni:"",
     loccam:"",
-    type:"",
+    type:"显示器",
     latitude: "",
     longitude: "",
     scale:9,
@@ -34,6 +34,7 @@ Page({
     cid:-1,
     markers: [
     ],
+    isDefault:true
   },
   // 事件处理函数
   bindViewTap() {

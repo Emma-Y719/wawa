@@ -65,7 +65,7 @@ Page({
     if(options!=null){
       console.log(options)
       let intid=parseInt(options.id)
-      requestUtil({url:"/storage/findById",method:"GET",data:{id:intid}}).then(result=>{
+       requestUtil({url:"/storage/findById",method:"GET",data:{id:intid}}).then(result=>{
         console.log(result.message[0].campus)
         this.setData({
           id:intid,
@@ -75,60 +75,80 @@ Page({
           pic:result.message[0].pic,
           storageObj:result.message[0]
         })
-        wx.cloud.callFunction({
-          name: 'yunrouter',
-          data: {
-            $url: "huoquUserinfo", //云函数路由参数
-            openid: app.globalData.openid
-          },
-          success: res2 => {
-            console.log(res2)
-            let storages=res2.result.data[0].storage
-            console.log(storages)
-            if(storages!=undefined){
-              let index=storages.findIndex(v=>v.identity==this.data.id)
-              console.log(index)
-              if(index!=-1){
-                this.setData({
-                  isAdd:true,
-                  addValue:"已加入"
-                })
-              }
-            }
+                                                                                                // requestUtil({url:"/user/find"})
+                                                                                                //app.globalData.user.storage.splice(0,1)
+                                                                                                 //requestUtil({url:"/user/update",method:"POST",data:app.globalData.user})                                                                                 
+        let index=app.globalData.user.storage.findIndex(v=>v.identity==this.data.id)
+          console.log(index)
+          if(index!=-1){
+            this.setData({
+              isAdd:true,
+              addValue:"已加入"
+            })
+        }                                                                                 
+        // wx.cloud.callFunction({
+        //   name: 'yunrouter',
+        //   data: {
+        //     $url: "huoquUserinfo", //云函数路由参数
+        //     openid: app.globalData.openid
+        //   },
+        //   success: res2 => {
+        //     console.log(res2)
+        //     let storages=res2.result.data[0].storage
+        //     console.log(storages)
+        //     if(storages!=undefined){
+        //       let index=storages.findIndex(v=>v.identity==this.data.id)
+        //       console.log(index)
+        //       if(index!=-1){
+        //         this.setData({
+        //           isAdd:true,
+        //           addValue:"已加入"
+        //         })
+        //       }
+        //     }
 
-          },
-          fail() {
-          }
-        });
+        //   },
+        //   fail() {
+        //   }
+        // });
         this.searchProductList();
       })
     }
   },
   handleAdd(e){
     if(!this.data.isAdd){
-      db.collection('user').where({
-        _openid: app.globalData.openid
-      }).update({
-        data: {
-          storage: db.command.push([this.data.storageObj])
-        }
-      })
-      
-      wx.cloud.callFunction({
-        name: 'yunrouter',
-        data: {
-          $url: "huoquUserinfo", //云函数路由参数
-          openid: app.globalData.openid
-        },
-        success: res2 => {
+      app.globalData.user.storage.push(this.data.storageObj)
+      requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+        if (res){
           this.setData({
             addValue:"已加入",
             isAdd:true
           })
-        },
-        fail() {
         }
-      });
+      })
+      // db.collection('user').where({
+      //   _openid: app.globalData.openid
+      // }).update({
+      //   data: {
+      //     storage: db.command.push([this.data.storageObj])
+      //   }
+      // })
+      
+      // wx.cloud.callFunction({
+      //   name: 'yunrouter',
+      //   data: {
+      //     $url: "huoquUserinfo", //云函数路由参数
+      //     openid: app.globalData.openid
+      //   },
+      //   success: res2 => {
+      //     this.setData({
+      //       addValue:"已加入",
+      //       isAdd:true
+      //     })
+      //   },
+      //   fail() {
+      //   }
+      // });
     }else{
       wx.showModal({
         title: '',
@@ -139,22 +159,37 @@ Page({
           }
       
           if (res.confirm) {
-            
-            db.collection('user').where({
-              _openid: app.globalData.openid
-            }).update({
-              data: {
-                storage: db.command.pull({identity:this.data.storageObj.identity})
+
+            let that=this;
+            var newSto = app.globalData.user.storage.filter(function(element) {
+              return element.identity != that.data.id&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
+            });
+            console.log(newSto);
+            app.globalData.user.storage=newSto
+            requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+              if(res){
+                console.log(res)
+                this.setData({
+                  isAdd:false,
+                  addValue:"加入"
+                })
               }
-            }).then(res=>{
-              console.log(res)
-              this.setData({
-                isAdd:false,
-                addValue:"加入"
-              })
-
-
             })
+            // db.collection('user').where({
+            //   _openid: app.globalData.openid
+            // }).update({
+            //   data: {
+            //     storage: db.command.pull({identity:this.data.storageObj.identity})
+            //   }
+            // }).then(res=>{
+            //   console.log(res)
+            //   this.setData({
+            //     isAdd:false,
+            //     addValue:"加入"
+            //   })
+
+
+            // })
           }
         }
       })

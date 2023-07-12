@@ -36,23 +36,24 @@ App({
 
   },
   onHide(){
-    db.collection('user').where({
-      _openid:this.globalData.user._openid
-    }).update({
-      data: {
-        online: false,
-      }
+    requestUtil({url:"/user/findid",method:"GET",data:{id:this.globalData.openid}}).then(res=>{
+      res.message[0].online=false;
+      requestUtil({url:"/user/update",method:"POST",data:res.message[0]})
     })
+    // db.collection('user').where({
+    //   _openid:this.globalData.user._openid
+    // }).update({
+    //   data: {
+    //     online: false,
+    //   }
+    // })
   },
   onShow(){
     if(this.globalData.isLogin){
-      db.collection('user').where({
-        _openid:this.globalData.user._openid
-      }).update({
-        data: {
-          online: true,
-        }
-      })
+      if(this.globalData.user!=undefined){
+        this.globalData.user.online=true;
+        requestUtil({url:"/user/update",method:"POST",data:this.globalData.user})
+      }
     }
     
   },

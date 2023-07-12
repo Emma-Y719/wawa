@@ -40,49 +40,59 @@ Page({
     this.searchMulti()
   },
   async searchStorageList(e){
-    
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "HuoquFriends", //云函数路由参数
-        openid: app.globalData.openid
-      },
-      
-      success: res2 => {
-        let that=this;
-        console.log("res2:   ",res2.result.data[0].storage)
-        if(res2.result!=null){
-          var storages=res2.result.data[0].storage
-          console.log(storages.length)
-          
-          if(storages!=undefined){
-            var storageList=[]
-            storages.forEach(function(value,index,array){
-              requestUtil({url:'/storage/findById',method:"GET",data:{id:value.identity}}).then(result=>{
-                storageList.push(result.message[0])
-                that.setData({
-                  storageList:storageList
-                })
-              })
-              
-            })
+    console.log(app.globalData.user.storage)
+    if(app.globalData.user.storage[0]==null){
+      this.setData({
+        storageList:[]
+      })
+    }else{
+      this.setData({
+        storageList:app.globalData.user.storage
+      })
+    }
 
-          }else{
-            console.log("清空ta！")
-            that.setData({
-              storageList:[]
-            })
-          }
-          if(storages.length==0){
-            that.setData({
-              storageList:[]
-            })
-          }
-        }
-      },
-      fail() {
-      }
-    });
+    // wx.cloud.callFunction({
+    //   name: 'yunrouter',
+    //   data: {
+    //     $url: "HuoquFriends", //云函数路由参数
+    //     openid: app.globalData.openid
+    //   },
+      
+    //   success: res2 => {
+    //     let that=this;
+    //     console.log("res2:   ",res2.result.data[0].storage)
+    //     if(res2.result!=null){
+    //       var storages=res2.result.data[0].storage
+    //       console.log(storages.length)
+          
+    //       if(storages!=undefined){
+    //         var storageList=[]
+    //         storages.forEach(function(value,index,array){
+    //           requestUtil({url:'/storage/findById',method:"GET",data:{id:value.identity}}).then(result=>{
+    //             storageList.push(result.message[0])
+    //             that.setData({
+    //               storageList:storageList
+    //             })
+    //           })
+              
+    //         })
+
+    //       }else{
+    //         console.log("清空ta！")
+    //         that.setData({
+    //           storageList:[]
+    //         })
+    //       }
+    //       if(storages.length==0){
+    //         that.setData({
+    //           storageList:[]
+    //         })
+    //       }
+    //     }
+    //   },
+    //   fail() {
+    //   }
+    // });
   },
   ontypeInput(e){
     this.setData({

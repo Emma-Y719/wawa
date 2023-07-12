@@ -36,41 +36,6 @@ Page({
     })
 
   },
-    /**
-   * 获取商品详情
-   */
-  async getProductDetail(id) {
-    const result = await requestUtil({
-      url: '/product/detail',
-      data:{id},
-      method: "GET"
-    });
-    this.productInfo=result.message;
-    this.setData({
-      id:id,
-      productObj: result.message
-    })
-    console.log(result.message.userid)
-    wx.cloud.callFunction({
-      name: 'yunrouter',
-      data: {
-        $url: "huoquUserinfo", //云函数路由参数
-        openid: result.message.userid
-      },
-      success: res2 => {
-        console.log(res2.result.data[0].userInfo)
-        this.setData({
-          userInfo:res2.result.data[0].userInfo,
-          user:res2.result.data[0]
-        })
-      },
-      fail() {
-      }
-    });
-
-
-
-  },
   onRemove(e){
     let id=e.currentTarget.dataset.id;
     let productObj=this.data.cart[id]
@@ -84,15 +49,39 @@ Page({
         }
     
         if (res.confirm) {
-          db.collection('user').where({
-            _openid: app.globalData.openid
-          }).update({
-            data: {
-              favorite: db.command.pull({identity:productObj.identity})
-            }
-          }).then(res=>{
-            this.getFavorites();
-          })
+          let that=this;
+            var newFav = app.globalData.user.favorite.filter(function(element) {
+              return element.identity!= productObj.identity&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
+            });
+            console.log(newFav);
+            app.globalData.user.favorite=newFav
+            requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+              if(res){
+                this.getFavorites();
+              }
+            })
+          // let index=app.globalData.user.favorite.findIndex(v=>v.identity==productObj.identity);
+          // console.log("result: ",index)
+          
+          // app.globalData.user.favorite.splice(index,1)
+          // console.log(app.globalData.user.favorite)
+
+
+          // const result = await requestUtil({
+          //   url: '/user/update',
+          //   data:{id:result.message.userid},
+          //   method: "GET"
+          // })
+
+          // db.collection('user').where({
+          //   _openid: app.globalData.openid
+          // }).update({
+          //   data: {
+          //     favorite: db.command.pull({identity:productObj.identity})
+          //   }
+          // }).then(res=>{
+          //   this.getFavorites();
+          // })
         }
       }
     })
@@ -107,28 +96,29 @@ Page({
   addChat(e){
     let id=e.currentTarget.dataset.id;
     let productObj=this.data.cart[id]
-    requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
-          let userInfo=res.message[0].userinfo;
+    let userInfo=app.globalData.user.userinfo;
 
-          let that=this
-          this.setData({
-            chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
-          })
-          db.collection('chats').where({
-            chatid:this.data.chatid
-          }).get().then(res=>{
-            console.log(this.data.chatid)
-            console.log("chat: ",res.data.length)
-            if(res.data.length==0){
-              this.addRoom(productObj,userInfo);
-            }else{
-              wx.navigateTo({
-                url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+productObj.userid+'&product='+productObj.identity,
-              })
-            }
-          })
-
+    let that=this
+    this.setData({
+      chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
     })
+    db.collection('chats').where({
+      chatid:this.data.chatid
+    }).get().then(res=>{
+      console.log(this.data.chatid)
+      console.log("chat: ",res.data.length)
+      if(res.data.length==0){
+        this.addRoom(productObj,userInfo);
+      }else{
+        wx.navigateTo({
+          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+productObj.userid+'&product='+productObj.identity,
+        })
+      }
+    })
+    // requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+
+
+    // })
 
   },
   async addRoom(productObj,userInfo){
@@ -236,7 +226,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
+        url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+productObj.identity,
       })
     }
   },
@@ -247,12 +237,16 @@ Page({
 
   },
   async getFavorites(){
-    requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
-      // console.log(res.message)
-      let favlist=res.message[0].favorite;
-      this.setData({
-        cart:favlist
-      })
+    // requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+    //   // console.log(res.message)
+    //   let favlist=res.message[0].favorite;
+    //   console.log(res.message)
+    //   this.setData({
+    //     cart:favlist
+    //   })
+    // })
+    this.setData({
+      cart:app.globalData.user.favorite
     })
   },
   /**
