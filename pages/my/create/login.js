@@ -283,8 +283,23 @@ Page({
                     icon: 'none',
                     duration: 2000
               });
-        }else{
-          that.handleuploadpic();
+        }
+        requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+          console.log(res.message.code)
+          if(res.message.Length>0){
+            wx.showToast({
+              title: '您的id已注册',
+              icon: 'none',
+              duration: 2000
+            });
+            wx.reLaunch({
+              url: '/pages/index/index',
+            })
+          }else{
+            that.handleuploadpic();
+          }
+        })
+          
         }
         /////检验这个号码是都有人注册了
         // wx.cloud.callFunction({
