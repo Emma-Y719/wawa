@@ -112,7 +112,7 @@ Component({
                         app.globalData.friends=res.message[0].friends;
                         app.globalData.user=res.message[0];
                         app.globalData.isLogin=true;
-                        console.log("data user:",res.message[0].university)
+                        console.log("data user:",app.globalData.user)
                         that.setData({
                           uid:res.message[0].uid,
                           cid:res.message[0].cid,

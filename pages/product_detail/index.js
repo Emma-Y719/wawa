@@ -365,7 +365,7 @@ Page({
             if(res){
               console.log("result: ",res)
               this.data.isfocus=true;
-              app.globalData.friends=updateFri;
+              app.globalData.friends=updateFri.friends;
               this.setData({
                 isfocus:true,
                 fvalue:"已关注"
@@ -491,10 +491,11 @@ Page({
         if(res2.message[0].favorite!=undefined){
           let index=res2.message[0].favorite.findIndex(v=>v.identity==this.data.productObj.identity);
           console.log("result: ",this.data.productObj.identity)
+          console.log(res2.message[0].favorite)
           if(index==-1){
             console.log(index)
             res2.message[0].favorite.push(this.data.productObj);
-            app.globalData.favorite.push(this.data.productObj);
+            app.globalData.user.favorite=res2.message[0].favorite;
             requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
               if(res){
                 wx.showModal({

@@ -67,7 +67,7 @@ Page({
   handlelogin(){
     this.data.userInfo.university=this.data.university;
     this.data.userInfo.campus=this.data.campus;
-    console.log(this.data.userInfo)
+    console.log("openid: ",app.globalData.openid)
     if(!this.data.isclick){
       this.setData({
         isclick:true
