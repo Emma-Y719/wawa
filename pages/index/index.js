@@ -324,10 +324,10 @@ loadData(){
   },
   async searchProductList(e){
 
-    await requestUtil({url:'/product/searchMulti',method:"GET",data:{university:-1,campus:-1,type:''}}).then(result=>{
+    await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:0,university:-1,campus:-1,type:''}}).then(result=>{
       //console.log("lists",result.message);
       this.setData({
-        productList:result.message
+        productList:result.message.records
       })
       //console.log("product: ",this.data.productList)
     var list=this.data.productList;

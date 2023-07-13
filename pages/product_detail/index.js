@@ -366,6 +366,7 @@ Page({
               console.log("result: ",res)
               this.data.isfocus=true;
               app.globalData.friends=updateFri.friends;
+              app.globalData.user=updateFri;
               this.setData({
                 isfocus:true,
                 fvalue:"已关注"
@@ -411,6 +412,7 @@ Page({
             console.log(res)
             if(res){
               app.globalData.friends=newFri;
+              app.globalData.user.friends=newFri;
               this.setData({
                 isfocus:false,
                 fvalue:"+关注"

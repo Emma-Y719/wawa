@@ -28,7 +28,10 @@ Page({
     pic:"",
     addValue:"加入",
     isAdd:false,
-    storageObj:{}
+    storageObj:{},
+    curPage:0,
+    pageTotal:0,
+    isLoading:false
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -219,11 +222,29 @@ Page({
   },
   async searchProductList(e){
     console.log("id: ",this.data.id);
-    requestUtil({url:'/storage/searchMultiProduct',method:"GET",data:{id:this.data.id,type:this.data.type}}).then(result=>{
-      console.log("lists",result);
-      this.setData({
-        productList:result.message
-      })
+    requestUtil({url:'/storage/searchMultiProduct',method:"GET",data:{p:this.data.curPage,id:this.data.id,type:this.data.type}}).then(result=>{
+      console.log("lists",result.message.records);
+      if(this.data.curPage==0){
+         
+        this.setData({
+          productList:result.message.records,
+          pageTotal:result.message.pages,
+          curPage:1
+        })
+      }else{
+        
+        var curList=this.data.productList;
+        curList.concat(result.message.records)
+        result.message.records.forEach(function(value,index,array){
+          curList.push(value)
+        })
+        console.log("curpage: ",result.message.records)
+        console.log("curpage: ",curList)
+        this.setData({
+          productList:curList
+        })
+       
+      }
     })
     // if(searchCampusIndex!=-1){
       
@@ -264,10 +285,12 @@ Page({
   },
   ontypeInput(e){
     this.setData({
-      type:e.detail.value
+      type:e.detail.value,
+      curPage:0
     })
     console.log(e.detail)
     console.log(this.data.type)
+
     this.searchProductList()
   },
 
@@ -322,6 +345,48 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
+    this.loadNextPage();
+  },
+  loadNextPage: function () {
+    console.log("request next page！")
+    // // 避免重复加载数据
+    if (this.data.isLoading) {
+      return;
+    }
+
+    // // 获取当前页数和每页请求的数据数量
+    const { curPage, pageTotal } = this.data;
+
+    if(curPage<pageTotal){
+      // // 更新页数
+      this.setData({
+        curPage: curPage + 1,
+      });
+      
+      // 显示加载动画
+      wx.showLoading({
+        title: '加载中...',
+      });
+      this.setData({
+        isLoading:true
+      })
+  
+      // 获取下一页数据
+      // 这里使用setTimeout来模拟异步请求
+      setTimeout(() => {
+        this.searchProductList();
+        // 隐藏加载动画
+        wx.hideLoading();
+        this.setData({
+          isLoading:false
+        })
+      }, 1000);
+    }else{
+      wx.showToast({
+        title: '已经到底啦~',
+        icon: 'none',
+      })
+    }
 
   },
 

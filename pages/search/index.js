@@ -23,7 +23,11 @@ Page({
     left: 0, // 悬浮窗左侧距离
     top: 0, // 悬浮窗顶部距离
     startX: 0, // 手指起始X坐标
-    startY: 0, // 手指起始Y坐标
+    startY: 0, // 手指起始Y坐标，
+    curPage:0,
+    pageTotal:0,
+    isLoading:false
+    
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -49,6 +53,8 @@ Page({
       startY: e.touches[0].clientY
     });
   },
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -124,10 +130,12 @@ Page({
   },
   ontypeInput(e){
     this.setData({
-      type:e.detail.value
+      type:e.detail.value,
+      curPage:0
     })
     console.log(e.detail)
     console.log(this.data.type)
+
     this.searchProductList()
   },
   onNotComplete(){
@@ -140,12 +148,30 @@ Page({
   async searchProductList(e){
     var searchUniversityIndex=app.globalData.searchUniversityIndex;
     var searchCampusIndex=app.globalData.searchCampusIndex;
-    console.log("indices: "+this.data.uid+" , "+this.data.cid);
-    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
-      console.log("lists",result.message);
-      this.setData({
-        productList:result.message
-      })
+    console.log("indices: "+this.data.uid+" , "+this.data.cid+"type: "+this.data.type);
+    await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
+      console.log("lists",result.message.records);
+      if(this.data.curPage==0){
+         
+        this.setData({
+          productList:result.message.records,
+          pageTotal:result.message.pages,
+          curPage:1
+        })
+      }else{
+        
+        var curList=this.data.productList;
+        curList.concat(result.message.records)
+        result.message.records.forEach(function(value,index,array){
+          curList.push(value)
+        })
+        console.log("curpage: ",result.message.records)
+        console.log("curpage: ",curList)
+        this.setData({
+          productList:curList
+        })
+       
+      }
     })
     // if(searchCampusIndex!=-1){
       
@@ -263,9 +289,50 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
+    this.loadNextPage();
+  },
+  loadNextPage: function () {
+    console.log("request next page！")
+    // // 避免重复加载数据
+    if (this.data.isLoading) {
+      return;
+    }
+
+    // // 获取当前页数和每页请求的数据数量
+    const { curPage, pageTotal } = this.data;
+
+    if(curPage<pageTotal){
+      // // 更新页数
+      this.setData({
+        curPage: curPage + 1,
+      });
+      
+      // 显示加载动画
+      wx.showLoading({
+        title: '加载中...',
+      });
+      this.setData({
+        isLoading:true
+      })
+  
+      // 获取下一页数据
+      // 这里使用setTimeout来模拟异步请求
+      setTimeout(() => {
+        this.searchProductList();
+        // 隐藏加载动画
+        wx.hideLoading();
+        this.setData({
+          isLoading:false
+        })
+      }, 1000);
+    }else{
+      wx.showToast({
+        title: '已经到底啦~',
+        icon: 'none',
+      })
+    }
 
   },
-
   /**
    * 用户点击右上角分享
    */
