@@ -98,9 +98,9 @@ Component({
                   // 登录成功，获取到用户的登录凭证 code
                   var code = res.code;
                   requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
-                    console.log(res.token.openid)
-                    app.globalData.openid=res.token.openid
-                    requestUtil({url:"/user/findid",method:"GET",data:{id:res.token.openid}}).then(res=>{
+                    console.log(res.id)
+                    app.globalData.openid=res.id
+                    requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
                       if(res.message.length==0){
                         console.log("尚未注册！")
                         wx.redirectTo({

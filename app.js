@@ -22,10 +22,10 @@ App({
     //   this.globalData.campuses=result.message
     // })
     this.getList();
-    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-      // console.log("storage",result)
-      this.globalData.storageList=result.message
-    })
+    // requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+    //   // console.log("storage",result)
+    //   this.globalData.storageList=result.message
+    // })
 
     const baseUrl=getBaseUrl();
     this.globalData.baseUrl=baseUrl;

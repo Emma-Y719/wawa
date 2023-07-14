@@ -227,7 +227,7 @@ loadData(){
  
         this.setData({
           swiperList:result.message,
-          storageList:app.globalData.storageList,
+          // storageList:app.globalData.storageList,
           campuses:app.globalData.campuses
         })
       
