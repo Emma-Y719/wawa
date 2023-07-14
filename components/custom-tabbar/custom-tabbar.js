@@ -83,6 +83,10 @@ Component({
       // 重新加载数据的代码示例：
       this.getInfo();
     },
+    async getUserProfile(){
+      var res=await getUserProfile();
+      console.log("login: ",res)
+    },
     async getWLogin(){
       let that =this;
       if(!app.globalData.isLogin){
@@ -92,13 +96,13 @@ Component({
           title:'友情提示',
           content:'微信授权登录后，才可进入',
           success:(res)=>{
+            // that.getUserProfile();
             wx.login({
               success: function(res) {
                 if (res.code) {
                   // 登录成功，获取到用户的登录凭证 code
                   var code = res.code;
                   requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
-                    console.log(res.id)
                     app.globalData.openid=res.id
                     requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
                       if(res.message.length==0){

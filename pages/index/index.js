@@ -180,7 +180,9 @@ Page({
     // Your main page's loading function
     // Executed after the component has finished loading
     this.loadData();
+    this.login();
   },
+
 loadData(){
   const baseUrl=getBaseUrl();
   this.setData({
