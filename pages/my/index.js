@@ -224,7 +224,7 @@ Page({
   },
   async getHotProductList(e){
     console.log(this.data.user)
-    requestUtil({url:'/product/findUserId',method:"GET",data:{uid:this.data.user._openid}}).then(result=>{
+    requestUtil({url:'/product/findUserId',method:"GET",data:{uid:this.data.user.openid}}).then(result=>{
       let onsale=[];let draft=[];let off=[]
       result.message.forEach(function(value,index,array){
         if(value.status==0){
@@ -245,7 +245,7 @@ Page({
         　　//code something
         console.log(value.propic.pics[0])
         });
-      console.log("Hot: "+result)
+      console.log("Hot: ",result)
     })
   },
   /**

@@ -1,6 +1,6 @@
 // 定义请求根路径baseUrl
-const baseUrl="https://springboot-e6mb-55588-9-1317364171.sh.run.tcloudbase.com";
-// const baseUrl="http://localhost:8083"
+// const baseUrl="https://springboot-e6mb-55588-9-1317364171.sh.run.tcloudbase.com";
+const baseUrl="http://localhost:8083"
 // 同时并发请求的次数
 let ajaxTimes=0;
 
@@ -92,51 +92,51 @@ export const requestUtil=(params)=>{
   }
 
   return new Promise((resolve,reject)=>{
-    wx.cloud.callContainer({
-      "config": {
-        "env": "prod-1g6y2wgubf8ccd51"
-      },
-      "path":params.url,
-      "header": {
-        "X-WX-SERVICE": "springboot-e6mb"
-      },
-      "method": params.method,
-      "data": params.data,
-      success:(result)=>{
-        resolve(result.data)
-       },
-       fail:(err)=>{
-         reject(err)
-        },
-        complete:()=>{
-          ajaxTimes--;
-          if(ajaxTimes==0){
-           wx.hideLoading();  // 关闭加载图标
-          }
-        
-        }
-    })
-
-
-
-
-    // wx.request({
-    //   ...params,
-    //   header,
-    //   url:baseUrl+params.url,
-    //   success:(result)=>{
-    //    resolve(result.data)
+    // wx.cloud.callContainer({
+    //   "config": {
+    //     "env": "prod-1g6y2wgubf8ccd51"
     //   },
-    //   fail:(err)=>{
-    //     reject(err)
+    //   "path":params.url,
+    //   "header": {
+    //     "X-WX-SERVICE": "springboot-e6mb"
+    //   },
+    //   "method": params.method,
+    //   "data": params.data,
+    //   success:(result)=>{
+    //     resolve(result.data)
     //    },
-    //    complete:()=>{
-    //      ajaxTimes--;
-    //      if(ajaxTimes==0){
-    //       wx.hideLoading();  // 关闭加载图标
-    //      }
-       
-    //    }
+    //    fail:(err)=>{
+    //      reject(err)
+    //     },
+    //     complete:()=>{
+    //       ajaxTimes--;
+    //       if(ajaxTimes==0){
+    //        wx.hideLoading();  // 关闭加载图标
+    //       }
+        
+    //     }
     // })
+
+
+
+
+    wx.request({
+      ...params,
+      header,
+      url:baseUrl+params.url,
+      success:(result)=>{
+       resolve(result.data)
+      },
+      fail:(err)=>{
+        reject(err)
+       },
+       complete:()=>{
+         ajaxTimes--;
+         if(ajaxTimes==0){
+          wx.hideLoading();  // 关闭加载图标
+         }
+       
+       }
+    })
   });
 }

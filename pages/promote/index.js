@@ -919,23 +919,91 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
       price:e.detail.value
     })
   },
-
+  isIOS(){
+    return wx.getSystemInfo().then(res => {
+      return /IOS/ig.test(res.system);
+    });
+  },
+    // 压缩
+    compressFile(src, i, size) {
+      return new Promise((resolve) => {
+        // 获取图片信息
+        wx.getImageInfo({
+          src,
+          success: (img) => {
+            let imgWidth = img.width
+            let imgHeight = img.height
+            // 若宽高都小于4096，则使用canvas
+              // 强制压缩
+              console.log("image: ",img)
+              this.compressImage(src, size).then(res => {
+                resolve(res)
+              })
+            
+          },
+          fail: () => {
+            this.compressImage(src, size).then(res => {
+              resolve(res)
+            })
+          }
+        })
+      })
+    },
+ // 强制压缩
+ compressImage(src, size) {
+  return new Promise((resolve, reject) => {
+    let quality = 100
+    // ios因为自己有压缩机制，压缩到极致就不会再压，因此往小了写
+    if (this.data.isIOS) {
+      quality = 0.1
+    } else {
+      let temp = 30 - parseInt(size / 1024 / 1024)
+      quality = temp < 10 ? 10 : temp
+    }
+    wx.compressImage({
+      src, // 图片路径
+      quality, // 压缩质量
+      success: function (res) {
+        console.log("compressed: ",res)
+        resolve(res.tempFilePath)
+      },
+      fail: function (err) {
+        resolve(src)
+      }
+    })
+  })
+},
   /**上传图片 */
-  uploadImage:function(){
+  async uploadImage(){
   let that=this;
   let pics =this.data.pics;
+  let sys=await this.isIOS();
+  this.setData({
+    isIOS:sys
+  })
+  console.log("system: ",this.data.isIOS)
+  const fileLimit = 50 * 1024
+  // 选择图片原图或是压缩图
+  const sizeType = this.data.isIos ? ['compressed'] : ['original', 'compressed']
+  
   wx.chooseMedia({
    count:9- pics.length,
-   sizeType: ['original', 'compressed'],
+   sizeType: sizeType,
    sourceType: ['album', 'camera'],
-   success: function(res) {
+   success: async function(res) {
+
    console.log(res)
    let imgSrc = res.tempFiles;
    console.log(imgSrc)
    let path;
    for(var i =0;i<imgSrc.length;i++){
      console.log(imgSrc[i].tempFilePath)
-     pics.push(imgSrc[i].tempFilePath)
+     let filePath=imgSrc[i].tempFilePath;
+     if (imgSrc[i].size > fileLimit) {
+      // 手动压缩
+      filePath = await that.compressFile(filePath, i, imgSrc[i].size)
+     }
+     pics.push(filePath)
    }
   
    console.log(pics)

@@ -180,7 +180,7 @@ Page({
     // Your main page's loading function
     // Executed after the component has finished loading
     this.loadData();
-    this.login();
+    
   },
 
 loadData(){
@@ -254,7 +254,7 @@ loadData(){
       url:'/bigType/findAll',
       method:"GET"
     });
-    console.log("bigType: "+result)
+    console.log("bigType: ",result)
     const bigTypeList=result.message;
     const bigTypeList_row1=bigTypeList.filter((item,index)=>{
       return index<5;

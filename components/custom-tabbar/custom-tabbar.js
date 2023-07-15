@@ -102,8 +102,10 @@ Component({
                 if (res.code) {
                   // 登录成功，获取到用户的登录凭证 code
                   var code = res.code;
+                  console.log(code)
                   requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
                     app.globalData.openid=res.id
+                    console.log(res);
                     requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
                       if(res.message.length==0){
                         console.log("尚未注册！")
