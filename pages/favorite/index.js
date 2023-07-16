@@ -102,12 +102,8 @@ Page({
     this.setData({
       chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
     })
-    db.collection('chats').where({
-      chatid:this.data.chatid
-    }).get().then(res=>{
-      console.log(this.data.chatid)
-      console.log("chat: ",res.data.length)
-      if(res.data.length==0){
+    requestUtil({url:"/chats/findchatid",method:"GET",data:{chatid:this.data.chatid}}).then(res=>{
+      if(res.message[0]==0){
         this.addRoom(productObj,userInfo);
       }else{
         wx.navigateTo({
@@ -115,6 +111,19 @@ Page({
         })
       }
     })
+    // db.collection('chats').where({
+    //   chatid:this.data.chatid
+    // }).get().then(res=>{
+    //   console.log(this.data.chatid)
+    //   console.log("chat: ",res.data.length)
+    //   if(res.data.length==0){
+    //     this.addRoom(productObj,userInfo);
+    //   }else{
+    //     wx.navigateTo({
+    //       url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+productObj.userid+'&product='+productObj.identity,
+    //     })
+    //   }
+    // })
     // requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
 
 
@@ -136,24 +145,38 @@ Page({
       backgroundimage: '',
       product:productObj
     }
-    await db.collection('chats').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        chatid:chatroom.chatid,
-        id:app.globalData.openid,
-        targetid:chatroom._openid,
-        chatroom:chatroom
-      }
-    })
-    await db.collection('chats').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        chatid:chatroom.chatid,
-        id:chatroom._openid,
-        targetid:app.globalData.openid,
-        chatroom:chatroom_target
-      }
-    })
+
+    await requestUtil({url:"/chats/add",method:"POST",data:{
+      chatid:chatroom.chatid,
+      id:app.globalData.openid,
+      targetid:chatroom._openid,
+      chatroom:chatroom
+    }});
+
+    await requestUtil({url:"/chats/add",method:"POST",data:{
+          chatid:chatroom.chatid,
+          id:chatroom._openid,
+          targetid:app.globalData.openid,
+          chatroom:chatroom_target
+    }});
+    // await db.collection('chats').add({
+    //   // data 字段表示需新增的 JSON 数据
+    //   data: {
+    //     chatid:chatroom.chatid,
+    //     id:app.globalData.openid,
+    //     targetid:chatroom._openid,
+    //     chatroom:chatroom
+    //   }
+    // })
+    // await db.collection('chats').add({
+    //   // data 字段表示需新增的 JSON 数据
+    //   data: {
+    //     chatid:chatroom.chatid,
+    //     id:chatroom._openid,
+    //     targetid:app.globalData.openid,
+    //     chatroom:chatroom_target
+    //   }
+    // })
 
     // console.log("target: "+this.data.productObj.userid)
     // const db1=wx.cloud.database()
