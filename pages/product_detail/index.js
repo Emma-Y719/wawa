@@ -219,12 +219,13 @@ Page({
       //   }
       // });
       requestUtil({url:"/chats/findchatid",method:"GET",data:{chatid:this.data.chatid}}).then(res=>{
-        if(res.message[0]==0){
+        console.log("find chats: ",res);
+        if(res.message.length==0){
           this.addRoom();
         }else{
-          wx.navigateTo({
-            url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
-          })
+          // wx.navigateTo({
+          //   url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
+          // })
         }
       })
       // db.collection('chats').where({
@@ -276,6 +277,7 @@ Page({
       product:this.data.productObj
     }
     await requestUtil({url:"/chats/add",method:"POST",data:{
+          
           chatid:chatroom.chatid,
           id:app.globalData.openid,
           targetid:chatroom._openid,

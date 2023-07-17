@@ -103,7 +103,7 @@ Page({
       chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
     })
     requestUtil({url:"/chats/findchatid",method:"GET",data:{chatid:this.data.chatid}}).then(res=>{
-      if(res.message[0]==0){
+      if(res.message.length==0){
         this.addRoom(productObj,userInfo);
       }else{
         wx.navigateTo({
