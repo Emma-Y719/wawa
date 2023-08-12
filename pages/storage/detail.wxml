@@ -17,7 +17,7 @@
 <view class="type">
   <div class="inter"></div>
   <input bindinput="ontypeInput"value="{{type}}"/>
- 
+  
 </view>
 </view>
 

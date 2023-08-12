@@ -29,7 +29,7 @@ Page({
     type:"显示器",
     latitude: "",
     longitude: "",
-    scale:9,
+    scale:12,
     uid:-1,
     cid:-1,
     markers: [
@@ -56,11 +56,15 @@ Page({
               if (res.code) {
                 // 登录成功，获取到用户的登录凭证 code
                 var code = res.code;
+                console.log(code)
                 requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
-                  console.log(res.token.openid)
-                  requestUtil({url:"/user/findid",method:"GET",data:{id:res.token.openid}}).then(res=>{
+                  console.log(res)
+                  var openid=res.id;
+                  requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
                     if(res.message.length==0){
-                      console.log("尚未注册！")
+                      console.log("尚未注册!！")
+                      app.globalData.openid=openid;
+                      console.log(app.globalData.openid)
                       wx.redirectTo({
                         url: '/pages/my/create/login',
                       })
@@ -77,10 +81,10 @@ Page({
                         locuni:res.message[0].university,
                         loccam:res.message[0].campus
                       })
-                      //that.getcampusLoc();
-                      console.log("component ready!")
-                      that.triggerEvent('componentReady');
-                      that.watchInfo();
+                      that.getcampusLoc();
+                      // console.log("component ready!")
+                      // that.triggerEvent('componentReady');
+                      // that.watchInfo();
                       app.globalData.user["online"]=true
                       requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
                         console.log(res)
@@ -173,8 +177,9 @@ Page({
     })
   },
   onLoad(options) {
-    const component = this.selectComponent('#custom-tabbar');
+    // const component = this.selectComponent('#custom-tabbar');
     // component.on('componentReady', this.loadData);
+    this.loadData();
   },
   onComponentReady: function() {
     // Your main page's loading function
@@ -188,8 +193,8 @@ loadData(){
   this.setData({
     baseUrl
   });
-  this.getWLogin();
-  //console.log("here!",app.globalData)
+  
+  console.log("here!",app.globalData)
   // this.getcampusLoc()
   // this.getWxLogin();
   // wx.getLocation({
@@ -220,6 +225,7 @@ loadData(){
     loc:app.globalData.location,
   })
   console.log(this.loc);
+  this.getWLogin();
 },
 
   async searchSwiper(e){

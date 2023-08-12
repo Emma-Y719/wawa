@@ -49,8 +49,9 @@
 
 
 <view class="products">
+
       <view class="product_list">
-      
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
         <view class="product_card"
           wx:for="{{productList}}"
           wx:for-item="product"

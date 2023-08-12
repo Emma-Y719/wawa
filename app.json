@@ -1,6 +1,6 @@
 {
   "pages": [
-    
+
     "pages/index/index",
     "pages/storage/create/login",
     "pages/example/chatroom_example/im",

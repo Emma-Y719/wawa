@@ -85,8 +85,10 @@
   </view>
 
 </view>
+<ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad>
 <view class="bottom">
 </view>
+
 <custom-tabbar></custom-tabbar>
 
 

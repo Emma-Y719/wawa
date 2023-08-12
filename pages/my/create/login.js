@@ -1,7 +1,8 @@
-const db = wx.cloud.database();
-const app = getApp();
+
 const config = require("../../../styles/config.js");
 const { getBaseUrl,requestUtil } = require("../../../utils/requestUtil.js");
+const db = wx.cloud.database();
+const app = getApp();
 wx.cloud.init();
 Page({
 
@@ -67,7 +68,7 @@ Page({
   handlelogin(){
     this.data.userInfo.university=this.data.university;
     this.data.userInfo.campus=this.data.campus;
-    console.log("openid: ",app.globalData.openid)
+    console.log("openid: ",this.data.userInfo.openid)
     if(!this.data.isclick){
       this.setData({
         isclick:true

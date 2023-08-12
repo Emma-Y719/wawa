@@ -63,7 +63,7 @@
   进入
 </view>
 </view>
-
+<!-- <ad unit-id="adunit-b1fd4b10c10f5462"></ad> -->
 <view class="btm_tool" >
   <navigator class="tool_item home" url="/pages/index/index">
     <image mode="aspectFit" src="/icons/home_for_product.png" ></image>

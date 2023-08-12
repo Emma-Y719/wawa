@@ -36,11 +36,11 @@ swiper {
   margin-top: 20rpx;
   margin-left: 10rpx;
   width: 730rpx;
-  height: 550rpx;
+  height: 400rpx;
 }
 swiper swiper-item image {
   width: 100%;
-  height: 550rpx;
+  height: 350rpx;
   background-color: #ffffff;
   border-radius: 50rpx;
 }
@@ -137,10 +137,11 @@ swiper swiper-item image {
 .storageentry {
   margin-top: 20rpx;
   margin-left: 5rpx;
+  margin-bottom: 20rpx;
   background-color: #eeeded;
   border-radius: 30rpx;
   width: 98%;
-  height: 250rpx;
+  height: 200rpx;
 }
 .storageentry .storage {
   font-size: 32rpx;
@@ -151,7 +152,7 @@ swiper swiper-item image {
 }
 .storageentry .ebtn {
   margin-left: 85%;
-  margin-top: 20rpx;
+  margin-top: 5rpx;
   width: 10%;
   display: flex;
   align-items: center;

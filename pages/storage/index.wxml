@@ -36,7 +36,8 @@
    
   </view>
 </view>
-
+<!-- <ad-custom unit-id="adunit-52f338cc7013083b"></ad-custom> -->
+<!-- <ad-custom unit-id="adunit-9a1c6acb3f888048"></ad-custom> -->
 <view class="createStorage">
    <view class="dis">
     <text class="title">我的群聊物品库</text>
@@ -78,6 +79,8 @@
       </view>
 </view>
 
+<!-- <ad-custom unit-id="adunit-e9f635f70708225c"></ad-custom> -->
+<!-- <ad-custom style="width: 60%;" unit-id="adunit-687792caae7d8ec8"></ad-custom> -->
 <view class="search">
   <text>搜索结果:</text>
   <view class="storage_list"

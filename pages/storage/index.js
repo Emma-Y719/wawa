@@ -26,10 +26,58 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
+  // // 在页面中定义插屏广告
+  // let interstitialAd = null
+
+  // // 在页面onLoad回调事件中创建插屏广告实例
+  // if (wx.createInterstitialAd) {
+  //   interstitialAd = wx.createInterstitialAd({
+  //     adUnitId: 'adunit-9ad07a2514baead3'
+  //   })
+  //   interstitialAd.onLoad(() => {})
+  //   interstitialAd.onError((err) => {})
+  //   interstitialAd.onClose(() => {})
+  // }
+
+  // // 在适合的场景显示插屏广告
+  // if (interstitialAd) {
+  //   interstitialAd.show().catch((err) => {
+  //     console.error(err)
+  //   })
+  // }
+
+// 在页面中定义激励视频广告
+// let videoAd = null
+
+// // 在页面onLoad回调事件中创建激励视频广告实例
+// if (wx.createRewardedVideoAd) {
+//   videoAd = wx.createRewardedVideoAd({
+//     adUnitId: 'adunit-55f03eb6d9c98f2c'
+//   })
+//   videoAd.onLoad(() => {})
+//   videoAd.onError((err) => {})
+//   videoAd.onClose((res) => {})
+// }
+
+// // 用户触发广告后，显示激励视频广告
+// if (videoAd) {
+//   videoAd.show().catch(() => {
+//     // 失败重试
+//     videoAd.load()
+//       .then(() => videoAd.show())
+//       .catch(err => {
+//         console.log('激励视频 广告显示失败')
+//       })
+//   })
+// }
     const baseUrl=getBaseUrl();
     this.setData({
       baseUrl
     });
+
+
+
     this.setData({
       university:app.globalData.userInfo.university,
       campus:app.globalData.userInfo.campus,

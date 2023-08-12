@@ -211,7 +211,7 @@ page .next_hang .chat_cecond_container .chat_cecond_text {
 }
 page .next_hang .index_swiper {
   width: 450rpx;
-  margin-left: 25rpx;
+  margin-left: 20rpx;
   border-radius: 30rpx;
   background-color: #fff;
   box-shadow: 0px 10px 20px 0px #b7b7bb;
@@ -238,6 +238,7 @@ page .next_hang .index_swiper swiper swiper-item navigator .swiperinfo {
   margin-top: 15rpx;
 }
 page .next_hang .index_swiper swiper swiper-item navigator .swiperinfo .title {
+  width: 50%;
   font-size: 24rpx;
   font-weight: 500;
   white-space: nowrap;
@@ -276,6 +277,9 @@ page .next_hang .index_swiper swiper swiper-item navigator .swiperinfo .swiper_u
 }
 page .next_hang .index_swiper swiper swiper-item navigator .swiperinfo .swiper_campus {
   font-size: 20rpx;
+}
+page .next_hang ad-custom {
+  margin-left: 10rpx;
 }
 page .map_container {
   height: 22%;
