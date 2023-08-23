@@ -1,0 +1,6 @@
+<view style="width: 375px; height: 812px; position: relative; background: white">
+  <image class="Rectangle665" style="width: 174px; height: 138px; left: 100px; top: 202px; position: absolute" src="/icons/wawa.png" mode="aspectFit"/>
+  <view style="width: 170px; height: 25px; left: 102px; top: 358px; position: absolute; color: black; font-size: 17px; font-family: Noto Sans SC; font-weight: 400; line-height: 19px; word-wrap: break-word">蛙蛙二手群交易物品库</view>
+  <view style="left: 114px; top: 680px; position: absolute; color: #979797; font-size: 12px; font-family: Noto Sans SC; font-weight: 400; line-height: 14px; word-wrap: break-word">南京尺牍科技文化有限公司</view>
+  <view class="Copyright" style="left: 122px; top: 666px; position: absolute; color: #979797; font-size: 12px; font-family: Noto Sans SC; font-weight: 400; line-height: 14px; word-wrap: break-word">Copyright     巴拉巴拉巴拉</view>
+</view>

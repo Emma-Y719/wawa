@@ -14,12 +14,12 @@
 </view>
 <view class="description">
  <view class="title">
-  <textarea row="2"class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="输入商品名称，例：凤凰"value="{{name}}"></textarea>
+  <textarea row="2"class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="商品名称，例：凤凰"value="{{name}}"></textarea>
  </view>
  <view class="des">
-  <textarea rows="6" class="text" bindinput="onDisInput"placeholder="输入商品描述：品牌，渠道等"value="{{discript}}"></textarea>
+  <textarea rows="6" class="text" bindinput="onDisInput"placeholder="商品描述：品牌，渠道等"value="{{discript}}"></textarea>
  </view>
- <text class="imagewarn">请选取少于9张图片:</text>
+ 
 
   <view class="contant-pic">
     <view class="pics-list" wx:for="{{pics}}"  wx:for-item="path" wx:key="id" >
@@ -81,7 +81,7 @@
   
   <view class="promote"bindtap="onPromote">
     <image src="/icons/pro.png" mode="widthFix" class="method"></image>
-    发布
+    发 布
   </view>
 
 </view>

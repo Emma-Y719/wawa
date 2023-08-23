@@ -151,7 +151,8 @@ page .storages .storage_list navigator {
   align-items: center;
 }
 page .storages .storage_list navigator image {
-  width: 110rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 20rpx;
   background-color: #fff;
   box-shadow: -2px 8px 15px -12px #647878;
@@ -212,7 +213,8 @@ page .search .storage_list navigator {
   align-items: center;
 }
 page .search .storage_list navigator image {
-  width: 110rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 20rpx;
   background-color: #fff;
   box-shadow: -2px 8px 15px -12px #647878;

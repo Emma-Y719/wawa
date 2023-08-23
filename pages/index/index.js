@@ -10,13 +10,13 @@ import {
 import regeneratorRuntime from '../../lib/runtime/runtime';
 // 获取应用实例
 const app = getApp()
-wx.cloud.init();
-const db=wx.cloud.database()
+// wx.cloud.init();
+// const db=wx.cloud.database()
 Page({
   data: {
     swiperList:[],
     baseUrl:'',
-    bigTypeList:[],
+    bigTypeList:["各类车","电脑","收纳","书","其他"],
     bigTypeList_row1:[],
     bigTypeList_row2:[],
     hotProductList:[],
@@ -46,7 +46,6 @@ Page({
     let that =this;
     if(!app.globalData.isLogin){
       
-      console.log("this!")
        wx.showModal({
         title:'友情提示',
         content:'微信授权登录后，才可进入',
@@ -60,42 +59,49 @@ Page({
                 requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
                   console.log(res)
                   var openid=res.id;
-                  requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
-                    if(res.message.length==0){
-                      console.log("尚未注册!！")
-                      app.globalData.openid=openid;
-                      console.log(app.globalData.openid)
-                      wx.redirectTo({
-                        url: '/pages/my/create/login',
-                      })
-                    }else{
-                      app.globalData.openid= res.message[0].openid;
-                      app.globalData.userInfo = res.message[0].userinfo;
-                      app.globalData.friends=res.message[0].friends;
-                      app.globalData.user=res.message[0];
-                      app.globalData.isLogin=true;
-                      console.log("data user:",res.message[0].university)
-                      that.setData({
-                        uid:res.message[0].uid,
-                        cid:res.message[0].cid,
-                        locuni:res.message[0].university,
-                        loccam:res.message[0].campus
-                      })
-                      that.getcampusLoc();
-                      // console.log("component ready!")
-                      // that.triggerEvent('componentReady');
-                      // that.watchInfo();
-                      app.globalData.user["online"]=true
-                      requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
-                        console.log(res)
-                      })
-                    }
+                                // 设置一个等待时间，例如1秒
+              const waitTime = 1000;
+
+              requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
+                if(res.message.length==0){
+                  console.log("尚未注册!！")
+                  app.globalData.openid=openid;
+                  console.log(app.globalData.openid)
+                  wx.redirectTo({
+                    url: '/pages/my/create/login',
                   })
+                }else{
+                  app.globalData.openid= res.message[0].openid;
+                  app.globalData.userInfo = res.message[0].userinfo;
+                  app.globalData.friends=res.message[0].friends;
+                  app.globalData.user=res.message[0];
+                  app.globalData.isLogin=true;
+                  console.log("data user:",res.message[0].university)
+                  that.setData({
+                    uid:res.message[0].uid,
+                    cid:res.message[0].cid,
+                    locuni:res.message[0].university,
+                    loccam:res.message[0].campus
+                  })
+                  that.getcampusLoc();
+                  // console.log("component ready!")
+                  // that.triggerEvent('componentReady');
+                  // that.watchInfo();
+                  app.globalData.user["online"]=true
+                  requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+                    console.log(res)
+                  })
+                }
+              })
+
+
+
                 })
                 
               }
             }
           })
+
           // wx.cloud.callFunction({
           //   name: 'yunrouter', // 对应云函数名
           //   data: {
@@ -104,42 +110,53 @@ Page({
           //   success: re => {
           //     console.log("user:"+re.result)
           //     app.globalData.openid=re.result
-          //     db.collection('user').where({
-          //       _openid: re.result
-          //     }).get({
-          //       success: function (res) {
-          //         console.log(res.data[0])
-          //         if(res.data[0]==undefined){
-          //           console.log("尚未注册！")
+          //     // 设置一个等待时间，例如1秒
+          //     const waitTime = 1000;
+
+          //     // 在等待时间后，继续模拟请求
+          //     setTimeout(function findId(){
+          //       // 模拟后端请求
+          //       requestUtil({url:"/user/findid",method:"GET",data:{id:re.result}}).then(res=>{
+
+          //         if(res.message.length==0){
+          //           console.log("尚未注册!！")
+                  
+          //           console.log(app.globalData.openid)
           //           wx.redirectTo({
           //             url: '/pages/my/create/login',
           //           })
           //         }else{
-          //           app.globalData.openid= res.data[0]._openid;
-          //           app.globalData.userInfo = res.data[0].userInfo;
-          //           app.globalData.friends=res.data[0].friends;
-          //           app.globalData.user=res.data[0];
+          //           app.globalData.openid= res.message[0].openid;
+          //           app.globalData.userInfo = res.message[0].userinfo;
+          //           app.globalData.friends=res.message[0].friends;
+          //           app.globalData.user=res.message[0];
           //           app.globalData.isLogin=true;
-          //           console.log("data user:",res.data[0])
+          //           console.log("data user:",res.message[0].university)
           //           that.setData({
-          //             uid:res.data[0].uid,
-          //             cid:res.data[0].cid,
-          //             locuni:res.data[0].userInfo.university,
-          //             loccam:res.data[0].userInfo.campus
+          //             uid:res.message[0].uid,
+          //             cid:res.message[0].cid,
+          //             locuni:res.message[0].university,
+          //             loccam:res.message[0].campus
           //           })
           //           that.getcampusLoc();
-          //           db.collection('user').where({
-          //             _openid:this.globalData.user._openid
-          //           }).update({
-          //             data: {
-          //               online: true,
-          //             }
+          //           // console.log("component ready!")
+          //           // that.triggerEvent('componentReady');
+          //           // that.watchInfo();
+          //           app.globalData.user["online"]=true
+          //           requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+          //             console.log(res)
           //           })
           //         }
-          //       },
-          //     })
+          //       })
+          //       if(!app.globalData.isLogin){
+          //         setTimeout(findId,waitTime);
+          //       }
+          //     }, waitTime);
+          //     console.log("isLogin:"+app.globalData.isLogin);
           //   }
           // })
+
+
           // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
           //   console.log(res[0].code);
           //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
@@ -242,19 +259,7 @@ loadData(){
 
     })
   },
-  async getHotProductList(e){
-    requestUtil({url:'/product/findHot',method:"GET"}).then(result=>{
 
-      this.setData({
-        hotProductList:result.message
-      })
-      result.message.forEach(function(value,index,array){
-        　　//code something
-        console.log(value.propic.pics[0])
-        });
-      console.log("Hot: "+result)
-    })
-  },
   async getBigTypeList(){
     const result =await requestUtil({
       url:'/bigType/findAll',

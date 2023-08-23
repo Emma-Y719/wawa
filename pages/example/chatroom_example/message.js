@@ -227,19 +227,15 @@ Page({
       },
     })
   },
-  async getRooms(){
-    console.log(app.globalData.openid)
-    // let positive=await this.queryAll("chats",{id:app.globalData.openid});
-
-    // let chats=positive.data
-    // console.log(chats.length)
-    let chatres=await requestUtil({url:'/chats/findid',method:"GET",data:{id:app.globalData.openid}})
-    let chats=chatres.message
-    let rooms=[]
-    let that=this;
-    chats.forEach(function(value,index,array){
-      console.log("chatId: "+value.chatid)
-      let chatroom=value.chatroom
+  async getRooms() {
+    console.log(app.globalData.openid);
+    
+    let chatres = await requestUtil({url: '/chats/findid', method: "GET", data: {id: app.globalData.openid}});
+    let chats = chatres.message;
+    
+    let roomPromises = chats.map(async (value) => {
+      console.log("chatId: " + value.chatid);
+      let chatroom = value.chatroom;
       let imgurl=""
       if(chatroom.product.propic.pics[0][0]!='h'&&chatroom.product.propic.pics[0][0]!='c'){
         imgurl=app.globalData.baseUrl+"/image/product/"+chatroom.product.propic.pics[0]
@@ -250,10 +246,17 @@ Page({
       let lastmsg=''
       let lastsender=''
       let notRead=false
-      that.try(async () => {
-        const{data:initList}= await db.collection('chatroom_example').where({groupId:value.chatid}).orderBy('sendTimeTS', 'desc').get()
-        //console.log(initList[0])
-        if(initList[0]!=undefined){
+  
+      // 使用 Promise 来处理异步操作
+      return new Promise(async (resolve, reject) => {
+        try {
+          const {data: initList} = await db.collection('chatroom_example')
+            .where({groupId: value.chatid})
+            .orderBy('sendTimeTS', 'desc')
+            .get();
+  
+          // ... (处理数据)
+         if(initList[0]!=undefined){
           if(initList[0].msgType=='image'){
             lastmsg="图片"
           }else if(initList[0].msgType=='text'){
@@ -267,9 +270,9 @@ Page({
           }
           console.log(notRead)
         }
-        if(lastmsg!=''){
-          let room={
-            targetid:value.targetid,
+          if (lastmsg !== '') {
+            let room = {
+                  targetid:value.targetid,
             target:chatroom.userInfo,
             product:{
               pic:imgurl,
@@ -281,18 +284,28 @@ Page({
             lastmsgtime:lastmsgtime,
             lastsender:lastsender,
             notRead:notRead
+            };
+            resolve(room);
+          } else {
+            resolve(null); // 表示没有合适的数据
           }
-          rooms.push(room)
+        } catch (error) {
+          reject(error);
         }
-        that.setData({
-          rooms:rooms.sort((x, y) => y.lastmsgtime - x.lastmsgtime)
-        })
-        //console.log(that.data.rooms)
-      },'初始化失败')
- 
-    })
-
-
+      });
+    });
+  
+    // 使用 Promise.all 来等待所有异步操作完成
+    try {
+      let roomResults = await Promise.all(roomPromises);
+      let rooms = roomResults.filter(result => result !== null);
+      var roomsUpdate = rooms.sort((x, y) => y.lastmsgtime - x.lastmsgtime);
+      this.setData({
+        rooms: roomsUpdate
+      });
+    } catch (error) {
+      console.error(error);
+    }
   },
   async queryAllResult(){
     const res=await this.queryAll("chats",{id:app.globalData.openid});

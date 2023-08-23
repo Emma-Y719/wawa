@@ -64,7 +64,7 @@
           wx:key="id"
         >
         <navigator>
-          <image src="{{storage.pic}}" mode="widthFix"/>
+          <image src="{{storage.pic}}" mode="aspectFill"/>
           <view class="middle">
             <view class="storage_name">{{storage.name}}</view>
 
@@ -89,7 +89,7 @@
           wx:key="id"
         >
         <navigator>
-          <image src="{{storage.pic}}" mode="widthFix"/>
+          <image src="{{storage.pic}}" mode="aspectFill"/>
           <view class="middle">
             <view class="storage_name">{{storage.name}}</view>
 

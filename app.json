@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/wait/id",
+    "pages/wait/wait",
 
     "pages/index/index",
     "pages/storage/create/login",
