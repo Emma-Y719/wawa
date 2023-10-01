@@ -1,0 +1,52 @@
+<view class="flex-col page">
+  <view class="flex-col justify-start flex-auto group_2">
+    <view class="flex-col list space-y-28">
+      <view
+        class="flex-row justify-between items-center"
+        wx:for="{{items}}"
+        wx:for-item="item"
+        wx:for-index="index"
+        wx:key="index"
+      >
+        <view class="flex-row space-x-10">
+          <image
+            class="image_5"
+            src="{{item.image}}"
+          />
+          <view class="flex-col space-y-6">
+            <text class="self-start font_2">{{item.name}}</text>
+            <view class="flex-row space-x-4">
+              <text class="font_1">{{item.productNum}}件物品</text>
+              <text class="font_1">{{item.peopleNum}}位蛙友</text>
+            </view>
+          </view>
+        </view>
+        <view class="flex-col justify-start items-center button"><text class="font_3">去发布</text></view>
+      </view>
+    </view>
+  </view>
+  <view class="flex-row tab-bar">
+    <image
+      class="self-start image_6 image_7"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/90ee4d5cb5f73f25d6df78b665c0104b.png"
+    />
+    <image
+      class="self-start image_6 image_8"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/3257c0f896391e46572f1eb4adcec831.png"
+    />
+    <view class="flex-col justify-start items-center self-center image-wrapper">
+      <image
+        class="image_6"
+        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/8810f669ad8235c4eb8f69f2c6834552.png"
+      />
+    </view>
+    <image
+      class="self-start image_6 image_9"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/c5d158801f6b2fb5f2d7d749a5736279.png"
+    />
+    <image
+      class="self-start image_6 image_10"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/fd894ed58ecea0cabb168fd93fd9ce79.png"
+    />
+  </view>
+</view>

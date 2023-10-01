@@ -1,0 +1,97 @@
+.page {
+  background-color: #fafafa;
+  overflow: hidden;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.font_1 {
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #979797;
+}
+.font_2 {
+  font-size: 32rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+}
+.group_2 {
+  padding: 34rpx 0 638rpx;
+  overflow-y: auto;
+}
+.list {
+  margin: 0 40rpx;
+}
+.space-y-28 > view:not(:first-child),
+.space-y-28 > text:not(:first-child),
+.space-y-28 > image:not(:first-child) {
+  margin-top: 56rpx;
+}
+.space-x-10 > view:not(:first-child),
+.space-x-10 > text:not(:first-child),
+.space-x-10 > image:not(:first-child) {
+  margin-left: 20rpx;
+}
+.image_5 {
+  width: 80rpx;
+  height: 84rpx;
+}
+.space-y-6 > view:not(:first-child),
+.space-y-6 > text:not(:first-child),
+.space-y-6 > image:not(:first-child) {
+  margin-top: 12rpx;
+}
+.space-x-4 > view:not(:first-child),
+.space-x-4 > text:not(:first-child),
+.space-x-4 > image:not(:first-child) {
+  margin-left: 8rpx;
+}
+.button {
+  padding: 8rpx 0;
+  background-color: #87c03e;
+  border-radius: 10rpx;
+  width: 120rpx;
+  height: 44rpx;
+}
+.font_3 {
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #ffffff;
+}
+.tab-bar {
+  padding: 16rpx 76rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946168355335235793.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.image_6 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_7 {
+  margin-top: 44rpx;
+}
+.image_8 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
+.image-wrapper {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_9 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_10 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
