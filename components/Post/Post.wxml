@@ -1,0 +1,30 @@
+<view class="container">
+  <image
+    wx:if="{{postData.big_picture}}"
+    class="big_picture"
+    src="{{postData.big_picture}}"
+  />
+  <view class="text_container">
+    <view class="title">
+      <text class="title_text">{{postData.title}}</text>
+      <text class="price" wx:if="{{postData.price}}">{{"￥" + postData.price}}</text>
+    </view>
+    <view class="decription">
+      <text >{{postData.decription}}</text>
+    </view>
+    <view class="details">
+      <text class="detail distance">{{postData.distance}}</text>
+      <text class="detail university">{{postData.university}}</text>
+      <text class="detail campus">{{postData.campus}}</text>
+    </view>
+    <view class="icons" >
+      <image
+        wx:for="{{postData.icons}}"
+        class="icon {{item}}"
+        src="{{iconList[item]}}"
+        wx:key="{{item}}"
+      />
+    </view>
+  </view>
+
+</view>

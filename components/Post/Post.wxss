@@ -1,0 +1,52 @@
+.container {
+  background-color: #ffffff;
+}
+.container .big_picture {
+  width: 320rpx;
+  height: 320rpx;
+}
+.container .text_container {
+  position: relative;
+  padding: 20rpx;
+  width: 320rpx;
+}
+.container .text_container .title {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.container .text_container .title .title_text {
+  color: #000000;
+}
+.container .text_container .title .price {
+  color: #ff7a00;
+}
+.container .text_container .decription {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+}
+.container .text_container .details {
+  text-align: left;
+}
+.container .text_container .details .detail {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+  display: block;
+}
+.container .text_container .icons {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+}
+.container .text_container .icons .icon {
+  margin-left: 8rpx;
+  width: 28rpx;
+  height: 28rpx;
+}

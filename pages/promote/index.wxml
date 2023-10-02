@@ -121,7 +121,7 @@
   
   <view class="promote" bindtap="onPromote" >
     <image src="/icons/pro.png" mode="widthFix" class="method"></image>
-    发布
+    发 布
   </view>
 
 </view>

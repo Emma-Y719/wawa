@@ -289,11 +289,8 @@ Page({
     let chats = chatres.message;
     
     let roomPromises = chats.map(async (value) => {
-<<<<<<< HEAD:pages/messages/message.js
-      //console.log("chatId: " + value.chatid);
-=======
       console.log("chatId: " + value.chatid);
->>>>>>> master:pages/example/chatroom_example/message.js
+      console.log("chatId: " + value.chatid);
       let chatroom = value.chatroom;
       let imgurl=""
       if(chatroom.product.propic.pics[0][0]!='h'&&chatroom.product.propic.pics[0][0]!='c'){
@@ -306,11 +303,7 @@ Page({
       let lastmsg=''
       let lastsender=''
       let notRead=false
-<<<<<<< HEAD:pages/messages/message.js
-      let splitStrings=[]
-=======
-  
->>>>>>> master:pages/example/chatroom_example/message.js
+
       // 使用 Promise 来处理异步操作
       return new Promise(async (resolve, reject) => {
         try {
@@ -369,55 +362,13 @@ Page({
       let roomResults = await Promise.all(roomPromises);
       let rooms = roomResults.filter(result => result !== null);
       var roomsUpdate = rooms.sort((x, y) => y.lastmsgtime - x.lastmsgtime);
-<<<<<<< HEAD:pages/messages/message.js
-      var chatsList=[]
-      var focusList=[]
-      var systemList=[]
-      let chatnotread=false;
-      let focusnotread=false;
-      let systemnotread=false;
-      roomsUpdate.forEach(function(value,index,array){
-        //console.log(value.targetid);
-   
-        if(value.targetid==0){
-
-          focusList.push(value);
-          //console.log(value);
-          if(value.notRead){
-            focusnotread=true;
-          }
-        }else if(value.targetid==1){
-          systemList.push(value);
-          if(value.notRead){
-            systemnotread=true;
-          }
-        }else{
-          chatsList.push(value);
-          if(value.notRead){
-            chatnotread=true;
-          }
-        }
-        
-
-
-      })
-
-      this.setData({
-        rooms: chatsList,
-        focuses:focusList,
-        systemList:systemList,
-        chatnotread:chatnotread,
-        focusnotread:focusnotread,
-        systemnotread:systemnotread
-      });
-      
-
-
-=======
       this.setData({
         rooms: roomsUpdate
       });
->>>>>>> master:pages/example/chatroom_example/message.js
+      this.setData({
+        rooms: roomsUpdate
+      });
+
     } catch (error) {
       console.error(error);
     }

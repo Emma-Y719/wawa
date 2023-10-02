@@ -1,6 +1,6 @@
 {
   "pages": [
-   
+    "pages/my/history/index",
     "pages/wait/wait",
     "pages/my/create/login",
     "pages/favorite/index",
@@ -12,6 +12,7 @@
     "pages/map/seek",
     "pages/my/feedback",
     "pages/promote/pre",
+
     "pages/index/index",
     "pages/storage/create/login",
 
