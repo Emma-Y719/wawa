@@ -11,13 +11,13 @@ var util = require('../../styles/util.js');
 import regeneratorRuntime from '../../lib/runtime/runtime';
 // 获取应用实例
 const app = getApp()
-wx.cloud.init();
-const db=wx.cloud.database()
+// wx.cloud.init();
+// const db=wx.cloud.database()
 Page({
   data: {
     swiperList:[],
     baseUrl:'',
-    bigTypeList:[],
+    bigTypeList:["各类车","电脑","收纳","书","其他"],
     bigTypeList_row1:[],
     bigTypeList_row2:[],
     chat_row1:[],

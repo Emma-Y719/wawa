@@ -101,95 +101,47 @@ Component({
             content:'微信授权登录后，才可进入',
             success:(res)=>{
               // that.getUserProfile();
-              wx.login({
-                success: function(res) {
-                  if (res.code) {
-                    // 登录成功，获取到用户的登录凭证 code
-                    var code = res.code;
-                    console.log(code)
-                    requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
-                      app.globalData.openid=res.id
-                      console.log(res);
-                      requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
-                        if(res.message.length==0){
-                          console.log("尚未注册！")
-                          wx.redirectTo({
-                            url: '/pages/my/create/login',
-                          })
-                        }else{
-                          app.globalData.openid= res.message[0].openid;
-                          app.globalData.userInfo = res.message[0].userinfo;
-                          app.globalData.friends=res.message[0].friends;
-                          app.globalData.user=res.message[0];
-                          app.globalData.isLogin=true;
-                          console.log("data user:",app.globalData.user)
-                          that.setData({
-                            uid:res.message[0].uid,
-                            cid:res.message[0].cid,
-                            locuni:res.message[0].university,
-                            loccam:res.message[0].campus
-                          })
-                          //that.getcampusLoc();
-                          console.log("component ready!")
-                          that.triggerEvent('componentReady');
-                          that.watchInfo();
-                          app.globalData.user["online"]=true
-                          requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
-                            console.log(res)
-                          })
-                        }
-                      })
-                    })
+              // wx.login({
+              //   success: function(res) {
+              //     if (res.code) {
+              //       // 登录成功，获取到用户的登录凭证 code
+              //       var code = res.code;
+              //       console.log(code)
+              //       requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
+              //         app.globalData.openid=res.id
+              //         console.log(res);
+              //         requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
+              //           if(res.message.length==0){
+              //             console.log("尚未注册！")
+              //             wx.redirectTo({
+              //               url: '/pages/my/create/login',
+              //             })
+              //           }else{
+              //             app.globalData.openid= res.message[0].openid;
+              //             app.globalData.userInfo = res.message[0].userinfo;
+              //             app.globalData.friends=res.message[0].friends;
+              //             app.globalData.user=res.message[0];
+              //             app.globalData.isLogin=true;
+              //             console.log("data user:",app.globalData.user)
+              //             that.setData({
+              //               uid:res.message[0].uid,
+              //               cid:res.message[0].cid,
+              //               locuni:res.message[0].university,
+              //               loccam:res.message[0].campus
+              //             })
+              //             //that.getcampusLoc();
+              //             console.log("component ready!")
+              //             that.triggerEvent('componentReady');
+              //             that.watchInfo();
+              //             app.globalData.user["online"]=true
+              //             requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+              //               console.log(res)
+              //             })
+              //           }
+              //         })
+              //       })
                     
-                  }
-                }
-              })
-              // wx.cloud.callFunction({
-              //   name: 'yunrouter', // 对应云函数名
-              //   data: {
-              //     $url: "openid", //云函数路由参数
-              //   },
-              //   success: re => {
-              //     console.log("user:"+re.result)
-              //     app.globalData.openid=re.result
-              //     db.collection('user').where({
-              //       _openid: re.result
-              //     }).get({
-              //       success: function (res) {
-              //         console.log(res.data[0])
-              //         if(res.data[0]==undefined){
-              //           console.log("尚未注册！")
-              //           wx.redirectTo({
-              //             url: '/pages/my/create/login',
-              //           })
-              //         }else{
-              //           app.globalData.openid= res.data[0]._openid;
-              //           app.globalData.userInfo = res.data[0].userInfo;
-              //           app.globalData.friends=res.data[0].friends;
-              //           app.globalData.user=res.data[0];
-              //           app.globalData.isLogin=true;
-              //           console.log("data user:",res.data[0])
-              //           that.setData({
-              //             uid:res.data[0].uid,
-              //             cid:res.data[0].cid,
-              //             locuni:res.data[0].userInfo.university,
-              //             loccam:res.data[0].userInfo.campus
-              //           })
-              //           //that.getcampusLoc();
-              //           console.log("component ready!")
-              //           that.triggerEvent('componentReady');
-              //           that.watchInfo();
-              //           db.collection('user').where({
-              //             _openid:this.globalData.user._openid
-              //           }).update({
-              //             data: {
-              //               online: true,
-              //             }
-              //           })
-  
-              //         }
-              //       },
-              //     })
+              //     }
               //   }
               // })
             

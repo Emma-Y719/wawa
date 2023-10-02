@@ -1,4 +1,4 @@
-// pages/storage/create/info/index.js
+// pages/map/map.js
 Page({
 
   /**
@@ -14,11 +14,7 @@ Page({
   onLoad(options) {
 
   },
-  handleCreate(e){
-    wx.redirectTo({
-      url: '/pages/storage/create/login',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

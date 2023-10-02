@@ -1,12 +1,10 @@
 {
   "pages": [
-    "pages/my/create/login",
+   
     "pages/wait/wait",
+    "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
-
-
-
     "pages/wait/id",
     "pages/map/map",
     "pages/map/mix",

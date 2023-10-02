@@ -37,26 +37,7 @@
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "condition": {
-    "search": {
-      "list": []
-    },
-    "conversation": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "plugin": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
-    "miniprogram": {
-      "list": []
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
@@ -67,5 +48,7 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wx4d7b467718a245ad"
+  "appid": "wx4d7b467718a245ad",
+  "projectname": "mall1.1.1",
+  "libVersion": "2.32.3"
 }
