@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/my/history/index",
+
+    "pages/my/newPost/index",
     "pages/wait/wait",
     "pages/my/create/login",
     "pages/favorite/index",
