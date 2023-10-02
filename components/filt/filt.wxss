@@ -1,0 +1,57 @@
+.cates {
+  width: 90%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5%;
+  margin-top: 20rpx;
+}
+.cates .university {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+}
+.cates .university .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+.cates .campus {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+  align-items: center;
+}
+.cates .campus .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}
+.cates .sort {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+}
+.cates .sort .line {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 5rpx;
+}

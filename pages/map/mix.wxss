@@ -1,0 +1,311 @@
+.page {
+  background-color: #fafafa;
+  overflow: hidden;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.font_1 {
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #000000;
+}
+.group_2 {
+  padding: 20rpx 40rpx 0;
+  overflow-y: auto;
+}
+.text {
+  -webkit-text-stroke: 0px #000000;
+}
+.image_5 {
+  width: 20rpx;
+  height: 12rpx;
+}
+.group_3 {
+  overflow: hidden;
+  width: 146rpx;
+  height: 28rpx;
+}
+.group_4 {
+  overflow: hidden;
+  width: 170rpx;
+  height: 28rpx;
+}
+.space-x-3 > view:not(:first-child),
+.space-x-3 > text:not(:first-child),
+.space-x-3 > image:not(:first-child) {
+  margin-left: 6rpx;
+}
+.group_5 {
+  margin: 18rpx 0 -66rpx;
+}
+.space-y-10 > view:not(:first-child),
+.space-y-10 > text:not(:first-child),
+.space-y-10 > image:not(:first-child) {
+  margin-top: 20rpx;
+}
+.group_6 {
+  padding-bottom: 160rpx;
+}
+.section_2 {
+  background-color: #979797;
+  width: 320rpx;
+  height: 320rpx;
+}
+.view {
+  flex: 1 1 320rpx;
+}
+.section_3 {
+  margin-left: 30rpx;
+  padding: 16rpx 20rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  height: 230rpx;
+}
+.font_3 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+}
+.font_2 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 44rpx;
+  color: #000000;
+}
+.group_7 {
+  height: 134rpx;
+}
+.font_4 {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+}
+.text_2 {
+  text-align: left;
+}
+.group_8 {
+  margin-top: -10rpx;
+}
+.text_3 {
+  text-align: left;
+}
+.group_9 {
+  margin-top: 36rpx;
+}
+.image_6 {
+  width: 28rpx;
+  height: 26rpx;
+}
+.image_7 {
+  width: 28rpx;
+  height: 24rpx;
+}
+.pos {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 250rpx;
+}
+.section_5 {
+  flex: 1 1 320rpx;
+  padding: 14rpx 0 110rpx;
+  background-color: #ffffff;
+  height: 160rpx;
+}
+.group_10 {
+  margin: 0 20rpx;
+}
+.text_5 {
+  color: #ff7a00;
+}
+.section_4 {
+  flex: 1 1 320rpx;
+  padding: 20rpx 0 166rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 230rpx;
+}
+.view_2 {
+  margin-left: 30rpx;
+}
+.equal-division {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 128rpx;
+  flex-shrink: 0;
+}
+.group_11 {
+  flex: 1 1 320rpx;
+}
+.text_6 {
+  text-align: left;
+}
+.group_14 {
+  margin-top: 40rpx;
+}
+.group_12 {
+  flex: 1 1 320rpx;
+  margin-left: 30rpx;
+}
+.equal-division-item {
+  padding: 12rpx 20rpx;
+}
+.equal-division-item_2 {
+  padding: 0 20rpx 12rpx;
+}
+.text_4 {
+  margin-top: -48rpx;
+  text-align: left;
+}
+.group_13 {
+  margin-top: -10rpx;
+}
+.text_7 {
+  text-align: left;
+}
+.group_15 {
+  margin-top: 36rpx;
+}
+.space-x-6 > view:not(:first-child),
+.space-x-6 > text:not(:first-child),
+.space-x-6 > image:not(:first-child) {
+  margin-left: 12rpx;
+}
+.group_16 {
+  padding-bottom: 250rpx;
+  height: 730rpx;
+}
+.pos_2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.section_6 {
+  padding: 16rpx 20rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 320rpx;
+}
+.space-y-8 > view:not(:first-child),
+.space-y-8 > text:not(:first-child),
+.space-y-8 > image:not(:first-child) {
+  margin-top: 16rpx;
+}
+.pos_3 {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.text_8 {
+  text-align: left;
+}
+.text_9 {
+  text-align: left;
+}
+.section_8 {
+  padding: 14rpx 20rpx 20rpx;
+  background-color: #ffffff;
+  width: 320rpx;
+}
+.space-y-9 > view:not(:first-child),
+.space-y-9 > text:not(:first-child),
+.space-y-9 > image:not(:first-child) {
+  margin-top: 18rpx;
+}
+.pos_6 {
+  position: absolute;
+  left: 0;
+  top: 320rpx;
+}
+.text_10 {
+  text-align: left;
+}
+.group_17 {
+  padding-top: 250rpx;
+}
+.pos_4 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 250rpx;
+}
+.view_3 {
+  margin-left: 30rpx;
+}
+.text_12 {
+  text-align: left;
+}
+.text_11 {
+  text-align: left;
+}
+.section_7 {
+  background-color: #979797;
+  height: 320rpx;
+}
+.pos_5 {
+  position: absolute;
+  left: 350rpx;
+  right: 0;
+  top: 0;
+}
+.space-x-15 > view:not(:first-child),
+.space-x-15 > text:not(:first-child),
+.space-x-15 > image:not(:first-child) {
+  margin-left: 30rpx;
+}
+.section_9 {
+  flex: 1 1 320rpx;
+  background-color: #979797;
+  width: 320rpx;
+  height: 64rpx;
+}
+.section_10 {
+  padding: 20rpx 20rpx 0;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  height: 64rpx;
+}
+.space-x-5 > view:not(:first-child),
+.space-x-5 > text:not(:first-child),
+.space-x-5 > image:not(:first-child) {
+  margin-left: 10rpx;
+}
+.tab-bar {
+  padding: 16rpx 80rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166716201389352.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.image_8 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_9 {
+  margin-top: 44rpx;
+}
+.image_10 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
+.image-wrapper {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_11 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_12 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}

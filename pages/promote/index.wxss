@@ -1,7 +1,47 @@
+page .typeContainer {
+  display: flex;
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 90%;
+  padding: 5rpx 5rpx 5rpx 5rpx;
+  background-color: #88bb1e;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+page .typeContainer .type {
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+page .typeContainer .type text {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .typeContainer .selected {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background-color: #f2f2f2;
+  border-radius: 30rpx;
+}
+page .typeContainer .selected text {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
 page .search_bar {
   height: 80rpx;
   margin-left: 50rpx;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
   display: flex;
   flex-direction: row;
 }
@@ -43,52 +83,21 @@ page .search_bar .type {
   border-radius: 40rpx;
   margin-right: 40rpx;
 }
-page .description .title {
-  margin-top: 30rpx;
-}
-page .description .title .name {
-  margin-left: 6%;
-  width: 86%;
-  height: 80rpx;
-  font-size: 30rpx;
-  font-weight: 600;
-  border: #5a9952 solid 2rpx;
-  border-radius: 20rpx;
-  text-align: center;
-}
-page .description .des {
-  margin-top: 30rpx;
-}
-page .description .des .text {
-  margin-left: 6%;
-  width: 86%;
-  height: 240rpx;
-  font-size: 30rpx;
-  font-weight: 600;
-  border: #5a9952 solid 2rpx;
-  border-radius: 20rpx;
-  text-align: center;
-}
-page .description .imagewarn {
-  font-size: 34rpx;
-  font-weight: 500;
-  margin-left: 50rpx;
-}
 page .description .contant-pic {
-  width: 94%;
-  margin-top: 20rpx;
-  margin-left: 50rpx;
+  width: 90%;
+  margin-top: 2%;
+  margin-left: 5%;
 }
 page .description .contant-pic .pics-list {
   width: 160rpx;
   height: 160rpx;
   float: left;
   margin-right: 10rpx;
-  background-color: #888888;
-  border-radius: 30rpx;
+  background-color: #adabab;
+  border-radius: 10rpx;
 }
 page .description .contant-pic .pics-list .uploadImg {
-  border-radius: 30rpx;
+  border-radius: 10rpx;
   width: 160rpx;
   height: 160rpx;
 }
@@ -102,15 +111,15 @@ page .description .contant-pic .pics-list .uploadImg-error {
 page .description .contant-pic .up {
   width: 160rpx;
   height: 160rpx;
-  background-color: #f0eeee;
+  background-color: #f3f2f2;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30rpx;
+  border-radius: 10rpx;
 }
 page .description .contant-pic .up .upload {
-  width: 120rpx;
-  height: 120rpx;
+  width: 80rpx;
+  height: 80rpx;
   float: left;
 }
 page .description .contant-pic .up .upload .hideTrue {
@@ -119,98 +128,142 @@ page .description .contant-pic .up .upload .hideTrue {
 page .description .contant-pic .up .upload .true {
   display: block;
 }
-page .description .locationInfo {
-  margin-left: 50rpx;
-  margin-right: 50rpx;
+page .description .title {
   margin-top: 30rpx;
-  display: flex;
-  flex-direction: row;
-  height: rpx;
-  align-items: center;
 }
-page .description .locationInfo .loc {
-  width: 8%;
+page .description .title .name {
+  margin-left: 5%;
+  width: 88%;
+  height: 60rpx;
+  padding: 15rpx 0rpx 0rpx 1%;
+  font-size: 30rpx;
+  font-weight: 600;
+  border: #5a9952 solid 2rpx;
+  border-radius: 10rpx;
+  text-align: left;
 }
-page .description .locationInfo text {
-  margin-left: 20rpx;
-  font-size: 35rpx;
+page .description .des {
+  margin-top: 20rpx;
 }
-page .description .locationInfo .location {
-  margin-left: 20rpx;
-  padding-left: 10rpx;
-  background-color: #88bb1e;
-  border-radius: 20rpx;
-  display: flex;
-  align-items: center;
+page .description .des .text {
+  margin-left: 5%;
+  width: 88%;
+  height: 150rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  padding: 15rpx 0rpx 0rpx 1%;
+  border: #5a9952 solid 2rpx;
+  border-radius: 10rpx;
+  text-align: left;
 }
-page .description .locationInfo .location .enter {
-  width: 50rpx;
+page .options {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
 }
-page .priceInfo {
-  margin-left: 50rpx;
-  margin-top: 50rpx;
-  margin-right: 50rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 80rpx;
-}
-page .priceInfo .price {
-  width: 8%;
-}
-page .priceInfo .ptext {
-  width: 40%;
-  margin-left: 20rpx;
-  font-size: 35rpx;
+page .options .option {
   display: flex;
   align-items: center;
 }
-page .priceInfo .pr {
+page .options .option image {
+  width: 30rpx;
+  height: 30rpx;
+}
+page .options .option text {
+  margin-left: 10rpx;
   width: 40%;
   font-size: 28rpx;
+}
+page .options .option .pick {
+  margin-left: 30%;
+  width: 18%;
+  height: 60rpx;
+  font-size: 28rpx;
   display: flex;
-  padding: 10rpx;
-  margin-left: 30rpx;
-  border-radius: 20rpx;
-  align-items: center;
-  text-align: center;
   justify-content: center;
-}
-page .methodInfo {
-  margin-left: 50rpx;
-  margin-top: 50rpx;
-  margin-right: 50rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 80rpx;
-}
-page .methodInfo .method {
-  width: 8%;
-}
-page .methodInfo .mtext {
-  width: 40%;
-  margin-left: 20rpx;
-  font-size: 35rpx;
-  display: flex;
+  text-align: center;
   align-items: center;
 }
-page .methodInfo .meth {
-  width: 30%;
+page .options .option .pr {
+  margin-left: 30%;
+  width: 18%;
+  height: 60rpx;
   font-size: 28rpx;
   display: flex;
-  flex-direction: row;
+  padding: 0rpx 0rpx 5rpx 5rpx;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
-page .methodInfo .enter {
-  width: 50rpx;
+page .options .option .quality {
+  width: 18%;
+  margin-left: 30%;
+  height: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  padding: 0rpx 0rpx 5rpx 5rpx;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+page .options .option .storageContainer {
+  width: 18%;
+  margin-left: 30%;
+  height: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  padding: 0rpx 0rpx 5rpx 5rpx;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+page .options .option .location {
+  width: 50%;
+  margin-left: 5%;
+  display: flex;
+  font-size: 28rpx;
+  padding: 0rpx 0rpx 5rpx 5rpx;
+  justify-content: start;
+  text-align: center;
+  align-items: center;
+}
+page .options .option .enter {
+  width: 40rpx;
+}
+page .options .storageProcess .storageSelected {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  background-color: #e9e9e9;
+  margin-left: 45%;
+  border-radius: 10rpx;
+  padding: 5rpx;
+}
+page .options .storageProcess .storageSelected .storage {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10rpx;
+}
+page .options .storageProcess .storageSelected .storage text {
+  font-size: 28rpx;
+}
+page .options .storageProcess .storageSelected .storage image {
+  width: 40rpx;
+  height: 40rpx;
+}
+page .point {
+  font-size: 24rpx;
+  margin-top: 2%;
+  margin-left: 5%;
 }
 page .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-left: 50rpx;
-  margin-top: 70rpx;
-  margin-right: 50rpx;
+  margin-left: 5%;
+  width: 90%;
+  margin-top: 4%;
 }
 page .buttons .draft {
   width: 30%;
@@ -218,10 +271,11 @@ page .buttons .draft {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 40rpx;
+  border-radius: 10rpx;
   text-align: center;
   font-size: 32rpx;
-  background-color: #88bb1e;
+  color: #959595;
+  background-color: #d9d9d9;
 }
 page .buttons .draft image {
   width: 55rpx;
@@ -235,8 +289,11 @@ page .buttons .promote {
   align-items: center;
   text-align: center;
   font-size: 32rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #ffffff;
   background-color: #88bb1e;
-  border-radius: 40rpx;
+  border-radius: 10rpx;
 }
 page .buttons .promote image {
   width: 55rpx;
@@ -244,4 +301,7 @@ page .buttons .promote image {
 }
 page .bottom {
   height: 200rpx;
+}
+page .ad {
+  margin-top: 40rpx;
 }

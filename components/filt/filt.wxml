@@ -1,0 +1,18 @@
+<view class="cates">
+  <view bindtap="onNotComplete"class="sort">
+    {{city}}
+    <div class="line"></div>
+  </view>
+  <navigator class="university" url="/pages/index/location">
+    {{university}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+  <navigator class="campus" url="/pages/index/location">
+    {{campus}}
+    <div class="line"></div>
+    <div class="inter"></div>
+  </navigator>
+
+
+</view>

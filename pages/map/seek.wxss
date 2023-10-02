@@ -1,0 +1,301 @@
+.page {
+  background-color: #fafafa;
+  overflow: hidden;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.font_1 {
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #000000;
+}
+.font_2 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+}
+.group_2 {
+  padding: 20rpx 40rpx 0;
+  overflow-y: auto;
+}
+.text_2 {
+  -webkit-text-stroke: 0px #000000;
+}
+.image_5 {
+  width: 20rpx;
+  height: 12rpx;
+}
+.group_3 {
+  overflow: hidden;
+  width: 146rpx;
+  height: 28rpx;
+}
+.group_4 {
+  overflow: hidden;
+  width: 170rpx;
+  height: 28rpx;
+}
+.space-x-3 > view:not(:first-child),
+.space-x-3 > text:not(:first-child),
+.space-x-3 > image:not(:first-child) {
+  margin-left: 6rpx;
+}
+.group_5 {
+  margin: 18rpx 0 -66rpx;
+}
+.space-y-4 > view:not(:first-child),
+.space-y-4 > text:not(:first-child),
+.space-y-4 > image:not(:first-child) {
+  margin-top: 8rpx;
+}
+.group_6 {
+  padding-bottom: 420rpx;
+}
+.section_2 {
+  flex: 1 1 320rpx;
+  background-color: #979797;
+  width: 320rpx;
+  height: 320rpx;
+}
+.section_3 {
+  margin-left: 30rpx;
+  padding: 16rpx 20rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 230rpx;
+}
+.font_3 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 44rpx;
+  color: #000000;
+}
+.group_7 {
+  height: 134rpx;
+}
+.font_4 {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+}
+.text_3 {
+  text-align: left;
+}
+.group_8 {
+  margin-top: -10rpx;
+}
+.text_4 {
+  text-align: left;
+}
+.group_9 {
+  margin-top: 36rpx;
+}
+.image_6 {
+  width: 28rpx;
+  height: 26rpx;
+}
+.image_7 {
+  width: 28rpx;
+  height: 24rpx;
+}
+.group_10 {
+  padding-bottom: 260rpx;
+}
+.pos_2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 250rpx;
+}
+.section_5 {
+  margin-top: 70rpx;
+  padding: 14rpx 0 110rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  height: 160rpx;
+}
+.group_11 {
+  margin-left: 20rpx;
+}
+.section_4 {
+  margin-left: 30rpx;
+  padding: 20rpx 20rpx 78rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 230rpx;
+}
+.text_5 {
+  text-align: left;
+}
+.equal-division {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 129rpx;
+  flex-shrink: 0;
+}
+.group_12 {
+  flex: 1 1 320rpx;
+}
+.group_13 {
+  margin: 0 20rpx;
+  padding: 12rpx 0 24rpx;
+}
+.text_6 {
+  text-align: left;
+}
+.group_15 {
+  margin-top: 40rpx;
+}
+.space-x-4 > view:not(:first-child),
+.space-x-4 > text:not(:first-child),
+.space-x-4 > image:not(:first-child) {
+  margin-left: 8rpx;
+}
+.section_6 {
+  padding: 16rpx 20rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.text_8 {
+  text-align: left;
+}
+.text_10 {
+  text-align: left;
+}
+.group_14 {
+  flex: 1 1 320rpx;
+  margin-left: 30rpx;
+}
+.equal-division-item {
+  padding-bottom: 12rpx;
+}
+.text_7 {
+  text-align: left;
+}
+.text_9 {
+  text-align: left;
+}
+.text_11 {
+  text-align: left;
+}
+.group_16 {
+  padding-bottom: 334rpx;
+}
+.section_7 {
+  padding: 16rpx 20rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 320rpx;
+}
+.space-y-8 > view:not(:first-child),
+.space-y-8 > text:not(:first-child),
+.space-y-8 > image:not(:first-child) {
+  margin-top: 16rpx;
+}
+.text_12 {
+  text-align: left;
+}
+.space-x-46 > view:not(:first-child),
+.space-x-46 > text:not(:first-child),
+.space-x-46 > image:not(:first-child) {
+  margin-left: 92rpx;
+}
+.text_13 {
+  text-align: left;
+}
+.group_17 {
+  padding-top: 250rpx;
+}
+.pos_3 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.grid {
+  height: 314rpx;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 22rpx;
+  column-gap: 32rpx;
+}
+.text_14 {
+  text-align: left;
+}
+.text_16 {
+  text-align: left;
+}
+.grid-item {
+  padding: 14rpx 20rpx 20rpx;
+  background-color: #ffffff;
+}
+.space-y-9 > view:not(:first-child),
+.space-y-9 > text:not(:first-child),
+.space-y-9 > image:not(:first-child) {
+  margin-top: 18rpx;
+}
+.text_15 {
+  text-align: left;
+}
+.grid-item_2 {
+  padding: 20rpx 20rpx 0;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.space-x-5 > view:not(:first-child),
+.space-x-5 > text:not(:first-child),
+.space-x-5 > image:not(:first-child) {
+  margin-left: 10rpx;
+}
+.section_8 {
+  background-color: #979797;
+  height: 320rpx;
+}
+.pos_4 {
+  position: absolute;
+  left: 350rpx;
+  right: 0;
+  top: 0;
+}
+.tab-bar {
+  padding: 16rpx 80rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166716201389352.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.image_8 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_9 {
+  margin-top: 44rpx;
+}
+.image_10 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
+.image-wrapper {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_11 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_12 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}

@@ -144,69 +144,7 @@ Component({
               //     }
               //   }
               // })
-              wx.cloud.callFunction({
-                name: 'yunrouter', // 对应云函数名
-                data: {
-                  $url: "openid", //云函数路由参数
-                },
-                success: re => {
-                  console.log("user:"+re.result)
-                  app.globalData.openid=re.result
-                  db.collection('user').where({
-                    _openid: re.result
-                  }).get({
-                    success: function (res) {
-                      console.log(res.data[0])
-                      if(res.data[0]==undefined){
-                        console.log("尚未注册！")
-                        wx.redirectTo({
-                          url: '/pages/my/create/login',
-                        })
-                      }else{
-                        app.globalData.openid= res.data[0]._openid;
-                        app.globalData.userInfo = res.data[0].userInfo;
-                        app.globalData.friends=res.data[0].friends;
-                        app.globalData.user=res.data[0];
-                        app.globalData.isLogin=true;
-                        console.log("data user:",res.data[0])
-                        that.setData({
-                          uid:res.data[0].uid,
-                          cid:res.data[0].cid,
-                          locuni:res.data[0].userInfo.university,
-                          loccam:res.data[0].userInfo.campus
-                        })
-                        //that.getcampusLoc();
-                        console.log("component ready!")
-                        that.triggerEvent('componentReady');
-                        that.watchInfo();
-                        db.collection('user').where({
-                          _openid:this.globalData.user._openid
-                        }).update({
-                          data: {
-                            online: true,
-                          }
-                        })
-  
-                      }
-                    },
-                  })
-                }
-              })
-              // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
-              //   console.log(res[0].code);
-              //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
-              //   let loginParam={
-              //     code:res[0].code,
-              //     nickName:res[1].userInfo.nickName,
-              //     avatarUrl:res[1].userInfo.avatarUrl
-              //   }
-              //   console.log(loginParam)
-              //   wx.setStorageSync('userInfo', res[1].userInfo);
-              //   this.wxlogin(loginParam);
-              //   app.globalData.userInfo=res[1].userInfo
-              //   app.globalData.isLogin=true;
-    
-              // })
+            
             }
           })
         }else{
@@ -220,6 +158,8 @@ Component({
           that.triggerEvent('componentReady');
           that.watchInfo();
         }
+      }else{
+        this.watchInfo();
       }
 
     },
@@ -405,13 +345,13 @@ Component({
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
-      if(route!='pages/favorite/index'){
+      if(route!='pages/map/index'){
         this.setChose(1);
         if(route=="pages/promote/index"){
-          cur.onTab('/pages/favorite/index');
+          cur.onTab('/pages/map/index');
         }else{
           wx.reLaunch({
-            url: '/pages/favorite/index',
+            url: '/pages/map/index',
           })
         }
       }
@@ -422,7 +362,7 @@ Component({
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
-      if(route!='pages/example/chatroom_example/message'){
+      if(route!='pages/messages/message'){
         if(app.globalData.user.subscribe!=true){
           wx.requestSubscribeMessage({
             tmplIds: ['7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
@@ -454,10 +394,10 @@ Component({
         }
         this.setChose(2);
         if(route=="pages/promote/index"){
-          cur.onTab('/pages/example/chatroom_example/message');
+          cur.onTab('/pages/messages/message');
         }else{
           wx.reLaunch({
-            url: '/pages/example/chatroom_example/message',
+            url: '/pages/messages/message',
           })
         }
       }

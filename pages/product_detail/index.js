@@ -6,6 +6,7 @@ import {
   requestPay,
   requestUtil
 } from '../../utils/requestUtil.js';
+var util = require('../../styles/util.js');
 import regeneratorRuntime from '../../lib/runtime/runtime';
 
 // 获取应用实例
@@ -30,7 +31,8 @@ Page({
     chatid:"",
     hasStorage:false,
     storageName:'',
-    storageid:0
+    storageid:0,
+    sendFocusMsg:false
   },
 
   productInfo:{
@@ -74,7 +76,7 @@ Page({
     });
     this.productInfo=result.message;
     console.log("storage: ",result.message)
-    if(result.message.storage!=0){
+    if(result.message.storage[0]!=0){
       this.setData({
         id:id,
         productObj: result.message,
@@ -149,6 +151,12 @@ Page({
       
     }
 
+    this.data.productObj.views=this.data.productObj.views+1;
+    //console.log(this.data.productObj.views)
+    requestUtil({url:"/product/update",method:"POST",data:this.data.productObj}).then(res=>{
+      // console.log(res.message)
+    })
+
   },
   onsubscribe(){
     // 向用户请求订阅消息授权
@@ -192,9 +200,17 @@ Page({
       });
     }else{
       let that=this
-      this.setData({
-        chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
-      })
+      if(this.data.sendFocusMsg){
+        console.log("set id: 0")
+        this.setData({
+          chatid:'s-'+app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
+        })
+      }else{
+        this.setData({
+          chatid:app.globalData.openid+'-'+this.data.productObj.userid+'-'+this.data.productObj.identity
+        })
+      }
+
   
       requestUtil({url:"/user/findFriends",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
         this.setData({
@@ -276,20 +292,74 @@ Page({
       backgroundimage: '',
       product:this.data.productObj
     }
+    let id="0"
+    if(!this.data.sendFocusMsg){
+      id=app.globalData.openid
+    }
     await requestUtil({url:"/chats/add",method:"POST",data:{
-          
           chatid:chatroom.chatid,
-          id:app.globalData.openid,
+          id:id,
           targetid:chatroom._openid,
           chatroom:chatroom
         }});
-
     await requestUtil({url:"/chats/add",method:"POST",data:{
-          chatid:chatroom.chatid,
-          id:chatroom._openid,
-          targetid:app.globalData.openid,
-          chatroom:chatroom_target
-        }});
+      chatid:chatroom.chatid,
+      id:chatroom._openid,
+      targetid:id,
+      chatroom:chatroom_target
+    }});
+    if(!this.data.sendFocusMsg){
+      let that = this;
+      let haoyouinfo =chatroom
+      console.log("好友： "+haoyouinfo.userInfo.nickName)
+      if(!this.data.backgroundimage1){
+        //就证明没有更换图片
+        that.setData({
+          //这个id就唯一标识这个好友
+          chatid: haoyouinfo.chatid,
+          chatname: haoyouinfo.userInfo.nickName,
+          backgroundimage:haoyouinfo.backgroundimage
+        })
+      }
+      else{
+        that.setData({
+          //这个id就唯一标识这个好友
+          chatid: haoyouinfo.id,
+          chatname: haoyouinfo.userInfo.nickName,
+          backgroundimage:that.data.backgroundimage1
+        })
+      }
+      let  lessonSubId='wP0DrgBo_CKL51uA2QYFRJS-_IMnLUMWataPkALuw6s'
+      //调用订阅消息提醒
+      // 如果开启这个订阅消息提醒，否则就不提醒
+      if(app.globalData.useTmp){
+        wx.requestSubscribeMessage({
+          tmplIds: [lessonSubId],//这个是微信平台申请的 id
+          success:res => {
+          console.log(res)
+          console.log(res[lessonSubId])
+          if(res[lessonSubId]=="accept"){
+              console.log("接受订阅申请")
+              wx.navigateTo({
+                url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid,
+              })
+          }else if(res[lessonSubId]=="reject"){
+              console.log("拒绝接受订阅申请")
+          }
+          },
+          fail(res){
+              console.log(res)
+          }
+        })
+      }else{
+        wx.navigateTo({
+          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
+        })
+      }
+
+
+    }
+
     // await db.collection('chats').add({
     //   // data 字段表示需新增的 JSON 数据
     //   data: {
@@ -336,53 +406,7 @@ Page({
     // })
 
     
-    let that = this;
-    let haoyouinfo =chatroom
-    console.log("好友： "+haoyouinfo.userInfo.nickName)
-    if(!this.data.backgroundimage1){
-      //就证明没有更换图片
-      that.setData({
-        //这个id就唯一标识这个好友
-        chatid: haoyouinfo.chatid,
-        chatname: haoyouinfo.userInfo.nickName,
-        backgroundimage:haoyouinfo.backgroundimage
-      })
-    }
-    else{
-      that.setData({
-        //这个id就唯一标识这个好友
-        chatid: haoyouinfo.id,
-        chatname: haoyouinfo.userInfo.nickName,
-        backgroundimage:that.data.backgroundimage1
-      })
-    }
-    let  lessonSubId='wP0DrgBo_CKL51uA2QYFRJS-_IMnLUMWataPkALuw6s'
-    //调用订阅消息提醒
-    // 如果开启这个订阅消息提醒，否则就不提醒
-    if(app.globalData.useTmp){
-      wx.requestSubscribeMessage({
-        tmplIds: [lessonSubId],//这个是微信平台申请的 id
-        success:res => {
-        console.log(res)
-        console.log(res[lessonSubId])
-        if(res[lessonSubId]=="accept"){
-            console.log("接受订阅申请")
-            wx.navigateTo({
-              url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid,
-            })
-        }else if(res[lessonSubId]=="reject"){
-            console.log("拒绝接受订阅申请")
-        }
-        },
-        fail(res){
-            console.log(res)
-        }
-      })
-    }else{
-      wx.navigateTo({
-        url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
-      })
-    }
+
   },
   previewImage: function(e) {
     let id=e.currentTarget.dataset.id
@@ -510,12 +534,6 @@ Page({
 
     
   },
-  // 点击事件 商品加入购物车
-  handleCartAdd(){
-    this.setCartadd();
-
-
-  },
 
   onUserDetail(e){
     console.log("open the page of user!")
@@ -523,6 +541,10 @@ Page({
     wx.navigateTo({
       url: '/pages/my/detail?userid='+this.data.productObj.userid,
     })
+  },
+  // 点击事件 商品加入购物车
+  handleCartAdd(){
+    this.setCartadd();
   },
 
   // 加入购物车
@@ -547,6 +569,26 @@ Page({
             app.globalData.user.favorite=res2.message[0].favorite;
             requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
               if(res){
+                this.setData({
+                  sendFocusMsg:true
+                })
+                this.addChat();
+                const doc = {
+                  _id: `${Math.random()}_${Date.now()}`,
+                  groupId: this.data.chatid,
+                  avatar: this.data.userInfo.avatarUrl,
+                  nickName: this.data.userInfo.nickName,
+                  msgType: 'text',
+                  targetId:this.data.productObj.userid,
+                  textContent: app.globalData.user.nickname+"收藏了您的物品～",
+                  read:false,
+                  sendTime: util.formatTime(new Date()),
+                  sendTimeTS: Date.now(), // fallback
+                }
+                db.collection("chatroom_example").add({
+                  data: doc,
+                })
+
                 wx.showModal({
                   title: '',
                   content: '收藏成功，请去收藏夹查看～',
@@ -565,13 +607,10 @@ Page({
               }
 
             })
-            // db.collection('user').where({
-            //   _openid: app.globalData.openid
-            // }).update({
-            //   data: {
-            //     favorite: db.command.push([this.data.productObj])
-            //   }
-            // })
+            productObj.focus = productObj.focus+1;
+            requestUtil({url:"/product/update",method:"POST",data:productObj}).then(res=>{
+              // console.log(res.message)
+            })
 
           }else{
             wx.showModal({
@@ -609,6 +648,10 @@ Page({
                 }
               }
             })
+          })
+          productObj.focus = productObj.focus+1;
+          requestUtil({url:"/product/update",method:"POST",data:productObj}).then(res=>{
+            // console.log(res.message)
           })
         }
       })

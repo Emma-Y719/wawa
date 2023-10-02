@@ -4,6 +4,8 @@ import regeneratorRuntime from '../../lib/runtime/runtime';
 var QQMapWX = require('../../utils/qqmap-wx-jssdk1.2/qqmap-wx-jssdk.min.js');
 var qqmapsdk;
 const app=getApp();
+// 在页面中定义插屏广告
+let interstitialAd = null
 Page({
 
   /**
@@ -24,13 +26,18 @@ Page({
     typeList:[],
     typeid:0,
     price:"",
-    storage:"群物品库",
-    storageid:0,
+    quality:"",
+    originprice:"",
+    storage:["选取群物品库"],
+    storage_sel:"",
+    storageid:[0],
     storageList:[],
     storageNames:[],
     log:-1.0,
     lat:-1.0,
     inputValue: '',// 用于保存用户输入的数字值
+    qualityValue:"",
+    originValue:"",
     currentRegion: {
       province: '城市',
       city: '城市',
@@ -46,7 +53,11 @@ Page({
     originstatus:-1,
     noStorage:false,
     isconfirmed:false,
-    
+    productSelect:true,
+    postSelect:false,
+    seekSelect:false,
+    post_type:0,
+    pickerIndex: -1
   },
 
   /**
@@ -57,7 +68,19 @@ Page({
       key: 'W57BZ-JDB6X-XPA4H-Z76MI-73FF2-24BT4'
     });
     console.log("Load:   ",app.globalData.user)
-    this.getTypeList();
+      // 在页面onLoad回调事件中创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-9ad07a2514baead3'
+      })
+      interstitialAd.onLoad(() => {})
+      interstitialAd.onError((err) => {})
+      interstitialAd.onClose(() => {})
+    }
+    // this.getTypeList();
+    this.setData({
+      typeList:app.globalData.typeList
+    })
     if(options.id==undefined){
       this.setData({
         university:app.globalData.user.university,
@@ -79,16 +102,61 @@ Page({
   
       this.searchStorageList();
     }else{
-      console.log("update!")
-      
       this.getProductDetail(options.id);     
-      console.log("lat: ",this.data.lat)
-      console.log("log: ",this.data.log)
-      console.log("university: ",this.data.campus)
-      console.log("campus: ",this.data.campus)
-      console.log("storageid: ",this.data.storageid)
+      // console.log("lat: ",this.data.lat)
+      // console.log("log: ",this.data.log)
+      // console.log("university: ",this.data.campus)
+      // console.log("campus: ",this.data.campus)
+      // console.log("storageid: ",this.data.storageid)
     }
 
+  },
+  ontapProduct(){
+    this.setData({
+      productSelect:true,
+      postSelect:false,
+      seekSelect:false,
+      post_type:0
+    })
+  },
+  ontapPost(){
+    this.setData({
+      productSelect:false,
+      postSelect:true,
+      seekSelect:false,
+      post_type:1
+    })
+  },
+  ontapSeek(){
+    this.setData({
+      productSelect:false,
+      postSelect:false,
+      seekSelect:true,
+      post_type:2
+    })
+  },
+  ontapAd(){
+    if (interstitialAd) {
+      console.log("add advertise")
+      interstitialAd.show().catch((err) => {
+        console.error(err)
+        if(err.errCode==2002){
+          wx.showToast({
+            title: '距离上次点击时间太短，可以先去逛逛再来～',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      })
+      interstitialAd.onClose(res => {
+        console.log('插屏 广告关闭')
+        wx.showToast({
+          title: '恭喜您，我们会增加您物品的曝光度～',
+          icon: 'none',
+          duration: 2000
+        });
+      })
+    }
   },
   location(latitude,longitude){
     console.log("place: ",longitude,latitude);
@@ -189,8 +257,8 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
 
   },
 
-  getTypeList(){
-    requestUtil({url:'/bigType/findCategories',method:"GET"}).then(result=>{
+  async getTypeList(){
+    await requestUtil({url:'/bigType/findCategories',method:"GET"}).then(result=>{
       let list=result.message
       console.log(list)
       let typeList=[]
@@ -218,10 +286,40 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
       data:{id},
       method: "GET"
     });
-    this.productInfo=result.message;
+    
     let product=result.message;
-    console.log("product: ",product)
+    this.setData({
+      post_type:product.post_type,
+      
+    })
+    if(product.post_type==0){
+      this.setData({
+        productSelect:true,
+        postSelect:false,
+        seekSelect:false,
+      })
+    }else if(product.post_type==1){
+      this.setData({
+        productSelect:false,
+        postSelect:true,
+        seekSelect:false,
+      })
+    }else{
+      this.setData({
+        productSelect:false,
+        postSelect:false,
+        seekSelect:true,
+      })
+    }
     this.searchStorageList();
+    // console.log("typelist: ",this.data.typeList);
+    let init_storage=[]
+    let init_storageid=[]
+    product.storage.forEach(function(value,index,array){
+       init_storageid.push(value);
+       init_storage.push(app.globalData.storageList[value-1].name);
+    })
+    // console.log("product origin price: ",product);
     this.setData({
       id:id,
       name:product.name,
@@ -232,15 +330,21 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
       discript:product.description,
       pics:product.propic.pics,
       inputValue:product.price,
+      qualityValue:product.quality,
+      originValue:product.originprice!=-1?product.originprice:"无",
+      quality:product.quality,
       price:product.price,
+      originprice:product.originprice,
       lat:product.latitude,
       log:product.longtitude,
-      storageid:product.storage,
-      storage:product.storage!=0?app.globalData.storageList[product.storage-1].name:"选取物品库",
+      post_type:product.post_type,
       typeid:product.typeid,
       type:product.typeid!=0?this.data.typeList[product.typeid-1]:"点选类型",
+      storageid:product.storage,
+      storage:init_storage,
       originstatus:product.status
     })
+    console.log("product originprice: ",product);
     let temp_product={
       id:id,
       name:product.name,
@@ -251,22 +355,20 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
       discript:product.description,
       pics:product.propic.pics,
       inputValue:product.price,
+      qualityValue:product.quality,
+      originValue:product.originprice!=-1?product.originprice:"无",
+      quality:product.quality,
       price:product.price,
+      originprice:product.originprice,
       lat:product.latitude,
       log:product.longtitude,
       storageid:product.storage,
-      storage:product.storage!=0?app.globalData.storageList[product.storage-1].name:"选取物品库",
+      storage:init_storage,
       typeid:product.typeid,
       type:product.typeid!=0?this.data.typeList[product.typeid-1]:"点选类型",
       originstatus:product.status
     }
-
-
     console.log("temp_product: ",temp_product)
-
-
-
-
 
     if(this.data.lat==-1||this.data.log==-1){
       this.locate();
@@ -299,41 +401,68 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     const {value}=event.detail;
    
     let storagevalue=parseInt(value)
-    const storage=this.data.storageNames[value];
-    console.log("choose id: ",storagevalue,"choose name: ",storage)
-    let sid=(storagevalue)%(this.data.storageNames.length);
-    let tem_sid=0;
-    if(sid<this.data.storageList.length){
-      tem_sid=this.data.storageList[sid]
-    }
-    if(storage!=undefined){
+    const storage_name=this.data.storageNames[value];
+    if(storage_name=="不同步"){
+      var that=this;
+      this.data.storage.forEach(function(value,array,index){
+        that.data.storageNames.unshift(value+"物品库");
+        
+      })
+      this.data.storageid.forEach(function(value,index,array){
+        that.data.storageList.unshift(value);
+      })
       this.setData({
-        storage:storage,
-        storageid:tem_sid
+        isconfirmed:true,
+        storageid:[],
+        storage:[],
+        storageNames:this.data.storageNames,
+        storageList:this.data.storageList
       })
     }else{
-      wx.showModal({
-        title: '',
-        content: '尚未加入物品库,去搜索加入吧',
-        complete: (res) => {
-          if (res.cancel) {
-            isconfirmed=true
+      console.log("choose id: ",storagevalue,"choose name: ",storage_name)
+      let sid=(storagevalue)%(this.data.storageNames.length);
+      let tem_sid=0;
+      if(sid<this.data.storageList.length){
+        tem_sid=this.data.storageList[sid]
+      }
+      this.data.storageNames.splice(value,1);
+      this.data.storageList.splice(sid,1);
+      if(storage_name!=undefined){
+        let temp_sto_names=this.data.storage;
+        let temp_sto_ids=this.data.storageid;
+        temp_sto_names.push(storage_name.replace("物品库",""));
+        temp_sto_ids.push(tem_sid);
+        console.log("curent ids: ",temp_sto_names,"current names: ",temp_sto_ids)
+        this.setData({
+          storage_sel:storage_name,
+          storage:temp_sto_names,
+          storageid:temp_sto_ids,
+          storageList:this.data.storageList,
+          storageNames:this.data.storageNames
+        })
+        console.log("curent ids: ",this.data.storageid,"current names: ",this.data.storage)
+      }else{
+        wx.showModal({
+          title: '',
+          content: '尚未加入物品库,去搜索加入吧',
+          complete: (res) => {
+            if (res.cancel) {
+              isconfirmed=true
+            }
+        
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/storage/index',
+              })
+            }
           }
-      
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/storage/index',
-            })
-          }
-        }
-      })
+        })
+  
+      }
+    }
 
-    }
-    if(this.data.storage=="不同步"){
-      this.setData({
-        isconfirmed:true
-      })
-    }
+ 
+
     console.log("cur storage id: ",this.data.storageid)
   },
   handleType(event){
@@ -349,106 +478,102 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
   },
   async searchStorageList(e){
     console.log("cur storageid: "+this.data.storageid)
-    if(this.data.storageid==0&&this.data.storage!="不同步"){
+    if(this.data.storageid[0]==0&&this.data.storage[0]!="不同步"){
       requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
         var sall=result.message
-        console.log(sall)
-        wx.cloud.callFunction({
-          name: 'yunrouter',
-          data: {
-            $url: "HuoquFriends", //云函数路由参数
-            openid: app.globalData.openid
-          },
-          success: res2 => {
-            console.log("all storages",sall)
-  
-            var storages=res2.result.data[0].storage
-            console.log("i'm in: ",storages)
-            if(storages!=undefined){
-              let temp_storage=''
-              let temp_id=0;
-              let temp_nostorage=false;
-              console.log(this.data.storageid)
-              if(this.data.storageid==0){
-  
-                if(storages.length==0){
-                  temp_storage='尚未加入物品库'
-                  temp_nostorage=true
-                }else{
-                  temp_storage=storages[0].name
-                  temp_id=storages[0].identity   
-                }
-                console.log("temp_storage: ",temp_storage)
-                console.log("temp_id: ",temp_id)
-              }else{
-                temp_storage=sall[this.data.storageid-1].name
-                temp_id=this.data.storageid
-                console.log("temp_storage: ",temp_storage)
-                console.log("temp_id: ",temp_id)
-              }
-              this.setData({
-                storage:temp_storage,
-                storageid:temp_id,
-                noStorage:temp_nostorage
-              })
-              var storageList=[]
-              var storageNames=[]
-              storages.forEach(function(value,index,array){
-                storageList.push(value.identity);
-                storageNames.push(value.name)
-              })
-              storageNames.push("不同步")
-              this.setData({
-                storageList:storageList,
-                storageNames:storageNames
-              })
-            }
-          },
-          fail() {
+        console.log("all storages",sall);
+        var storages=app.globalData.user.storage;
+        console.log("i'm in: ",app.globalData.user)
+        if(storages!=undefined){
+          let temp_storage=[]
+          let temp_id=[];
+          let temp_nostorage=false;
+          console.log(this.data.storageid)
+          if(this.data.storageid.length>0){
+
           }
-        });
-    
+          if(this.data.storageid.length==0||this.data.storageid[0]==0){
+            if(storages.length==0){
+              //temp_storage.push('尚未加入物品库')
+              temp_nostorage=true
+            }else{
+              temp_storage.push(storages[0].name.replace("物品库",""))
+              temp_id.push(storages[0].identity)
+            }
+            console.log("temp_storage: ",temp_storage)
+            console.log("temp_id: ",temp_id)
+          }else{
+            this.data.storageid.forEach(function(value,index,array){
+              temp_id.push(value)
+            })
+            this.data.storage.forEach(function(value,index,array){
+              console.log(value);
+              temp_storage.push(value.replace("物品库",""))
+            })
+            console.log("temp_storage: ",temp_storage)
+            console.log("temp_id: ",temp_id)
+          }
+          this.setData({
+            storage:temp_storage,
+            storageid:temp_id,
+            noStorage:temp_nostorage
+          })
+          var storageList=[]
+          var storageNames=[]
+          var that=this;
+          storages.forEach(function(value,index,array){
+            if(!that.data.storage.includes(value.name.replace("物品库",""))){
+              storageNames.push(value.name)
+            }
+            if(!that.data.storageid.includes(value.identity)){
+              storageList.push(value.identity);
+            }
+           
+            
+          })
+          storageNames.push("不同步")
+          this.setData({
+            storageList:storageList,
+            storageNames:storageNames
+          })
+        }
       })
-    }else if(this.data.storageid!=0){
+    }else if(this.data.storageid.length>0&&this.data.storageid[0]!=0){
+      console.log(this.data.storageid)
       requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
         var sall=result.message
-        console.log(sall)
-        wx.cloud.callFunction({
-          name: 'yunrouter',
-          data: {
-            $url: "HuoquFriends", //云函数路由参数
-            openid: app.globalData.openid
-          },
-          success: res2 => {
-            console.log("all storages",sall)
-  
-            var storages=res2.result.data[0].storage
-            console.log("i'm in: ",storages)
-            if(storages!=undefined){
-              let temp_storage=''
-              let temp_nostorage=false;
-              temp_storage=sall[this.data.storageid-1].name
-              console.log("temp_storage: ",temp_storage)
-              this.setData({
-                storage:temp_storage,
-                noStorage:temp_nostorage
-              })
-              var storageList=[]
-              var storageNames=[]
-              storages.forEach(function(value,index,array){
-                storageList.push(value.identity);
-                storageNames.push(value.name)
-              })
-              storageNames.push("不同步")
-              this.setData({
-                storageList:storageList,
-                storageNames:storageNames
-              })
+        console.log("all storages",sall)
+        var storages=app.globalData.user.storage;
+        console.log("i'm in: ",storages)
+        console.log(this.data.storageid);
+        if(storages!=undefined){
+          let temp_storage=[]
+          let temp_nostorage=false;
+          temp_storage.push(sall[this.data.storageid[0]-1].name.replace("物品库",""))
+          console.log("temp_storage: ",temp_storage)
+          this.setData({
+            storage:temp_storage,
+            noStorage:temp_nostorage
+          })
+          var storageList=[]
+          var storageNames=[]
+          var that=this;
+          storages.forEach(function(value,index,array){
+
+            if(!that.data.storage.includes(value.name.replace("物品库",""))){
+              storageNames.push(value.name)
+              
             }
-          },
-          fail() {
-          }
-        });
+            if(!that.data.storageid.includes(value.identity)){
+              storageList.push(value.identity);
+            }
+          })
+          storageNames.push("不同步")
+          this.setData({
+            storageList:storageList,
+            storageNames:storageNames
+          })
+        }
     
       })
 
@@ -485,10 +610,13 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
           identity: this.data.id,
           name: this.data.name,
           price: this.data.price,
+          originprice:this.data.originprice,
+          quality:this.data.quality,
           propic: {"pics":pictures},
           ishot:0,
           isswiper:0,
           typeid:this.data.typeid,
+          post_type:this.data.post_type,
           hotdatetime:this.formatDateTime(new Date()),
           description:this.data.discript,
           university:this.data.uid,
@@ -553,10 +681,13 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
           identity: datacount,
           name: this.data.name,
           price: this.data.price,
+          originprice:this.data.originprice,
+          quality:this.data.quality,
           propic: {"pics":pictures},
           ishot:0,
           isswiper:0,
           typeid:this.data.typeid,
+          post_type:this.data.post_type,
           hotdatetime:this.formatDateTime(new Date()),
           description:this.data.discript,
           university:this.data.uid,
@@ -599,10 +730,12 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     let discript=this.data.discript
     let loc=this.data.loc
     let price=this.data.price
+    let originprice=this.data.originprice
+    let quality=this.data.quality
     let storage=this.data.storageid
     let typeid=this.data.typeid
     let name=this.data.name
-
+    let post_type=this.data.post_type
     if(this.data.type==''){
       typeid=0
     }
@@ -613,6 +746,10 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     if(this.data.price==''){
       price=-1
     }
+    if(this.data.originprice==''){
+      originprice=-1
+    }
+
     if(this.data.method==''){
       storage=0
     }
@@ -629,11 +766,12 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
         duration: 2000
       });
     }else{
-
       console.log("name: ",this.data.name)
       console.log("type: ",typeid)
       console.log("loc: ",loc)
       console.log("price: ",price)
+      console.log("originprice: ",originprice)
+      console.log("quality: ",quality)
       console.log("storage: ",storage)
       console.log("开始上传")
       let datacount=0;
@@ -670,10 +808,13 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
               identity: this.data.id,
               name: this.data.name,
               price: price,
+              originprice:originprice,
+              quality:quality,
               propic: {"pics":pictures},
               ishot:0,
               isswiper:0,
               typeid:typeid,
+              post_type:post_type,
               hotdatetime:this.formatDateTime(new Date()),
               description:this.data.discript,
               university:this.data.uid,
@@ -722,10 +863,13 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
             identity: datacount,
             name: this.data.name,
             price: price,
+            originprice:originprice,
+            quality:quality,
             propic: {"pics":pictures},
             ishot:0,
             isswiper:0,
             typeid:typeid,
+            post_type:post_type,
             hotdatetime:this.formatDateTime(new Date()),
             description:this.data.discript,
             university:this.data.uid,
@@ -792,7 +936,7 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     });
   },
   
-  onPromote: function(){
+  onPromote(){
     var baseUrl=getBaseUrl()
     console.log("university: "+this.data.university)
     console.log(this.data.campus)
@@ -800,7 +944,10 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     console.log(this.data.pics)
     console.log(this.data.loc)
     console.log(this.data.price)
-    console.log(this.data.method)
+    console.log(this.data.originprice)
+    console.log(this.data.quality)
+    console.log(this.data.storageid)
+    console.log(this.data.post_type)
     if(this.data.university==''||this.data.university==undefined){
       wx.showToast({
         title: '请选择学校校区',
@@ -816,7 +963,7 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     }
     else if(this.data.name==''||this.data.discript==""||this.data.discript==undefined){
       wx.showToast({
-        title: '请输入商品名称/描述',
+        title: '请输入物品名称/描述',
         icon: 'none',
         duration: 2000
       });
@@ -829,7 +976,13 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
       
     }else if(this.data.price==''||this.data.price==-1){
       wx.showToast({
-        title: '请输入商品价格',
+        title: '请输入物品价格',
+        icon: 'none',
+        duration: 2000
+      });
+    }else if(this.data.quality==''){
+      wx.showToast({
+        title: '请输入物品成色',
         icon: 'none',
         duration: 2000
       });
@@ -839,24 +992,44 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
         icon: 'none',
         duration: 2000
       });
-    }else if(this.data.storageid==0&&!this.data.isconfirmed){
-      wx.showModal({
-        title: '',
-        content: '尚未加入群聊物品库，需要去添加么？',
-        complete: (res) => {
-          if (res.cancel) {
-            this.setData({
-              isconfirmed:true
-            })
+    }else if(!this.data.isconfirmed&&this.data.storage.length==0){
+      // console.log(this.data.)
+      if(this.data.storageNames.length==1){
+        wx.showModal({
+          title: '',
+          content: '尚未加入群聊物品库，需要去添加么？',
+          complete: (res) => {
+            if (res.cancel) {
+              this.setData({
+                isconfirmed:true
+              })
+            }
+        
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/storage/index',
+              })
+            }
           }
-      
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/storage/index',
-            })
+        })
+      }else{
+        wx.showModal({
+          title: '',
+          content: '可同步到加入的群聊物品库，需要去添加么？',
+          complete: (res) => {
+            if (res.cancel) {
+              this.setData({
+                isconfirmed:true
+              })
+            }
+        
+            if (res.confirm) {
+              
+            }
           }
-        }
-      })
+        })
+      }
+
       
     }else{
       this.handleUpload();
@@ -917,6 +1090,18 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
     console.log(e.detail.value);
     this.setData({
       price:e.detail.value
+    })
+  },
+  onOriginPriceInput: function(e){
+    console.log(e.detail.value);
+    this.setData({
+      originprice:parseFloat(e.detail.value)
+    })
+  },
+  onQualityInput: function(e){
+    console.log(e.detail.value);
+    this.setData({
+      quality:e.detail.value
     })
   },
   isIOS(){
@@ -1019,7 +1204,22 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
   })
   
   },
-  
+  deleteStorage(e){
+    const {index}=e.currentTarget.dataset;
+    let sto_del_name=this.data.storage[index];
+    let sto_del_id=this.data.storageid[index];
+    this.data.storage.splice(index,1);
+    this.data.storageid.splice(index,1);
+    this.data.storageNames.unshift(sto_del_name);
+    this.data.storageList.unshift(sto_del_id);
+    this.setData({
+      storageNames:this.data.storageNames,
+      storageList:this.data.storageList,
+      storageid:this.data.storageid,
+      storage:this.data.storage,
+      isconfirmed:this.data.storage.length==0?true:false
+    })
+  },
   /**删除图片 */
   deleteImg:function(e){
   let that=this;
@@ -1040,7 +1240,6 @@ requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid
   
   },
   onClickStorage(){
-
       wx.showModal({
         title: '',
         content: '尚未加入群聊物品库，需要去添加么？',

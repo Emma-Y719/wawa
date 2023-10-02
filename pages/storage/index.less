@@ -1,180 +1,78 @@
 page{
-  .keys{
-    
-    width: 85%;
-    height: 80rpx;
-    border-radius:40rpx;
-    background-color: rgba(242, 243, 248, 0.596);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20rpx;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    border:2rpx solid #88bb1e;
-    .city{
-      padding:30rpx;
-      width: 20%;
-      flex:1;
-      .location{
-        
-        .line{
-          // padding-left: 5rpx;
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          border-bottom: 1px solid red;
-          border-right: 1px solid red;
-          transform: rotate(45deg);
-          margin-bottom: 5rpx;
-        }
-      }
-    }
   
-    .type{
-      width: 80%;
-      flex:5;
-    }
-  
-  }
-  .cates{
-    width: 85%;
-    height: 80rpx;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20rpx;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-      .university{
-        padding:10rpx;
-        width: 20%;
-        flex:2;
-        
-        .line{
-          // padding-left: 5rpx;
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          border-bottom: 1px solid red;
-          border-right: 1px solid red;
-          transform: rotate(45deg);
-          margin-bottom: 5rpx;
-        }
-
-      }
-    
-
-      .campus{
-        width: 40%;
-        flex:3;
-        margin-left: 20rpx;
-        .line{
-          // padding-left: 5rpx;
-          display: inline-block;
-          width: 6px;
-          height: 6px;
-          border-bottom: 1px solid red;
-          border-right: 1px solid red;
-          transform: rotate(45deg);
-          margin-bottom: 5rpx;
-        }
-
-      }
-    
-    .sort{
-      width: 20%;
-      flex:2;
-      font-weight:500;
-      .line{
-        // padding-left: 5rpx;
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        border-bottom: 1px solid red;
-        border-right: 1px solid red;
-        transform: rotate(45deg);
-        margin-bottom: 5rpx;
-      }
-    }
-  
-  
-  }
+.back{
+  background-color: #f2f2f2;
   .createStorage{
-    height: 330rpx;
+    height: 180rpx;
     display: flex;
-    margin-top: 20rpx;
     margin-left: 25rpx;
     margin-right: 25rpx;
-    background-color: rgb(197, 197, 197);
+
     .dis{
-      flex:3;
       display: flex;
       flex-direction: column;
       margin-top: 30rpx;
       margin-left:20rpx;
-      padding-bottom: 50rpx;
-      width: 400rpx;
-      .title{
-        flex:1;
-        font-size: 40rpx;
-        height:50rpx;
-      }
+      padding-bottom: 30rpx;
+      width: 75%;
       .content{
-        flex:1;
         font-size: 24rpx;
-        margin-top: 40rpx;
+        font-family: '.AppleSystemUIFont';
+        color: #000000;
+        line-height: 28rpx;
+        text-align: left;
       }
       .cbtn{
-        font-size: 33rpx;
+        font-size: 24rpx;
         flex:1;
-        margin-top: 30rpx;
-        width: 320rpx;
-        height: 65rpx;
+        margin-top: 10rpx;
+        width: 250rpx;
+        height: 33rpx;
         text-align: center;
-        padding-top: 15rpx;
+        padding-top: 10rpx;
         align-items: center;
         justify-content: center;
-        background-color: #e2892d;
-        border-radius: 20rpx;
+        background-color: #87c03e;
+        border-radius: 10rpx;
       }
     }
 
     image{
-      flex:2;
+      width:120rpx;
       margin-top:30rpx;
       margin-left: 30rpx;
       margin-right: 30rpx;
-      border-radius: 30rpx;
+      border-radius: 10rpx;
     }
   }
+}
+
   .my{
-    margin-left: 20rpx;
-    margin-top: 30rpx;
-    font-size: 30rpx;
+    text-align: center;
+    font-size: 32rpx;
+    font-family: '.AppleSystemUIFont';
+    line-height: 36rpx;
+    color: #87c03f;
+    margin-top: 32rpx;
+
   }
   .storages{
 
    .storage_list{
      margin:20rpx;
-     height:160rpx;
-     border: rgb(211, 211, 211)solid 2rpx;
+     height:110rpx;
      border-radius: 10rpx;
      display:flex;
      align-items: center;
 
      navigator{
        display: flex;
-
        margin-left: 10rpx;
        align-items: center;
+       justify-content: space-between;
        image{
-        width: 100rpx;
-        height:100rpx;
+        width: 90rpx;
+        height:90rpx;
         border-radius:20rpx;
          border-radius: 20rpx;
          background-color: #fff;
@@ -182,7 +80,7 @@ page{
        }
        .middle{
         display: flex;
-        width: 395rpx;
+        width: 425rpx;
         flex-direction: column;
         justify-content: space-around;
         margin-left: 15rpx;
@@ -190,28 +88,38 @@ page{
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: 35rpx;
-          font-weight: 500;
+          font-size: 32rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 36rpx;
+          color: #333333;
         }
-        .storage_price{
-          margin-top:20rpx;
-          padding-bottom: 10rpx;
+        .info{
+          margin-top: 20rpx;
+          font-size: 24rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 30rpx;
+          color: #979797;
         }
       }
       .right{
-        flex:1;
-        margin-left: 20rpx;
+        margin-left: 40rpx;
         navigator{
-          background-color: #88bb1e;
-          height:60rpx;
-          width:150rpx;
+          padding: 8rpx 0;
+          background-color: #87c03e;
+          border-radius: 10rpx;
+          width: 120rpx;
+          height: 44rpx;
+   
           margin-top: 10rpx;
           border-radius: 20rpx;
           display: flex;
           align-items: center;
           text-align: center;
           justify-content: center;
-          font-size: 32rpx;
+          font-size: 28rpx;
+          font-family: '.AppleSystemUIFont';
+          line-height: 30rpx;
+          color: #ffffff;
         }
         
       }
@@ -222,34 +130,39 @@ page{
   .search{
     margin-top: 30rpx;
     text{
-      margin-left: 20rpx;
-      margin-top: 30rpx;
-      font-size: 30rpx;
+      text-align: center;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      font-size: 32rpx;
+      font-family: '.AppleSystemUIFont';
+      line-height: 36rpx;
+      color: #87c03f;
+      margin-top: 32rpx;
     }
     .storage_list{
       margin:20rpx;
-      height:160rpx;
-      border: rgb(211, 211, 211)solid 2rpx;
+      height:110rpx;
       border-radius: 10rpx;
       display:flex;
       align-items: center;
  
       navigator{
         display: flex;
- 
         margin-left: 10rpx;
         align-items: center;
+        justify-content: space-between;
         image{
-            width: 100rpx;
-            height:100rpx;
-            border-radius:20rpx;
-          
+         width: 90rpx;
+         height:90rpx;
+         border-radius:20rpx;
+          border-radius: 20rpx;
           background-color: #fff;
           box-shadow: -2px 8px 15px -12px rgba(100, 120, 120, 1);
         }
         .middle{
          display: flex;
-         width: 395rpx;
+         width: 425rpx;
          flex-direction: column;
          justify-content: space-around;
          margin-left: 15rpx;
@@ -257,28 +170,38 @@ page{
            white-space: nowrap;
            overflow: hidden;
            text-overflow: ellipsis;
-           font-size: 35rpx;
-           font-weight: 500;
+           font-size: 32rpx;
+           font-family: '.AppleSystemUIFont';
+           line-height: 36rpx;
+           color: #333333;
          }
-         .storage_price{
-           margin-top:20rpx;
-           padding-bottom: 10rpx;
+         .info{
+           margin-top: 20rpx;
+           font-size: 24rpx;
+           font-family: '.AppleSystemUIFont';
+           line-height: 30rpx;
+           color: #979797;
          }
        }
        .right{
-         flex:1;
-         margin-left: 20rpx;
+         margin-left: 40rpx;
          navigator{
-           background-color: #88bb1e;
-           height:60rpx;
-           width:150rpx;
+           padding: 8rpx 0;
+           background-color: #87c03e;
+           border-radius: 10rpx;
+           width: 120rpx;
+           height: 44rpx;
+    
            margin-top: 10rpx;
            border-radius: 20rpx;
            display: flex;
            align-items: center;
            text-align: center;
            justify-content: center;
-           font-size: 32rpx;
+           font-size: 28rpx;
+           font-family: '.AppleSystemUIFont';
+           line-height: 30rpx;
+           color: #ffffff;
          }
          
        }

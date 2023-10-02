@@ -1,0 +1,28 @@
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2">
+    <view class="flex-col space-y-12">
+      <text class="self-start font_1 text_3">请问您遇到了什么问题？</text>
+      <view class="flex-col justify-start items-start text-wrapper">
+        <text class="font_2 text_4">就留短发健康受到激发教师的解sda啊实打实的</text>
+      </view>
+    </view>
+    <view class="flex-col group_3">
+      <view class="self-start group_4">
+        <text class="font_3">或者</text>
+        <text class="font_1">您有什么好建议？</text>
+      </view>
+      <view class="flex-col justify-start items-center text-area group_5">
+        <image
+          class="shrink-0 image_5"
+          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946168372686500094.png"
+        />
+        <text class="font_2 text_5 pos">就留短发健康受到激发教师的asdfasdfasdfa啊实打实的</text>
+      </view>
+    </view>
+    <view class="flex-col justify-start items-center button text-wrapper_2">
+      <text class="font_2 text_6">一键反馈到后台</text>
+    </view>
+    <text class="font_3 text_7">感谢您让蛙蛙变得更好!</text>
+  </view>
+  <custom-tabbar id="custom-tabbar"bind:componentReady="onComponentReady"></custom-tabbar>
+</view>

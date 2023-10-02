@@ -75,17 +75,14 @@ Page({
     this.setData({
       baseUrl
     });
-
-
-
     this.setData({
       university:app.globalData.userInfo.university,
       campus:app.globalData.userInfo.campus,
       uid:app.globalData.user.uid,
       cid:app.globalData.user.cid,
     })
-    this.searchStorageList();
-    this.searchMulti()
+    // this.searchStorageList();
+    //this.searchMulti()
   },
   async searchStorageList(e){
     console.log(app.globalData.user.storage)
@@ -142,6 +139,22 @@ Page({
     //   }
     // });
   },
+  joinstorage(e){
+    console.log(e);
+   
+    const {index}=e.currentTarget.dataset;
+    console.log(index);
+    app.globalData.user.storage.push(this.data.searchStorageList[index])
+    this.data.searchStorageList.splice(index,1)
+    requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+      if (res){
+        this.setData({
+          searchStorageList:this.data.searchStorageList,
+          storageList:app.globalData.user.storage
+        })
+      }
+    })
+  },
   ontypeInput(e){
     this.setData({
       type:e.detail.value
@@ -153,11 +166,27 @@ Page({
   async searchMulti(e){
     var searchUniversityIndex=app.globalData.searchUniversityIndex;
     var searchCampusIndex=app.globalData.searchCampusIndex;
+    var storageInId=[];
+    app.globalData.user.storage.forEach(function(value,index,array){
+      storageInId.push(value.identity);
+    })
     console.log("indices: "+this.data.uid+" , "+this.data.cid);
     requestUtil({url:'/storage/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
       console.log("lists multi",result.message);
+      var storageIn=[];
+      var storageNotIn=[];
+      result.message.forEach(function(value,index,array){
+        // console.log(app.globalData.user.storage);
+        if(storageInId.includes(value.identity)){
+          storageIn.push(value);
+        }else{
+          storageNotIn.push(value);
+        }
+      })
+
       this.setData({
-        searchStorageList:result.message
+        storageList:storageIn,
+        searchStorageList:storageNotIn
       })
     })
     // if(searchCampusIndex!=-1){
@@ -222,8 +251,8 @@ Page({
    */
   onShow() {
     console.log("university: ",this.data.university)
-    this.searchStorageList();
-    this.searchMulti();
+    // this.searchStorageList();
+     this.searchMulti();
   },
 
   /**

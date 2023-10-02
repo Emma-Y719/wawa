@@ -36,6 +36,12 @@ Page({
     })
 
   },
+
+  navigateBack: function () {
+    wx.navigateBack({
+      delta: 1
+    });
+  },
   onRemove(e){
     let id=e.currentTarget.dataset.id;
     let productObj=this.data.cart[id]
@@ -50,8 +56,10 @@ Page({
     
         if (res.confirm) {
           let that=this;
+
+
             var newFav = app.globalData.user.favorite.filter(function(element) {
-              return element.identity!= productObj.identity&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
+              return element!= productObj.identity&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
             });
             console.log(newFav);
             app.globalData.user.favorite=newFav
@@ -59,6 +67,10 @@ Page({
               if(res){
                 this.getFavorites();
               }
+            })
+            productObj.focus = productObj.focus-1;
+            requestUtil({url:"/product/update",method:"POST",data:productObj}).then(res=>{
+              // console.log(res.message)
             })
           // let index=app.globalData.user.favorite.findIndex(v=>v.identity==productObj.identity);
           // console.log("result: ",index)
@@ -260,17 +272,30 @@ Page({
 
   },
   async getFavorites(){
-    // requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
-    //   // console.log(res.message)
-    //   let favlist=res.message[0].favorite;
-    //   console.log(res.message)
-    //   this.setData({
-    //     cart:favlist
-    //   })
-    // })
-    this.setData({
-      cart:app.globalData.user.favorite
-    })
+    var cart = [];
+    const favorite = app.globalData.user.favorite; // 假设这是您的收藏数组
+    
+    async function fetchData(id) {
+      try {
+        const res = await requestUtil({ url: "/product/findId", method: "GET", data: { id } });
+        return res.message;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+ 
+      for (const value of favorite) {
+        const product = await fetchData(value);
+        if (product) {
+          cart.push(product[0]);
+        }
+      }
+      this.setData({
+        cart: cart
+      });
+    
+      console.log(cart);
   },
   /**
    * 生命周期函数--监听页面显示

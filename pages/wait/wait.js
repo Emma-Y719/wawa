@@ -1,16 +1,4 @@
 // pages/wait/wait.js
-import {
-  getBaseUrl,
-  getWxLogin,
-  getUserProfile,
-  requestPay,
-  requestUtil
-}from '../../utils/requestUtil.js';
-import regeneratorRuntime from '../../lib/runtime/runtime';
-wx.cloud.init();
-const db=wx.cloud.database()
-// 获取应用实例 
-const app = getApp()
 Page({
 
   /**
@@ -31,12 +19,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    setTimeout(() => {
-      wx.reLaunch({
-        url: '/pages/index/index',
-      })
-    }, 1000);
-
+    // setTimeout(() => {
+    //   wx.reLaunch({
+    //     url: '/pages/index/index',
+    //   })
+    // }, 1000);
   },
 
   /**

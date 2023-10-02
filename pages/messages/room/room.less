@@ -1,0 +1,101 @@
+.custom-nav-bar {
+  //height: 11%; /* 设置导航栏的高度 */
+  position: fixed;left: 5%; top: 6.5%; 
+  //background-color: transparent; /* 设置导航栏的背景颜色 */
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 35%;
+  z-index: 999; /* 设置层级，确保位于其他内容之上 */
+  .backicon {
+    width: 50rpx;
+  }  
+  .title{
+    margin-left: 30rpx;
+    font-size: 33rpx;
+  }
+}
+.fixinfo{
+  position: fixed;
+  width: 100%; /* 宽度占满整个页面 */
+  background-color: #fff; /* 背景颜色 */
+  z-index: 99; /* 设置层级，确保位于其他内容之上 */
+  .productinfo{
+    
+    display: flex;
+    margin-left: 40rpx;
+    margin-top: 25%;
+    image{
+      border-radius: 20rpx;
+      width: 120rpx;
+      height: 120rpx;
+    }
+    .other{
+      margin-left: 50rpx;
+      width: 50%;
+      .infos{
+        display: flex;
+        .title{
+          font-size: 30rpx;
+        }
+        .status{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          font-size: 25rpx;
+          font-weight: 500;
+          margin-left: 30rpx;
+        }
+      }
+  
+      .price{
+        font-size: 20rpx;
+      }
+      .university{
+        font-size: 20rpx;
+      }
+      .campus{
+        font-size: 20rpx;
+      }
+    }
+    .statusInfo{
+      width: 120rpx;
+      .complete{
+        margin-top: 50rpx;
+        padding: 4rpx 0;
+        background-color: #87c03e;
+        border-radius: 10rpx;
+        height: 60rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24rpx;
+        font-family: '.AppleSystemUIFont';
+        line-height: 30rpx;
+        color: #ffffff;
+      }
+    }
+  
+  }
+  .warn{
+    margin-top: 2%;
+    font-size: 24rpx;
+    background-color:rgb(247, 157, 53);
+    height: 60rpx;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.container {
+  height: 100%;
+  position: relative;
+  top: 22%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80rpx;
+}

@@ -1,23 +1,33 @@
 {
   "pages": [
     "pages/my/history/index",
-    "pages/wait/id",
     "pages/wait/wait",
+    "pages/my/create/login",
+    "pages/favorite/index",
+    "pages/tools/util",
+    "pages/wait/id",
+    "pages/map/map",
+    "pages/map/mix",
+    "pages/map/post",
+    "pages/map/seek",
+    "pages/my/feedback",
+    "pages/promote/pre",
 
     "pages/index/index",
     "pages/storage/create/login",
-    "pages/example/chatroom_example/im",
+
     "pages/storage/create/success",
     "pages/storage/index",
  
     "pages/storage/create/info/index",
-    "pages/index/location",
-    "pages/favorite/index",
+    
     "pages/category/index",
     "pages/my/index",
     "pages/my/detail",
-    "pages/example/chatroom_example/message",
-    "pages/my/create/login",
+
+    "pages/messages/message",
+    "pages/messages/room/room",
+
     "pages/search/index",
     "pages/search/campus",
     "pages/search/location",
@@ -26,9 +36,7 @@
     "pages/product_detail/index",
     "pages/promote/index",
     "pages/shopMap/shopMap",
-    "pages/storage/detail",
-    "pages/example/chatroom_example/room/room",
-    "pages/repair/index"
+    "pages/storage/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -45,7 +53,11 @@
   "mp-weixin": {
     "request": {
       "scope.userInfo": true
-    }
+    },
+    "__usePrivacyCheck__": true
+  },
+  "usingComponents": {
+    "Privacy": "/components/privacyPopup/privacyPopup"
   },
 
   "style": "v2",

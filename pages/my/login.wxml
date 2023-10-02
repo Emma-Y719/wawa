@@ -1,0 +1,126 @@
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2">
+    <view class="flex-col items-center space-y-5">
+      <text class="font_2">Hi~小蛙！</text>
+      <text class="font_2">来填写注册吧~</text>
+    </view>
+    <view class="flex-col group_3 space-y-32">
+      <button class="avatarbtn"
+        open-type="chooseAvatar"
+        bindchooseavatar="onChooseAvatar"
+  >
+        <image class="avatar" mode="widthFix" src="{{avatarUrl}}"></image>
+        <view class="pic">设置头像</view>
+  </button>
+      <view class="flex-col section_2">
+        <view class="flex-col">
+          <view class="flex-row justify-between group_4">
+            <text class="font_3">昵称</text>
+            <view class="flex-row items-center space-x-3">
+              <input style="width: 486rpx; height: 64rpx; display: block; box-sizing: border-box" type="nickname" 
+              name="nickName"
+              class="nickname-input" 
+              placeholder="微信昵称" 
+              bindinput="nameInput"
+              bindKeyInput="bindKeyInput"
+              input value="{{nickName}}"
+              />
+              <image
+                class="shrink-0 image_6"
+                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+              />
+            </view>
+          </view>
+          <view class="divider"></view>
+        </view>
+        <view class="flex-col">
+          <view class="flex-row justify-between group_5">
+            <text class="font_3">学校</text>
+            <view class="flex-row items-center space-x-4">
+              <text class="font_4">南京信息工程大学</text>
+              <image
+                class="shrink-0 image_6"
+                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+              />
+            </view>
+          </view>
+          <view class="divider"></view>
+        </view>
+        <view class="flex-row justify-between group_5">
+          <text class="font_3">校区</text>
+          <view class="flex-row items-center space-x-3">
+            <text class="font_4">四牌楼校区</text>
+            <image
+              class="shrink-0 image_6"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+            />
+          </view>
+        </view>
+        <view class="divider"></view>
+        <view class="flex-row justify-between group_5">
+          <text class="font_3">年级</text>
+          <view class="flex-row items-center">
+            <text class="font_4">研二</text>
+            <image
+              class="shrink-0 image_6"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+            />
+          </view>
+        </view>
+        <view class="divider"></view>
+        <view class="flex-row justify-between group_5">
+          <text class="font_3">毕业时间</text>
+          <view class="flex-row items-center space-x-5">
+            <text class="font_4">2024</text>
+            <image
+              class="shrink-0 image_6"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+            />
+          </view>
+        </view>
+        <view class="flex-col">
+          <view class="divider"></view>
+          <view class="flex-row justify-between items-center group_5">
+            <text class="font_3">学号验证</text>
+            <view class="flex-row items-center space-x-5">
+              <text class="font_4">请输入您的学号</text>
+              <image
+                class="shrink-0 image_6"
+                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+              />
+              <view class="flex-col justify-start shrink-0 text-wrapper">
+                <text class="font_1 text_2">点击验证</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="flex-col">
+          <view class="divider"></view>
+          <view class="flex-row items-center group_5">
+            <text class="font_3">手机验证</text>
+            <text class="font_4 text_3">请输入您的手机号</text>
+            <image
+              class="shrink-0 image_6 image_7"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+            />
+            <view class="flex-col justify-start shrink-0 text-wrapper_2">
+              <text class="font_1 text_4">获取验证码</text>
+            </view>
+          </view>
+        </view>
+        <view class="flex-col">
+          <view class="divider"></view>
+          <view class="flex-row justify-end items-center group_6 space-x-5-reverse">
+            <text class="font_4">请输入验证码</text>
+            <image
+              class="image_6"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+            />
+            <view class="flex-col justify-start text-wrapper_3"><text class="font_1 text_5">点击验证</text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="flex-col justify-start items-center button text-wrapper_4"><text class="text_6">注册</text></view>
+  </view>
+</view>

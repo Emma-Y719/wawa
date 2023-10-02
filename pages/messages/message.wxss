@@ -1,0 +1,205 @@
+page .typeContainer {
+  display: flex;
+  position: fixed;
+  top: 2%;
+  left: 5%;
+  width: 90%;
+  padding: 18rpx 12rpx 8rpx;
+  background-color: #f2f2f2;
+  border-radius: 20rpx;
+}
+page .typeContainer .type {
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+page .typeContainer .type .img {
+  display: flex;
+}
+page .typeContainer .type .img .tixing {
+  width: 20rpx;
+}
+page .typeContainer .type .img image {
+  width: 80rpx;
+  height: 80rpx;
+}
+page .typeContainer .type text {
+  margin-top: 5rpx;
+  margin-bottom: 5rpx;
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .chatList {
+  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+page .chatList .chat {
+  margin-top: 30rpx;
+  background-color: #fcfcfc;
+  border-radius: 20rpx;
+  display: flex;
+}
+page .chatList .chat .tixing {
+  width: 20rpx;
+}
+page .chatList .chat .userPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+}
+page .chatList .chat navigator {
+  display: flex;
+}
+page .chatList .chat navigator .middle {
+  margin-left: 20rpx;
+  width: 330rpx;
+}
+page .chatList .chat navigator .middle .title .chat_name {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .chatList .chat navigator .middle .title .chat_campus {
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+}
+page .chatList .chat navigator .middle .chat_message {
+  margin-top: 5rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .chatList .chat navigator .date {
+  margin-right: 10rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .chatList .chat navigator .date .time {
+  margin-top: 40rpx;
+}
+page .chatList .chat navigator .right .productPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 20rpx;
+}
+page .focusList {
+  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+page .focusList .focus {
+  margin-top: 30rpx;
+  background-color: #fcfcfc;
+  border-radius: 20rpx;
+  display: flex;
+}
+page .focusList .focus .tixing {
+  width: 20rpx;
+}
+page .focusList .focus .userPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+}
+page .focusList .focus navigator {
+  display: flex;
+}
+page .focusList .focus navigator .middle {
+  margin-left: 20rpx;
+  width: 330rpx;
+}
+page .focusList .focus navigator .middle .title .chat_name {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .focusList .focus navigator .middle .title .chat_campus {
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+}
+page .focusList .focus navigator .middle .chat_message {
+  margin-top: 5rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .focusList .focus navigator .date {
+  margin-right: 10rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .focusList .focus navigator .date .time {
+  margin-top: 40rpx;
+}
+page .focusList .focus navigator .right .productPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 20rpx;
+}
+page .systemList {
+  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+page .systemList .system {
+  margin-top: 30rpx;
+  background-color: #fcfcfc;
+  border-radius: 20rpx;
+  display: flex;
+}
+page .systemList .system .tixing {
+  width: 20rpx;
+}
+page .systemList .system .userPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+}
+page .systemList .system navigator {
+  display: flex;
+}
+page .systemList .system navigator .middle {
+  margin-left: 20rpx;
+  width: 330rpx;
+}
+page .systemList .system navigator .middle .title .chat_name {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .systemList .system navigator .middle .title .chat_campus {
+  display: flex;
+  align-items: center;
+  font-size: 20rpx;
+}
+page .systemList .system navigator .middle .chat_message {
+  margin-top: 5rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .systemList .system navigator .date {
+  margin-right: 10rpx;
+  font-size: 22rpx;
+  color: #6b6b6b;
+}
+page .systemList .system navigator .date .time {
+  margin-top: 40rpx;
+}
+page .systemList .system navigator .right .productPic {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 20rpx;
+}
+page .bottom {
+  height: 200rpx;
+}

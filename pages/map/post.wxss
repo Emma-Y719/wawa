@@ -1,0 +1,272 @@
+.page {
+  background-color: #fafafa;
+  overflow: hidden;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.font_1 {
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #000000;
+}
+.font_2 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+}
+.group_2 {
+  padding: 20rpx 40rpx 0;
+  overflow-y: auto;
+}
+.text_2 {
+  -webkit-text-stroke: 0px #000000;
+}
+.image_5 {
+  width: 20rpx;
+  height: 12rpx;
+}
+.group_3 {
+  overflow: hidden;
+  width: 146rpx;
+  height: 28rpx;
+}
+.group_4 {
+  overflow: hidden;
+  width: 170rpx;
+  height: 28rpx;
+}
+.space-x-3 > view:not(:first-child),
+.space-x-3 > text:not(:first-child),
+.space-x-3 > image:not(:first-child) {
+  margin-left: 6rpx;
+}
+.group_5 {
+  padding-bottom: 678rpx;
+  height: 1248rpx;
+}
+.section_2 {
+  padding: 16rpx 20rpx;
+  background-color: #ffffff;
+  width: 320rpx;
+}
+.space-x-5 > view:not(:first-child),
+.space-x-5 > text:not(:first-child),
+.space-x-5 > image:not(:first-child) {
+  margin-left: 10rpx;
+}
+.font_3 {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 44rpx;
+  color: #000000;
+}
+.group_6 {
+  height: 134rpx;
+}
+.font_4 {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+}
+.text_3 {
+  text-align: left;
+}
+.group_7 {
+  margin-top: -10rpx;
+}
+.text_4 {
+  text-align: left;
+}
+.group_8 {
+  margin-top: 36rpx;
+}
+.image_6 {
+  width: 28rpx;
+  height: 26rpx;
+}
+.image_7 {
+  width: 28rpx;
+  height: 24rpx;
+}
+.section_3 {
+  background-color: #979797;
+  width: 320rpx;
+  height: 320rpx;
+}
+.pos_3 {
+  position: absolute;
+  left: 0;
+  top: 250rpx;
+}
+.pos_2 {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.section_4 {
+  padding: 14rpx 20rpx 20rpx;
+  background-color: #ffffff;
+  width: 320rpx;
+}
+.space-y-9 > view:not(:first-child),
+.space-y-9 > text:not(:first-child),
+.space-y-9 > image:not(:first-child) {
+  margin-top: 18rpx;
+}
+.pos_4 {
+  position: absolute;
+  right: 0;
+  top: 320rpx;
+}
+.text_5 {
+  text-align: left;
+}
+.group_9 {
+  padding-bottom: 518rpx;
+}
+.pos_5 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 500rpx;
+}
+.section_6 {
+  margin-top: 70rpx;
+  padding: 14rpx 0 110rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  height: 160rpx;
+}
+.section_5 {
+  margin-left: 30rpx;
+  padding: 20rpx 20rpx 78rpx;
+  flex: 1 1 320rpx;
+  background-color: #ffffff;
+  height: 230rpx;
+}
+.text_6 {
+  text-align: left;
+}
+.grid {
+  height: 577rpx;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 35rpx;
+  column-gap: 32rpx;
+}
+.pos_6 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 153rpx;
+}
+.group_10 {
+  margin: -16rpx 20rpx 0;
+}
+.text_7 {
+  text-align: left;
+}
+.section_7 {
+  padding: 16rpx 20rpx;
+  background-color: #ffffff;
+}
+.view {
+  margin: 40rpx 0 -12rpx;
+}
+.text_9 {
+  text-align: left;
+}
+.text_11 {
+  text-align: left;
+}
+.group_11 {
+  margin: -12rpx 20rpx 0;
+}
+.text_8 {
+  text-align: left;
+}
+.group_12 {
+  margin-top: 36rpx;
+}
+.space-x-6 > view:not(:first-child),
+.space-x-6 > text:not(:first-child),
+.space-x-6 > image:not(:first-child) {
+  margin-left: 12rpx;
+}
+.view_2 {
+  margin: 36rpx 0 -12rpx;
+}
+.text_10 {
+  text-align: left;
+}
+.text_12 {
+  text-align: left;
+}
+.grid-item {
+  padding: 16rpx 4rpx;
+  background-color: #ffffff;
+}
+.space-y-8 > view:not(:first-child),
+.space-y-8 > text:not(:first-child),
+.space-y-8 > image:not(:first-child) {
+  margin-top: 16rpx;
+}
+.pos {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.text_13 {
+  text-align: left;
+}
+.text_14 {
+  text-align: left;
+}
+.section_8 {
+  background-color: #979797;
+  width: 320rpx;
+  height: 248rpx;
+}
+.pos_7 {
+  position: absolute;
+  right: 0;
+  top: 500rpx;
+}
+.tab-bar {
+  padding: 16rpx 80rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166716201389352.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.image_8 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_9 {
+  margin-top: 44rpx;
+}
+.image_10 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
+.image-wrapper {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_11 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_12 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}

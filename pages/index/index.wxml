@@ -4,19 +4,15 @@
 
   <view class="custom-nav-bar">
     <text class="text">
-      Hello~Here！
+      Hi～小蛙
     </text>
   </view>
-
-  <view>
-    <SearchBar></SearchBar>
+  <view class="background">
+  
   </view>
 
 <view class="hello">
-  Hi~ 小蛙
-</view>
-<view class="introduce">
-  重要提示：请点开底部导航栏的聊天，始终允许“私聊消息通知”，这样才能在小程序外收到买家咨询的消息提醒，及时将物品卖出。
+  九月开学季
 </view>
 
 <view class="info">
@@ -26,27 +22,26 @@
       <div class="line"></div>
     </navigator>
 
-
    </view>
    <view class="type" >
     <input class="key" bindinput="onInput" placeholder='显示器' value="{{isDefault ==true ? '':type}}"></input>
    </view>
-   <image src="/icons/wawa.png" mode="scaleToFill" class="logo"></image>
-
-   <navigator url="/pages/search/index">
-    <view class="btn" bindtap="handleSearch">
-      <icon type="search" size="18"></icon>
-     Wa 一下~
-    </view>
-  </navigator>
 
  </view>
+ <image src="/icons/wawa.png" mode="scaleToFill" class="logo"></image>
+ <navigator url="/pages/search/index">
+    <view class="btn" bindtap="handleSearch">
+      <image src="/images/search.png" mode="widthFix"></image>
+     Wa一下
+    </view>
+  </navigator>
 </view>
 
   <!-- 商品大类与随便逛逛一行 -->
   <view class="index_bigType">
     <!-- 商品大类-->
-    <view class="bigTypeRow">
+    <view class="rows">
+      <view class="bigTypeRow">
     <navigator 
       bindtap="handleTypeJump"
       data-index="{{index}}"
@@ -57,17 +52,27 @@
       <text>{{bigType.name}}</text>
     </navigator>
     </view>
+    <view class="bigTypeRow">
+    <navigator 
+      bindtap="handleTypeJump2"
+      data-index="{{index}}"
+      wx:for="{{bigTypeList_row2}}"  
+      wx:for-item="bigType" 
+      wx:key="id">
+      <image mode="widthFix"src="{{'/images/'+bigType.image}}"></image>
+      <text>{{bigType.name}}</text>
+    </navigator>
+    </view>
 
-    <!-- 商品推荐开始-->
+    </view>
+
+
     <view class="hotIntro">
       <navigator url="/pages/search/index?uid={{uid}}&cid={{cid}}"class="titles">
         <view class="icon">
-          <image src="/images/address.png" mode="widthFix"></image>
+          <image src="/images/home_loc.png" mode="widthFix"></image>
         </view>
-        <view class="right">
-              <view  class="btn">
-              随便逛逛
-            </view>
+        <view class="middle">
             <view class="uni_title">
               {{locuni}}
             </view>
@@ -75,62 +80,119 @@
               {{loccam}}
             </view>
         </view>
+        <view class="bottom">
+              <view  class="btn">
+              随便逛逛
+              </view>
+              <image class="enter" src="/images/enter.png" mode="widthFix" class="enter"/>
+
+        </view>
        
 
       </navigator>
     </view>
   </view>
   
- <!-- 群聊与轮播图一行 -->
- <view class="next_hang">
+ <!-- 展示 -->
+ <view class="display_line">
     <!-- 二手群聊 -->
-    <navigator url="/pages/storage/index"class="chat_cecond_container">
-      <view class="icon">
-        <image src="/images/msg_index.png" mode="widthFix"></image>
+    <navigator url="/pages/storage/index"class="container_">
+        <view class="chat_row">
+        <view 
+        data-index="{{index}}"
+        wx:for="{{chat_row1}}"  
+        wx:for-item="chat" 
+        wx:key="id">
+          <image mode="widthFix"src="{{chat.pic}}"></image>
+        </view>
+        </view>
+        <view class="chat_row">
+          <view 
+        data-index="{{index}}"
+        wx:for="{{chat_row2}}"  
+        wx:for-item="chat" 
+        wx:key="id">
+          <image mode="widthFix"src="{{chat.pic}}"></image>
+        </view>
+        </view>
+      <view class="bottom">
+        <view class="icon">
+        <image src="/images/home_chat.jpg" mode="widthFix"></image>
       </view>
-
-      <view  class="chat_cecond_text">
+      <view  class="content_text">
         常用二手群聊
       </view>
+      </view>
+
     </navigator>
 
-    <!-- 轮播图开始 -->
+    <navigator url="/pages/storage/index"class="container_">
+      <view class="display">
+      <view 
+        data-index="{{index}}"
+        wx:for="{{displaySeek}}"  
+        wx:for-item="seek" 
+        wx:key="id" class="row">
+          <image mode="aspectFill"src="{{seek.propic.pics[0]}}"></image>
+          <view class="title">
+          {{seek.name}}
+          </view>
+      </view>
+     </view>
+      <view class="bottom">
+        <view class="icon">
+        <image src="/images/home_seek.jpg" mode="widthFix"></image>
+      </view>
+      <view  class="content_text">
+        求购
+      </view>
+      </view>
+
+    </navigator>
+
+    <navigator url="/pages/storage/index"class="container_">
+
+     <view class="display">
+      <view 
+        data-index="{{index}}"
+        wx:for="{{displayPost}}"  
+        wx:for-item="post" 
+        wx:key="id" class="row">
+          <image mode="aspectFill"src="{{post.propic.pics[0]}}"></image>
+          <view class="title">
+          {{post.name}}
+          </view>
+      </view>
+     </view>
+
+      <view class="bottom">
+        <view class="icon">
+        <image src="/images/home_post.jpg" mode="widthFix"></image>
+      </view>
+      <view  class="content_text">
+        租房·发帖
+      </view>
+      </view>
+
+    </navigator>
+
+
+   <!-- <ad-custom unit-id="adunit-caf0606067334e7e"></ad-custom> -->
+  </view>
+
+  <view class="display">
+   <!-- 群聊与轮播图一行 -->
     <view class="index_swiper">
-      <swiper autoplay indicator-dots circular style="width: 433rpx; height: 222rpx; display: block; box-sizing: border-box">
+      <swiper autoplay indicator-dots circular>
          <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
          <navigator url="/pages/product_detail/index?id={{swiper.identity}}">
              <image src="{{swiper.propic.pics[0]}}"mode="aspectFill"></image>
-             <view class="swiperinfo">
-               <view class="title">
-                 {{swiper.name}}
-               </view>
-               <view class="storage" wx:if="{{item.storage!=0}}">
-                 <!-- <image src="/images/msg_index.png" mode="widthFix"/> -->
-                 <text>{{storageList[item.storage].name}}</text>
-                 
-               </view>
-               <view class="price">
-                 ¥{{swiper.price}}
-               </view>
-    
-               <view class="swiper_university">
-                 {{campuses[swiper.campus].name}}
-               </view>
-               <view class="swiper_campus">
-                 {{campuses[swiper.campus].campus}}
-               </view>
-             </view>
-
           </navigator>
           </swiper-item>
        </swiper>
    </view>
-   <!-- <ad-custom unit-id="adunit-caf0606067334e7e"></ad-custom> -->
-  </view>
-
-
-  <!-- 这是地图部分 -->
-  <view bindtap="onClickMap"class="map_container">
+     <!-- 这是地图部分 -->
+   <view bindtap="onClickMap"class="map_container">
     <map class='map' longitude='{{longitude}}' latitude='{{latitude}}' scale='{{scale}}' markers='{{markers}}' controls="{{controls}}" bindcontroltap="bindcontroltap" polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
       show-location>
 
@@ -138,5 +200,52 @@
 
   </view>
 
+  </view>
+
+    <!-- 商品推荐开始-->
+  <view class="commend">
+    <view class="title">
+    为您推荐-最新上架
+    </view>
+    <view class="camloc">
+      -{{locuni}}-{{loccam}}-
+    </view>
+    <view class="products">
+      <view class="product_list">
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
+        <view class="product_card"
+          wx:for="{{hotProductList}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}-{{campuses[product.campus].campus}}
+            </view>
+            <view class="distance">
+               1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="{{isFavorite[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addChat"/>
+          </view>
+        </view>
+        </view>
+      </view>   
+    </view>
+  </view>
+  <view class="bottom">
+  </view>
+  
   <custom-tabbar id="custom-tabbar"bind:componentReady="onComponentReady"></custom-tabbar>
 </page>

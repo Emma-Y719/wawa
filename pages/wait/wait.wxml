@@ -1,6 +1,13 @@
-<view style="width: 375px; height: 812px; position: relative; background: white">
-  <image class="Rectangle665" style="width: 174px; height: 138px; left: 100px; top: 202px; position: absolute" src="/icons/wawa.png" mode="aspectFit"/>
-  <view style="width: 170px; height: 25px; left: 102px; top: 358px; position: absolute; color: black; font-size: 17px; font-family: Noto Sans SC; font-weight: 400; line-height: 19px; word-wrap: break-word">蛙蛙二手群交易物品库</view>
-  <view style="left: 114px; top: 680px; position: absolute; color: #979797; font-size: 12px; font-family: Noto Sans SC; font-weight: 400; line-height: 14px; word-wrap: break-word">南京尺牍科技文化有限公司</view>
-  <view class="Copyright" style="left: 122px; top: 666px; position: absolute; color: #979797; font-size: 12px; font-family: Noto Sans SC; font-weight: 400; line-height: 14px; word-wrap: break-word">Copyright     巴拉巴拉巴拉</view>
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2 space-y-22">
+    <image
+      class="image_5"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166363816513310.png"
+    />
+    <view class="flex-col group_3 space-y-277">
+      <text class="font_1">旧物新生，“挖挖”有宝</text>
+      <text class="font_1">蛙蛙二手群交易物品库</text>
+    </view>
+  </view>
+  <Privacy id="privacy"/>
 </view>
