@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "me-waterfall-item": "/components/waterfall-item/index",
     "custom-tabbar": "/components/custom-tabbar/custom-tabbar"
   },
   "navigationBarTextStyle": "black",

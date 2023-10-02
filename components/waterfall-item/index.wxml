@@ -1,4 +1,0 @@
-<view class="me-waterfall-item custom-class"
-      style="top:{{top}}px;left:{{left}}px;width:{{width}}px;visibility:{{visibility}}">
-    <slot/>
-</view>
