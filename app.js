@@ -22,10 +22,24 @@ App({
     //   this.globalData.campuses=result.message
     // })
     this.getList();
-    // requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
-    //   // console.log("storage",result)
-    //   this.globalData.storageList=result.message
-    // })
+    requestUtil({url:'/storage/findAll',method:"GET"}).then(result=>{
+      // console.log("storage",result)
+      this.globalData.storageList=result.message
+    })
+     requestUtil({url:'/bigType/findCategories',method:"GET"}).then(result=>{
+      let list=result.message
+      console.log(list)
+      let typeList=[]
+      list.forEach(function(value,index,array){
+        let smallList=value.smallTypeList;
+        smallList.forEach(function(value1,index,array){
+          typeList.push(value.name)
+        }) 
+      })
+      this.globalData.typeList=typeList
+
+
+    })
 
     const baseUrl=getBaseUrl();
     this.globalData.baseUrl=baseUrl;
@@ -81,6 +95,7 @@ App({
     isLogin:false,
     campuses:[],
     storageList:[],
+    typeList:[],
     userInfo:{
     },
     chose:[true,false,false,false,false]

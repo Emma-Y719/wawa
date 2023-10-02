@@ -1,0 +1,365 @@
+.page {
+  background-color: #ffffff;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.group_2 {
+  padding: 16rpx 0 4rpx;
+  overflow-y: auto;
+}
+.space-y-6 > view:not(:first-child),
+.space-y-6 > text:not(:first-child),
+.space-y-6 > image:not(:first-child) {
+  margin-top: 12rpx;
+}
+.group_3 {
+  padding: 0 40rpx;
+}
+.group_4 {
+  overflow: hidden;
+  width: 82rpx;
+  height: 32rpx;
+}
+.font_1 {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+.text_3 {
+  -webkit-text-stroke: 0px #333333;
+}
+.image_5 {
+  width: 20rpx;
+  height: 12rpx;
+}
+.group_5 {
+  overflow: hidden;
+  width: 250rpx;
+  height: 32rpx;
+}
+.space-x-3 > view:not(:first-child),
+.space-x-3 > text:not(:first-child),
+.space-x-3 > image:not(:first-child) {
+  margin-left: 6rpx;
+}
+.group_6 {
+  margin-right: 20rpx;
+  overflow: hidden;
+  width: 166rpx;
+  height: 32rpx;
+}
+page .map_container {
+  height: 55%;
+  width: 100%;
+}
+page .map_container .map {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 3%;
+}
+page .map_container .map .SelectColumn {
+  height: 100rpx;
+  width: 88%;
+  border-radius: 50rpx;
+  background-color: #242c19;
+  /* 设置背景颜色 */
+  position: fixed;
+  left: 50%;
+  top: 91.5%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .SelectColumn .firstlogo {
+  height: 10%;
+  width: 10%;
+  position: absolute;
+  left: 12%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .SelectColumn .secondlogo {
+  height: 7%;
+  width: 7%;
+  position: absolute;
+  left: 30%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .SelectColumn .thirdlogo {
+  height: 8%;
+  width: 8%;
+  position: absolute;
+  left: 70%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .SelectColumn .fourthlogo {
+  height: 8%;
+  width: 8%;
+  position: absolute;
+  left: 88%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .SelectColumn .fraglogo {
+  height: 20%;
+  width: 20%;
+  position: absolute;
+  left: 50%;
+  top: -40%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .right_content {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+}
+page .map_container .map .right_content .productType {
+  padding: 30rpx 20rpx 30rpx 20rpx;
+  display: inline-flex;
+  /* 横向滚动需要设置 display: inline-flex; */
+  transition: transform 0.3s ease;
+  /* 添加平滑的切换效果 */
+}
+page .map_container .map .right_content .productType .product_list navigator {
+  display: flex;
+  width: 600rpx;
+  height: 260rpx;
+  margin: 20rpx;
+  border-radius: 20rpx;
+  background-color: #F8F8F8;
+}
+page .map_container .map .right_content .productType .product_list navigator image {
+  flex: 2;
+  width: 100%;
+  height: 85%;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  border-radius: 20rpx;
+}
+page .map_container .map .right_content .productType .product_list navigator .right {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+page .map_container .map .right_content .productType .product_list navigator .right .product_name {
+  flex: 1;
+  font-size: 35rpx;
+  font-weight: 500rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+page .map_container .map .right_content .productType .product_list navigator .right .product_des {
+  flex: 2;
+  font-size: 22rpx;
+  word-wrap: break-word;
+  overflow-wrap: hidden;
+  text-overflow: ellipsis;
+}
+page .map_container .map .right_content .productType .product_list navigator .right .product_price {
+  flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: hidden;
+  text-overflow: ellipsis;
+  font-size: 35rpx;
+  font-weight: 500rpx;
+}
+.image_6 {
+  margin-right: 40rpx;
+  border-radius: 10rpx;
+  width: 52rpx;
+  height: 52rpx;
+}
+.group_7 {
+  margin: 60rpx 40rpx 0;
+  overflow: hidden;
+}
+.space-x-10 > view:not(:first-child),
+.space-x-10 > text:not(:first-child),
+.space-x-10 > image:not(:first-child) {
+  margin-left: 20rpx;
+}
+.section_2 {
+  padding: 10rpx 16rpx 0;
+  background-color: #fed47e33;
+  border-radius: 20rpx;
+}
+.font_2 {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #333333;
+}
+.text_4 {
+  color: #478ecc;
+  font-size: 22rpx;
+  line-height: 26rpx;
+}
+.group_8 {
+  margin-right: 20rpx;
+}
+.image_7 {
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+}
+.text_7 {
+  margin-left: 6rpx;
+  text-align: left;
+  width: 144rpx;
+}
+.image_8 {
+  margin-left: 28rpx;
+}
+.group_9 {
+  margin-right: 20rpx;
+}
+.image_9 {
+  margin-left: 28rpx;
+}
+.group_10 {
+  padding-top: 20rpx;
+}
+.section_4 {
+  padding: 10rpx 16rpx 16rpx;
+  background-color: #feabc733;
+  border-radius: 20rpx;
+  height: 156rpx;
+}
+.space-y-12 > view:not(:first-child),
+.space-y-12 > text:not(:first-child),
+.space-y-12 > image:not(:first-child) {
+  margin-top: 24rpx;
+}
+.font_3 {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #69a042;
+}
+.text_8 {
+  font-size: 22rpx;
+  line-height: 26rpx;
+}
+.space-x-8 > view:not(:first-child),
+.space-x-8 > text:not(:first-child),
+.space-x-8 > image:not(:first-child) {
+  margin-left: 16rpx;
+}
+.section_5 {
+  background-color: #d9d9d9;
+  width: 80rpx;
+  height: 80rpx;
+}
+.text-wrapper {
+  margin: 8rpx 24rpx 8rpx 0;
+  padding: 48rpx 0;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/362ba6d99726e8b685ab53f36cbeb2fb.png');
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 170rpx;
+  height: 144rpx;
+}
+.text_9 {
+  color: #ffffff;
+  text-align: center;
+}
+.section_3 {
+  padding: 10rpx 14rpx 34rpx;
+  background-color: #8ac18633;
+  border-radius: 20rpx;
+  width: 210rpx;
+  height: 330rpx;
+}
+.text_5 {
+  font-size: 22rpx;
+  line-height: 26rpx;
+}
+.space-y-8 > view:not(:first-child),
+.space-y-8 > text:not(:first-child),
+.space-y-8 > image:not(:first-child) {
+  margin-top: 16rpx;
+}
+.text_6 {
+  text-align: left;
+  width: 124rpx;
+}
+.section_6 {
+  padding: 12rpx 16rpx 0;
+  background-color: #7867d733;
+  border-radius: 20rpx;
+  width: 210rpx;
+  height: 154rpx;
+}
+.text_10 {
+  color: #913e98;
+  font-size: 22rpx;
+  line-height: 26rpx;
+}
+.section_7 {
+  padding: 12rpx 36rpx 18rpx;
+  background-color: #fed47e33;
+  border-radius: 20rpx;
+  height: 154rpx;
+}
+.space-y-10 > view:not(:first-child),
+.space-y-10 > text:not(:first-child),
+.space-y-10 > image:not(:first-child) {
+  margin-top: 20rpx;
+}
+.text_11 {
+  color: #f8981d;
+}
+.view {
+  flex: 1 1 80rpx;
+}
+.view_2 {
+  flex: 1 1 80rpx;
+}
+.view_3 {
+  flex: 1 1 80rpx;
+}
+.view_4 {
+  flex: 1 1 80rpx;
+}
+.tab-bar {
+  padding: 16rpx 80rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166716201389352.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.image_10 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_11 {
+  margin-top: 44rpx;
+}
+.image_12 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
+.image-wrapper_2 {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_13 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_14 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}

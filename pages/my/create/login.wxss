@@ -1,12 +1,24 @@
 .top-bg {
   width: 100%;
-  margin-top: 200rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.top-bg .topText {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 80rpx;
+}
+.top-bg .topText .font_2 {
+  font-size: 40rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 46rpx;
+  color: #000000;
+}
 .top-bg .avatarbtn {
+  margin-top: 80rpx;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -14,82 +26,83 @@
   justify-items: center;
 }
 .top-bg .avatarbtn .avatar {
-  width: 280rpx;
-  border: #88bb1e solid 4rpx;
-  border-radius: 20rpx;
-}
-.top-bg .avatarbtn .pic {
-  width: 80%;
-  margin-top: 20rpx;
-  text-align: center;
-  font-size: 40rpx;
-}
-.top-bg .defaultpic {
-  width: 38%;
-  margin-top: 20rpx;
-  text-align: center;
-  font-size: 30rpx;
-  color: #e2892d;
+  width: 160rpx;
+  border-radius: 50%;
 }
 .contain {
   margin-top: 35rpx;
   left: 0rpx;
-  width: 100%;
-  padding: 0rpx 40rpx 0rpx 40rpx;
+  width: 86%;
+  margin-left: 7%;
+  padding: 0 20rpx 42rpx;
+  border-radius: 30rpx;
   box-sizing: border-box;
+  border: #88bb1e solid 1rpx;
 }
-.contain .campus {
-  margin-top: 25rpx;
-  margin-left: 10%;
-  width: 80%;
-  height: 90rpx;
-  background: #f1f3f8;
-  border-radius: 40rpx;
-  text-align: center;
-  box-sizing: border-box;
-  font-size: 32rpx;
+.contain .infoItem {
+  display: flex;
+  padding: 34rpx 0 16rpx 26rpx;
+  width: 100%;
+  height: 75rpx;
+  align-items: center;
+}
+.contain .infoItem text {
+  width: 20%;
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #000000;
+}
+.contain .infoItem .operator {
+  margin-left: 56%;
+  width: 20%;
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #000000;
+}
+.contain .infoItem .verify {
+  margin-left: 8%;
+  width: 40%;
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #000000;
+}
+.contain .infoItem .vbtn {
+  width: 26%;
+  margin-left: 10rpx;
+  border-radius: 10rpx;
+  border: #88bb1e solid 1rpx;
+  height: 36rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #8c9aa8;
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 30rpx;
+  color: #87c03f;
 }
-.contain .contact {
-  margin-top: 24rpx;
-  margin-left: 10%;
-  width: 80%;
-  height: 90rpx;
-  background: #f1f3f8;
-  border-radius: 40rpx;
-  text-align: center;
-  padding: 0 36rpx;
-  box-sizing: border-box;
-  font-size: 32rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #8c9aa8;
-}
-.contain .contact .contact input {
-  width: 100%;
-  height: 100%;
-}
-.contain .contact input {
-  width: 100%;
-  height: 100%;
+.contain .infoItem image {
+  width: 15rpx;
 }
 .cbtn {
-  margin-top: 75rpx;
-  width: 100%;
-  height: 90rpx;
-  border-radius: 50rpx;
-  background-color: #88bb1e;
-  justify-content: center;
+  padding: 24rpx 0;
+  background-color: #87c03f;
+  border-radius: 10rpx;
+  width: 440rpx;
+  margin-left: 155rpx;
+  margin-top: 72rpx;
   display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 .cbtn text {
-  text-align: center;
-  font-size: 40rpx;
-  margin-top: 20rpx;
+  color: #ffffff;
+  font-size: 34rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 40rpx;
 }
 .shen_title {
   margin-top: 40rpx;

@@ -28,82 +28,18 @@ page .header .custom-nav-bar .keys {
   border: 1.5px solid #8ec31f;
   /* 设置边框样式，1.5px 宽度，边框 */
   background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-left: 5%;
 }
-page .header .custom-nav-bar .keys .city {
-  padding: 20rpx;
-  flex: 2;
-}
-page .header .custom-nav-bar .keys .city .location {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-page .header .custom-nav-bar .keys .city .location text {
-  font-size: 28rpx;
-  font-weight: 600;
-}
-page .header .custom-nav-bar .keys .city .location .line {
-  width: 14px;
-}
 page .header .custom-nav-bar .keys .type {
-  flex: 5;
   display: flex;
-}
-page .header .custom-nav-bar .keys .type .inter {
-  border-right: 1px solid #a6acb3;
 }
 page .header .custom-nav-bar .keys .type input {
-  margin-left: 10rpx;
-}
-page .header .cates {
-  height: 5%;
-  width: 92%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 3.5%;
-}
-page .header .cates .university {
-  background-color: #8ec31f;
-  border-radius: 15rpx;
-  font-size: 24rpx;
-  font-weight: bold;
+  height: 60rpx;
+  width: 300rpx;
+  font-size: 26rpx;
   margin-left: 30rpx;
-  padding: 10rpx;
-  flex: 1;
-  text-align: center;
-  /* 文本水平居中对齐 */
-  color: #ededed;
-}
-page .header .cates .campus {
-  background-color: #8ec31f;
-  border-radius: 15rpx;
-  padding: 10rpx;
-  font-size: 24rpx;
-  font-weight: bold;
-  flex: 1;
-  margin-left: 25rpx;
-  text-align: center;
-  /* 文本水平居中对齐 */
-  color: #ededed;
-}
-page .header .cates .sort {
-  background-color: #8ec31f;
-  border-radius: 15rpx;
-  font-size: 24rpx;
-  font-weight: bold;
-  padding: 10rpx;
-  margin-left: 25rpx;
-  margin-right: 25rpx;
-  flex: 1;
-  text-align: center;
-  /* 文本水平居中对齐 */
-  color: #ededed;
 }
 page .products {
   padding: 30rpx 20rpx 30rpx 20rpx;
@@ -118,33 +54,73 @@ page .products .product_list .product_card {
   width: 46%;
   text-align: center;
   margin: 2%;
-  background-color: #fafafa;
+  background-color: #ffffff;
   border-radius: 20rpx;
+  box-shadow: 0px 10px 20px 0px #c7c9c7;
 }
 page .products .product_list .product_card navigator image {
   width: 100%;
-  height: 300rpx;
+  height: 320rpx;
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
   background-color: #fff;
-  box-shadow: 0px 10px 20px 0px #c7c9c7;
   transition: transform 200ms;
 }
 page .products .product_list .product_card navigator image:hover {
   transform: scale(1.01);
   box-shadow: -2px 8px 15px -12px #647878;
 }
-page .products .product_list .product_card navigator .bottom {
+page .products .product_list .product_card navigator .middle {
   height: 100rpx;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
 }
-page .products .product_list .product_card navigator .bottom .product_name {
-  width: 100%;
+page .products .product_list .product_card navigator .middle .product_name {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+  width: 70%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+page .products .product_list .product_card navigator .middle .product_price {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #ff7a00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10rpx;
+}
+page .products .product_list .product_card .bottom {
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
+}
+page .products .product_list .product_card .bottom .locinfo {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+  width: 50%;
+}
+page .products .product_list .product_card .bottom .operator {
+  display: flex;
+}
+page .products .product_list .product_card .bottom .operator image {
+  background-color: #fafafa;
+  margin-top: 30rpx;
+  margin-right: 10rpx;
+  width: 45rpx;
 }
 page .float-window {
   position: fixed;

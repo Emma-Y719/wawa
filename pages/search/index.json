@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-
-    "custom-tabbar": "/components/custom-tabbar/custom-tabbar"
+    "custom-tabbar": "/components/custom-tabbar/custom-tabbar",
+    "filt_big":"/components/filt_big/filt_big"
   },
 
   "navigationBarBackgroundColor": "#8ec31f",

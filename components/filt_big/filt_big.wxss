@@ -1,0 +1,106 @@
+.cates {
+  width: 90%;
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.cates .sort {
+  flex: 2;
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+  align-items: center;
+  white-space: nowrap;
+  /* 防止文本换行 */
+  overflow: hidden;
+  /* 隐藏超出部分的文本 */
+  text-overflow: ellipsis;
+  /* 显示省略号 */
+  max-width: 210rpx;
+  /* 可以根据需要设置最大宽度 */
+}
+.cates .sort .line {
+  display: inline-block;
+  width: 7px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 8rpx;
+}
+.cates .university {
+  flex: 2;
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+  white-space: nowrap;
+  /* 防止文本换行 */
+  overflow: hidden;
+  /* 隐藏超出部分的文本 */
+  text-overflow: ellipsis;
+  /* 显示省略号 */
+  max-width: 210rpx;
+  /* 可以根据需要设置最大宽度 */
+}
+.cates .university .line {
+  display: inline-block;
+  width: 7px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 8rpx;
+}
+.cates .campus {
+  flex: 2;
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #333333;
+  align-items: center;
+  white-space: nowrap;
+  /* 防止文本换行 */
+  overflow: hidden;
+  /* 隐藏超出部分的文本 */
+  text-overflow: ellipsis;
+  /* 显示省略号 */
+  max-width: 210rpx;
+  /* 可以根据需要设置最大宽度 */
+}
+.cates .campus .line {
+  display: inline-block;
+  width: 7px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 8rpx;
+}
+.cates .storage {
+  display: flex;
+  flex: 2;
+  font-size: 24rpx;
+  font-family: '.AppleSystemUIFont';
+  color: #333333;
+  white-space: nowrap;
+  /* 防止文本换行 */
+  overflow: hidden;
+  /* 隐藏超出部分的文本 */
+  text-overflow: ellipsis;
+  /* 显示省略号 */
+  max-width: 210rpx;
+  /* 可以根据需要设置最大宽度 */
+}
+.cates .storage .line {
+  display: inline-block;
+  width: 7px;
+  height: 6px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  transform: rotate(45deg);
+  margin-bottom: 8rpx;
+}

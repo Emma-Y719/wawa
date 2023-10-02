@@ -1,0 +1,190 @@
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2 space-y-9">
+    <view class="flex-row justify-between items-center">
+      <text class="font_1 text_2">南京</text>
+      <image
+        class="image_5"
+        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941389497014154.png"
+      />
+      <text class="font_1 text_2">南京航空航天大学</text>
+      <image
+        class="image_5"
+        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941389497014154.png"
+      />
+      <view class="flex-row items-center group_3 space-x-3">
+        <text class="font_1 text_2">明故宫校区</text>
+        <image
+          class="shrink-0 image_5"
+          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941389497014154.png"
+        />
+      </view>
+      <view class="flex-row items-center group_4 space-x-3">
+        <text class="font_1 text_2">跨过进香河库</text>
+        <image
+          class="shrink-0 image_5"
+          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941389497014154.png"
+        />
+      </view>
+    </view>
+    <view class="flex-row relative group_5">
+      <view class="flex-col section_2 space-y-8 pos">
+        <view class="flex-row items-center space-x-5">
+          <text class="font_2">帖子！</text>
+          <text class="font_3">有偿捎东西</text>
+        </view>
+        <view class="flex-col group_6">
+          <text class="font_4 text_3">手动阀手动阀手动阀XXXXXXX手动阀手动阀手动阀阿斯蒂芬</text>
+          <view class="flex-row justify-between relative group_7">
+            <text class="font_4 text_4">1.5KM 南京理工大学 明故宫校区</text>
+            <view class="flex-row self-start group_8 space-x-6">
+              <image
+                class="image_6"
+                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+              />
+              <image
+                class="image_7"
+                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+              />
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="section_3 pos_3"></view>
+      <view class="section_3 pos_2"></view>
+      <view class="flex-col section_4 space-y-9 pos_4">
+        <view class="flex-row space-x-5">
+          <text class="font_2">帖子！</text>
+          <text class="font_2">九龙湖代盖章</text>
+        </view>
+        <view class="flex-row justify-between items-end">
+          <text class="font_4 text_5">1.5KM 南京信息工程大学 明故宫校区</text>
+          <view class="flex-row space-x-6">
+            <image
+              class="image_6"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+            />
+            <image
+              class="image_7"
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+            />
+          </view>
+        </view>
+      </view>
+      <view class="flex-row group_9 pos_5">
+        <view class="flex-col justify-start items-center self-start section_6">
+          <view class="flex-row space-x-5">
+            <text class="font_2">帖子！</text>
+            <text class="font_2">九龙湖代盖章</text>
+          </view>
+        </view>
+        <view class="flex-col self-center section_5 space-y-8">
+          <view class="flex-row items-center space-x-5">
+            <text class="font_2">帖子！</text>
+            <text class="font_3">有偿捎东西</text>
+          </view>
+          <text class="font_4 text_6">手动阀手动阀手动阀XXXXXXX手动阀手动阀手动阀阿斯蒂芬</text>
+        </view>
+        <view class="shrink-0 grid pos_6">
+          <view class="flex-col">
+            <view class="flex-row justify-between items-end relative group_10">
+              <text class="font_4 text_7">1.5KM 南京信息工程大学 明故宫校区</text>
+              <view class="flex-row space-x-6">
+                <image
+                  class="image_6"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+                />
+                <image
+                  class="image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+                />
+              </view>
+            </view>
+            <view class="flex-col section_7 view space-y-8">
+              <view class="flex-row items-center space-x-5">
+                <text class="font_2">帖子！</text>
+                <text class="font_3">有偿捎东西</text>
+              </view>
+              <view class="flex-col group_6">
+                <text class="font_4 text_9">手动阀手动阀手动阀XXXXXXX手动阀手动阀手动阀阿斯蒂芬</text>
+                <view class="flex-row justify-between relative group_7">
+                  <text class="font_4 text_11">1.5KM 南京理工大学 明故宫校区</text>
+                  <view class="flex-row self-start group_8 space-x-6">
+                    <image
+                      class="image_6"
+                      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+                    />
+                    <image
+                      class="image_7"
+                      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+                    />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="flex-col">
+            <view class="flex-row justify-between relative group_11">
+              <text class="font_4 text_8">1.5KM 南京理工大学 明故宫校区</text>
+              <view class="flex-row self-start group_12 space-x-6">
+                <image
+                  class="image_6"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+                />
+                <image
+                  class="image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+                />
+              </view>
+            </view>
+            <view class="flex-col section_7 view_2 space-y-8">
+              <view class="flex-row items-center space-x-5">
+                <text class="font_2">帖子！</text>
+                <text class="font_3">有偿捎东西</text>
+              </view>
+              <view class="flex-col group_6">
+                <text class="font_4 text_10">手动阀手动阀手动阀XXXXXXX手动阀手动阀手动阀阿斯蒂芬</text>
+                <view class="flex-row justify-between relative group_7">
+                  <text class="font_4 text_12">1.5KM 南京理工大学 明故宫校区</text>
+                  <view class="flex-row self-start group_8 space-x-6">
+                    <image
+                      class="image_6"
+                      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+                    />
+                    <image
+                      class="image_7"
+                      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+                    />
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="flex-col grid-item space-y-8">
+            <view class="flex-row items-center space-x-5">
+              <text class="font_2">帖子！</text>
+              <text class="font_3">有偿捎东西</text>
+            </view>
+            <view class="flex-col group_6">
+              <text class="font_4 text_13">手动阀手动阀手动阀XXXXXXX手动阀手动阀手动阀阿斯蒂芬</text>
+              <view class="flex-row justify-between relative group_7">
+                <text class="font_4 text_14">1.5KM 南京理工大学 明故宫校区</text>
+                <view class="flex-row self-start group_8 space-x-6">
+                  <image
+                    class="image_6"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png"
+                  />
+                  <image
+                    class="image_7"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358704793585.png"
+                  />
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="shrink-0 section_8 pos_7"></view>
+      </view>
+    </view>
+  </view>
+  <custom-tabbar id="custom-tabbar"bind:componentReady="onComponentReady"></custom-tabbar>
+</view>

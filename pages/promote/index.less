@@ -1,12 +1,50 @@
 page{
-
+  .typeContainer{
+    display: flex;
+    margin-top: 2%;
+    margin-left: 5%;
+    width: 90%;
+    padding: 5rpx 5rpx 5rpx 5rpx;
+    background-color: #88bb1e;
+    height: 60rpx;
+    border-radius: 30rpx;
+    .type{
+      width: 34%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      text{
+        font-size: 28rpx;
+        font-family: '.AppleSystemUIFont';
+        line-height: 34rpx;
+        color: #333333;
+      }
+    }
+    .selected{
+      width: 32%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      background-color: #f2f2f2;
+      border-radius: 30rpx;
+      text{
+        font-size: 28rpx;
+        font-family: '.AppleSystemUIFont';
+        line-height: 34rpx;
+        color: #333333;
+      }
+    }
+  }
   .search_bar{
     height: 80rpx;
     margin-left: 50rpx;
-    margin-top: 20rpx;
+    margin-top: 30rpx;
     display: flex;
     flex-direction: row;
-    //background-color: var(--themeColor);
     navigator{
       width: 20%;
       height: 100%;
@@ -47,53 +85,19 @@ page{
     }
   }
   .description{
-    .title{
-      margin-top: 30rpx;
-      .name{
-        margin-left: 6%;
-        width: 86%;
-        height:80rpx;
-        font-size: 30rpx;
-        font-weight: 600;
-        border: #5a9952 solid 2rpx;
-        border-radius: 20rpx;
-        text-align: center;
-      
-  
-      }
-    }
-    .des{
-      margin-top: 30rpx;
-      .text{
-        margin-left: 6%;
-        width: 86%;
-        height:240rpx;
-        font-size: 30rpx;
-        font-weight: 600;
-        border: #5a9952 solid 2rpx;
-        border-radius: 20rpx;
-        text-align: center;
-
-      }
-    }
-    .imagewarn{
-      font-size: 34rpx;
-      font-weight: 500;
-      margin-left: 50rpx;
-    }
     .contant-pic{
-      width: 94%;
-      margin-top: 20rpx;
-      margin-left: 50rpx;
+      width: 90%;
+      margin-top: 2%;
+      margin-left: 5%;
       .pics-list{
         width:160rpx;
         height:160rpx;
         float:left;
         margin-right:10rpx;
-        background-color: #888888;
-        border-radius: 30rpx;
+        background-color: #adabab;
+        border-radius: 10rpx;
         .uploadImg{
-          border-radius: 30rpx;
+          border-radius: 10rpx;
           width:160rpx;
           height:160rpx;
         }
@@ -108,14 +112,14 @@ page{
       .up{
         width:  160rpx;
         height:160rpx;
-        background-color: #f0eeee;
+        background-color: #f3f2f2;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 30rpx;
+        border-radius: 10rpx;
         .upload{
-          width:  120rpx;
-          height:120rpx;
+          width:  80rpx;
+          height:80rpx;
           float:left;
           .hideTrue {
             display: none
@@ -125,115 +129,176 @@ page{
            }
         }
       }
-
-
-
     }
-    .locationInfo{
-      margin-left: 50rpx;
-      margin-right: 50rpx;
+    .title{
       margin-top: 30rpx;
+      .name{
+        margin-left: 5%;
+        width: 88%;
+        height:60rpx;
+        padding: 15rpx 0rpx 0rpx 1%;
+        font-size: 30rpx;
+        font-weight: 600;
+        border: #5a9952 solid 2rpx;
+        border-radius:10rpx;
+        text-align: left;
+      }
+    }
+    .des{
+      margin-top: 20rpx;
+      .text{
+        margin-left: 5%;
+        width: 88%;
+        height:150rpx;
+        font-size: 30rpx;
+        font-weight: 600;
+        padding: 15rpx 0rpx 0rpx 1%;
+        border: #5a9952 solid 2rpx;
+        border-radius: 10rpx;
+        text-align: left;
+
+      }
+    }
+  }
+
+  .options{
+
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+    // background-color:burlywood;
+    .option{
       display: flex;
-      flex-direction: row;
-      height:rpx;
-      align-items: center;
       
-      .loc{
-        width: 8%;
+      align-items: center;
+      image{
+        width:30rpx;
+        height: 30rpx;
       }
       text{
-        margin-left: 20rpx;
-        font-size: 35rpx;
+        margin-left: 10rpx;
+        width: 40%;
+        font-size: 28rpx;
+        // background-color: chartreuse;
       }
-
-
-      .location{
-        margin-left: 20rpx;
-        padding-left:10rpx;
-        background-color: #88bb1e;
-        border-radius: 20rpx;
+      .pick{
+        margin-left: 30%;
+        width:18%;
+        height: 60rpx;
+        font-size:28rpx;
         display: flex;
-        align-items:center;
-        .enter{
-          width: 50rpx;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        // background-color: cornflowerblue;
+      }
+      .pr{
+        margin-left: 30%;
+        width:18%;
+        height: 60rpx;
+        font-size:28rpx;
+        display: flex;
+        padding: 0rpx 0rpx 5rpx 5rpx;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        // background-color: cornflowerblue;
+      }
+      .quality{
+        width:18%;
+        margin-left: 30%;
+        height: 60rpx;
+        font-size:28rpx;
+        display: flex;
+        padding: 0rpx 0rpx 5rpx 5rpx;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        // background-color: cornflowerblue;
+      }
+      .storageContainer{
+        width:18%;
+        margin-left: 30%;
+        height: 60rpx;
+        font-size:28rpx;
+        display: flex;
+        padding: 0rpx 0rpx 5rpx 5rpx;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        // background-color: cornflowerblue;
+        .picker{
+
+        }
+
+
+      }
+      .location{
+        width:50%;
+        margin-left: 5%;
+        display: flex;
+        font-size: 28rpx;
+        padding: 0rpx 0rpx 5rpx 5rpx;
+        justify-content: start;
+        text-align: center;
+        align-items: center;
+        // background-color: aqua;
+        // margin-left: 10%;
+        // height: 60rpx;
+        // padding-left:10rpx;
+        //background-color: #88bb1e;
+        // border-radius: 20rpx;
+        // display: flex;
+        // align-items:center;
+      }
+      .enter{
+        width: 40rpx;
+      }
+    }
+    .storageProcess{
+      //background-color: rgb(231, 231, 231);
+      //border: #5a9952 solid 2rpx;
+      //border-radius: 10rpx;
+      .storageSelected{
+        margin-top: 10rpx;
+        margin-bottom: 10rpx;
+        background-color: rgb(233, 233, 233);
+        margin-left: 45%;
+        border-radius: 10rpx;
+        padding: 5rpx;
+        .storage{
+          display: flex;
+          text-align: center;
+          align-items: center;
+          justify-content: space-between;
+          margin-left: 10rpx;
+          text{
+            font-size: 28rpx;
+          }
+          image{
+            width:40rpx;
+            height: 40rpx;
+          }
         }
       }
     }
-    
-  }
-  .priceInfo{
-    margin-left: 50rpx;
-    margin-top: 50rpx;
-    margin-right: 50rpx;
-    display: flex;
-    flex-direction:row;
-    align-items: center;
-    height:80rpx;
 
-    .price{
-      width:8%;
-    }
-    .ptext{
-      width:40%;
-      margin-left: 20rpx;
-      font-size: 35rpx;
-      display: flex;
-      align-items: center;
-    }
-    .pr{
-      width:40%;
-      font-size: 28rpx;
-      display: flex;
-      padding: 10rpx;
-      margin-left: 30rpx;
-      border-radius: 20rpx;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
-    }
   }
-  .methodInfo{
-    margin-left: 50rpx;
-    margin-top: 50rpx;
-    margin-right: 50rpx;
-    display: flex;
-    flex-direction:row;
-    align-items: center;
-    height:80rpx;
+  .point{
+    font-size: 24rpx;
+    margin-top: 2%;
+    margin-left: 5%;
+  }
 
-    .method{
-      width:8%;
-    }
-    .mtext{
-      width:40%;
-      margin-left: 20rpx;
-      font-size: 35rpx;
-      display: flex;
-      align-items: center;
-    }
-    .meth{
-      width:30%;
-      font-size: 28rpx;
-      display: flex;
-      flex-direction: row;
-      // padding: 10rpx;
-      // margin-left: 30rpx;
-      // border-radius: 20rpx;
-      // align-items: center;
-      // text-align: center;
-      // justify-content: center;
-    }
-    .enter{
-      width: 50rpx;
-    }
-  }
+
   .buttons{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 50rpx;
-    margin-top: 70rpx;
-    margin-right: 50rpx;
+    margin-left: 5%;
+    width: 90%;
+    margin-top: 4%;
+
     .draft{
       image{
         width: 55rpx;
@@ -244,10 +309,11 @@ page{
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 40rpx;
+      border-radius: 10rpx;
       text-align: center;
       font-size: 32rpx;
-      background-color: #88bb1e;
+      color: #959595;;
+      background-color: #d9d9d9;
     }
     .promote{
       image{
@@ -261,13 +327,18 @@ page{
       align-items: center;
       text-align: center;
       font-size: 32rpx;
+      font-family: '.AppleSystemUIFont';
+      line-height: 34rpx;
+      color: #ffffff;
       background-color: #88bb1e;
-      border-radius: 40rpx;
+      border-radius: 10rpx;
     }
   }
   .bottom{
     height: 200rpx;
   }
-  
+  .ad{
+    margin-top: 40rpx;
+  }
 
 }

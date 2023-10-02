@@ -1,88 +1,49 @@
-<view class="title">
-  我的收藏
-</view>
-<view class="search"bindtap="onNotComplete">
-  <view class="keys">
-  <!-- 关键词搜索 -->
-  <view class="city">
-    <navigator class="location" url="/pages/index/location">
-      南京
-      <div class="line"></div>
-      <div class="inter"></div>
-    </navigator>
+<view class="custom-nav-bar">
+  <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
+  <view class="title">
+    收藏夹
   </view>
-  <view class="type">
-  <input type="text" value=" {{type}}"/>
-
-  </view>
-  </view>
-  <view class="sbtn" bindtap="handleSearch">
-    搜索
-  </view>
-</view>
-
-<view bindtap="onNotComplete"class="cates">
-  <view class="sort">
-    全部
-    <div class="line"></div>
-  </view>
-  <navigator class="university" url="">
-    {{university}}
-    <div class="line"></div>
-    <div class="inter"></div>
-  </navigator>
-  <navigator class="campus" url="">
-    {{campus}}
-    <div class="line"></div>
-    <div class="inter"></div>
-  </navigator>
-
 </view>
 
 <!-- 购物车清单 开始 -->
 <view class="cart_content">
   <view class="cart_main">
     <block wx:if="{{cart.length!==0}}">
-      <view class="cart_item"
-        wx:for="{{cart}}"
-        wx:key="id"
-      >
-
-        <!-- 商品图片 开始 -->
-        <navigator class="cart_img_wrap" url="/pages/product_detail/index?id={{item.identity}}">
-          <image mode="aspectFill" src="{{item.propic.pics[0][0]!='h'&&item.propic.pics[0][0]!='c'?baseUrl+'/image/product/'+item.propic.pics[0]:item.propic.pics[0]}}"></image>
+      <view class="product_list">
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
+        <view class="product_card"
+          wx:for="{{cart}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
         </navigator>
-        <!-- 商品图片 结束 -->
-
-        <!-- 商品信息 开始 -->
-        <view class="cart_info_wrap">
-          <navigator url="/pages/product_detail/index?id={{item.id}}">
-            <view class="goods_name">{{item.name}}</view>
-          </navigator>
-          <view class="goods_price_wrap">
-            <view class="goods_price">
-              ¥{{item.price}}
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
             </view>
           </view>
-          <view class="goods_loc_wrap">
-            <view class="goods_university">
-              {{campuses[item.campus].name}}
+          <view class="btns">
+            <view bindtap="onRemove"data-id="{{index}}"class="removebtn">
+            取消收藏
             </view>
-            <view class="goods_campus">
-              {{campuses[item.campus].campus}}
+            <view class="operator">
+              <image src="/images/favorite_s.png" mode="widthFix" data-index="{{index}}" bindtap="handleCartAdd"/>
+              <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addChat"/>
             </view>
           </view>
-        </view>
-        <!-- 商品信息 结束 -->
-        <view class="btns">
-          <view bindtap="onRemove"data-id="{{index}}"class="removebtn">
-          取消收藏
-        </view>
-        <view bindtap="addChat"data-id="{{index}}"class="chatbtn">
-          问卖家
-        </view>
-        </view>
 
+        </view>
+        </view>
       </view>
     </block>
     <block wx:else>

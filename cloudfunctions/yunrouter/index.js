@@ -52,6 +52,21 @@ exports.main = async (event, context) => {
     })
   });
 
+  app.router('sendSms',async(ctx)=>{
+    try {
+      console.log("www")
+      const result = await cloud.openapi.cloudbase.sendSms({
+        env: envid,//在云开发控制台中的环境ID
+        content: '有内奸！！！停止交易', //短信内容
+        phoneNumberList: [
+          "+86"+event.name   //要发送的手机号码，我这是方法中传过来的号码，可以先写死测试
+        ]
+      })
+      return result
+    } catch (err) {
+      return err
+    }
+  })
 
   //用户获取openid
   app.router('openid', async (ctx) => {

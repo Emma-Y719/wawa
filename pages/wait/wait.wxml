@@ -1,0 +1,13 @@
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2 space-y-22">
+    <image
+      class="image_5"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946166363816513310.png"
+    />
+    <view class="flex-col group_3 space-y-277">
+      <text class="font_1">旧物新生，“挖挖”有宝</text>
+      <text class="font_1">蛙蛙二手群交易物品库</text>
+    </view>
+  </view>
+  <Privacy id="privacy"/>
+</view>

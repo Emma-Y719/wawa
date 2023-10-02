@@ -1,5 +1,4 @@
 <view class="userContainer">
-  
   <image  bindtap="onUserDetail"class="pic" src="{{user.userinfo.avatarUrl}}" mode="aspectFill" />
   <view class="middle">
     <text class="name">{{user.userinfo.nickName}}</text>
@@ -63,7 +62,8 @@
   进入
 </view>
 </view>
-<!-- <ad unit-id="adunit-b1fd4b10c10f5462"></ad> -->
+
+<ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad>
 <view class="btm_tool" >
   <navigator class="tool_item home" url="/pages/index/index">
     <image mode="aspectFit" src="/icons/home_for_product.png" ></image>

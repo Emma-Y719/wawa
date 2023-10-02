@@ -1,27 +1,19 @@
 <!--pages/promote/index.wxml-->
 <page>
-
-<view class="search_bar">
-  <navigator url="/pages/search/campus" open-type="navigate">
-    <icon type="search" size="16"></icon>校区
-  </navigator>
-  <view class="campus"> {{university+' - '+campus}}</view>
-  <picker class="type" mode="selector" range="{{typeList}}" bindchange="handleType">
-    <view class="picker">
-      {{type}}
-    </view>
-  </picker>
+  <view class="typeContainer">
+  <view bindtap="ontapProduct" class="type {{productSelect ? 'selected' : ''}}">
+    <text>发二手</text>
+  </view>
+  <view bindtap="ontapPost" class="type {{postSelect ? 'selected' : ''}}">
+    <text>发帖子</text>
+  </view>
+  <view bindtap="ontapSeek" class="type {{seekSelect ? 'selected' : ''}}">
+    <text>发求购</text>
+  </view>
 </view>
-<view class="description">
- <view class="title">
-  <textarea row="2"class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="输入商品名称，例：凤凰"value="{{name}}"></textarea>
- </view>
- <view class="des">
-  <textarea rows="6" class="text" bindinput="onDisInput"placeholder="输入商品描述：品牌，渠道等"value="{{discript}}"></textarea>
- </view>
- <text class="imagewarn">请选取少于9张图片:</text>
 
-  <view class="contant-pic">
+<view class="description">
+ <view class="contant-pic">
     <view class="pics-list" wx:for="{{pics}}"  wx:for-item="path" wx:key="id" >
       <image src="{{path}}" mode="aspectFill"class="uploadImg"></image>
       <image src="../../icons/delete.png" class="uploadImg-error" data-img="{{path}}" bindtap='deleteImg'></image>
@@ -31,47 +23,95 @@
     </view>
     
  </view>
-  <view class="locationInfo">
-    <image src="/icons/weizhi.png" mode="widthFix" class="loc"></image>
-    <text>交易位置</text>
-    <navigator class="location" url="/pages/shopMap/shopMap">{{loc}}
-      <image src="/images/enter.png" mode="widthFix" class="enter"/>
-    </navigator>
-
-  </view>
+ <view class="title">
+  <textarea row="2"class="name {{activeNameInput ? 'active': ''}}" bindinput="onNameInput" placeholder="请输入物品名称"value="{{name}}"></textarea>
+ </view>
+ <view class="des">
+  <textarea rows="6" class="text" bindinput="onDisInput"placeholder="{{!postSelect?'请输入物品描述':'说点儿什么吧～'}}"value="{{discript}}"></textarea>
+ </view>
+<view class="point">请填写基本信息，带*为必填项：</view>
 </view>
-<view class="priceInfo">
-  <image src="/icons/price.png" mode="widthFix" class="price">
-  </image>
-  <view class="ptext">
-    价格
-  </view>
-  
-  <view class="pr">    
-  <input type="digit" bindinput="onPriceInput" placeholder="键入商品价格" value="{{inputValue}}"/> 
-  </view>
-</view>
-
-
-<view class="methodInfo">
-  <image src="/icons/storageicon.png" mode="widthFix" class="method"></image>
-  <view class="mtext">
-    同步到物品库
-  </view>
-  
-  <!-- <view class="meth" bindtap="showActionSheet">{{storage}}
-    <image src="/images/enter.png" mode="widthFix" class="enter"/>
-  </view> -->
-  <picker wx:if="{{!noStorage}}"class="meth" mode="selector" range="{{storageNames}}" bindchange="handleStorage">
+<view class="options">
+<view class="option" wx:if="{{!postSelect}}">
+<image src="/images/pro_type.png" mode="widthFix"/>
+<text>品类*</text>
+<picker class="pick" mode="selector" range="{{typeList}}" bindchange="handleType">
     <view class="picker">
-      {{storage}}
+      {{type}}
     </view>
-  </picker>
-  <view bindtap="onClickStorage" wx:if="{{noStorage}}"class="picker">
-      {{storage}}
-  </view>
-  <image src="/images/enter.png" mode="widthFix" class="enter"/>
+</picker>
+<image class="enter" src="/images/enter.png" mode="widthFix" class="enter"/>
 </view>
+<view class="option" wx:if="{{!postSelect}}">
+<image src="/images/pro_status.png" mode="widthFix"/>
+<text>{{seekSelect?'预期':''}}成色*</text>
+<view class="quality">    
+  <input type="digit" bindinput="onQualityInput" placeholder="物品成色" value="{{qualityValue}}"/> 
+</view>
+
+</view>
+<view class="option" wx:if="{{!postSelect}}">
+<image src="/images/pro_price.png" mode="widthFix"/>
+<text>{{seekSelect?'预期':''}}价格*</text>
+<view class="pr">    
+  <input type="digit" bindinput="onPriceInput" placeholder="物品价格" value="{{inputValue}}"/> 
+  </view>
+</view>
+<view class="option" wx:if="{{productSelect}}">
+<image src="/images/pro_ori.png" mode="widthFix"/>
+<text>原价</text>
+<view class="pr">    
+  <input type="digit" bindinput="onOriginPriceInput" placeholder="选填" value="{{originValue}}"/> 
+</view>
+</view>
+<view class="storageProcess">
+<view class="option">
+<image src="/images/pro_sync.png" mode="widthFix"/>
+<text>同步到物品库</text>
+<view class="storageContainer">
+    <picker wx:if="{{!noStorage}}"class="picker" mode="selector" range="{{storageNames}}" bindchange="handleStorage">
+    <view class="holder">添加</view>
+    </picker>
+  <view bindtap="onClickStorage" wx:if="{{noStorage}}"class="picker">
+      尚未加入物品库
+  </view>
+
+</view>
+<image src="/images/enter.png" mode="widthFix" class="enter"/>
+</view>
+<view class="storageSelected" wx:if="{{storage.length>0}}">
+  <view class="storage"
+          wx:for="{{storage}}"
+          wx:for-item="name"
+          wx:key="id"
+        >
+        <text>{{name}}</text>
+        <image src="../../icons/delete.png" class="storage_del" data-index="{{index}}" bindtap='deleteStorage'></image>
+    </view>
+
+</view>
+
+</view>
+
+<view class="option" wx:if="{{!postSelect}}">
+<image src="/images/pro_loc.png" mode="widthFix"/>
+<text>选择物品交易定位*</text>
+<navigator class="location" url="/pages/shopMap/shopMap">{{loc}}
+</navigator>
+<image src="/images/enter.png" mode="widthFix" class="enter"/>
+</view>
+<view class="option">
+<image src="/images/pro_add.png" mode="widthFix"/>
+<text>曝光度增加</text>
+
+<view class="pr" bindtap="ontapAd">    
+  擦亮
+</view>
+
+<image src="/images/enter.png" mode="widthFix" class="enter"/>
+</view>
+</view>
+
 
 <view class="buttons">
   <view class="draft" bindtap="onDraft" >
@@ -79,7 +119,7 @@
     存草稿
   </view>
   
-  <view class="promote"bindtap="onPromote">
+  <view class="promote" bindtap="onPromote" >
     <image src="/icons/pro.png" mode="widthFix" class="method"></image>
     发布
   </view>

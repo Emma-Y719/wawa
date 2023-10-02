@@ -1,40 +1,121 @@
 <view class="top-bg">
+  <view class="topText">
+      <text class="font_2">Hi~小蛙！</text>
+      <text class="font_2">来填写注册吧~</text>
+    </view>
   <button class="avatarbtn"
         open-type="chooseAvatar"
         bindchooseavatar="onChooseAvatar"
   >
         <image class="avatar" mode="widthFix" src="{{avatarUrl}}"></image>
-        <view class="pic">设置头像</view>
-      </button>
-
-
-<view bindtap="useDefault" class="defaultpic">使用默认头像</view>
+  </button>
 </view>
 
 <view class="contain">
+  <view class="infoItem">
+    <text>昵称</text>
+    <input  class="operator" type="nickname" 
+    name="nickName"
+    placeholder="微信昵称" 
+    bindinput="nameInput"
+    input value="{{name}}"
+    />
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+  </view>
+  <view class="infoItem">
+    <text>学校</text>
+    <view class="operator" bindtap="choose">
+      <block wx:if="{{choosed}}">{{university}}</block>
+      <block wx:if="{{!choosed}}">所在学校</block>
+  </view>
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+  </view>
+  <view class="infoItem">
+    <text>校区</text>
+    <view class="operator" bindtap="choose">
+      <block wx:if="{{choosed}}">{{campus}}</block>
+      <block wx:if="{{!choosed}}">所在校区</block>
+  </view>
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+  </view>
+  <view class="infoItem">
+    <text>年级</text>
+    <picker class="operator" mode="selector" range="{{gradeList}}" bindchange="handleGrade">
+    <view class="picker">
+      {{grade}}
+    </view>
+    </picker>
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+  </view>
+  <view class="infoItem">
+    <text>毕业时间</text>
+    <picker class="operator" mode="selector" range="{{years}}" value="{{yearIndex}}" bindchange="bindYearChange">
+    <view class="picker">
+      {{selectedYear}}
+    </view>
+    </picker>
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+  </view>
+  <view class="infoItem">
+    <text>学号验证</text>
+    <input  class="verify"
+    placeholder="请输入您的学号" 
+    bindinput="bindIdInput"
+    input value="{{id}}"
+    />
+    
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+    <view class="vbtn" bindtap="handleIdVerify">点击验证</view>
+  </view>
+  <view class="infoItem">
+    <text>手机验证</text>
+    <input  class="verify"
+    placeholder="请输入您的手机号" 
+    bindinput="bindPhoneInput"
+    input value="{{phone}}"
+    />
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+    <view class="vbtn" bindtap="getCode">获取验证码</view>
+  </view>
+  <view class="infoItem">
+    <text></text>
+    <input  class="verify"
+    placeholder="请输入验证码" 
+    bindinput="bindCodeInput"
+    input value="{{code}}"
+    />
+    <image
+      class="shrink-0 image_6"
+      src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
+    mode="widthFix"/>
+    <view class="vbtn" bindtap="verify">点击验证</view>
+  </view>
+  <!--底部确认-->
 
-  <view class="contact">
-              <!-- <input bindblur="nameInput" value="{{name}}" maxlength="30" placeholder-class="pache" placeholder="填写昵称（建议使用微信昵称）" /> -->
-              <input style="width: 486rpx; height: 64rpx; display: block; box-sizing: border-box" type="nickname" 
-              name="nickName"
-              class="nickname-input" 
-              placeholder="点击使用微信昵称" 
-              bindinput="nameInput"
-              bindKeyInput="bindKeyInput"
-              input value="{{nickName}}"
-              />
-        </view>
-        <view bindtap="choose" value="{{ids}}" range="{{campus}}" range-key="name">
-              <view class="campus">
-                    <block wx:if="{{choosed}}">{{university}}-{{campus}}</block>
-                    <block wx:if="{{!choosed}}">所在校区</block>
-
-              </view>
-        </view>
-      <!--底部确认-->
-      <view class="cbtn" bindtap="handleCreate1">
-      <text>注册</text>
-      
-      </view>
 </view>
+<view class="cbtn" bindtap="handleCreate1">
+  <text>注册</text>
+  
+  </view>
 

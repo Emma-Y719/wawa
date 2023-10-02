@@ -4,6 +4,8 @@ const { getBaseUrl,requestUtil } = require("../../../utils/requestUtil.js");
 const db = wx.cloud.database();
 const app = getApp();
 wx.cloud.init();
+var zhenzisms = require('../../../utils/zhenzisms.js');
+zhenzisms.client.init("https://sms_developer.zhenzikj.com", "113521", "e0382ac6-a92c-4edd-8d49-375c532d0007");
 Page({
 
   /**
@@ -23,7 +25,21 @@ Page({
         avatarUrl:"/icons/student.jpg",
         baseUrl:"",
         userInfo:{},
-        isclick:false
+        isclick:false,
+        gradeid:-1,
+        grade:"选择年级",
+        gradeList:["大一","大二","大三","大四","大五","研一","研二","研三","博士"],
+        years: [],
+        yearIndex: 0,
+        selectedYear: '',
+        isIdVerified:false,
+        phone:'',
+        id:'',
+        code:'',
+        isPhoneVerified:false,
+        hidden: false,
+        btnValue:'',
+        btnDisabled:false,
   },
   choose(e) {
     wx.navigateTo({
@@ -37,15 +53,163 @@ Page({
     this.setData({
       baseUrl:baseUrl
     })
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+      years.push(i);
+    }
+    this.setData({
+      years: years,
+      selectedYear: years[11]
+    });
   },
   onShow(){
   },
+  bindYearChange: function (e) {
+    const yearIndex = e.detail.value;
+    const selectedYear = this.data.years[yearIndex];
 
+    // 在这里可以处理选择后的年份
+    console.log(`选择的年份是：${selectedYear}`);
 
+    this.setData({
+      yearIndex: yearIndex,
+      selectedYear: selectedYear
+    });
+  },
+  handleIdVerify(){
+
+  },
+      //手机号输入
+  bindIdInput(e) {
+    //console.log(e.detail.value);
+    var val = e.detail.value;
+    //console.log(val);
+    this.setData({
+      id: val
+    })
+    console.log(this.data.id);
+    // if(val != ''){
+    //   this.setData({
+    //     hidden: false,
+    //     btnValue: '获取验证码'
+    //   })
+    // }else{
+    //   this.setData({
+    //     hidden: true
+    //   })
+    // }
+  },
+    //手机号输入
+  bindPhoneInput(e) {
+    //console.log(e.detail.value);
+    var val = e.detail.value;
+    //console.log(val);
+    this.setData({
+      phone: val,
+      phoneval:val
+    })
+    console.log(this.data.phone);
+    // if(val != ''){
+    //   this.setData({
+    //     hidden: false,
+    //     btnValue: '获取验证码'
+    //   })
+    // }else{
+    //   this.setData({
+    //     hidden: true
+    //   })
+    // }
+  },
+ //验证码输入
+ bindCodeInput(e) {
+  this.setData({
+    code: e.detail.value
+  })
+},
+//获取短信验证码
+getCode(e) {
+  var that = this;
+  zhenzisms.client.init('https://sms_developer.zhenzikj.com', '113521', 'e0382ac6-a92c-4edd-8d49-375c532d0007');
+  var params = {};
+  
+  params.number = that.data.phone;
+  params.templateId = '12265';
+  var code = zhenzisms.client.createCode(4, 60, that.data.phone);
+  var templateParams = [code, '5分钟'];
+  params.templateParams = templateParams;
+  params.messageId = '223232323';
+  params.clientIp = '221.221.221.111';
+  zhenzisms.client.send(function (res) {
+    wx.showToast({
+      title: res.data.data,
+      icon: 'none',
+      duration: 2000
+    })
+  }, params);
+  
+},
+timer: function () {
+  let promise = new Promise((resolve, reject) => {
+    let setTimer = setInterval(
+      () => {
+        var second = this.data.second - 1;
+        this.setData({
+          second: second,
+          btnValue: second+'秒',
+          btnDisabled: true
+        })
+        if (this.data.second <= 0) {
+          this.setData({
+            second: 60,
+            btnValue: '获取验证码',
+            btnDisabled: false
+          })
+          resolve(setTimer)
+        }
+      }
+      , 1000)
+  })
+  promise.then((setTimer) => {
+    clearInterval(setTimer)
+  })
+},
+showToast(msg){
+  wx.showToast({
+    title: msg,
+    icon: 'none',
+    duration: 2000
+  })
+},
+//保存
+verify(e) {
+  //console.log('姓名: ' + this.data.name);
+  //console.log('手机号: ' + this.data.phone);
+  //console.log('验证码: ' + this.data.code);
+  var that = this;
+   //检验验证码
+  var result = zhenzisms.client.validateCode(this.data.phone, this.data.code);
+  if (result == 'ok'){
+    that.showToast('验证正确');
+  } else if (result == 'empty'){
+    that.showToast('验证错误, 未生成验证码!');
+  } else if (result == 'number_error') {
+    that.showToast('验证错误，手机号不一致!');
+  } else if (result == 'code_error') {
+    that.showToast('验证错误，验证码不一致!');
+  } else if (result == 'code_expired') {
+    that.showToast('验证错误，验证码已过期!');
+  }
+},
   nameInput(e){
     console.log(e.detail.value)
     this.data.name = e.detail.value;
     this.data.userInfo.nickName=e.detail.value;
+    this.setData({
+      userInfo:this.data.userInfo,
+      name:e.detail.value
+    })
+    console.log(this.data.name);
   },
   useDefault(){
     console.log(this.data.avatarUrl)
@@ -64,6 +228,29 @@ Page({
       avatarUrl:avatarUrl
     })
   },
+  handleGrade(event){
+    console.log(this.data.campus)
+    const {value}=event.detail;
+    console.log(value)
+    let gradevalue=parseInt(value)
+    const grade=this.data.gradeList[value];
+    var yearindex=0;
+    if(gradevalue<5){
+      yearindex=15-gradevalue;
+    }else if(gradevalue>=5&&gradevalue<7){
+      yearindex=13-(gradevalue-5)
+    }else{
+      yearindex=11
+    }
+
+    this.setData({
+      grade:grade,
+      gradeid:gradevalue,
+      yearIndex:yearindex,
+      selectedYear:this.data.years[yearindex]
+    })
+    console.log(this.data.gradeid)
+  },
  
   handlelogin(){
     this.data.userInfo.university=this.data.university;
@@ -75,12 +262,12 @@ Page({
       })
       requestUtil({url:"/user/add",method:"POST",data: {
         openid:app.globalData.openid,
-        phone: "",
+        phone: this.data.phone,
         university:this.data.university,
         campus:this.data.campus,
-        qqnum: "",
+        studentId: this.data.id,
         email: "",
-        wxnum: "",
+        grade: this.data.gradeid,
         stamp: new Date(),
         userInfo: this.data.userInfo,
         nickName:this.data.name,
@@ -264,11 +451,40 @@ Page({
    handleCreate1(e) {
         let that = this;
         let name = that.data.name;
-        console.log(name)
-        
+        let gradeid=that.data.gradeid;
+        let phone =that.data.phone;
+        let id=that.data.id;
+        console.log("name ",name)
+        console.log("gradeid ",gradeid)
+        console.log("phone ",phone)
+        console.log("campus",that.data.campus)
         if (name == '') {
           wx.showToast({
             title: '昵称不能为空',
+            icon: 'none',
+            duration: 2000
+          });
+          return false
+        }
+        if (gradeid == -1) {
+          wx.showToast({
+            title: '年级不能为空',
+            icon: 'none',
+            duration: 2000
+          });
+          return false
+        }
+        if (phone == '') {
+          wx.showToast({
+            title: '手机号不能为空',
+            icon: 'none',
+            duration: 2000
+          });
+          return false
+        }
+        if (id == '') {
+          wx.showToast({
+            title: '学号不能为空',
             icon: 'none',
             duration: 2000
           });

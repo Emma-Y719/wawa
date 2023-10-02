@@ -95,7 +95,7 @@ Component({
       if(route!="pages/index/index"){
         if(!app.globalData.isLogin){
         
-          console.log("this!")
+          console.log("tab login!")
            wx.showModal({
             title:'友情提示',
             content:'微信授权登录后，才可进入',
@@ -192,21 +192,7 @@ Component({
               //     })
               //   }
               // })
-              // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
-              //   console.log(res[0].code);
-              //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
-              //   let loginParam={
-              //     code:res[0].code,
-              //     nickName:res[1].userInfo.nickName,
-              //     avatarUrl:res[1].userInfo.avatarUrl
-              //   }
-              //   console.log(loginParam)
-              //   wx.setStorageSync('userInfo', res[1].userInfo);
-              //   this.wxlogin(loginParam);
-              //   app.globalData.userInfo=res[1].userInfo
-              //   app.globalData.isLogin=true;
-    
-              // })
+            
             }
           })
         }else{
@@ -220,6 +206,8 @@ Component({
           that.triggerEvent('componentReady');
           that.watchInfo();
         }
+      }else{
+        this.watchInfo();
       }
 
     },
@@ -405,13 +393,13 @@ Component({
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
-      if(route!='pages/favorite/index'){
+      if(route!='pages/map/index'){
         this.setChose(1);
         if(route=="pages/promote/index"){
-          cur.onTab('/pages/favorite/index');
+          cur.onTab('/pages/map/index');
         }else{
           wx.reLaunch({
-            url: '/pages/favorite/index',
+            url: '/pages/map/index',
           })
         }
       }
@@ -422,7 +410,7 @@ Component({
       let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
       let cur=pages[pages.length-1]
       let route=cur.route
-      if(route!='pages/example/chatroom_example/message'){
+      if(route!='pages/messages/message'){
         if(app.globalData.user.subscribe!=true){
           wx.requestSubscribeMessage({
             tmplIds: ['7JWHM7EVLyq5kZjMQGGOHQPFAzRNSqc_yVof-cW1r_k'], // 需要订阅的消息模板ID列表，替换为您自己的模板ID
@@ -454,10 +442,10 @@ Component({
         }
         this.setChose(2);
         if(route=="pages/promote/index"){
-          cur.onTab('/pages/example/chatroom_example/message');
+          cur.onTab('/pages/messages/message');
         }else{
           wx.reLaunch({
-            url: '/pages/example/chatroom_example/message',
+            url: '/pages/messages/message',
           })
         }
       }

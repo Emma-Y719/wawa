@@ -63,7 +63,6 @@
   },
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
-  "libVersion": "2.22.0",
   "packOptions": {
     "ignore": [],
     "include": []

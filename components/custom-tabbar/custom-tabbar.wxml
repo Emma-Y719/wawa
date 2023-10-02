@@ -1,25 +1,22 @@
  <!-- 这是黑色选择框 --> 
  <view class="SelectColumn"> 
         <view bindtap="onNavi1" open-type="reLaunch" url="/pages/index/index" class="firstlogo">
-          <image src="{{chose[0]? '/images/home_h.png':'/images/home_n.png'}} " mode="widthFix"></image>
+          <image src="{{chose[0]? '/images/bar_home_s.jpg':'/images/bar_home.jpg'}} " mode="widthFix"></image>
         </view>
-
-        <view bindtap="onNavi2"open-type="reLaunch" url="/pages/favorite/index" class="secondlogo">
-          <image src="{{chose[1]? '/images/favorite_h.png':'/images/favorite_n.png'}}" mode="widthFix"></image>
+        <view bindtap="onNavi2"open-type="reLaunch" url="/pages/map/index" class="secondlogo">
+          <image src="{{chose[1]? '/images/bar_map_s.png':'/images/bar_map.png'}}" mode="widthFix"></image>
         </view>
-
-        <view bindtap="onNavi3" open-type="reLaunch" url="/pages/example/chatroom_example/message" class="thirdlogo">
-          <image src="{{chose[2]? '/images/msg_h.png':'/images/msg_n.png'}}" mode="widthFix"class='msglogo'></image>
-          
+        <view bindtap="onNavi3" open-type="reLaunch" url="/pages/messages/message" class="thirdlogo">
+          <image src="{{chose[2]? '/images/bar_msg_s.jpg':'/images/bar_msg.jpg'}}" mode="widthFix"class='msglogo'></image>     
         </view>
         <image class="notread"src="/images/reddot.png" mode="widthFix" wx:if="{{notRead}}"/>
         <view bindtap="onNavi4" open-type="reLaunch" class="fourthlogo">
-          <image src="{{chose[3]? '/images/my_h.png':'/images/my_n.png'}}" mode="widthFix"></image>
+          <image src="{{chose[3]? '/images/bar_person_s.jpg':'/images/bar_person.jpg'}}" mode="widthFix"></image>
         </view>
 
          <!-- 这是青蛙logo -->
         <view bindtap="onNavi5" open-type="reLaunch" url="/pages/promote/index" class="fraglogo">
-         <image src="/images/promote_index.png" mode="widthFix"></image>
+         <image src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/8810f669ad8235c4eb8f69f2c6834552.png" mode="widthFix"></image>
         </view>
 
  </view>

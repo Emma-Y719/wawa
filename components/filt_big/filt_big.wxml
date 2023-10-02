@@ -1,0 +1,26 @@
+<view class="cates">
+  <view bindtap="onNotComplete"class="sort">
+    <div class="line"></div>
+    {{city}}
+    
+  </view>
+  <navigator class="university" url="/pages/search/location">
+    <div class="line"></div>
+    {{university}}
+   
+  </navigator>
+  <navigator class="campus" url="/pages/search/location">
+    <div class="line"></div>
+    {{campus}}
+    
+  </navigator>
+
+  <picker class="storage" mode="selector" range="{{storageList}}" bindchange="handleStorage">
+    <div class="line"></div>
+      {{storage}}
+    <!-- <image src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941389497014154.png" mode="widthFix"/> -->
+     
+
+  </picker>
+
+</view>

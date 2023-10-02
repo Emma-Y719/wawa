@@ -1,0 +1,141 @@
+<view class="typeContainer">
+  <view bindtap="ontapChat" class="type">
+    <view class="img">
+      <image src="{{chatdisplay?'/images/chatlist_s.jpg':'/icons/chat.png'}}" mode="widthFix"/>
+      <image class="tixing" wx:if="{{chatnotread}}"src="/images/reddot.png" mode="widthFix"/>
+    </view>
+    <text>聊天</text>
+  </view>
+  <view bindtap="ontapFocus" class="type">
+    
+    <view class="img">
+      <image src="{{focusdisplay?'/images/focus_s.png':'/images/focus.png'}}" mode="widthFix"/>
+      <image class="tixing" wx:if="{{focusnotread}}"src="/images/reddot.png" mode="widthFix"/>
+    </view>
+    <text>收藏提醒</text>
+  </view>
+  <view bindtap="ontapSystem" class="type">
+    
+    <view class="img">
+      <image src="{{systemdisplay?'/images/system_s.png':'/images/system.png'}}" mode="widthFix"/>
+      <image class="tixing" wx:if="{{systemnotread}}"src="/images/reddot.png" mode="widthFix"/>
+    </view>
+    <text>系统通知</text>
+  </view>
+</view>
+<view class="chatList" wx:if="{{chatdisplay}}">
+  <view class="chat"
+  wx:for="{{rooms}}"
+  wx:for-item="room"
+  wx:key="id"
+  >
+    <image class="tixing" wx:if="{{room.notRead}}"src="/images/reddot.png" mode="widthFix"/>
+    <image bindtap="onUserDetail"data-id="{{index}}"class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
+    <navigator url="{{room.url}}">
+            <view class="middle">
+              <view class="title">
+                <view class="chat_name">
+                {{room.target.nickName}}
+                </view>
+                <view class="chat_campus">
+                  {{room.target.university}}-{{room.target.campus}}
+                </view>
+        
+              </view>
+   
+              <view class="chat_message"> 
+                  {{room.lastsender}} : {{room.lastmsg}} 
+              </view>
+
+            </view>
+            <view class="date">
+            <view class="day">{{room.lastmsgtime[0]}}</view>
+            <view class="time">{{room.lastmsgtime[1]}}</view>
+            </view>
+            <view class="right">
+              <image class="productPic"src="{{room.product.pic}}" mode="aspectFill"/>
+            </view>
+
+
+    </navigator>
+  </view>
+</view>
+<view class="focusList" wx:if="{{focusdisplay}}">
+  <view class="focus"
+  wx:for="{{focuses}}"
+  wx:for-item="room"
+  wx:key="id"
+  >
+    <image class="tixing" wx:if="{{room.notRead}}"src="/images/reddot.png" mode="widthFix"/>
+    <image bindtap="onUserDetail"data-id="{{index}}"class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
+    <navigator>
+            <view class="middle">
+              <view class="title">
+                <view class="chat_name">
+                {{room.target.nickName}}
+                </view>
+                <view class="chat_campus">
+                  {{room.target.university}}-{{room.target.campus}}
+                </view>
+        
+              </view>
+   
+              <view class="chat_message"> 
+                   {{room.lastmsg}} 
+              </view>
+
+            </view>
+            <view class="date">
+            <view class="day">{{room.lastmsgtime[0]}}</view>
+            <view class="time">{{room.lastmsgtime[1]}}</view>
+            </view>
+            <view class="right">
+              <image class="productPic"src="{{room.product.pic}}" mode="aspectFill"/>
+            </view>
+
+
+    </navigator>
+  </view>
+</view>
+<view class="systemList" wx:if="{{systemdisplay}}">
+  <view class="system"
+  wx:for="{{systemList}}"
+  wx:for-item="room"
+  wx:key="id"
+  >
+    <image class="tixing" wx:if="{{room.notRead}}"src="/images/reddot.png" mode="widthFix"/>
+    <image bindtap="onUserDetail"data-id="{{index}}"class="userPic" mode="aspectFill" src="{{room.target.avatarUrl}}"></image>
+    <navigator url="{{room.url}}">
+            <view class="middle">
+              <view class="title">
+                <view class="chat_name">
+                {{room.target.nickName}}
+                </view>
+                <view class="chat_campus">
+                  {{room.target.university}}-{{room.target.campus}}
+                </view>
+        
+              </view>
+   
+              <view class="chat_message"> 
+                  {{room.lastsender}} : {{room.lastmsg}} 
+              </view>
+
+            </view>
+            <view class="date">
+            <view class="day">{{room.lastmsgtime[0]}}</view>
+            <view class="time">{{room.lastmsgtime[1]}}</view>
+            </view>
+            <view class="right">
+              <image class="productPic"src="{{room.product.pic}}" mode="aspectFill"/>
+            </view>
+
+
+    </navigator>
+  </view>
+</view>
+<view class="bottom">
+  
+</view>
+
+<custom-tabbar></custom-tabbar>

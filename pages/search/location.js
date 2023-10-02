@@ -36,7 +36,7 @@ Page({
       method:"GET"
     });
     this.Campuses=result.message;
-    console.log(this.Campuses)
+    console.log(result)
     //普通写法
     // let leftMenuList=    this.Campuses.map((v)=>{
     //   return v.name
@@ -96,8 +96,8 @@ Page({
     const app=getApp();
     const {camIndex}=app.globalData
     const {curcamIndex}=app.globalData
-    console.log("camndex: "+camIndex)
-    console.log("curcamindex: "+curcamIndex)
+    console.log("index: "+camIndex)
+    console.log("index: "+curcamIndex)
     if(camIndex!=-1){//首页跳转而来
       this.getCampusesFromHome(camIndex);
       console.log(this.currentCampusIndex);
@@ -135,15 +135,20 @@ handleLocationJump(e){
     // app.globalData.curcamIndex=index;
     // app.globalData.searchUniversityIndex=this.data.currentIndex;
     // app.globalData.searchCampusIndex=index;
+    console.log("currentIndex: "+this.data.currentIndex)
+    console.log("currentIndex: "+index)
     console.log("previos:   "+prevPage.route)
     prevPage.setData({
-      university:this.Campuses[this.data.currentIndex].name,
-      campus:this.Campuses[this.data.currentIndex].schoolList[index].campus,
+      university:app.globalData.campuses[index].name,
+      campus:app.globalData.campuses[index].campus,
       uid:this.data.currentIndex,
       cid:index,
+      productList:[],
+      curPage:0
     })
-    wx.navigateTo({
-      url: "/pages/search/index",
+    //prevPage.searchProductList();
+    wx.navigateBack({
+      delta:1
     })
   }else{
     prevPage.setData({

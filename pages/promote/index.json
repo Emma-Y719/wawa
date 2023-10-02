@@ -3,8 +3,8 @@
      "SearchBar":"/components/SearchBar/SearchCampus",
      "custom-tabbar": "/components/custom-tabbar/custom-tabbar"
     },
-    "navigationBarBackgroundColor": "#88bb1e",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "上传物品"
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "发布"
  
 }

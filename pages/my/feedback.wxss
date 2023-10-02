@@ -1,0 +1,134 @@
+.page {
+  background-color: #fafafa;
+  overflow: hidden;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.font_1 {
+  font-size: 32rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #87c03f;
+}
+.group_2 {
+  padding: 82rpx 130rpx 72rpx;
+  overflow-y: auto;
+}
+.space-y-12 > view:not(:first-child),
+.space-y-12 > text:not(:first-child),
+.space-y-12 > image:not(:first-child) {
+  margin-top: 24rpx;
+}
+.text_3 {
+  margin-left: 10rpx;
+}
+.text-wrapper {
+  margin-right: 10rpx;
+  padding: 8rpx 0 84rpx;
+  overflow: hidden;
+  border-radius: 16rpx;
+  background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16946168374570497095.png');
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 160rpx;
+}
+.font_2 {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 32rpx;
+  color: #333333;
+}
+.text_4 {
+  margin-left: 16rpx;
+  text-align: left;
+  width: 406rpx;
+}
+.group_3 {
+  margin-top: 62rpx;
+}
+.group_4 {
+  margin-left: 10rpx;
+}
+.font_3 {
+  font-size: 40rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 46rpx;
+  color: #87c03f;
+}
+.text-area {
+  position: relative;
+  margin-right: 10rpx;
+  margin-top: 16rpx;
+}
+.group_5 {
+  overflow: hidden;
+  border-radius: 16rpx;
+}
+.image_5 {
+  border-radius: 16rpx;
+  overflow: hidden;
+  width: 480rpx;
+  height: 200rpx;
+}
+.text_5 {
+  text-align: left;
+  width: 378rpx;
+}
+.pos {
+  position: absolute;
+  left: 16rpx;
+  top: 8rpx;
+}
+.button {
+  margin: 60rpx 8rpx 0;
+}
+.text-wrapper_2 {
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 10rpx;
+}
+.text_6 {
+  color: #ffffff;
+  line-height: 34rpx;
+}
+.text_7 {
+  margin-left: 38rpx;
+  margin-top: 432rpx;
+}
+.tab-bar {
+  padding: 16rpx 80rpx;
+  background-image: url('https://636c-cloud1-4g6bmgze1a238f21-1317364171.tcb.qcloud.la/bar/bar_back.jpg?sign=cc6e67d613db9bdd12e8845b8cfcb912&t=1694706497');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.image_6 {
+  width: 54rpx;
+  height: 54rpx;
+}
+.image_7 {
+  margin-top: 44rpx;
+}
+.image_8 {
+  margin-left: 80rpx;
+  margin-top: 40rpx;
+}
+.image-wrapper {
+  margin-left: 56rpx;
+  padding: 24rpx 0;
+  background-color: #87c03e;
+  border-radius: 52rpx;
+  width: 104rpx;
+  height: 104rpx;
+}
+.image_9 {
+  margin-left: 56rpx;
+  margin-top: 44rpx;
+}
+.image_10 {
+  margin-left: 80rpx;
+  margin-top: 44rpx;
+}
