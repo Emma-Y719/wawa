@@ -2,6 +2,7 @@
   "pages": [
    
     "pages/wait/wait",
+    "pages/wait/id",
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",

@@ -57,65 +57,19 @@ Page({
         title:'友情提示',
         content:'微信授权登录后，才可进入',
         success:(res)=>{
-          // wx.login({
-          //   success: function(res) {
-          //     if (res.code) {
-          //       // 登录成功，获取到用户的登录凭证 code
-          //       var code = res.code;
-          //       console.log(code)
-          //       requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
-          //         console.log(res)
-          //         var openid=res.id;
-          //         requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
-          //           if(res.message.length==0){
-          //             console.log("尚未注册!！")
-          //             app.globalData.openid=openid;
-          //             console.log(app.globalData.openid)
-          //             wx.redirectTo({
-          //               url: '/pages/my/create/login',
-          //             })
-          //           }else{
-          //             app.globalData.openid= res.message[0].openid;
-          //             app.globalData.userInfo = res.message[0].userinfo;
-          //             app.globalData.friends=res.message[0].friends;
-          //             app.globalData.user=res.message[0];
-          //             app.globalData.isLogin=true;
-          //             console.log("data user:",res.message[0].university)
-          //             that.setData({
-          //               uid:res.message[0].uid,
-          //               cid:res.message[0].cid,
-          //               locuni:res.message[0].university,
-          //               loccam:res.message[0].campus
-          //             })
-          //             that.getcampusLoc();
-          //             // console.log("component ready!")
-          //             // that.triggerEvent('componentReady');
-          //             // that.watchInfo();
-          //             app.globalData.user["online"]=true
-          //             requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
-          //               console.log(res)
-          //             })
-          //           }
-          //         })
-          //       })
-                
-          //     }
-          //   }
-          // })
-
-          wx.cloud.callFunction({
-            name: 'yunrouter', // 对应云函数名
-            data: {
-              $url: "openid", //云函数路由参数
-            },
-            success: re => {
-              console.log("user:"+re.result)
-              app.globalData.openid=re.result
-              requestUtil({url:"/user/findid",method:"GET",data:{id:re.result}}).then(res=>{
-
+          wx.login({
+            success: function(res) {
+              if (res.code) {
+                // 登录成功，获取到用户的登录凭证 code
+                var code = res.code;
+                console.log(code)
+                requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
+                  console.log(res)
+                  var openid=res.id;
+                  requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
                     if(res.message.length==0){
                       console.log("尚未注册!！")
-                     
+                      app.globalData.openid=openid;
                       console.log(app.globalData.openid)
                       wx.redirectTo({
                         url: '/pages/my/create/login',
@@ -143,23 +97,53 @@ Page({
                       })
                     }
                   })
+                })
+                
+              }
             }
           })
 
-          // Promise.all([getWxLogin(),getUserProfile()]).then((res)=>{
-          //   console.log(res[0].code);
-          //   console.log(res[1].userInfo.nickName,res[1].userInfo.avatarUrl)
-          //   let loginParam={
-          //     code:res[0].code,
-          //     nickName:res[1].userInfo.nickName,
-          //     avatarUrl:res[1].userInfo.avatarUrl
-          //   }
-          //   console.log(loginParam)
-          //   wx.setStorageSync('userInfo', res[1].userInfo);
-          //   this.wxlogin(loginParam);
-          //   app.globalData.userInfo=res[1].userInfo
-          //   app.globalData.isLogin=true;
+          // wx.cloud.callFunction({
+          //   name: 'yunrouter', // 对应云函数名
+          //   data: {
+          //     $url: "openid", //云函数路由参数
+          //   },
+          //   success: re => {
+          //     console.log("user:"+re.result)
+          //     app.globalData.openid=re.result
+          //     requestUtil({url:"/user/findid",method:"GET",data:{id:re.result}}).then(res=>{
 
+          //           if(res.message.length==0){
+          //             console.log("尚未注册!！")
+                     
+          //             console.log(app.globalData.openid)
+          //             wx.redirectTo({
+          //               url: '/pages/my/create/login',
+          //             })
+          //           }else{
+          //             app.globalData.openid= res.message[0].openid;
+          //             app.globalData.userInfo = res.message[0].userinfo;
+          //             app.globalData.friends=res.message[0].friends;
+          //             app.globalData.user=res.message[0];
+          //             app.globalData.isLogin=true;
+          //             console.log("data user:",res.message[0].university)
+          //             that.setData({
+          //               uid:res.message[0].uid,
+          //               cid:res.message[0].cid,
+          //               locuni:res.message[0].university,
+          //               loccam:res.message[0].campus
+          //             })
+          //             that.getcampusLoc();
+          //             // console.log("component ready!")
+          //             // that.triggerEvent('componentReady');
+          //             // that.watchInfo();
+          //             app.globalData.user["online"]=true
+          //             requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+          //               console.log(res)
+          //             })
+          //           }
+          //         })
+          //   }
           // })
         }
       })
@@ -174,13 +158,14 @@ Page({
     }
   },
   getcampusLoc(){
-    requestUtil({url:"/campus/findId",mothod:"GET",data:{cid:this.data.cid}}).then(res=>{
-      console.log(res)
-       this.setData({
-         latitude:res.message.latitude,
-         longitude:res.message.longitude
-       })
-    })
+      this.setData({
+        uid:app.globalData.uid,
+        cid:app.globalData.cid,
+        locuni:app.globalData.locuni,
+        loccam:app.globalData.loccam,
+        latitude:app.globalData.latitude,
+        longitude:app.globalData.longitude
+      })
   },
   onLoad(options) {
     // const component = this.selectComponent('#custom-tabbar');
@@ -231,8 +216,9 @@ loadData(){
   })
   this.searchDisplay();
   this.getHotProductList();
-  console.log(this.loc);
-  this.getWLogin();
+  console.log(app.globalData.latitude);
+  this.getcampusLoc();
+  //this.getWLogin();
   const chat_row1=app.globalData.storageList.filter((item,index)=>{
     return index<4;
   })
