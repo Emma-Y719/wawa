@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/my/history/index",
     "pages/wait/id",
     "pages/wait/wait",
 
