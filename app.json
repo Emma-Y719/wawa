@@ -1,8 +1,7 @@
 {
   "pages": [
-   
-    "pages/wait/wait",
     "pages/wait/id",
+    "pages/wait/wait",
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
@@ -13,22 +12,16 @@
     "pages/map/seek",
     "pages/my/feedback",
     "pages/promote/pre",
-
     "pages/index/index",
     "pages/storage/create/login",
-
     "pages/storage/create/success",
     "pages/storage/index",
- 
     "pages/storage/create/info/index",
-    
     "pages/category/index",
     "pages/my/index",
     "pages/my/detail",
-
     "pages/messages/message",
     "pages/messages/room/room",
-
     "pages/search/index",
     "pages/search/campus",
     "pages/search/location",
