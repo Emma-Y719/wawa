@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/wait/id",
+    "pages/map/seek",
     "pages/wait/wait",
+    "pages/wait/id",
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
@@ -9,7 +10,7 @@
     "pages/map/map",
     "pages/map/mix",
     "pages/map/post",
-    "pages/map/seek",
+  
     "pages/my/feedback",
     "pages/promote/pre",
     "pages/index/index",

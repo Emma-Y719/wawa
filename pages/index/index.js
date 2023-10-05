@@ -270,11 +270,11 @@ loadData(){
       this.setData({
         hotProductList:result.message
       })
-      result.message.forEach(function(value,index,array){
-        　　//code something
-        console.log(value.propic.pics[0])
-        });
-      console.log("Hot: "+result)
+      // result.message.forEach(function(value,index,array){
+      //   　　//code something
+      //   console.log(value.propic.pics[0])
+      //   });
+      //console.log("Hot: "+result)
       requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
         console.log("result: ",res2)
         if(res2.message[0].favorite!=undefined){

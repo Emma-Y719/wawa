@@ -12,7 +12,7 @@
       <text class="font_2">游客身份</text>
       <text class="font_1 text">了解蛙蛙！仅浏览嗷~</text>
     </view>
-    <view class="flex-row items-center list-item view space-x-21" bintap="onSignUp">
+    <view class="flex-row items-center list-item view space-x-21" bindtap="onSignUp">
       <text class="font_2">学生注册</text>
       <text class="font_1">成为蛙蛙！可以买卖！</text>
     </view>
