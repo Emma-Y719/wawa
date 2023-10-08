@@ -159,6 +159,15 @@ Page({
       storageid:component.data.storageid
     })
   },
+  async onChildSearch(){
+     
+    this.setData({
+      productList:[],
+      curPage:0
+    })
+    await this.syncDataToComponent();
+    //this.searchProductList();
+},
   navigateBack: function () {
     wx.navigateBack({
       delta: 1
@@ -189,15 +198,7 @@ Page({
       icon: 'none',
     })
   },
-  async onChildSearch(){
-     
-      this.setData({
-        productList:[],
-        curPage:0
-      })
-      await this.syncDataToComponent();
-      //this.searchProductList();
-  },
+
   async searchProductList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
     await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{

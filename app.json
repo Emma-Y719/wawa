@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/map/seek",
+   
     "pages/wait/wait",
     "pages/wait/id",
     "pages/my/create/login",
@@ -10,7 +10,7 @@
     "pages/map/map",
     "pages/map/mix",
     "pages/map/post",
-  
+    "pages/map/seek",
     "pages/my/feedback",
     "pages/promote/pre",
     "pages/index/index",

@@ -1,80 +1,58 @@
 <view class="flex-col page">
   <view class="flex-col flex-auto group_2 space-y-6">
-    <view class="flex-row justify-between group_3">
-      <view class="flex-row items-center group_4">
-        <text class="font_1 text_3">南京</text>
-        <image
-          class="shrink-0 image_5"
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941349281448521.png"
-        />
-      </view>
-      <view class="flex-row items-center group_5 space-x-3">
-        <text class="shrink-0 font_1 text_3">南京航空航天大学</text>
-        <image
-          class="shrink-0 image_5"
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941349281448521.png"
-        />
-      </view>
-      <view class="flex-row items-center group_6">
-        <text class="font_1 text_3">明故宫校区</text>
-        <image
-          class="shrink-0 image_5"
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941349281448521.png"
-        />
-      </view>
-    </view>
+    <filt id="filt" bind:customEvent="onChildSearch"/>
     <view class="flex-col">
-<!-- 这是地图部分 -->
-<view class="map_container">
-    <map id="myMap" class='map' longitude='{{markers[current].longitude}}' latitude='{{markers[current].latitude}}' scale='{{scale}}' bindcontroltap="bindcontroltap" markers="{{markers}}"polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
-      show-location>
-        <!-- <view class="mark"
-          wx:for="{{markers}}"
-          wx:for-item="mark"
-          wx:key="id"
-        >
-        <marker class="marker" lattitude="{{mark.latitude}}" longitude="{{mark.longitude}}">
-            <image src="{{mark.iconPath}}" mode="widthFix"/>
-            {{mark.price}}
-        </marker>
-      </view> -->
-      <custom-tabbar></custom-tabbar>
+      <!-- 这是地图部分 -->
+      <view class="map_container">
+          <map id="myMap" class='map' longitude='{{markers[current].longitude}}' latitude='{{markers[current].latitude}}' scale='{{scale}}' bindcontroltap="bindcontroltap" markers="{{markers}}"polyline='{{polyline}}' circles="{{circles}}" bindmarkertap='onMarkerTap' bindcontroltap='bindcontroltap'
+            show-location>
+              <!-- <view class="mark"
+                wx:for="{{markers}}"
+                wx:for-item="mark"
+                wx:key="id"
+              >
+              <marker class="marker" lattitude="{{mark.latitude}}" longitude="{{mark.longitude}}">
+                  <image src="{{mark.iconPath}}" mode="widthFix"/>
+                  {{mark.price}}
+              </marker>
+            </view> -->
+            <custom-tabbar></custom-tabbar>
 
-       <!-- 这是滚动页面 --> 
-      <scroll-view bindscroll="onScrollViewScroll" scroll-x class="right_content">
-      <view class="productType">
-      <view class="product_list"
-        wx:for="{{markers}}"
-        wx:for-item="product"
-        wx:key="id"
-        >
-        <navigator
-          url="/pages/product_detail/index?id={{product.identity}}"
-        >
-          <image mode="aspectFill" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'?baseUrl+'/image/product/'+product.propic.pics[0]:product.propic.pics[0]}}"></image>
-          <view class="right">
-            <view class="product_name">
-              {{product.title}}
+            <!-- 这是滚动页面 --> 
+          <!-- <scroll-view bindscroll="onScrollViewScroll" scroll-x class="right_content">
+            <view class="productType">
+            <view class="product_list"
+              wx:for="{{markers}}"
+              wx:for-item="product"
+              wx:key="id"
+              >
+              <navigator
+                url="/pages/product_detail/index?id={{product.identity}}"
+              >
+                <image mode="aspectFill" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'?baseUrl+'/image/product/'+product.propic.pics[0]:product.propic.pics[0]}}"></image>
+                <view class="right">
+                  <view class="product_name">
+                    {{product.title}}
+                  </view>
+                  <view class="product_des"> 
+                    {{product.detailInfo}}
+                  </view>
+                  <view class="product_price"> 
+                    ¥ {{product.price}}
+                  </view>
+                </view>
+              </navigator>
+              </view>
             </view>
-            <view class="product_des"> 
-              {{product.detailInfo}}
-            </view>
-            <view class="product_price"> 
-              ¥ {{product.price}}
-            </view>
-          </view>
-        </navigator>
-        </view>
+            </scroll-view> -->
+
+          </map>
+
       </view>
-      </scroll-view>
-
-    </map>
-
-  </view>
       <view class="flex-col group_7 space-y-10">
         <view class="flex-row space-x-10">
           <view class="flex-col flex-auto">
-            <view class="flex-col section_2 space-y-10">
+            <view class="flex-col section_2 space-y-10" bindtap="onTapSeek">
               <text class="self-center font_2 text_4">附近求购</text>
               <view class="flex-col">
                 <view class="flex-row group_8">

@@ -438,8 +438,11 @@ loadData(){
     })
   },
   onClickMap(){
+    // wx.navigateTo({
+    //   url: '/pages/search/map',
+    // })
     wx.navigateTo({
-      url: '/pages/search/map',
+      url: '/pages/map/map',
     })
   },
   onMarkerTap(){
