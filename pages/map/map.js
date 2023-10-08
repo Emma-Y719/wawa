@@ -207,10 +207,10 @@ Page({
     }else{
       this.setData({
         type:app.globalData.type,
-        uid:app.globalData.searchUniversityIndex,
-        cid:app.globalData.searchCampusIndex,
-        university:app.globalData.campus.split('-')[0],
-        campus:app.globalData.campus.split('-')[1]
+        uid:app.globalData.user.uid,
+        cid:app.globalData.user.cid,
+        university:app.globalData.user.university,
+        campus:app.globalData.user.campus
       })
     }
     // 实例化API核心类
@@ -249,7 +249,7 @@ Page({
 
   onTapSeek(){
     wx.redirectTo({
-      url: '/pages/map/seek',
+      url: '/pages/map/item',
     })
   },
   onTapProduct(){

@@ -108,10 +108,10 @@ Page({
       
       this.setData({
         type:"",
-        uid:app.globalData.searchUniversityIndex,
-        cid:app.globalData.searchCampusIndex,
-        university:app.globalData.campus.split('-')[0],
-        campus:app.globalData.campus.split('-')[1]
+        uid:app.globalData.user.uid,
+        cid:app.globalData.user.cid,
+        university:app.globalData.user.university,
+        campus:app.globalData.user.campus
       })
     }
 

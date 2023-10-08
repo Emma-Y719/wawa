@@ -127,7 +127,7 @@ handleLocationJump(e){
     wx.navigateBack({
       delta: 2
     })
-  }else if(prevPage.route=="pages/search/index"){
+  }else if(prevPage.route=="pages/search/index"||prevPage.route=="pages/map/item"){
 
     // app.globalData.location=this.Campuses[this.data.currentIndex].name+"-"+this.Campuses[this.data.currentIndex].schoolList[index].campus;
 
