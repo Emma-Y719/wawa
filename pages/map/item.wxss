@@ -21,25 +21,12 @@ page .header .custom-nav-bar {
 page .header .custom-nav-bar .backicon {
   width: 60rpx;
 }
-page .header .custom-nav-bar .keys {
-  /* 设置搜索栏 */
-  height: 60rpx;
-  border-radius: 50rpx;
-  border: 1.5px solid #8ec31f;
-  /* 设置边框样式，1.5px 宽度，边框 */
-  background-color: #ffffff;
-  justify-content: center;
-  align-items: center;
-  margin-left: 5%;
-}
-page .header .custom-nav-bar .keys .type {
-  display: flex;
-}
-page .header .custom-nav-bar .keys .type input {
-  height: 60rpx;
-  width: 300rpx;
-  font-size: 26rpx;
-  margin-left: 30rpx;
+page .header .custom-nav-bar .tittle {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
 }
 page .products {
   padding: 30rpx 20rpx 30rpx 20rpx;
@@ -121,6 +108,24 @@ page .products .product_list .product_card .bottom .operator image {
   margin-top: 30rpx;
   margin-right: 10rpx;
   width: 45rpx;
+}
+page .float-window {
+  position: fixed;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #242c19;
+  color: #fff;
+  font-size: 30rpx;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
 }
 page .bottom {
   height: 200rpx;

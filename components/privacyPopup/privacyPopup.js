@@ -1,3 +1,13 @@
+import {
+  getBaseUrl,
+  getWxLogin,
+  getUserProfile,
+  requestPay,
+  requestUtil
+}from '../../utils/requestUtil.js';
+var util = require('../../styles/util.js');
+import regeneratorRuntime from '../../lib/runtime/runtime';
+const app = getApp()
 Component({
   /**
    * 组件的初始数据
@@ -65,11 +75,58 @@ Component({
 },
 handleagree(){
   if(!this.isBaseLibraryVersionGreaterThan("2.32.3")){
-    setTimeout(() => {
-      wx.reLaunch({
-        url: '/pages/index/index',
-      })
-    }, 1000); 
+    var  that=this;
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          // 登录成功，获取到用户的登录凭证 code
+          var code = res.code;
+          console.log(code)
+        
+          requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
+            console.log(res)
+            var openid=res.id;
+            
+            requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
+              if(res.message.length==0){
+                console.log("尚未注册!！")
+                
+                app.globalData.uid=0;
+                app.globalData.cid=0;
+                app.globalData.locuni="东南大学";
+                app.globalData.loccam="四牌楼校区";
+                app.globalData.openid=res.id;
+                that.getcampusLoc()
+                wx.reLaunch({
+                  url: '/pages/wait/id',
+                })
+              }else{
+                app.globalData.openid= res.message[0].openid;
+                app.globalData.userInfo = res.message[0].userinfo;
+                app.globalData.friends=res.message[0].friends;
+                app.globalData.user=res.message[0];
+                app.globalData.isLogin=true;
+                console.log("data user:",res.message[0].university)
+                
+                app.globalData.uid=res.message[0].uid
+                app.globalData.cid=res.message[0].cid
+                app.globalData.locuni=res.message[0].university
+                app.globalData.loccam=res.message[0].campus
+                that.getcampusLoc();
+                // console.log("component ready!")
+                // that.triggerEvent('componentReady');
+                // that.watchInfo();
+                app.globalData.user["online"]=true
+                requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+                  console.log(res)
+                })
+              }
+            })
+          })
+          
+        }
+      }
+    })
   }
 
 },
@@ -105,6 +162,20 @@ handledeny(){
           // 直接退出小程序
           wx.exitMiniProgram()
       },
+      getcampusLoc(){
+
+        requestUtil({url:"/campus/findId",mothod:"GET",data:{cid:app.globalData.cid}}).then(res=>{
+          console.log(res)
+
+          app.globalData.latitude=res.message.latitude;
+          app.globalData.longitude=res.message.longitude;
+
+          //  this.setData({
+          //    latitude:res.message.latitude,
+          //    longitude:res.message.longitude
+          //  })
+        })
+      },
       // 同意隐私协议
       handleAgreePrivacyAuthorization() {
           const _ = this
@@ -115,13 +186,63 @@ handledeny(){
           let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
           let cur=pages[pages.length-1]
           let route=cur.route
-          
+          var that=this;
           if(route=='pages/wait/wait'){
-            setTimeout(() => {
-              wx.reLaunch({
-                url: '/pages/index/index',
-              })
-            }, 1000);  
+            wx.login({
+              success: function(res) {
+                if (res.code) {
+                  // 登录成功，获取到用户的登录凭证 code
+                  var code = res.code;
+                  console.log(code)
+                
+                  requestUtil({url:"/user/login",method:"GET",data:{code:code}}).then(res=>{
+                    console.log(res)
+                    var openid=res.id;
+                    
+                    requestUtil({url:"/user/findid",method:"GET",data:{id:res.id}}).then(res=>{
+                      if(res.message.length==0){
+                        console.log("尚未注册!！")
+                        
+                        app.globalData.uid=0;
+                        app.globalData.cid=0;
+                        app.globalData.locuni="东南大学";
+                        app.globalData.loccam="四牌楼校区";
+                        app.globalData.openid=openid;
+                        that.getcampusLoc()
+                        wx.reLaunch({
+                          url: '/pages/wait/id',
+                        })
+                      }else{
+                        app.globalData.openid= res.message[0].openid;
+                        app.globalData.userInfo = res.message[0].userinfo;
+                        app.globalData.friends=res.message[0].friends;
+                        app.globalData.user=res.message[0];
+                        app.globalData.isLogin=true;
+                        console.log("data user:",res.message[0].university)
+                        
+                        app.globalData.uid=res.message[0].uid
+                        app.globalData.cid=res.message[0].cid
+                        app.globalData.locuni=res.message[0].university
+                        app.globalData.loccam=res.message[0].campus
+                        that.getcampusLoc();
+                        // console.log("component ready!")
+                        // that.triggerEvent('componentReady');
+                        // that.watchInfo();
+                        app.globalData.user["online"]=true
+                        requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+                          console.log(res)
+                        })
+                        wx.reLaunch({
+                          url: '/pages/index/index',
+                        })
+                      }
+                    })
+                  })
+                  
+                }
+              }
+            })
+     
           }
       },
   },

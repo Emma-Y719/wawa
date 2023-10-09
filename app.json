@@ -2,35 +2,32 @@
   "pages": [
     "pages/my/history/index",
     "pages/storage/detail",
-    "pages/map/post",
     "pages/map/seek",
     "pages/wait/wait",
     "pages/newPost/index",
 
+   
+    "pages/wait/id",
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
-    "pages/wait/id",
+    "pages/my/history/index",
     "pages/map/map",
     "pages/map/mix",
+    "pages/map/post",
+    "pages/map/item",
     "pages/my/feedback",
     "pages/promote/pre",
-
     "pages/index/index",
     "pages/storage/create/login",
-
     "pages/storage/create/success",
     "pages/storage/index",
- 
     "pages/storage/create/info/index",
-    
     "pages/category/index",
     "pages/my/index",
     "pages/my/detail",
-
     "pages/messages/message",
     "pages/messages/room/room",
-
     "pages/search/index",
     "pages/search/campus",
     "pages/search/location",

@@ -96,7 +96,7 @@
       class="shrink-0 image_6"
       src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941420665149825.png"
     mode="widthFix"/>
-    <view class="vbtn" bindtap="getCode">获取验证码</view>
+    <view class="vbtn {{btnDisabled?'gray':''}}" bindtap="{{btnDisabled?'':'getCode'}}">{{btnValue}}</view>
   </view>
   <view class="infoItem">
     <text></text>

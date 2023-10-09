@@ -38,8 +38,9 @@ Page({
         code:'',
         isPhoneVerified:false,
         hidden: false,
-        btnValue:'',
+        btnValue:'获取验证码',
         btnDisabled:false,
+        second:60
   },
   choose(e) {
     wx.navigateTo({
@@ -136,16 +137,22 @@ getCode(e) {
   params.number = that.data.phone;
   params.templateId = '12265';
   var code = zhenzisms.client.createCode(4, 60, that.data.phone);
-  var templateParams = [code, '5分钟'];
+  var templateParams = [code, '5'];
   params.templateParams = templateParams;
   params.messageId = '223232323';
   params.clientIp = '221.221.221.111';
+  var that=this;
   zhenzisms.client.send(function (res) {
-    wx.showToast({
-      title: res.data.data,
-      icon: 'none',
-      duration: 2000
-    })
+    console.log(res);
+    if(res.data.code==0){
+      wx.showToast({
+        title: "发送成功",
+        icon: 'none',
+        duration: 2000
+      })
+      that.timer();
+    }
+
   }, params);
   
 },
@@ -191,6 +198,9 @@ verify(e) {
   var result = zhenzisms.client.validateCode(this.data.phone, this.data.code);
   if (result == 'ok'){
     that.showToast('验证正确');
+    this.setData({
+      isPhoneVerified:true
+    })
   } else if (result == 'empty'){
     that.showToast('验证错误, 未生成验证码!');
   } else if (result == 'number_error') {
@@ -291,6 +301,10 @@ verify(e) {
             title: '注册成功',
             icon: 'none',
           })
+          app.globalData.uid=res.message.uid
+          app.globalData.cid=res.message.cid
+          app.globalData.locuni=res.message.university
+          app.globalData.loccam=res.message.campus
           wx.reLaunch({
             url: '/pages/index/index',
           })
@@ -458,6 +472,7 @@ verify(e) {
         console.log("gradeid ",gradeid)
         console.log("phone ",phone)
         console.log("campus",that.data.campus)
+        console.log("openid",app.globalData.openid)
         if (name == '') {
           wx.showToast({
             title: '昵称不能为空',
@@ -474,14 +489,6 @@ verify(e) {
           });
           return false
         }
-        if (phone == '') {
-          wx.showToast({
-            title: '手机号不能为空',
-            icon: 'none',
-            duration: 2000
-          });
-          return false
-        }
         if (id == '') {
           wx.showToast({
             title: '学号不能为空',
@@ -490,17 +497,34 @@ verify(e) {
           });
           return false
         }
+        if (phone == '') {
+          wx.showToast({
+            title: '手机号不能为空',
+            icon: 'none',
+            duration: 2000
+          });
+          return false
+        }
+
         //校检校区
         let ids = that.data.ids;
         let campus = that.data.campus;
         console.log("campus: "+campus)
         if (campus=="") {
-              wx.showToast({
-                    title: '请先获取您的校区',
-                    icon: 'none',
-                    duration: 2000
-              });
-        }else{
+          wx.showToast({
+            title: '请先获取您的校区',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+        if(!this.data.isPhoneVerified){
+          wx.showToast({
+            title: '请先验证手机',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+        else{
           requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
             console.log(res.message.code)
             if(res.message.Length>0){

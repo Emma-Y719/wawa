@@ -98,6 +98,10 @@ App({
     typeList:[],
     userInfo:{
     },
-    chose:[true,false,false,false,false]
+    chose:[true,false,false,false,false],
+    uid:-1,
+    cid:-1,
+    locuni:'',
+    loccam:''
   }
 })

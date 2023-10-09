@@ -5,13 +5,7 @@
   <view class="custom-nav-bar">
 
     <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-
-    <view class="keys">
-    <!-- 关键词搜索 -->
-    <view class="type">
-      <input bindinput="ontypeInput"value="{{type}}"/>
-    </view>
-    </view>
+    <text class="tittle">我的附近</text>
 
   </view>
 <filt_big id="filt_big" bind:customEvent="onChildSearch"/>
@@ -53,6 +47,12 @@
         
 </view>
 
+
+<!--pages/map/map.wxml-->
+<view class="float-window" catchtap="onFloatButtonTap"  bindtouchstart="onTouchStart" 
+  bindtouchmove="onTouchMove">
+  地图
+</view>
 <view class="bottom">
 </view>
 <custom-tabbar></custom-tabbar>

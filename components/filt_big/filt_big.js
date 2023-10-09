@@ -40,7 +40,7 @@ Component({
         storage:storage,
         storageid:selectedIndex==0?selectedIndex-1:selectedIndex
       })
-      console.log(storage,this.data.storageid);
+      console.log("in component",storage,this.data.storageid);
       this.triggerEvent('customEvent', {}, {});
     }
   },

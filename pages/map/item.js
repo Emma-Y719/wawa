@@ -33,7 +33,8 @@ Page({
     campuses:[],
     chatids:"",
     isFavorite:[],
-    sendFocusMsg:false
+    sendFocusMsg:false,
+    post_type:0
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -48,19 +49,6 @@ Page({
     });
   },
 
-  // 悬浮窗触摸移动事件
-  onTouchMove: function (e) {
-    let offsetX = e.touches[0].clientX - this.data.startX;
-    let offsetY = e.touches[0].clientY - this.data.startY;
-    this.setData({
-      left: this.data.left + offsetX,
-      top: this.data.top + offsetY,
-      startX: e.touches[0].clientX,
-      startY: e.touches[0].clientY
-    });
-  },
-
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -72,7 +60,12 @@ Page({
     this.setData({
       campuses:app.globalData.campuses
     })
-
+    if(options.post_type!=undefined){
+      console.log("option post_type: "+options.post_type)
+      this.setData({
+        post_type:options.post_type
+      })
+    }
     if(options.uid!=undefined){
       console.log(options)
       let uindex=parseInt(options.uid)
@@ -107,15 +100,15 @@ Page({
     }else{
       
       this.setData({
-        type:app.globalData.type,
-        uid:app.globalData.searchUniversityIndex,
-        cid:app.globalData.searchCampusIndex,
-        university:app.globalData.campus.split('-')[0],
-        campus:app.globalData.campus.split('-')[1]
+        type:"",
+        uid:app.globalData.user.uid,
+        cid:app.globalData.user.cid,
+        university:app.globalData.user.university,
+        campus:app.globalData.user.campus
       })
     }
 
-    //this.searchProductList();
+    //this.searchItemList();
     var that = this
   },
   syncDataToComponent: async function () {
@@ -154,11 +147,12 @@ Page({
         storageList:storages
       });
     }
-    console.log("storage id: "+component.data.storageid)
+    
+    console.log("storage_id: "+component.data.storageid)
     this.setData({
       storageid:component.data.storageid
     })
-    this.searchProductList();
+    //this.searchItemList();
   },
   async onChildSearch(){
      
@@ -167,7 +161,8 @@ Page({
       curPage:0
     })
     await this.syncDataToComponent();
-    //
+    console.log("test!!");
+    await this.searchItemList();
 },
   navigateBack: function () {
     wx.navigateBack({
@@ -191,7 +186,7 @@ Page({
     console.log(e.detail)
     console.log(this.data.type)
 
-    this.searchProductList()
+    this.searchItemList()
   },
   onNotComplete(){
     wx.showToast({
@@ -200,9 +195,9 @@ Page({
     })
   },
 
-  async searchProductList(e){
+  async searchItemList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
-    await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
+    await requestUtil({url:'/product/searchMultiItem',method:"GET",data:{p:this.data.curPage,post_type:this.data.post_type,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
       console.log("lists",result.message.records);
 
       if(this.data.curPage==0){
@@ -617,13 +612,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.syncDataToComponent();
     this.setData({
       curPage:0,
       productList:[]
     })
-    this.syncDataToComponent();
-
-    //this.searchProductList();
+    this.searchItemList();
   },
 
   /**
@@ -680,7 +674,7 @@ Page({
       // 获取下一页数据
       // 这里使用setTimeout来模拟异步请求
       setTimeout(() => {
-        this.searchProductList();
+        this.searchItemList();
         // 隐藏加载动画
         wx.hideLoading();
         this.setData({
