@@ -158,6 +158,7 @@ Page({
     this.setData({
       storageid:component.data.storageid
     })
+    this.searchProductList();
   },
   async onChildSearch(){
      
@@ -166,7 +167,7 @@ Page({
       curPage:0
     })
     await this.syncDataToComponent();
-    //this.searchProductList();
+    //
 },
   navigateBack: function () {
     wx.navigateBack({
@@ -616,12 +617,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.syncDataToComponent();
     this.setData({
       curPage:0,
       productList:[]
     })
-    this.searchProductList();
+    this.syncDataToComponent();
+
+    //this.searchProductList();
   },
 
   /**

@@ -33,7 +33,8 @@ Page({
     campuses:[],
     chatids:"",
     isFavorite:[],
-    sendFocusMsg:false
+    sendFocusMsg:false,
+    post_type:1
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -115,7 +116,7 @@ Page({
       })
     }
 
-    //this.searchProductList();
+    //this.searchItemList();
     var that = this
   },
   syncDataToComponent: async function () {
@@ -154,10 +155,12 @@ Page({
         storageList:storages
       });
     }
-    console.log("storage id: "+component.data.storageid)
+    
+    console.log("storage_id: "+component.data.storageid)
     this.setData({
       storageid:component.data.storageid
     })
+    //this.searchItemList();
   },
   async onChildSearch(){
      
@@ -166,7 +169,8 @@ Page({
       curPage:0
     })
     await this.syncDataToComponent();
-    //this.searchProductList();
+    console.log("test!!");
+    await this.searchItemList();
 },
   navigateBack: function () {
     wx.navigateBack({
@@ -190,7 +194,7 @@ Page({
     console.log(e.detail)
     console.log(this.data.type)
 
-    this.searchProductList()
+    this.searchItemList()
   },
   onNotComplete(){
     wx.showToast({
@@ -199,9 +203,9 @@ Page({
     })
   },
 
-  async searchProductList(e){
+  async searchItemList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
-    await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
+    await requestUtil({url:'/product/searchMultiItem',method:"GET",data:{p:this.data.curPage,post_type:this.data.post_type,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
       console.log("lists",result.message.records);
 
       if(this.data.curPage==0){
@@ -621,7 +625,7 @@ Page({
       curPage:0,
       productList:[]
     })
-    this.searchProductList();
+    //this.searchItemList();
   },
 
   /**
@@ -678,7 +682,7 @@ Page({
       // 获取下一页数据
       // 这里使用setTimeout来模拟异步请求
       setTimeout(() => {
-        this.searchProductList();
+        this.searchItemList();
         // 隐藏加载动画
         wx.hideLoading();
         this.setData({
