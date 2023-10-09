@@ -1,0 +1,8 @@
+<view class="waterfall_container">
+  <view class="column left">
+    <Post wx:for="{{leftList}}" postData="{{item}}" class="post {{index}}" wx:key="id"></Post>
+  </view>
+  <view class="column right">
+    <Post wx:for="{{rightList}}" postData="{{item}}" class="post {{index}}" wx:key="id"></Post>
+  </view>
+</view>

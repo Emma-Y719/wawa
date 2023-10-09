@@ -1,0 +1,14 @@
+.waterfall_container {
+  background-color: #eeeeee;
+  padding: 36rpx;
+  display: flex;
+  align-items: start;
+}
+.waterfall_container .column {
+  flex: 1;
+  margin: 0 12rpx;
+}
+.waterfall_container .column .post {
+  display: block;
+  margin-bottom: 24rpx;
+}

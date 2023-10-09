@@ -1,17 +1,18 @@
 {
   "pages": [
     "pages/my/history/index",
-
-    "pages/my/newPost/index",
+    "pages/storage/detail",
+    "pages/map/post",
+    "pages/map/seek",
     "pages/wait/wait",
+    "pages/newPost/index",
+
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
     "pages/wait/id",
     "pages/map/map",
     "pages/map/mix",
-    "pages/map/post",
-    "pages/map/seek",
     "pages/my/feedback",
     "pages/promote/pre",
 
@@ -37,8 +38,7 @@
     "pages/search/map",
     "pages/product_detail/index",
     "pages/promote/index",
-    "pages/shopMap/shopMap",
-    "pages/storage/detail"
+    "pages/shopMap/shopMap"
   ],
   "window": {
     "backgroundTextStyle": "light",

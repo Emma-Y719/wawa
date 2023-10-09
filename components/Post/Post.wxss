@@ -1,14 +1,15 @@
 .container {
   background-color: #ffffff;
+  border-radius: 16rpx;
 }
 .container .big_picture {
-  width: 320rpx;
-  height: 320rpx;
+  width: 332rpx;
+  height: 332rpx;
 }
 .container .text_container {
   position: relative;
   padding: 20rpx;
-  width: 320rpx;
+  width: 332rpx;
 }
 .container .text_container .title {
   font-size: 30rpx;

@@ -22,7 +22,7 @@
         wx:for="{{postData.icons}}"
         class="icon {{item}}"
         src="{{iconList[item]}}"
-        wx:key="{{item}}"
+        wx:key="*this"
       />
     </view>
   </view>

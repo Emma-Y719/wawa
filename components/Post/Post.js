@@ -4,6 +4,7 @@ Component({
     postData: {
       type: Object,
       value:{
+        id:null,
         big_picture:null,
         title:'title',
         price:null,

@@ -1,14 +1,4 @@
 <view class="container">
-  <view class="column left">
-    <Post wx:for="{{leftDatas}}" postData="{{item}}" class="post {{index}}"></Post>
-  </view>
-  <view class="column right">
-    <Post wx:for="{{rightDatas}}" postData="{{item}}" class="post {{index}}"></Post>
-  </view>
-  <!-- <view class="column left">
-    <Post wx:for="{{postDatas}}" wx:if="{{index % 2 === 0}}"postData="{{item}}" class="post {{index}}"></Post>
-  </view>
-  <view class="column right">
-    <Post wx:for="{{postDatas}}" wx:if="{{index % 2}}"postData="{{item}}" class="post {{index}}"></Post>
-  </view> -->
+  <Waterfall class="waterfall" ></Waterfall>
+  <custom-tabbar></custom-tabbar>
 </view>
