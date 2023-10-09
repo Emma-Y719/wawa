@@ -82,19 +82,19 @@
               </view>
             </view>
             <view class="flex-row justify-between group_10">
-              <view class="flex-col section_4 space-y-12">
-                <text class="self-center font_3 text_8">附近好物</text>
+              <view class="flex-col section_4 space-y-12" bindtap="onTapProduct">
+                <text class="self-center font_3 text_8" >附近好物</text>
                 <view class="flex-row space-x-8">
                   <view class="section_5"></view>
                   <view class="section_5"></view>
                 </view>
               </view>
-              <view class="flex-col justify-start items-center text-wrapper">
+              <view class="flex-col justify-start items-center text-wrapper" bindtap="onTapProduct">
                 <text class="font_2 text_9">点击进入 我的附近</text>
               </view>
             </view>
           </view>
-          <view class="flex-col shrink-0 section_3 space-y-10">
+          <view class="flex-col shrink-0 section_3 space-y-10" bindtap="onTapPost">
             <text class="self-center font_3 text_5">附近发帖</text>
             <view class="flex-col items-start space-y-8">
               <view class="flex-row space-x-3">
@@ -129,8 +129,8 @@
           </view>
         </view>
         <view class="flex-row space-x-10">
-          <view class="flex-col shrink-0 section_6 space-y-10">
-            <text class="self-center font_2 text_10">附近求购</text>
+          <view class="flex-col shrink-0 section_6 space-y-10" bindtap="onTapSeek">
+            <text class="self-center font_2 text_10" >附近求购</text>
             <view class="flex-col items-start">
               <view class="flex-row space-x-3">
                 <image
@@ -148,7 +148,7 @@
               </view>
             </view>
           </view>
-          <view class="flex-col flex-auto section_7 space-y-10">
+          <view class="flex-col flex-auto section_7 space-y-10" bindtap="onTapProduct">
             <text class="self-center font_2 text_11">附近好物</text>
             <view class="flex-row space-x-8">
               <view class="section_5 view"></view>

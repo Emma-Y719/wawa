@@ -246,17 +246,20 @@ Page({
       }
     });
   },
-
-  onTapSeek(){
-    wx.redirectTo({
-      url: '/pages/map/item',
+  onTapProduct(){
+    wx.navigateTo({
+      url: '/pages/map/item?uid='+this.data.uid+'&cid='+this.data.cid+'&post_type=0',
     })
   },
-  onTapProduct(){
-
+  onTapSeek(){
+    wx.navigateTo({
+      url: '/pages/map/item?uid='+this.data.uid+'&cid='+this.data.cid+'&post_type=2',
+    })
   },
   onTapPost(){
-
+    wx.navigateTo({
+      url: '/pages/map/item?uid='+this.data.uid+'&cid='+this.data.cid+'&post_type=1',
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

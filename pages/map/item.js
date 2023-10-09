@@ -34,7 +34,7 @@ Page({
     chatids:"",
     isFavorite:[],
     sendFocusMsg:false,
-    post_type:1
+    post_type:0
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -49,19 +49,6 @@ Page({
     });
   },
 
-  // 悬浮窗触摸移动事件
-  onTouchMove: function (e) {
-    let offsetX = e.touches[0].clientX - this.data.startX;
-    let offsetY = e.touches[0].clientY - this.data.startY;
-    this.setData({
-      left: this.data.left + offsetX,
-      top: this.data.top + offsetY,
-      startX: e.touches[0].clientX,
-      startY: e.touches[0].clientY
-    });
-  },
-
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -73,7 +60,12 @@ Page({
     this.setData({
       campuses:app.globalData.campuses
     })
-
+    if(options.post_type!=undefined){
+      console.log("option post_type: "+options.post_type)
+      this.setData({
+        post_type:options.post_type
+      })
+    }
     if(options.uid!=undefined){
       console.log(options)
       let uindex=parseInt(options.uid)
@@ -625,7 +617,7 @@ Page({
       curPage:0,
       productList:[]
     })
-    //this.searchItemList();
+    this.searchItemList();
   },
 
   /**
