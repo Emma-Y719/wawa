@@ -34,15 +34,7 @@ Page({
         university:'南京信息工程大学',
         campus:'明故宫校区',
       },
-      {
-        big_picture:'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png',
-        title:'六神花露水',
-        price:100,
-        decription:'decription',
-        distance:'1.5KM',
-        university:'南京信息工程大学',
-        campus:'明故宫校区',
-      },
+
     ],
     rightDatas:[
       {
@@ -73,6 +65,15 @@ Page({
         university:'南京信息工程大学',
         campus:'明故宫校区',
       },
+      {
+        big_picture:'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941358203237485.png',
+        title:'六神花露水',
+        price:100,
+        decription:'decription',
+        distance:'1.5KM',
+        university:'南京信息工程大学',
+        campus:'明故宫校区',
+      }
     ]
   },
 
