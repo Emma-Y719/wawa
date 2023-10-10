@@ -17,11 +17,10 @@ Component({
   pageLifetimes: {
       show() {
         this.setData({
-
-          university:app.globalData.userInfo.university,
-          campus:app.globalData.userInfo.campus,
-          uid:app.globalData.user.uid,
-          cid:app.globalData.user.cid,
+          university:app.globalData.campuses[app.globalData.searchCampusIndex].name,
+          campus:app.globalData.campuses[app.globalData.searchCampusIndex].campus,
+          uid:app.globalData.searchUniversityIndex,
+          cid:app.globalData.searchCampusIndex,
         })
       }
   },

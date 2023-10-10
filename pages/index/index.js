@@ -441,6 +441,9 @@ loadData(){
     // wx.navigateTo({
     //   url: '/pages/search/map',
     // })
+
+    app.globalData.searchCampusIndex=app.globalData.user.cid;
+    app.globalData.searchUniversityIndex=app.globalData.user.uid;
     wx.navigateTo({
       url: '/pages/map/map',
     })

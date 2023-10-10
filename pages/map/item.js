@@ -39,7 +39,8 @@ Page({
     left_h:0,
     right_h:0,
     leftDatas:[],
-    rightDatas:[]
+    rightDatas:[],
+    titleInfo:""
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -62,13 +63,24 @@ Page({
     this.setData({
       baseUrl
     });
+    
     this.setData({
       campuses:app.globalData.campuses
     })
     if(options.post_type!=undefined){
       console.log("option post_type: "+options.post_type)
+      var title_info=""
+      if(options.post_type==0){
+        title_info="好物"
+      }else if(options.post_type==1){
+        title_info="帖子"
+      }else if(options.post_type==2){
+        title_info="求购"
+      }
+
       this.setData({
-        post_type:options.post_type
+        post_type:options.post_type,
+        titleInfo:title_info
       })
     }
     if(options.uid!=undefined){
@@ -212,7 +224,7 @@ Page({
       var right_h=that.data.right_h;
       var leftDatas=that.data.leftDatas;
       var rightDatas=that.data.rightDatas;
-      if(that.data.left_h<that.data.right_h){
+      if(that.data.left_h<=that.data.right_h){
         leftDatas.push(value);
         left_h+=delta;  
       }else{
@@ -462,7 +474,6 @@ Page({
         duration: 2000
       });
     }else{
-    
       requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
         console.log("result: ",res2)
         if(res2.message[0].favorite!=undefined){

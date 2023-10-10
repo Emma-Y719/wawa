@@ -65,10 +65,10 @@ Page({
   },
   async searchProductList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" "+this.data.type);
-    requestUtil({url:'/product/searchMulti',method:"GET",data:{university:this.data.uid,campus:this.data.cid,type:this.data.type}}).then(result=>{
+    requestUtil({url:'/product/searchMulti',method:"GET",data:{p:0,university:this.data.uid,campus:this.data.cid,storage:-1,type:''}}).then(result=>{
       console.log("lists",result.message);
       this.setData({
-        productList:result.message
+        productList:result.message.records
       })
       let list=this.data.productList
       var marks=[]
@@ -220,7 +220,7 @@ Page({
     this.mapCtx = wx.createMapContext('myMap')
     var that = this
     //获取当前的地理位置、速度
-    requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.user.cid}}).then(res=>{
+    requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.searchCampusIndex}}).then(res=>{
       let latitude=res.message.latitude
       let longitude=res.message.longitude
       this.setData({
@@ -272,46 +272,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    let pages = getCurrentPages(); //获取当前页面js里面的pages里的所有信息。
-    let prevPage = pages[pages.length - 2]; 
-    console.log(prevPage.data.productList)
-    var list=prevPage.data.productList;
-    var marks=[]
-    let that=this;
-    list.forEach(function(value,index,array){
-      let imgurl=''
-      if(value.propic.pics[0][0]!='h'&&value.propic.pics[0][0]!='c'){
-        imgurl=that.data.baseUrl+"/image/product/"+value.propic.pics[0]
-      }else{
-        imgurl=value.propic.pics[0]
-      }
-      var marker={
-        id: index,
-        iconPath: imgurl,
-        latitude: value.latitude,
-        longitude: value.longtitude,
-        width: 40,  
-        height: 40,
-        callout: {
-          content: value.price,
-          color: '#ffffff',
-          fontSize: 30,
-          borderRadius: 4,
-          bgColor: '#000000',
-          padding: 8
-        },
-        title:value.name,
-        detailInfo:value.description,
-        propic:value.propic,
-        price:value.price,
-        identity:value.identity
-      }
-      marks[index]=marker
-
-    });
-    this.setData({
-      markers:marks
+    requestUtil({url:"/campus/findId",method:"GET",data:{cid:app.globalData.searchCampusIndex}}).then(res=>{
+      let latitude=res.message.latitude
+      let longitude=res.message.longitude
+      this.setData({
+        latitude:latitude,
+        logitude:longitude
+      })
     })
+
+
+    
+    this.searchProductList();
     //this.addMarker();
 
   },

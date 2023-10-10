@@ -5,7 +5,7 @@
   <view class="custom-nav-bar">
 
     <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-    <text class="tittle">我的附近</text>
+    <text class="tittle">我的附近-{{titleInfo}}</text>
 
   </view>
 <filt_big id="filt_big" bind:customEvent="onChildSearch"/>

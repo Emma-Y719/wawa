@@ -127,14 +127,14 @@ handleLocationJump(e){
     wx.navigateBack({
       delta: 2
     })
-  }else if(prevPage.route=="pages/search/index"||prevPage.route=="pages/map/item"){
+  }else if(prevPage.route=="pages/search/index"||prevPage.route=="pages/map/item"||prevPage.route=="pages/map/map"){
 
     // app.globalData.location=this.Campuses[this.data.currentIndex].name+"-"+this.Campuses[this.data.currentIndex].schoolList[index].campus;
 
     // app.globalData.camIndex=this.data.currentIndex;
     // app.globalData.curcamIndex=index;
-    // app.globalData.searchUniversityIndex=this.data.currentIndex;
-    // app.globalData.searchCampusIndex=index;
+    app.globalData.searchUniversityIndex=this.data.currentIndex;
+    app.globalData.searchCampusIndex=index;
     console.log("currentIndex: "+this.data.currentIndex)
     console.log("currentIndex: "+index)
     console.log("previos:   "+prevPage.route)

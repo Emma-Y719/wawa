@@ -222,6 +222,9 @@ handledeny(){
                         
                         app.globalData.uid=res.message[0].uid
                         app.globalData.cid=res.message[0].cid
+
+                        app.globalData.searchUniversityIndex= app.globalData.uid,
+                        app.globalData.searchCampusIndex=app.globalData.cid,
                         app.globalData.locuni=res.message[0].university
                         app.globalData.loccam=res.message[0].campus
                         that.getcampusLoc();
