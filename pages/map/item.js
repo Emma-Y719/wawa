@@ -32,9 +32,15 @@ Page({
     isLoading:false,
     campuses:[],
     chatids:"",
-    isFavorite:[],
+    left_favs:[],
+    right_favs:[],
     sendFocusMsg:false,
-    post_type:0
+    post_type:0,
+    left_h:0,
+    right_h:0,
+    leftDatas:[],
+    rightDatas:[],
+    titleInfo:""
   },
   onFloatButtonTap() {
     wx.navigateTo({
@@ -57,13 +63,24 @@ Page({
     this.setData({
       baseUrl
     });
+    
     this.setData({
       campuses:app.globalData.campuses
     })
     if(options.post_type!=undefined){
       console.log("option post_type: "+options.post_type)
+      var title_info=""
+      if(options.post_type==0){
+        title_info="好物"
+      }else if(options.post_type==1){
+        title_info="帖子"
+      }else if(options.post_type==2){
+        title_info="求购"
+      }
+
       this.setData({
-        post_type:options.post_type
+        post_type:options.post_type,
+        titleInfo:title_info
       })
     }
     if(options.uid!=undefined){
@@ -194,6 +211,34 @@ Page({
       icon: 'none',
     })
   },
+  arrangeDatas(list){
+    var that=this;
+    list.forEach(function(value,index,array){
+      var delta=0;
+      if(value.propic.pics[0]){
+        delta=2;
+      }else{
+        delta=1;
+      }
+      var left_h=that.data.left_h;
+      var right_h=that.data.right_h;
+      var leftDatas=that.data.leftDatas;
+      var rightDatas=that.data.rightDatas;
+      if(that.data.left_h<=that.data.right_h){
+        leftDatas.push(value);
+        left_h+=delta;  
+      }else{
+        rightDatas.push(value);
+        right_h+=delta;
+      }
+      that.setData({
+        left_h:left_h,
+        right_h:right_h,
+        leftDatas:leftDatas,
+        rightDatas:rightDatas
+      })
+    })
+  },
 
   async searchItemList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
@@ -219,22 +264,40 @@ Page({
         })
        
       }
-
+      this.arrangeDatas(result.message.records);
       requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
         console.log("result: ",res2)
         if(res2.message[0].favorite!=undefined){
-          let favs=[];
+          let left_favs=[];
+          let right_favs=[];
           var that=this;
-          this.data.productList.forEach(function(value,i,array){
+          // this.data.productList.forEach(function(value,i,array){
+          //   let index=res2.message[0].favorite.findIndex(v=>v.identity==value.identity);
+          //   if(index!=-1){
+          //     favs.push(true);
+          //   }else{
+          //     favs.push(false);
+          //   }
+          // })
+          this.data.leftDatas.forEach(function(value,i,array){
             let index=res2.message[0].favorite.findIndex(v=>v.identity==value.identity);
             if(index!=-1){
-              favs.push(true);
+              left_favs.push(true);
             }else{
-              favs.push(false);
+              left_favs.push(false);
+            }
+          })
+          this.data.rightDatas.forEach(function(value,i,array){
+            let index=res2.message[0].favorite.findIndex(v=>v.identity==value.identity);
+            if(index!=-1){
+              right_favs.push(true);
+            }else{
+              right_favs.push(false);
             }
           })
           that.setData({
-            isFavorite:favs
+            left_favs:left_favs,
+            right_favs:right_favs
           })
         }
       });
@@ -279,16 +342,21 @@ Page({
 
   },
   // 点击事件 商品加入购物车
-  handleCartAdd(e){
+  handleLeftCartAdd(e){
     const {index}=e.currentTarget.dataset;
     console.log(index);
-    this.setCartadd(e);
+    this.setLeftCartadd(e);
+  },
+  handleRightCartAdd(e){
+    const {index}=e.currentTarget.dataset;
+    console.log(index);
+    this.setRightCartadd(e);
   },
 
   // 加入购物车
-  setCartadd(e){
+  setLeftCartadd(e){
     const {index}=e.currentTarget.dataset;
-    let productObj=this.data.productList[index];
+    let productObj=this.data.leftDatas[index];
     if(productObj.userid==app.globalData.openid){
       wx.showToast({
         title: '无法收藏自己发布的物品',
@@ -312,7 +380,7 @@ Page({
                 this.setData({
                   sendFocusMsg:true
                 })
-                 this.addChat(e);
+                 this.addLeftChat(e);
                 console.log(app.globalData.user)
                 const doc = {
                   _id: `${Math.random()}_${Date.now()}`,
@@ -330,10 +398,10 @@ Page({
                   data: doc,
                 })
 
-                this.data.isFavorite[index]=true;
+                this.data.left_favs[index]=true;
 
                 this.setData({
-                  isFavorite:this.data.isFavorite
+                  left_favs:this.data.left_favs
                 })
                 // wx.showModal({
                 //   title: '',
@@ -364,9 +432,9 @@ Page({
             app.globalData.user.favorite=res2.message[0].favorite;
             requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
               if(res){
-                this.data.isFavorite[index]=false;
+                this.data.left_favs[index]=false;
                 this.setData({
-                  isFavorite:this.data.isFavorite
+                  left_favs:this.data.left_favs
                 })
               }
             })
@@ -396,6 +464,116 @@ Page({
     // }
     // wx.setStorageSync('cart', cart); // 把购物车添加到缓存中
   },
+  setRightCartadd(e){
+    const {index}=e.currentTarget.dataset;
+    let productObj=this.data.rightDatas[index];
+    if(productObj.userid==app.globalData.openid){
+      wx.showToast({
+        title: '无法收藏自己发布的物品',
+        icon: 'none',
+        duration: 2000
+      });
+    }else{
+      requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
+        console.log("result: ",res2)
+        if(res2.message[0].favorite!=undefined){
+          let id=res2.message[0].favorite.findIndex(v=>v.identity==productObj.identity);
+          console.log("result: ",productObj.identity)
+          console.log(res2.message[0].favorite)
+          if(id==-1){
+            console.log(id)
+            res2.message[0].favorite.push(productObj);
+            app.globalData.user.favorite=res2.message[0].favorite;
+            requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
+              if(res){
+                this.setData({
+                  sendFocusMsg:true
+                })
+                 this.addRightChat(e);
+                console.log(app.globalData.user)
+                const doc = {
+                  _id: `${Math.random()}_${Date.now()}`,
+                  groupId: this.data.chatid,
+                  avatar: app.globalData.user.userinfo.avatarUrl,
+                  nickName: app.globalData.user.userinfo.nickName,
+                  msgType: 'text',
+                  targetId:productObj.userid,
+                  textContent: app.globalData.user.nickname+"收藏了您的物品～",
+                  read:false,
+                  sendTime: util.formatTime(new Date()),
+                  sendTimeTS: Date.now(), // fallback
+                }
+                db.collection("chatroom_example").add({
+                  data: doc,
+                })
+
+                this.data.right_favs[index]=true;
+
+                this.setData({
+                  right_favs:this.data.right_favs
+                })
+                // wx.showModal({
+                //   title: '',
+                //   content: '收藏成功，请去收藏夹查看～',
+                //   complete: (res) => {
+                //     if (res.cancel) {
+                      
+                //     }
+                
+                //     if (res.confirm) {
+                //       wx.navigateTo({
+                //         url: '/pages/favorite/index',
+                //       })
+                //     }
+                //   }
+                // })
+              }
+
+            })
+            productObj.focus = productObj.focus+1;
+            requestUtil({url:"/product/update",method:"POST",data:productObj}).then(res=>{
+              // console.log(res.message)
+            })
+          }else{
+            console.log(id)
+            res2.message[0].favorite.splice(id,1);
+            console.log(res2.message[0].favorite)
+            app.globalData.user.favorite=res2.message[0].favorite;
+            requestUtil({url:"/user/update",method:"POST",data:res2.message[0]}).then(res=>{
+              if(res){
+                this.data.right_favs[index]=false;
+                this.setData({
+                  right_favs:this.data.right_favs
+                })
+              }
+            })
+            productObj.focus = productObj.focus-1;
+            requestUtil({url:"/product/update",method:"POST",data:productObj}).then(res=>{
+              // console.log(res.message)
+            })
+          }
+        }
+      })
+    }
+
+
+
+
+
+
+    // let cart=wx.getStorageSync('cart')||[];
+    // console.log("cart: "+cart[0]);
+    // let index=cart.findIndex(v=>v.id===this.productInfo.id);
+    // if(index===-1){ // 购物车里面不存在当前商品 
+    //   this.productInfo.num=1;
+    //   this.productInfo.checked=true;
+    //   cart.push(this.productInfo);
+    // }else{ // 已经存在
+    //   cart[index].num++;
+    // }
+    // wx.setStorageSync('cart', cart); // 把购物车添加到缓存中
+  },
+  
   onsubscribe(){
     // 向用户请求订阅消息授权
     wx.requestSubscribeMessage({
@@ -423,9 +601,55 @@ Page({
     });
 
   },
-  addChat(e){
+  addLeftChat(e){
     let id=e.currentTarget.dataset.index;
-    let productObj=this.data.productList[id]
+    let productObj=this.data.leftDatas[id]
+    let userInfo=app.globalData.user.userinfo;
+
+    let that=this
+    if(this.data.sendFocusMsg){
+      console.log("set id: 0")
+      this.setData({
+        chatid:'s-'+app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
+      })
+    }else{
+      this.setData({
+        chatid:app.globalData.openid+'-'+productObj.userid+'-'+productObj.identity
+      })
+    }
+
+    requestUtil({url:"/chats/findchatid",method:"GET",data:{chatid:this.data.chatid}}).then(res=>{
+      if(res.message.length==0){
+        this.addRoom(productObj,userInfo);
+      }else{
+        console.log("has existed chatroom!");
+        wx.navigateTo({
+          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+productObj.userid+'&product='+productObj.identity,
+        })
+      }
+    })
+    // db.collection('chats').where({
+    //   chatid:this.data.chatid
+    // }).get().then(res=>{
+    //   console.log(this.data.chatid)
+    //   console.log("chat: ",res.data.length)
+    //   if(res.data.length==0){
+    //     this.addRoom(productObj,userInfo);
+    //   }else{
+    //     wx.navigateTo({
+    //       url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+productObj.userid+'&product='+productObj.identity,
+    //     })
+    //   }
+    // })
+    // requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res=>{
+
+
+    // })
+
+  },
+  addRightChat(e){
+    let id=e.currentTarget.dataset.index;
+    let productObj=this.data.rightDatas[id]
     let userInfo=app.globalData.user.userinfo;
 
     let that=this

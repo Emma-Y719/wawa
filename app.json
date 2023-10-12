@@ -1,8 +1,12 @@
 {
   "pages": [
+<<<<<<< HEAD
     "pages/my/history/index",
     "pages/storage/detail",
     "pages/map/seek",
+=======
+    
+>>>>>>> upstream/dev
     "pages/wait/wait",
     "pages/newPost/index",
 

@@ -204,7 +204,6 @@ Page({
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
     await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
       console.log("lists",result.message.records);
-
       if(this.data.curPage==0){
         this.setData({
           productList:result.message.records,

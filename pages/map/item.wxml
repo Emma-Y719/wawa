@@ -5,7 +5,7 @@
   <view class="custom-nav-bar">
 
     <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-    <text class="tittle">我的附近</text>
+    <text class="tittle">我的附近-{{titleInfo}}</text>
 
   </view>
 <filt_big id="filt_big" bind:customEvent="onChildSearch"/>
@@ -13,15 +13,15 @@
 
 
 <view class="products">
-      <view class="product_list">
+      <view class="column left">
         <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
         <view class="product_card"
-          wx:for="{{productList}}"
+          wx:for="{{leftDatas}}"
           wx:for-item="product"
           wx:key="id"
         >
         <navigator url="/pages/product_detail/index?id={{product.identity}}">
-          <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
           <view class="middle">
             <view class="product_name">{{product.name}}</view>
             <view class="product_price">¥{{product.price}}</view>
@@ -38,12 +38,44 @@
             </view>
           </view>
           <view class="operator">
-          <image src="{{isFavorite[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleCartAdd"/>
-          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addChat"/>
+          <image src="{{left_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleLeftCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addLeftChat"/>
           </view>
         </view>
         </view>
       </view>
+      <view class="column right">
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
+        <view class="product_card"
+          wx:for="{{rightDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="{{right_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleRightCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addRightChat"/>
+          </view>
+        </view>
+        </view>
+      </view>
+
         
 </view>
 
