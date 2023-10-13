@@ -1,75 +1,39 @@
-  <view class="user_info">
-  <image class="background-image" src="/images/myback.png"></image>
-
+<view class="user_info">
   <!-- 用户背景信息开始 -->
-  <view class="user_info_bg">
-    <view class="user_info_wrap">
-      <image src="{{user.userinfo.avatarUrl}}"mode="widthFix"></image>
-      <view class="detail">
-        <view class="user_name">{{user.userinfo.nickName}}</view>
-        <view class="user_acc">蛙蛙账号：ww518136695</view>
-        <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
-      </view>
-      <button open-type='share'class="share">
-        分享
-      </button>
-    </view>
-  </view>
-  <!-- 用户背景信息结束 -->
-    <!-- 订单管理开始 -->
-    <view bindtap="onNotComplete" class="order_wrap">
-      
-      <view class="order_content" style="position: relative; left: 0rpx; top: 0rpx; width: 724rpx; height: 285rpx; display: flex; box-sizing: border-box">
-        <navigator url="">
-      <view class="storage">
-        20
-      </view>
-          <view class="order_name">群聊物品库</view>
-        </navigator>
-        <navigator url="">
-        <view class="history">
-          70
+    <view class="user_info_bg">
+      <view class="user_info_wrap">
+        <image src="{{user.userinfo.avatarUrl}}"mode="widthFix"></image>
+        <view class="detail">
+          <view class="user_name">{{user.userinfo.nickName}}</view>
+          <view class="user_acc">蛙蛙账号：ww518136695</view>
+          <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
         </view>
-          <view class="order_name">历史浏览</view>
-        </navigator>
-        <navigator url="">
-        <view class="subscribe">
-          100
-        </view>
-          <view class="order_name">关注</view>
-        </navigator>
-        <navigator url="">
-        <view class="fans">
-          11
-        </view>
-          <view class="order_name">粉丝</view>
-        </navigator>
-
-      
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/promoted.png"></image>
-          <view class="order_name">我发布的</view>
-        </navigator>
-        <navigator url="" style="top: 10rpx; position: relative; left: 0rpx">
-          <image class="order-icon" src="/icons/sold.png" ></image>
-          <view class="order_name">我卖出的</view>
-        </navigator>
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/bought.png" ></image>
-          <view class="order_name">我买到的</view>
-        </navigator>
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/feedback.png"></image>
-          <button open-type="feedback" class="order_name" style="align-items: center; display: flex; width: 310rpx; height: 39rpx; box-sizing: border-box; left: -14rpx; top: 2rpx; position: relative">意见反馈</button>
-        </navigator>
+        <button open-type='share'class="share">
+          分享
+        </button>
       </view>
     </view>
-    <!-- 订单管理结束 -->
-
-  <!-- 用户操作菜单结束 -->
 </view>
-<view class="product">
-  <view class="title">
+<view bindtap="onNotComplete" class="order_wrap">
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_storage.png" mode="widthFix"></image>
+      <view class="order_name">群聊物品库</view>
+    </navigator>
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_history.png" mode="widthFix"></image>
+      <view class="order_name">浏览历史</view>
+    </navigator>
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_favorite.png" mode="widthFix"></image>
+      <view open-type="feedback" class="order_name" >收藏夹</view>
+    </navigator>
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_feedback.png" mode="widthFix"></image>
+      <view open-type="feedback" class="order_name" >意见反馈</view>
+    </navigator>
+</view>
+<view class="product_display">
+  <view class="type_choose">
     <view class="ptype {{index==typeIndex ? 'active':''}}"ontap="handletype" data-index="{{index}}"
     wx:for="{{ptype}}"
     wx:for-item="type"
