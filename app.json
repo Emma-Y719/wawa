@@ -1,12 +1,9 @@
 {
   "pages": [
-<<<<<<< HEAD
+    "pages/map/item",
     "pages/my/history/index",
     "pages/storage/detail",
     "pages/map/seek",
-=======
-    
->>>>>>> upstream/dev
     "pages/wait/wait",
     "pages/newPost/index",
 
@@ -15,11 +12,9 @@
     "pages/my/create/login",
     "pages/favorite/index",
     "pages/tools/util",
-    "pages/my/history/index",
     "pages/map/map",
     "pages/map/mix",
     "pages/map/post",
-    "pages/map/item",
     "pages/my/feedback",
     "pages/promote/pre",
     "pages/index/index",
