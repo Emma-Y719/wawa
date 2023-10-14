@@ -1,15 +1,5 @@
 page .user_info {
   width: 100%;
-  height: 50%;
-}
-page .user_info .background-image {
-  width: 100%;
-  height: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  /* 将背景图片置于底层 */
 }
 page .user_info .user_info_bg {
   margin-top: 20%;
@@ -56,48 +46,34 @@ page .user_info .user_info_bg .user_info_wrap .share {
   font-size: 30rpx;
   font-weight: 400;
 }
-page .user_info .order_wrap {
-  margin-left: 30rpx;
-  margin-top: 60rpx;
-  color: #fff8e8;
-  font-size: 40rpx;
-}
-page .user_info .order_wrap .order_content {
+page .order_wrap {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   text-align: center;
 }
-page .user_info .order_wrap .order_content navigator {
-  width: 25%;
+page .order_wrap .order_content {
+  flex: 1;
 }
-page .user_info .order_wrap .order_content navigator .order-icon {
-  position: relative;
-  width: 60rpx;
-  height: 60rpx;
-  display: inline-block;
-  box-sizing: border-box;
-  left: 0rpx;
-  top: 20 rpx;
+page .order_wrap .order_content image {
+  width: 100rpx;
 }
-page .user_info .order_wrap .order_content navigator .order_name {
-  margin-top: 15rpx;
-  color: #f1f1fa;
-  font-size: 32rpx;
-  font-weight: 400;
-  background-color: transparent;
+page .order_wrap .order_content .order_name {
+  font-size: 30rpx;
 }
-page .product {
+page .product_display {
   background-color: #fff;
   border-radius: 40rpx;
   margin-left: 2%;
   margin-right: 2%;
-  margin-top: 40rpx;
-  height: 300rpx;
+  margin-top: 5%;
 }
-page .product .title {
+page .product_display .type_choose {
   display: flex;
 }
-page .product .title .ptype {
+page .product_display .type_choose .ptype {
   height: 70rpx;
   flex: 1;
   display: flex;
@@ -106,7 +82,7 @@ page .product .title .ptype {
   text-align: center;
   font-size: 35rpx;
 }
-page .product .title .active {
+page .product_display .type_choose .active {
   height: 70rpx;
   flex: 1;
   display: flex;
@@ -117,20 +93,20 @@ page .product .title .active {
   background-color: #f3e8d2;
   border-radius: 40rpx;
 }
-page .product .product_list {
+page .product_display .product_list {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   margin-top: 20rpx;
 }
-page .product .product_list .product_card {
+page .product_display .product_list .product_card {
   width: 45%;
   text-align: start;
   margin: 15rpx;
   background-color: #fafafa;
   border-radius: 20rpx;
 }
-page .product .product_list .product_card navigator image {
+page .product_display .product_list .product_card navigator image {
   width: 100%;
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
@@ -138,11 +114,11 @@ page .product .product_list .product_card navigator image {
   background-color: #fff;
   transition: transform 200ms;
 }
-page .product .product_list .product_card navigator image:hover {
+page .product_display .product_list .product_card navigator image:hover {
   transform: scale(1.01);
   box-shadow: -2px 8px 15px -12px #647878;
 }
-page .product .product_list .product_card navigator .product_name {
+page .product_display .product_list .product_card navigator .product_name {
   margin-left: 20rpx;
   margin-top: 10rpx;
   white-space: nowrap;
@@ -151,17 +127,17 @@ page .product .product_list .product_card navigator .product_name {
   font-size: 35rpx;
   margin-bottom: 10rpx;
 }
-page .product .product_list .product_card .bottom {
+page .product_display .product_list .product_card .bottom {
   margin-left: 20rpx;
   display: flex;
   height: 80rpx;
 }
-page .product .product_list .product_card .bottom .product_price {
+page .product_display .product_list .product_card .bottom .product_price {
   flex: 1;
   font-size: 40rpx;
   color: #ff7800;
 }
-page .product .product_list .product_card .bottom .button1 {
+page .product_display .product_list .product_card .bottom .button1 {
   font-size: 25rpx;
   margin-left: 20rpx;
   width: 80rpx;
@@ -174,7 +150,7 @@ page .product .product_list .product_card .bottom .button1 {
   display: flex;
   align-items: center;
 }
-page .product .product_list .product_card .bottom .button2 {
+page .product_display .product_list .product_card .bottom .button2 {
   margin-left: 10rpx;
   margin-right: 20rpx;
   font-size: 25rpx;
@@ -188,6 +164,6 @@ page .product .product_list .product_card .bottom .button2 {
   display: flex;
   align-items: center;
 }
-page .product .bottom {
+page .product_display .bottom {
   height: 200rpx;
 }

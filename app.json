@@ -1,9 +1,6 @@
 {
   "pages": [
-    "pages/map/item",
-    "pages/my/history/index",
-    "pages/storage/detail",
-    "pages/map/seek",
+    
     "pages/wait/wait",
     "pages/newPost/index",
 
