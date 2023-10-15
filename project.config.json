@@ -18,7 +18,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "useMultiFrameRuntime": true,
     "babelSetting": {
       "ignore": [],
@@ -37,7 +37,48 @@
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "物品分类",
+          "pathName": "pages/category/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "消息列表",
+          "pathName": "pages/example/chatroom_example/message",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "物品详情",
+          "pathName": "pages/product_detail/index",
+          "query": "id=14",
+          "scene": null
+        },
+        {
+          "name": "收藏夹",
+          "pathName": "pages/favorite/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "物品搜索",
+          "pathName": "pages/search/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "个人中心",
+          "pathName": "pages/my/index",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
@@ -50,5 +91,5 @@
   },
   "appid": "wx4d7b467718a245ad",
   "projectname": "mall1.1.1",
-  "libVersion": "2.32.3"
+  "libVersion": "2.33.0"
 }

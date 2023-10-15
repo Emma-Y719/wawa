@@ -565,11 +565,6 @@ Page({
       right_favs:this.data.right_favs,
     })
 
-
-
-
-
-
     // let cart=wx.getStorageSync('cart')||[];
     // console.log("cart: "+cart[0]);
     // let index=cart.findIndex(v=>v.id===this.productInfo.id);

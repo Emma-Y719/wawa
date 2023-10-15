@@ -24,8 +24,8 @@
             </view>
           </view>
           <view class="operator">
-          <image src="{{left_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="onLeftButton1"/>
-          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="onLeftButton2"/>
+          <image src="{{left_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleLeftCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addLeftChat"/>
           </view>
         </view>
         </view>
@@ -55,8 +55,8 @@
             </view>
           </view>
           <view class="operator">
-          <image src="{{right_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="onRightButton1"/>
-          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="onRightButton2"/>
+          <image src="{{right_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleRightCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addRightChat"/>
           </view>
         </view>
         </view>
