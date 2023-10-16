@@ -2,7 +2,7 @@
   "usingComponents": {
     "custom-tabbar": "/components/custom-tabbar/custom-tabbar"
   },
-  "navigationBarBackgroundColor": "#8ec31f",
+  "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "自定义导航栏",
   "navigationStyle": "custom"

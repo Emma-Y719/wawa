@@ -1,6 +1,6 @@
 // 定义请求根路径baseUrl
 // const baseUrl="https://springboot-e6mb-55588-9-1317364171.sh.run.tcloudbase.com";
-const baseUrl="http://localhost:8083"
+const baseUrl="http://124.222.79.56:8083"
 // 同时并发请求的次数
 let ajaxTimes=0;
 

@@ -1,0 +1,137 @@
+page {
+  width: 100vw;
+  background-color: #ececec;
+  /* 设置导航栏的背景颜色 */
+  min-height: 100vh;
+  height: auto;
+}
+page .header {
+  width: 100%;
+  position: fixed;
+  left: 2%;
+  background-color: #ececec;
+}
+page .header .custom-nav-bar {
+  background-color: transparent;
+  /* 设置导航栏的背景颜色 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 35%;
+  margin-top: 12%;
+}
+page .header .custom-nav-bar .backicon {
+  width: 60rpx;
+}
+page .header .custom-nav-bar .tittle {
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+}
+page .products {
+  padding: 30rpx 20rpx 30rpx 20rpx;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+}
+page .products .column {
+  margin-top: 30%;
+  width: 48%;
+}
+page .products .column .product_card {
+  text-align: center;
+  margin-top: 5%;
+  border-radius: 10rpx;
+  box-shadow: 0px 10px 20px 0px #c7c9c7;
+}
+page .products .column .product_card navigator image {
+  width: 100%;
+  height: 320rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  background-color: #fff;
+  transition: transform 200ms;
+}
+page .products .column .product_card navigator image:hover {
+  transform: scale(1.01);
+  box-shadow: -2px 8px 15px -12px #647878;
+}
+page .products .column .product_card navigator .middle {
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
+}
+page .products .column .product_card navigator .middle .product_name {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+page .products .column .product_card navigator .middle .product_price {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #ff7a00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10rpx;
+}
+page .products .column .product_card .bottom {
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
+}
+page .products .column .product_card .bottom .locinfo {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+  width: 50%;
+}
+page .products .column .product_card .bottom .operator {
+  display: flex;
+}
+page .products .column .product_card .bottom .operator image {
+  background-color: #fafafa;
+  margin-top: 30rpx;
+  margin-right: 10rpx;
+  width: 45rpx;
+}
+page .float-window {
+  position: fixed;
+  left: 50%;
+  top: 85%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #242c19;
+  color: #fff;
+  font-size: 30rpx;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+  align-items: center;
+  /* 垂直居中 */
+}
+page .bottom {
+  height: 200rpx;
+}

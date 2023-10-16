@@ -3,12 +3,12 @@
     {{city}}
     <div class="line"></div>
   </view>
-  <navigator class="university" url="/pages/index/location">
+  <navigator class="university" url="/pages/search/location">
     {{university}}
     <div class="line"></div>
     <div class="inter"></div>
   </navigator>
-  <navigator class="campus" url="/pages/index/location">
+  <navigator class="campus" url="/pages/search/location">
     {{campus}}
     <div class="line"></div>
     <div class="inter"></div>

@@ -158,7 +158,17 @@ Page({
     this.setData({
       storageid:component.data.storageid
     })
+    this.searchProductList();
   },
+  async onChildSearch(){
+     
+    this.setData({
+      productList:[],
+      curPage:0
+    })
+    await this.syncDataToComponent();
+    //
+},
   navigateBack: function () {
     wx.navigateBack({
       delta: 1
@@ -189,20 +199,11 @@ Page({
       icon: 'none',
     })
   },
-  async onChildSearch(){
-     
-      this.setData({
-        productList:[],
-        curPage:0
-      })
-      await this.syncDataToComponent();
-      //this.searchProductList();
-  },
+
   async searchProductList(e){
     console.log("indices: "+this.data.uid+" , "+this.data.cid+" , "+this.data.storageid+", "+"type: "+this.data.type);
     await requestUtil({url:'/product/searchMulti',method:"GET",data:{p:this.data.curPage,university:this.data.uid,campus:this.data.cid,storage:this.data.storageid,type:this.data.type}}).then(result=>{
       console.log("lists",result.message.records);
-
       if(this.data.curPage==0){
         this.setData({
           productList:result.message.records,
@@ -615,12 +616,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.syncDataToComponent();
     this.setData({
       curPage:0,
       productList:[]
     })
-    this.searchProductList();
+    this.syncDataToComponent();
+
+    //this.searchProductList();
   },
 
   /**

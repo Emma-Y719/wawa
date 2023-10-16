@@ -1,0 +1,22 @@
+<view class="flex-col page">
+  <view class="flex-col flex-auto group_2">
+    <text class="self-start font_2 text_3">我来自： 南京信息工程大学 四牌楼校区</text>
+    <view class="flex-col group_3 space-y-19">
+      <text class="self-start font_2 text_4">我想：</text>
+      <view class="flex-col">
+        <view class="flex-col justify-start items-center button"><text class="font_1">发闲置</text></view>
+        <view class="flex-col justify-start items-center text-wrapper"><text class="font_1">发求购</text></view>
+        <view class="flex-col justify-start items-center button_2 text-wrapper_2">
+          <text class="font_1">发帖子</text>
+        </view>
+      </view>
+    </view>
+    <view class="flex-row justify-center group_4 space-x-4">
+      <image
+        class="image_5"
+        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941347544164370.png"
+      />
+      <text class="text_5">手滑返回</text>
+    </view>
+  </view>
+</view>

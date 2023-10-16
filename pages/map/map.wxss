@@ -59,7 +59,6 @@ page .map_container .map {
   height: 100%;
   width: 100%;
   position: relative;
-  top: 3%;
 }
 page .map_container .map .SelectColumn {
   height: 100rpx;

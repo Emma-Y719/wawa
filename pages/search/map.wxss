@@ -103,14 +103,13 @@ page .header .cates .sort {
   color: #ededed;
 }
 page .map_container {
-  height: 84.5%;
+  height: 48%;
   width: 100%;
 }
 page .map_container .map {
   height: 100%;
   width: 100%;
   position: relative;
-  top: 18%;
 }
 page .map_container .map .SelectColumn {
   height: 100rpx;

@@ -1,110 +1,158 @@
-  <view class="user_info">
-  <image class="background-image" src="/images/myback.png"></image>
-
+<view class="user_info">
   <!-- 用户背景信息开始 -->
-  <view class="user_info_bg">
-    <view class="user_info_wrap">
-      <image src="{{user.userinfo.avatarUrl}}"mode="widthFix"></image>
-      <view class="detail">
-        <view class="user_name">{{user.userinfo.nickName}}</view>
-        <view class="user_acc">蛙蛙账号：ww518136695</view>
-        <view class="user_aff">南京-{{user.university}}-{{user.campus}}</view>
-      </view>
-      <button open-type='share'class="share">
-        分享
-      </button>
-    </view>
-  </view>
-  <!-- 用户背景信息结束 -->
-    <!-- 订单管理开始 -->
-    <view bindtap="onNotComplete" class="order_wrap">
-      
-      <view class="order_content" style="position: relative; left: 0rpx; top: 0rpx; width: 724rpx; height: 285rpx; display: flex; box-sizing: border-box">
-        <navigator url="">
-      <view class="storage">
-        20
-      </view>
-          <view class="order_name">群聊物品库</view>
-        </navigator>
-        <navigator url="">
-        <view class="history">
-          70
-        </view>
-          <view class="order_name">历史浏览</view>
-        </navigator>
-        <navigator url="">
-        <view class="subscribe">
-          100
-        </view>
-          <view class="order_name">关注</view>
-        </navigator>
-        <navigator url="">
-        <view class="fans">
-          11
-        </view>
-          <view class="order_name">粉丝</view>
-        </navigator>
+    <view class="user_info_bg">
+      <view class="user_info_wrap">
+        <image src="{{user.userinfo.avatarUrl}}"mode="widthFix"></image>
+        <view class="detail">
+          <view class="user_name">{{user.userinfo.nickName}}</view>
+          <view class="user_acc">蛙蛙账号：ww518136695</view>
+          <view class="user_aff">南京-{{user.university}}-{{user.campus}}-{{grade}}</view>
+          <view class="records">
+            <view class="record" data-index="{{index}}"
+            wx:for="{{records}}"
+            wx:for-item="record"
+            wx:key="id"
+            >
+            <image wx:if="{{record}}"  src="/icons/record_s.png" mode="widthFix"/>
+            <image wx:if="{{!record}}"  src="/icons/record.png" mode="widthFix"/>
+            </view>
+            <text>连续打卡可以增加曝光哦~</text>
+          </view>
 
-      
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/promoted.png"></image>
-          <view class="order_name">我发布的</view>
-        </navigator>
-        <navigator url="" style="top: 10rpx; position: relative; left: 0rpx">
-          <image class="order-icon" src="/icons/sold.png" ></image>
-          <view class="order_name">我卖出的</view>
-        </navigator>
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/bought.png" ></image>
-          <view class="order_name">我买到的</view>
-        </navigator>
-        <navigator url="" style="position: relative; left: 0rpx; top: 10rpx">
-          <image class="order-icon" src="/icons/feedback.png"></image>
-          <button open-type="feedback" class="order_name" style="align-items: center; display: flex; width: 310rpx; height: 39rpx; box-sizing: border-box; left: -14rpx; top: 2rpx; position: relative">意见反馈</button>
-        </navigator>
+        </view>
+        <view class="buttons">
+          <button open-type='share'class="share">
+            分享
+          </button>
+          <button class="clock">
+            打卡
+          </button>
+        </view>
+    
       </view>
     </view>
-    <!-- 订单管理结束 -->
-
-  <!-- 用户操作菜单结束 -->
 </view>
-<view class="product">
-  <view class="title">
+<view class="order_wrap">
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_storage.png" mode="widthFix"></image>
+      <view class="order_name">群聊物品库</view>
+    </navigator>
+    <navigator class="order_content" url="/pages/my/history/index">
+      <image class="order-icon" src="/icons/my_history.png" mode="widthFix"></image>
+      <view class="order_name">浏览历史</view>
+    </navigator>
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_favorite.png" mode="widthFix"></image>
+      <view open-type="feedback" class="order_name" >收藏夹</view>
+    </navigator>
+    <navigator class="order_content" url="">
+      <image class="order-icon" src="/icons/my_feedback.png" mode="widthFix"></image>
+      <view open-type="feedback" class="order_name" >意见反馈</view>
+    </navigator>
+</view>
+<view class="type_choose">
     <view class="ptype {{index==typeIndex ? 'active':''}}"ontap="handletype" data-index="{{index}}"
     wx:for="{{ptype}}"
     wx:for-item="type"
     wx:key="id"
     >
-      {{type}}
+      <text>{{type}}</text>
     </view>
-  </view>
-  <view class="product_list">
+</view>
+<!--<view class="product_display">
+  <view class="column left">
         <view class="product_card"
-    wx:for="{{hotProductList}}"
-    wx:for-item="hotProduct"
+    wx:for="{{leftDatas}}"
+    wx:for-item="product"
     wx:key="id"
     >
-      <navigator url="/pages/product_detail/index?id={{hotProduct.identity}}">
-      <image src="{{hotProduct.propic.pics[0][0]!='h'&&hotProduct.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+hotProduct.propic.pics[0]: hotProduct.propic.pics[0]}}" mode="aspectFill"/>
+      <navigator url="/pages/product_detail/index?id={{product.identity}}">
+      <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+productpropic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
       <view class="product_name">
-        {{hotProduct.name}}
+        {{product.name}}
       </view>
       </navigator>
       <view class="bottom">
         <view class="product_price">
-        ¥{{hotProduct.price}}
+        ¥{{product.price}}
         </view>
         <view bindtap="onUpdate" data-id="{{index}}"class="button1">{{b1}}</view>
         <view wx:if="{{b2!=''}}"bindtap="onbutton2" data-id="{{index}}" class="button2">{{b2}}</view>
       </view>
-     
-     
     </view>
   </view>
   <view class="bottom">
   
 </view>
+</view>-->
+
+  <view class="products">
+      <view class="column left">
+        <view class="product_card"
+          wx:for="{{leftDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+            <image src="/icons/my_edit.png" mode="widthFix" data-index="{{index}}" bindtap="onUpdate"/>
+            <image src="/icons/my_delete.png" mode="widthFix" wx:if="{{typeIndex!=2}}" data-index="{{index}}"bindtap="onbutton2"/>
+            <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onUpdate"/>
+          </view>
+        </view>
+        </view>
+      </view>
+      <view class="column right">
+        <view class="product_card"
+          wx:for="{{rightDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="/icons/my_edit.png" mode="widthFix" data-index="{{index}}" bindtap="onUpdate"/>
+          <image src="/icons/my_delete.png" mode="widthFix" wx:if="{{typeIndex!=2}}" data-index="{{index}}"bindtap="onbutton2"/>
+          <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onUpdate"/>
+          </view>
+        </view>
+        </view>
+      </view>
+
+        
 </view>
+
 
 <custom-tabbar></custom-tabbar>
 

@@ -1,0 +1,94 @@
+<!--pages/search/index.wxml-->
+<page>
+
+<view class="header">
+  <view class="custom-nav-bar">
+
+    <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
+    <text class="tittle">我的附近-{{titleInfo}}</text>
+
+  </view>
+<filt_big id="filt_big" bind:customEvent="onChildSearch"/>
+</view>
+
+<waterfall id="waterfall" bind:leftbutton1="handleLeftCartAdd" bind:leftbutton2="addLeftChat" bind:rightbutton1="handleRightCartAdd" bind:rightbutton2="addRightChat"/>
+
+<!--
+  <view class="products">
+      <view class="column left">
+        <view class="product_card"
+          wx:for="{{leftDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="{{left_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleLeftCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addLeftChat"/>
+          </view>
+        </view>
+        </view>
+      </view>
+      <view class="column right">
+        <view class="product_card"
+          wx:for="{{rightDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="{{right_favs[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleRightCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addRightChat"/>
+          </view>
+        </view>
+        </view>
+      </view>
+
+        
+</view>-->
+
+
+<!--pages/map/map.wxml-->
+<view class="float-window" catchtap="onFloatButtonTap"  bindtouchstart="onTouchStart" 
+  bindtouchmove="onTouchMove">
+  地图
+</view>
+<view class="bottom">
+</view>
+<custom-tabbar></custom-tabbar>
+
+</page>
+
+

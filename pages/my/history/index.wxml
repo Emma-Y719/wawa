@@ -1,0 +1,41 @@
+<view class="container">
+  <view class="column left">
+    <Post wx:for="{{leftDatas}}" postData="{{item}}" class="post {{index}}"></Post>
+  </view>
+  <view class="column right">
+    <Post wx:for="{{rightDatas}}" postData="{{item}}" class="post {{index}}"></Post>
+  </view>
+  <!--<view class="column left">
+    <view class="product_card"
+          wx:for="{{leftDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="{{isFavorite[index]?'/images/favorite_s.png':'/images/favorite.png'}}" mode="widthFix" data-index="{{index}}" bindtap="handleCartAdd"/>
+          <image src="/images/chat.png" mode="widthFix" data-index="{{index}}"bindtap="addChat"/>
+          </view>
+        </view>
+        </view>
+    
+  </view>
+  <view class="column right">
+  </view> -->
+</view>

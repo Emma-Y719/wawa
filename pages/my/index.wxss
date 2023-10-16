@@ -1,18 +1,8 @@
 page .user_info {
   width: 100%;
-  height: 50%;
-}
-page .user_info .background-image {
-  width: 100%;
-  height: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  /* 将背景图片置于底层 */
 }
 page .user_info .user_info_bg {
-  margin-top: 20%;
+  margin-top: 25%;
   position: relative;
 }
 page .user_info .user_info_bg .user_info_wrap {
@@ -21,116 +11,151 @@ page .user_info .user_info_bg .user_info_wrap {
   display: flex;
 }
 page .user_info .user_info_bg .user_info_wrap image {
-  width: 28%;
+  width: 120rpx;
   border-radius: 50%;
 }
 page .user_info .user_info_bg .user_info_wrap .detail {
   margin-left: 30rpx;
-  margin-top: 15rpx;
 }
 page .user_info .user_info_bg .user_info_wrap .detail .user_name {
-  height: 45rpx;
-  font-size: 35rpx;
-  font-weight: 500;
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
 }
 page .user_info .user_info_bg .user_info_wrap .detail .user_acc {
-  margin-top: 10rpx;
-  font-size: 28rpx;
-  font-weight: 400;
+  margin-top: 5rpx;
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
 }
 page .user_info .user_info_bg .user_info_wrap .detail .user_aff {
-  margin-top: 20rpx;
-  font-size: 32rpx;
-  font-weight: 500;
+  margin-top: 5rpx;
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
 }
-page .user_info .user_info_bg .user_info_wrap .share {
-  width: 180rpx;
-  height: 60rpx;
-  margin-top: 30rpx;
-  margin-right: 20rpx;
+page .user_info .user_info_bg .user_info_wrap .detail .records {
+  display: flex;
+  margin-top: 5rpx;
+}
+page .user_info .user_info_bg .user_info_wrap .detail .records .record image {
+  width: 25rpx;
+}
+page .user_info .user_info_bg .user_info_wrap .buttons {
+  margin-left: 20rpx;
+}
+page .user_info .user_info_bg .user_info_wrap .buttons .share {
+  background-color: #87C03E;
+  width: 130rpx;
+  height: 50rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20rpx;
-  background-color: #ffffff;
-  font-size: 30rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
   font-weight: 400;
+  color: #FFFFFF;
 }
-page .user_info .order_wrap {
-  margin-left: 30rpx;
-  margin-top: 60rpx;
-  color: #fff8e8;
-  font-size: 40rpx;
-}
-page .user_info .order_wrap .order_content {
+page .user_info .user_info_bg .user_info_wrap .buttons .clock {
+  background-color: #87C03E;
+  width: 130rpx;
+  height: 50rpx;
+  margin-top: 20rpx;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  color: #FFF;
+  /* 12号附注 */
+  font-family: Noto Sans SC;
+  font-size: 24rpx;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  /* 116.667% */
+}
+page .order_wrap {
+  width: 96%;
+  margin-left: 2%;
+  margin-top: 8%;
+  height: ;
+  display: flex;
+  justify-content: space-between;
   text-align: center;
 }
-page .user_info .order_wrap .order_content navigator {
-  width: 25%;
+page .order_wrap .order_content {
+  flex: 1;
 }
-page .user_info .order_wrap .order_content navigator .order-icon {
-  position: relative;
-  width: 60rpx;
+page .order_wrap .order_content image {
+  width: 100rpx;
+}
+page .order_wrap .order_content .order_name {
+  margin-top: 5rpx;
+  font-size: 26rpx;
+}
+page .type_choose {
+  display: flex;
+  margin-top: 8%;
+  margin-left: 3%;
+  width: 94%;
+  padding: 5rpx 5rpx 5rpx 5rpx;
+  background-color: #88bb1e;
   height: 60rpx;
-  display: inline-block;
-  box-sizing: border-box;
-  left: 0rpx;
-  top: 20 rpx;
+  border-radius: 30rpx;
 }
-page .user_info .order_wrap .order_content navigator .order_name {
-  margin-top: 15rpx;
-  color: #f1f1fa;
-  font-size: 32rpx;
-  font-weight: 400;
-  background-color: transparent;
+page .type_choose .ptype {
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
-page .product {
-  background-color: #fff;
+page .type_choose .ptype text {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .type_choose .active {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background-color: #f2f2f2;
+  border-radius: 30rpx;
+}
+page .type_choose .active text {
+  font-size: 28rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 34rpx;
+  color: #333333;
+}
+page .product_display {
+  background-color: #a7e9bb;
   border-radius: 40rpx;
   margin-left: 2%;
   margin-right: 2%;
-  margin-top: 40rpx;
-  height: 300rpx;
 }
-page .product .title {
-  display: flex;
-}
-page .product .title .ptype {
-  height: 70rpx;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 35rpx;
-}
-page .product .title .active {
-  height: 70rpx;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 35rpx;
-  background-color: #f3e8d2;
-  border-radius: 40rpx;
-}
-page .product .product_list {
+page .product_display .product_list {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   margin-top: 20rpx;
 }
-page .product .product_list .product_card {
+page .product_display .product_list .product_card {
   width: 45%;
   text-align: start;
   margin: 15rpx;
   background-color: #fafafa;
   border-radius: 20rpx;
 }
-page .product .product_list .product_card navigator image {
+page .product_display .product_list .product_card navigator image {
   width: 100%;
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
@@ -138,11 +163,11 @@ page .product .product_list .product_card navigator image {
   background-color: #fff;
   transition: transform 200ms;
 }
-page .product .product_list .product_card navigator image:hover {
+page .product_display .product_list .product_card navigator image:hover {
   transform: scale(1.01);
   box-shadow: -2px 8px 15px -12px #647878;
 }
-page .product .product_list .product_card navigator .product_name {
+page .product_display .product_list .product_card navigator .product_name {
   margin-left: 20rpx;
   margin-top: 10rpx;
   white-space: nowrap;
@@ -151,17 +176,17 @@ page .product .product_list .product_card navigator .product_name {
   font-size: 35rpx;
   margin-bottom: 10rpx;
 }
-page .product .product_list .product_card .bottom {
+page .product_display .product_list .product_card .bottom {
   margin-left: 20rpx;
   display: flex;
   height: 80rpx;
 }
-page .product .product_list .product_card .bottom .product_price {
+page .product_display .product_list .product_card .bottom .product_price {
   flex: 1;
   font-size: 40rpx;
   color: #ff7800;
 }
-page .product .product_list .product_card .bottom .button1 {
+page .product_display .product_list .product_card .bottom .button1 {
   font-size: 25rpx;
   margin-left: 20rpx;
   width: 80rpx;
@@ -174,7 +199,7 @@ page .product .product_list .product_card .bottom .button1 {
   display: flex;
   align-items: center;
 }
-page .product .product_list .product_card .bottom .button2 {
+page .product_display .product_list .product_card .bottom .button2 {
   margin-left: 10rpx;
   margin-right: 20rpx;
   font-size: 25rpx;
@@ -188,6 +213,89 @@ page .product .product_list .product_card .bottom .button2 {
   display: flex;
   align-items: center;
 }
-page .product .bottom {
+page .product_display .bottom {
   height: 200rpx;
+}
+page .products {
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  width: 90%;
+  margin-left: 5%;
+}
+page .products .column {
+  width: 48%;
+}
+page .products .column .product_card {
+  text-align: center;
+  margin-top: 5%;
+  border-radius: 10rpx;
+  box-shadow: 0px 10px 20px 0px #c7c9c7;
+}
+page .products .column .product_card navigator image {
+  width: 100%;
+  height: 320rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  background-color: #fff;
+  transition: transform 200ms;
+}
+page .products .column .product_card navigator image:hover {
+  transform: scale(1.01);
+  box-shadow: -2px 8px 15px -12px #647878;
+}
+page .products .column .product_card navigator .middle {
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
+}
+page .products .column .product_card navigator .middle .product_name {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #000000;
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+page .products .column .product_card navigator .middle .product_price {
+  font-size: 30rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 36rpx;
+  color: #ff7a00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10rpx;
+}
+page .products .column .product_card .bottom {
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  margin-left: 10rpx;
+}
+page .products .column .product_card .bottom .locinfo {
+  font-size: 20rpx;
+  font-family: '.AppleSystemUIFont';
+  line-height: 24rpx;
+  color: #979797;
+  width: 50%;
+}
+page .products .column .product_card .bottom .operator {
+  display: flex;
+}
+page .products .column .product_card .bottom .operator image {
+  background-color: #fafafa;
+  margin-top: 30rpx;
+  margin-right: 10rpx;
+  width: 45rpx;
 }

@@ -1,50 +1,8 @@
 <!--pages/search/map.js.wxml-->
 <page>
-  <view class="header">
-  <view class="custom-nav-bar">
-
-<image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-
-<view class="keys">
-<!-- 关键词搜索 -->
-<view class="city">
-  <navigator class="location" url="">
-    
-    <text>南京</text>
-    <image class="line"src="/images/drop.png" mode="widthFix"/>
-  </navigator>
-</view>
-<view class="type">
-  <div class="inter"></div>
-  <input bindinput="ontypeInput"value="{{type}}"/>
  
-</view>
-</view>
 
-</view>
-
-<view class="cates">
-<navigator class="university" url="/pages/index/location">
-  {{university}}
-  <div class="line"></div>
-  <div class="inter"></div>
-</navigator>
-<navigator class="campus" url="/pages/index/location">
-
-  {{campus}}
-  <div class="line"></div>
-  <div class="inter"></div>
-</navigator>
-
-<view class="sort">
-  筛选排序
-  <div class="line"></div>
-</view>
-<view class="productList">
- 
-</view>
-</view>
-</view>
+  <filt id="filt" bind:customEvent="onChildSearch"/>
  
 
 <!-- 这是地图部分 -->
@@ -64,7 +22,7 @@
       <custom-tabbar></custom-tabbar>
 
        <!-- 这是滚动页面 --> 
-      <scroll-view bindscroll="onScrollViewScroll" scroll-x class="right_content">
+      <!--<scroll-view bindscroll="onScrollViewScroll" scroll-x class="right_content">
       <view class="productType">
       <view class="product_list"
         wx:for="{{markers}}"
@@ -89,12 +47,121 @@
         </navigator>
         </view>
       </view>
-      </scroll-view>
+      </scroll-view> -->
 
     </map>
 
   </view>
-
+  <view class="flex-col group_7 space-y-10">
+        <view class="flex-row space-x-10">
+          <view class="flex-col flex-auto">
+            <view class="flex-col section_2 space-y-10">
+              <text class="self-center font_2 text_4">附近求购</text>
+              <view class="flex-col">
+                <view class="flex-row group_8">
+                  <image
+                    class="shrink-0 self-start image_7"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                  />
+                  <text class="shrink-0 font_2 text_7">芭拉芭拉芭拉芭啥</text>
+                  <image
+                    class="shrink-0 self-start image_7 image_8"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                  />
+                  <text class="shrink-0 font_2 text_7">芭拉芭拉芭拉芭啥</text>
+                </view>
+                <view class="flex-row group_9">
+                  <image
+                    class="shrink-0 self-start image_7"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                  />
+                  <text class="shrink-0 font_2 text_7">芭拉芭拉芭拉芭啥</text>
+                  <image
+                    class="shrink-0 self-start image_7 image_9"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                  />
+                  <text class="shrink-0 font_2 text_7">芭拉芭拉芭拉芭啥</text>
+                </view>
+              </view>
+            </view>
+            <view class="flex-row justify-between group_10">
+              <view class="flex-col section_4 space-y-12">
+                <text class="self-center font_3 text_8">附近好物</text>
+                <view class="flex-row space-x-8">
+                  <view class="section_5"></view>
+                  <view class="section_5"></view>
+                </view>
+              </view>
+              <view class="flex-col justify-start items-center text-wrapper">
+                <text class="font_2 text_9">点击进入 我的附近</text>
+              </view>
+            </view>
+          </view>
+          <view class="flex-col shrink-0 section_3 space-y-10">
+            <text class="self-center font_3 text_5">附近发帖</text>
+            <view class="flex-col items-start space-y-8">
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭打发士大夫</text>
+              </view>
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭打发士大夫</text>
+              </view>
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭打发士大夫</text>
+              </view>
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭打发士大夫</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="flex-row space-x-10">
+          <view class="flex-col shrink-0 section_6 space-y-10">
+            <text class="self-center font_2 text_10">附近求购</text>
+            <view class="flex-col items-start">
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭打发士大夫</text>
+              </view>
+              <view class="flex-row space-x-3">
+                <image
+                  class="shrink-0 self-start image_7"
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/64e4c32a5a7e3f03100cd3d5/64e5fbe4ab696a00113fcdc0/16927941352334770218.png"
+                />
+                <text class="font_2 text_6">芭拉芭拉芭拉芭</text>
+              </view>
+            </view>
+          </view>
+          <view class="flex-col flex-auto section_7 space-y-10">
+            <text class="self-center font_2 text_11">附近好物</text>
+            <view class="flex-row space-x-8">
+              <view class="section_5 view"></view>
+              <view class="section_5 view_2"></view>
+              <view class="section_5 view_3"></view>
+              <view class="section_5 view_4"></view>
+            </view>
+          </view>
+        </view>
+      </view>
       
    
 
