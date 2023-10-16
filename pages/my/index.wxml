@@ -22,10 +22,10 @@
         </view>
         <view class="buttons">
           <button open-type='share'class="share">
-            分享
+            <text>分享</text>
           </button>
           <button class="clock">
-            打卡
+            <text>打卡</text>
           </button>
         </view>
     
@@ -113,7 +113,7 @@
           <view class="operator">
             <image src="/icons/my_edit.png" mode="widthFix" data-index="{{index}}" bindtap="onUpdate"/>
             <image src="/icons/my_delete.png" mode="widthFix" wx:if="{{typeIndex!=2}}" data-index="{{index}}"bindtap="onbutton2"/>
-            <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onUpdate"/>
+            <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onbutton2"/>
           </view>
         </view>
         </view>

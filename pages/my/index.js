@@ -120,7 +120,7 @@ Page({
     })
   },
   onUpdate(e){
-    let id=e.currentTarget.dataset.id;
+    let id=e.currentTarget.dataset.index;
     wx.navigateTo({
       url: '/pages/promote/index?id='+this.data.hotProductList[id].identity,
     })
@@ -130,7 +130,7 @@ Page({
 
   onbutton2(e){
     let tid=this.data.typeIndex
-    let pid=e.currentTarget.dataset.id;
+    let pid=e.currentTarget.dataset.index;
     if(tid==0){
       let product=this.data.hotProductList[pid]
       console.log(product)
@@ -192,7 +192,7 @@ Page({
       })
 
 
-    }else{
+    }else if(tid==1){
       let product=this.data.hotProductList[pid]
       console.log(product)
       let productnew=product
@@ -236,8 +236,50 @@ Page({
           }
         }
       })
-
-
+    }else{
+      let product=this.data.hotProductList[pid]
+      console.log(product.status)
+      let productnew=product
+      productnew.status=0;
+      wx.showModal({
+        title: '',
+        content: '确认直接重新发布？',
+        complete: (res) => {
+          if (res.cancel) {
+          }
+          if (res.confirm) {
+            requestUtil({
+              url:"/product/update",
+              method:"POST",
+              data:{
+                product:productnew
+              }
+            }).then(result=>{
+              if(result){
+                wx.showModal({
+                  title: '',
+                  content: '发布成功！',
+                  complete: (res) => {
+                    if (res.cancel) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                    if (res.confirm) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                  }
+                })
+              }else{
+      
+              }
+                console.log(result)
+            })
+          }
+        }
+      })
     }
 
   },

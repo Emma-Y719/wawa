@@ -84,7 +84,7 @@ Page({
         storageid:result.message.storage
       })
       console.log("storageid: ",this.data.storageid)
-      requestUtil({url:'/storage/findById',method:"GET",data:{id:result.message.storage}}).then(res=>{
+      requestUtil({url:'/storage/findByIds',method:"GET",data:{id:result.message.storage}}).then(res=>{
         console.log("storage: ",res.message[0])
         this.setData({
           storageName:res.message[0].name
