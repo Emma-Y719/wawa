@@ -205,7 +205,7 @@ Component({
           if(docChange.queueType=='dequeue'){
             infoCount--;
           }else{
-            console.log("query unread chat: ",docChange.doc)
+            //console.log("query unread chat: ",docChange.doc)
             infoCount++;
           }
         }

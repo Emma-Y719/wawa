@@ -59,34 +59,100 @@
       <text>{{type}}</text>
     </view>
 </view>
-<view class="product_display">
-  <view class="product_list">
+<!--<view class="product_display">
+  <view class="column left">
         <view class="product_card"
-    wx:for="{{hotProductList}}"
-    wx:for-item="hotProduct"
+    wx:for="{{leftDatas}}"
+    wx:for-item="product"
     wx:key="id"
     >
-      <navigator url="/pages/product_detail/index?id={{hotProduct.identity}}">
-      <image src="{{hotProduct.propic.pics[0][0]!='h'&&hotProduct.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+hotProduct.propic.pics[0]: hotProduct.propic.pics[0]}}" mode="aspectFill"/>
+      <navigator url="/pages/product_detail/index?id={{product.identity}}">
+      <image src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+productpropic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
       <view class="product_name">
-        {{hotProduct.name}}
+        {{product.name}}
       </view>
       </navigator>
       <view class="bottom">
         <view class="product_price">
-        ¥{{hotProduct.price}}
+        ¥{{product.price}}
         </view>
         <view bindtap="onUpdate" data-id="{{index}}"class="button1">{{b1}}</view>
         <view wx:if="{{b2!=''}}"bindtap="onbutton2" data-id="{{index}}" class="button2">{{b2}}</view>
       </view>
-     
-     
     </view>
   </view>
   <view class="bottom">
   
 </view>
+</view>-->
+
+  <view class="products">
+      <view class="column left">
+        <view class="product_card"
+          wx:for="{{leftDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+            <image src="/icons/my_edit.png" mode="widthFix" data-index="{{index}}" bindtap="onUpdate"/>
+            <image src="/icons/my_delete.png" mode="widthFix" wx:if="{{typeIndex!=2}}" data-index="{{index}}"bindtap="onbutton2"/>
+            <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onUpdate"/>
+          </view>
+        </view>
+        </view>
+      </view>
+      <view class="column right">
+        <view class="product_card"
+          wx:for="{{rightDatas}}"
+          wx:for-item="product"
+          wx:key="id"
+        >
+        <navigator url="/pages/product_detail/index?id={{product.identity}}">
+          <image wx:if="{{product.propic.pics[0]}}" src="{{product.propic.pics[0][0]!='h'&&product.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
+          <view class="middle">
+            <view class="product_name">{{product.name}}</view>
+            <view class="product_price">¥{{product.price}}</view>
+          </view>
+
+        </navigator>
+        <view class="bottom">
+          <view class="locinfo">
+            <view class="university">
+              {{campuses[product.university].name}}
+            </view>
+            <view class="campus">
+              {{campuses[product.campus].campus}} / 1.5km
+            </view>
+          </view>
+          <view class="operator">
+          <image src="/icons/my_edit.png" mode="widthFix" data-index="{{index}}" bindtap="onUpdate"/>
+          <image src="/icons/my_delete.png" mode="widthFix" wx:if="{{typeIndex!=2}}" data-index="{{index}}"bindtap="onbutton2"/>
+          <image src="/icons/my_update.png" mode="widthFix" wx:if="{{typeIndex==2}}" data-index="{{index}}"bindtap="onUpdate"/>
+          </view>
+        </view>
+        </view>
+      </view>
+
+        
 </view>
+
 
 <custom-tabbar></custom-tabbar>
 
