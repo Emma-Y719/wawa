@@ -85,11 +85,11 @@
   },
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "libVersion": "2.33.0",
   "packOptions": {
     "ignore": [],
     "include": []
   },
   "appid": "wx4d7b467718a245ad",
-  "projectname": "mall1.1.1",
-  "libVersion": "2.33.0"
+  "projectname": "mall1.1.1"
 }
