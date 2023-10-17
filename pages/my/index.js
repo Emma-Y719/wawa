@@ -15,18 +15,24 @@ Page({
    */
   data: {
     userInfo:{},
-    ptype:["在卖","草稿","已下架"],
+    ptype:["已发布","草稿箱","已下架"],
     b1:"",
     b2:"",
     typeIndex:0,
-  
     hotProductList:[],
     button1:["编辑","编辑","编辑"],
     button2:["下架","删除",""],
     onsale:[],
     draft:[],
     off:[],
-    share:false
+    share:false,
+    gradeList:["大一","大二","大三","大四","大五","研一","研二","研三","博士"],
+    grade:"",
+    records:[true,true,false,true,true,false,false],
+    left_h:0,
+    right_h:0,
+    leftDatas:[],
+    rightDatas:[],
   },
  
   /**
@@ -37,6 +43,9 @@ Page({
       baseUrl:app.globalData.baseUrl,
       userInfo:app.globalData.userInfo
     })
+    this.setData({
+      campuses:app.globalData.campuses
+    })
     console.log("userInfo: ",app.globalData.userInfo)
     this.setData({
       user:app.globalData.user,
@@ -44,8 +53,11 @@ Page({
       b2:this.data.button2[this.data.typeIndex]
     })
 
-    this.getHotProductList();
+    this.getTypeProductList();
     
+    this.setData({
+      grade:this.data.gradeList[app.globalData.user.grade]
+    })
 
 
     // const token=wx.getStorageSync('token');
@@ -79,8 +91,36 @@ Page({
     //   })
     // }
   },
+  arrangeDatas(list){
+    var that=this;
+    list.forEach(function(value,index,array){
+      var delta=0;
+      if(value.propic.pics[0]){
+        delta=2;
+      }else{
+        delta=1;
+      }
+      var left_h=that.data.left_h;
+      var right_h=that.data.right_h;
+      var leftDatas=that.data.leftDatas;
+      var rightDatas=that.data.rightDatas;
+      if(that.data.left_h<=that.data.right_h){
+        leftDatas.push(value);
+        left_h+=delta;  
+      }else{
+        rightDatas.push(value);
+        right_h+=delta;
+      }
+      that.setData({
+        left_h:left_h,
+        right_h:right_h,
+        leftDatas:leftDatas,
+        rightDatas:rightDatas
+      })
+    })
+  },
   onUpdate(e){
-    let id=e.currentTarget.dataset.id;
+    let id=e.currentTarget.dataset.index;
     wx.navigateTo({
       url: '/pages/promote/index?id='+this.data.hotProductList[id].identity,
     })
@@ -90,7 +130,7 @@ Page({
 
   onbutton2(e){
     let tid=this.data.typeIndex
-    let pid=e.currentTarget.dataset.id;
+    let pid=e.currentTarget.dataset.index;
     if(tid==0){
       let product=this.data.hotProductList[pid]
       console.log(product)
@@ -152,7 +192,7 @@ Page({
       })
 
 
-    }else{
+    }else if(tid==1){
       let product=this.data.hotProductList[pid]
       console.log(product)
       let productnew=product
@@ -196,8 +236,50 @@ Page({
           }
         }
       })
-
-
+    }else{
+      let product=this.data.hotProductList[pid]
+      console.log(product.status)
+      let productnew=product
+      productnew.status=0;
+      wx.showModal({
+        title: '',
+        content: '确认直接重新发布？',
+        complete: (res) => {
+          if (res.cancel) {
+          }
+          if (res.confirm) {
+            requestUtil({
+              url:"/product/update",
+              method:"POST",
+              data:{
+                product:productnew
+              }
+            }).then(result=>{
+              if(result){
+                wx.showModal({
+                  title: '',
+                  content: '发布成功！',
+                  complete: (res) => {
+                    if (res.cancel) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                    if (res.confirm) {
+                      wx.reLaunch({
+                        url: '/pages/my/index',
+                      })
+                    }
+                  }
+                })
+              }else{
+      
+              }
+                console.log(result)
+            })
+          }
+        }
+      })
     }
 
   },
@@ -219,10 +301,16 @@ Page({
       typeIndex:index,
       b1:this.data.button1[index],
       b2:this.data.button2[index],
-      hotProductList:display
+      hotProductList:display,
+      leftDatas:[],
+      rightDatas:[],
+      left_h:0,
+      right_h:0
     })
+    this.arrangeDatas(display);
+
   },
-  async getHotProductList(e){
+  async getTypeProductList(e){
     console.log(this.data.user)
     requestUtil({url:'/product/findUserId',method:"GET",data:{uid:this.data.user.openid}}).then(result=>{
       let onsale=[];let draft=[];let off=[]
@@ -241,11 +329,7 @@ Page({
         off:off,
         hotProductList:onsale
       })
-      result.message.forEach(function(value,index,array){
-        　　//code something
-        console.log(value.propic.pics[0])
-        });
-      console.log("Hot: ",result)
+      this.arrangeDatas(this.data.hotProductList);
     })
   },
   /**

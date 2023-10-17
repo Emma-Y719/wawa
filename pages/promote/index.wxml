@@ -1,16 +1,16 @@
 <!--pages/promote/index.wxml-->
 <page>
   <view class="typeContainer">
-  <view bindtap="ontapProduct" class="type {{productSelect ? 'selected' : ''}}">
-    <text>发二手</text>
+    <view bindtap="ontapProduct" class="type {{productSelect ? 'selected' : ''}}">
+      <text>发二手</text>
+    </view>
+    <view bindtap="ontapPost" class="type {{postSelect ? 'selected' : ''}}">
+      <text>发帖子</text>
+    </view>
+    <view bindtap="ontapSeek" class="type {{seekSelect ? 'selected' : ''}}">
+      <text>发求购</text>
+    </view>
   </view>
-  <view bindtap="ontapPost" class="type {{postSelect ? 'selected' : ''}}">
-    <text>发帖子</text>
-  </view>
-  <view bindtap="ontapSeek" class="type {{seekSelect ? 'selected' : ''}}">
-    <text>发求购</text>
-  </view>
-</view>
 
 <view class="description">
  <view class="contant-pic">

@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/wait/wait",
     "pages/newPost/index",
 
@@ -32,7 +31,10 @@
     "pages/search/map",
     "pages/product_detail/index",
     "pages/promote/index",
-    "pages/shopMap/shopMap"
+    "pages/shopMap/shopMap",
+    "pages/storage/detail",
+    "pages/test/waterfall"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

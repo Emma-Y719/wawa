@@ -1,21 +1,6 @@
-<!--pages/search/index.wxml-->
-<page>
-
-<view class="header">
-  <view class="custom-nav-bar">
-
-    <image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-    <text class="tittle">我的附近-{{titleInfo}}</text>
-
-  </view>
-<filt_big id="filt_big" bind:customEvent="onChildSearch"/>
-</view>
-
-<waterfall id="waterfall" bind:leftbutton1="handleLeftCartAdd" bind:leftbutton2="addLeftChat" bind:rightbutton1="handleRightCartAdd" bind:rightbutton2="addRightChat"/>
-
-<!--
-  <view class="products">
+<view class="products">
       <view class="column left">
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
         <view class="product_card"
           wx:for="{{leftDatas}}"
           wx:for-item="product"
@@ -46,6 +31,7 @@
         </view>
       </view>
       <view class="column right">
+        <!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
         <view class="product_card"
           wx:for="{{rightDatas}}"
           wx:for-item="product"
@@ -77,18 +63,4 @@
       </view>
 
         
-</view>-->
-
-
-<!--pages/map/map.wxml-->
-<view class="float-window" catchtap="onFloatButtonTap"  bindtouchstart="onTouchStart" 
-  bindtouchmove="onTouchMove">
-  地图
 </view>
-<view class="bottom">
-</view>
-<custom-tabbar></custom-tabbar>
-
-</page>
-
-

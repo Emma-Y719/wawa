@@ -264,6 +264,11 @@ Page({
         })
        
       }
+      const component = this.selectComponent("#waterfall");
+
+      // 调用组件中的方法
+      component.arrangeDatas(result.message.records);
+
       this.arrangeDatas(result.message.records);
       requestUtil({url:"/user/findid",method:"GET",data:{id:app.globalData.openid}}).then(res2 => {
         console.log("result: ",res2)
@@ -301,7 +306,6 @@ Page({
           })
         }
       });
-
 
     })
     // if(searchCampusIndex!=-1){
@@ -555,11 +559,11 @@ Page({
         }
       })
     }
-
-
-
-
-
+    var com=this.selectComponent("#waterfall")
+    com.setData({
+      left_favs:this.data.left_favs,
+      right_favs:this.data.right_favs,
+    })
 
     // let cart=wx.getStorageSync('cart')||[];
     // console.log("cart: "+cart[0]);
@@ -674,6 +678,7 @@ Page({
         })
       }
     })
+
     // db.collection('chats').where({
     //   chatid:this.data.chatid
     // }).get().then(res=>{
