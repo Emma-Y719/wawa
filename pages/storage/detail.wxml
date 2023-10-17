@@ -1,95 +1,21 @@
 <page>
+  <filt id="filt_big" bind:customEvent="onChildSearch"/>
   <view class="header">
-  <view class="custom-nav-bar">
-
-<image bindtap="navigateBack" class="backicon" src="/images/back_icon.png" mode="widthFix"></image>
-
-<view class="keys">
-<!-- 关键词搜索 -->
-<view class="city">
-  <!-- <navigator class="location" url="/pages/index/location">
-    
-    <text>南京</text>
-    <image class="line"src="/images/drop.png" mode="widthFix"/>
-  </navigator> -->
-</view>
-<view class="type">
-  <div class="inter"></div>
-  <input bindinput="ontypeInput"value="{{type}}"/>
-  
-</view>
-</view>
-
-</view>
-
-<view class="cates">
-<navigator class="university" >
-  {{university}}
-  <div class="line"></div>
-  <div class="inter"></div>
-</navigator>
-<navigator class="campus" >
-  {{campus}}
-  <div class="line"></div>
-  <div class="inter"></div>
-</navigator>
-
-
-<view class="productList">
- 
-</view>
-</view>
-</view>
-
-<view class="storageInfo">
-  <view class="info">
-    {{name}}
-  </view>
-  <view bindtap="handleAdd"class="jionbtn" >
-    {{addValue}}
-  </view>
-  <!-- <view class="share">
-    <canvas canvas-id="gridCanvas"></canvas>
-
-  </view> -->
-  <button open-type='share'class="share">
+    <view bindtap="onNotComplete"class="storage">
+      {{name}}
+      <div class="line"></div>
+    </view>
+    <view class='buttons'>
+      <button bindtap="handleAdd"class="jionbtn" >
+      {{isAdd ?'发布':'加入'}}
+      </button>
+      <button open-type='share'class="share">
         分享
-  </button>
-</view>
-<view class="products">
-      <view class="product_list">
-      
-        <view class="product_card"
-          wx:for="{{productList}}"
-          wx:for-item="product"
-          wx:key="id"
-        >
-        <navigator url="/pages/product_detail/index?id={{product.identity}}">
-          <image src="{{product.propic.pics[0][0]!='h' &&product.propic.pics[0][0]!='c' ? baseUrl+'/image/product/'+product.propic.pics[0]: product.propic.pics[0]}}" mode="aspectFill"/>
-          <view class="bottom">
-            <view class="product_name">{{product.name}}</view>
-            <view class="product_price">¥{{product.price}}</view>
-          </view>
-
-        </navigator>
-        
-      </view>
-      
-      
-      </view>
-        
-</view>
-
-
-<!--pages/map/map.wxml-->
-<view class="float-window" catchtap="onFloatButtonTap"  bindtouchstart="onTouchStart" 
-  bindtouchmove="onTouchMove">
-  地图
-</view>
-<view class="bottom">
-</view>
-<custom-tabbar></custom-tabbar>
-
+      </button>
+    </view>
+  </view>
+  
+  <custom-tabbar></custom-tabbar>
 </page>
 
 

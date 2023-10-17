@@ -1,89 +1,71 @@
-<view class="userContainer">
-  <image  bindtap="onUserDetail"class="pic" src="{{user.userinfo.avatarUrl}}" mode="aspectFill" />
-  <view class="middle">
-    <text class="name">{{user.userinfo.nickName}}</text>
-    <text class="campus">{{user.university}}-{{user.campus}}</text>
-  </view>
- 
- <view class="right">
-  <view class="gbtn" bindtap="handlefocus">
-    {{fvalue}}
-  </view>
- </view>
-
-
-
+<page>
+<swiper autoplay circular	indicator-dots >
+    <block 
+      wx:for="{{productObj.propic.pics}}"
+      wx:key="index">
+      <swiper-item bindtap="previewImage"data-id="{{index}}">
+        <image  mode="aspectFill" src="{{item[0]!='h'&&item[0]!='c'? baseUrl+'/image/product/'+item : item}}"></image>
+      </swiper-item>
+    </block>
+</swiper>
+<view class="product_title">
+  <div class="product_name" >{{productObj.name}}</div>
+  <button open-type='share'class="share">
+        分享
+  </button>
 </view>
 
-
-
-
-  <swiper autoplay circular	indicator-dots >
-      <block 
-        wx:for="{{productObj.propic.pics}}"
-        wx:key="index">
-        <swiper-item bindtap="previewImage"data-id="{{index}}">
-          <image  mode="aspectFill" src="{{item[0]!='h'&&item[0]!='c'? baseUrl+'/image/product/'+item : item}}"></image>
-        </swiper-item>
-      
-      </block>
-
-    </swiper>
-
-<!-- 商品轮播图结束 -->
 <view class="product_info">
-  <text class="product_name" >{{productObj.name}}</text>
-  <text class="product_price"  > ¥{{productObj.price}}</text>
-</view>
-
-<view class="product_addition">
-  <text class="product_usepercent" >八成新</text>
-  <text class="product_viewcount" >999+人浏览</text>
-  <text class="product_favoritecount" >15人想要</text>
+  <view class="product_price">
+    <text class="price"  > ¥{{productObj.price}}  </text>
+    <text class="price_description"  >{{productObj.originprice > 0 ? " 原价" + productObj.price : " 预期价位"}} </text>
+  </view>
+  <view class="product_detail">
+    <text class="product_usepercent" >{{productObj.quality}}</text>
+    <text class="product_viewcount" >  {{productObj.focus}}人收藏</text>
+    <text class="product_favoritecount" >  {{productObj.views}}人浏览</text>
+  </view>
 </view>
 
 <view class="product_descripion" >{{productObj.description}}</view>
+<view class="tip" wx:if="{{storageName}}">
+  <image class="icon_tip" src="/icons/icon_tip.png" />
+  <text class="update_storages">已同步在：{{storageName}}</text>
+</view>
+  <view class="userContainer" >
+    <view class="userTitle" bindtap="onUserDetail">
+      <image  class="pic" src="{{user.userinfo.avatarUrl}}" mode="aspectFill" />
+      <view class="userInfo">
+        <view class="name">{{user.userinfo.nickName}}</view>
+        <view class="detail">粉丝{{user.friends.length}} | 在售{{user.onsale}} | 已售{{user.sold}} | 求购{{user.seekPurchase}} | 发帖{{user.posts}}</view>
+      </view>
+    </view>
+    <view class="userProduct" wx:for="{{user.products}}">
+      <navigator url="/pages/product_detail/index?id={{item.identity}}">
+        <image src="{{item.propic.pics[0][0]!='h'&&item.propic.pics[0][0]!='c'  ? baseUrl+'/image/product/'+item.propic.pics[0]: item.propic.pics[0]}}" mode="aspectFill" />
+      </navigator>
+    </view>
+  </view>
 
 
-<!--留言未完成-->
-<!-- <view class="message" >
-  <image src="/icons/message.png" class="message_icon" mode="aspectFit"/>
-  <text class="message_title">留言</text>
-</view> -->
-<!-- <view class="btmbackground" >
-  <image class="btm_icon" src="/icons/de-people.png" mode="aspectFit"/>
-  <text class="btm_text" >留言问问更多细节</text>
-</view> -->
-<view class="storageentry"wx:if="{{hasStorage}}" >
-  <view class="storage" >
-  From{{storageName}},进来看看有什么待出物品
+<!-- <ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad> -->
+<view class="recommend">
+  <p class="title">为您推荐 - 最新上架</p>
+  <p class="location">- {{globalUser.university}} - {{globalUser.campus}} -</p>
 </view>
-<view class="ebtn" bindtap="onStorageEntry">
-  进入
-</view>
-</view>
-
-<ad class="ad" unit-id="adunit-608214fb0aca9f7a" ad-type="video" ad-theme="white"></ad>
 <view class="btm_tool" >
-  <navigator class="tool_item home" url="/pages/index/index">
-    <image mode="aspectFit" src="/icons/home_for_product.png" ></image>
-    
+  <navigator  url="/pages/index/index" class="firstlogo">
+    <image src="{{'/images/bar_home.jpg'}} " mode="widthFix"></image>
   </navigator>
-
-  <!-- <navigator url="/pages/favorite/index" class="tool_item favorite" >
-    <image mode="aspectFit" src="/icons/favorite.png" ></image>
-  </navigator> -->
-
-  <navigator url="/pages/my/index" class="tool_item smile" >
-    <image mode="aspectFit" src="/icons/smile.png" ></image>
-
+  <navigator  url="/pages/my/index" class="secondlogo">
+    <image src="{{'/images/bar_person.jpg'}}" mode="widthFix"></image>
   </navigator>
-
-  <view class="tool_item btn_cart" bindtap="handleCartAdd" >
-    <view>收藏</view>
+  <view class="buttons">
+    <view class="btn_cart" bindtap="handleCartAdd" >收藏</view>
+    <view class="btn_buy" bindtap="addChat" >去沟通</view>
   </view>
 
-  <view class="tool_item btn_buy" bindtap="addChat" >
-    <view>问卖家</view>
-  </view>
+
+
 </view>
+</page>

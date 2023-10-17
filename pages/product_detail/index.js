@@ -20,6 +20,7 @@ Page({
    */
   data: {
     baseUrl: '',
+    globalUser:{},
     productObj:{},
     activeIndex:0,
     user:{},
@@ -45,10 +46,11 @@ Page({
   onLoad: function (options) {
     const baseUrl = getBaseUrl();
     this.setData({
-      baseUrl
-    })
-    this.getProductDetail(options.id)
-
+      baseUrl:baseUrl,
+      globalUser:app.globalData.user
+    });
+    this.getProductDetail(options.id);
+    this.getUserDetail();
   },
 
   // tab点击事件
@@ -84,7 +86,7 @@ Page({
         storageid:result.message.storage
       })
       console.log("storageid: ",this.data.storageid)
-      requestUtil({url:'/storage/findById',method:"GET",data:{id:result.message.storage}}).then(res=>{
+      requestUtil({url:'/storage/findByIds',method:"GET",data:{id:result.message.storage}}).then(res=>{
         console.log("storage: ",res.message[0])
         this.setData({
           storageName:res.message[0].name
@@ -158,6 +160,46 @@ Page({
     })
 
   },
+
+  getUserDetail() {
+    requestUtil({url:'/product/findUserId',method:"GET",data:{id:this.data.user.openid}}).then(result=>{
+      console.log('findUserId', result);
+
+      let onsale=0;
+      let sold =0;
+      let seekPurchase =0;
+      let posts =0;
+      result.message.forEach(function(value){
+        switch (value.post_type) {
+          case 0:
+            if (value.status === 0) {
+              onsale++;
+            } else if (value.status === 2) {
+              sold++;
+            }
+            break;
+          case 1:
+            seekPurchase++;
+            break;
+          case 2:
+            posts++;
+            break;
+        }
+      });
+      this.setData({
+        user : {
+          ...this.data.user,
+          onsale : onsale,
+          sold:sold,
+          seekPurchase:seekPurchase,
+          posts:posts,
+          products:result.message
+        }
+      })
+      console.log('user', this.data.user);
+    })
+  },
+
   onsubscribe(){
     // 向用户请求订阅消息授权
     wx.requestSubscribeMessage({
@@ -239,9 +281,9 @@ Page({
         if(res.message.length==0){
           this.addRoom();
         }else{
-          // wx.navigateTo({
-          //   url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
-          // })
+          wx.navigateTo({
+            url: '/pages/messages/room/room?id=' + that.data.chatid + '&name=' + this.data.userInfo.nickName+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+that.data.productObj.userid+'&product='+that.data.productObj.identity,
+          })
         }
       })
       // db.collection('chats').where({
@@ -353,7 +395,7 @@ Page({
         })
       }else{
         wx.navigateTo({
-          url: '/pages/example/chatroom_example/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
+          url: '/pages/messages/room/room?id=' + that.data.chatid + '&name=' + that.data.chatname+'&backgroundimage='+that.data.backgroundimage+'&haoyou_openid='+haoyouinfo._openid+'&product='+this.data.productObj.identity,
         })
       }
 

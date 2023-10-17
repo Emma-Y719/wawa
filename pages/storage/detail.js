@@ -26,7 +26,6 @@ Page({
     startX: 0, // 手指起始X坐标
     startY: 0, // 手指起始Y坐标
     pic:"",
-    addValue:"加入",
     isAdd:false,
     storageObj:{},
     curPage:0,
@@ -86,7 +85,6 @@ Page({
           if(index!=-1){
             this.setData({
               isAdd:true,
-              addValue:"已加入"
             })
         }                                                                                 
         // wx.cloud.callFunction({
@@ -124,78 +122,41 @@ Page({
       requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
         if (res){
           this.setData({
-            addValue:"已加入",
             isAdd:true
           })
         }
       })
-      // db.collection('user').where({
-      //   _openid: app.globalData.openid
-      // }).update({
-      //   data: {
-      //     storage: db.command.push([this.data.storageObj])
+    }else{
+      wx.redirectTo({
+        url: '/pages/promote/index',
+      })
+      // wx.showModal({
+      //   title: '',
+      //   content: '确认退出物品库？',
+      //   complete: (res) => {
+      //     if (res.cancel) {
+            
+      //     }
+      
+      //     if (res.confirm) {
+
+      //       let that=this;
+      //       var newSto = app.globalData.user.storage.filter(function(element) {
+      //         return element.identity != that.data.id&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
+      //       });
+      //       console.log(newSto);
+      //       app.globalData.user.storage=newSto
+      //       requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
+      //         if(res){
+      //           console.log(res)
+      //           this.setData({
+      //             isAdd:false,
+      //           })
+      //         }
+      //       })
+      //     }
       //   }
       // })
-      
-      // wx.cloud.callFunction({
-      //   name: 'yunrouter',
-      //   data: {
-      //     $url: "huoquUserinfo", //云函数路由参数
-      //     openid: app.globalData.openid
-      //   },
-      //   success: res2 => {
-      //     this.setData({
-      //       addValue:"已加入",
-      //       isAdd:true
-      //     })
-      //   },
-      //   fail() {
-      //   }
-      // });
-    }else{
-      wx.showModal({
-        title: '',
-        content: '确认退出物品库？',
-        complete: (res) => {
-          if (res.cancel) {
-            
-          }
-      
-          if (res.confirm) {
-
-            let that=this;
-            var newSto = app.globalData.user.storage.filter(function(element) {
-              return element.identity != that.data.id&&element!=null; // 返回 true 以保留元素，返回 false 以删除元素
-            });
-            console.log(newSto);
-            app.globalData.user.storage=newSto
-            requestUtil({url:"/user/update",method:"POST",data:app.globalData.user}).then(res=>{
-              if(res){
-                console.log(res)
-                this.setData({
-                  isAdd:false,
-                  addValue:"加入"
-                })
-              }
-            })
-            // db.collection('user').where({
-            //   _openid: app.globalData.openid
-            // }).update({
-            //   data: {
-            //     storage: db.command.pull({identity:this.data.storageObj.identity})
-            //   }
-            // }).then(res=>{
-            //   console.log(res)
-            //   this.setData({
-            //     isAdd:false,
-            //     addValue:"加入"
-            //   })
-
-
-            // })
-          }
-        }
-      })
     }
   },
 

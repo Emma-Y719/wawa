@@ -18,6 +18,7 @@
     "pages/storage/create/login",
     "pages/storage/create/success",
     "pages/storage/index",
+    "pages/storage/detail",
     "pages/storage/create/info/index",
     "pages/category/index",
     "pages/my/index",
